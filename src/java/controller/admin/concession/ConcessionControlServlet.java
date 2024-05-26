@@ -1,0 +1,170 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package controller.admin.concession;
+
+import dal.ConcessionDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Concession;
+
+@MultipartConfig
+/**
+ *
+ * @author Son
+ */
+public class ConcessionControlServlet extends HttpServlet {
+
+    private static final String UPLOAD_DIR = "D:\\Semester 5\\SWP391\\CineBooking\\web\\img\\ConcessionImage";
+
+    ConcessionDAO dao = new ConcessionDAO();
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+
+        //get session
+        HttpSession session = request.getSession();
+
+        // get action
+        String action = request.getParameter("action") == null
+                ? ""
+                : request.getParameter("action");
+
+        switch (action) {
+            case "add":
+                addConcession(request);
+                break;
+            case "edit":
+                editConcession(request);
+                break;
+            case "delete":
+                deleteConcession(request);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        response.sendRedirect(request.getContextPath() + "/admin/concession");
+//        request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
+    }
+
+    private void addConcession(HttpServletRequest request) {
+        try {
+            String name = request.getParameter("name");
+            float price = Float.parseFloat(request.getParameter("price"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+            String img = "/CineBooking/img/ConcessionImage/";
+            File fileSaveDir = new File(UPLOAD_DIR);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdirs();
+            }
+
+            // Lấy file upload từ request
+            Part part = request.getPart("image");
+            if (part != null && part.getSize() > 0) {
+                String fileName = extractFileName(part);
+                img += fileName;
+                // Đảm bảo fileName không null
+                if (fileName != null && !fileName.isEmpty()) {
+                    part.write(UPLOAD_DIR + File.separator + fileName);
+                }
+            }
+
+            System.out.println(part);
+            Concession concession = new Concession();
+            concession.setConcessions_name(name);
+            concession.setPrice(price);
+            concession.setQuantity(quantity);
+            concession.setImage(img);
+
+            dao.add(concession);
+
+        } catch (NumberFormatException e) {
+
+        } catch (IOException | ServletException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
+
+    private void editConcession(HttpServletRequest request) {
+        try {
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            float price = Float.parseFloat(request.getParameter("price"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            
+            String img = request.getParameter("currentImage");
+            System.out.println(img);
+            String imgDir = "/CineBooking/img/ConcessionImage/";
+            File fileSaveDir = new File(UPLOAD_DIR);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdirs();
+            }
+            Concession concession = new Concession();
+            // Lấy file upload từ request
+            Part part = request.getPart("image");
+            if (part != null && part.getSize() > 0) {
+                String fileName = extractFileName(part);
+                imgDir = imgDir + fileName;
+                // Đảm bảo fileName không null
+                if (fileName != null && !fileName.isEmpty()) {
+                    part.write(UPLOAD_DIR + File.separator + fileName);
+                }
+                concession.setImage(imgDir);
+            }else{
+                concession.setImage(img);
+            }
+            
+            
+            concession.setConcessions_name(name);
+            concession.setPrice(price);
+            concession.setQuantity(quantity);
+            concession.setConcessions_id(id);
+            dao.editConcession(concession);
+        } catch (NumberFormatException e) {
+
+        } catch (IOException | ServletException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void deleteConcession(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        dao.deleteConcession(id);
+
+    }
+
+}
