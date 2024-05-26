@@ -15,15 +15,42 @@ public class Movie {
     private int movie_id;
     private String movie_name;
     private int type_id;
+    private String type_name;
     private int duration;
-    private Date date_published;
-    private String post_img, trailer, decription;
+    private String date_published;
+    private String post_img, trailer, decription,status;
     private TypeMovie type_movie;
 
     public Movie() {
     }
+    
+    
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String post_img, String trailer, String decription) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+    }
 
-    public Movie(int movie_id, String movie_name, int type_id, int duration, Date date_published, String post_img, String trailer, String decription) {
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String post_img, String trailer, String decription,String status) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.status = status;
+    }
+    
+    public Movie(int movie_id, String movie_name, int type_id, int duration, String date_published, String post_img, String trailer, String decription) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_id = type_id;
@@ -34,7 +61,7 @@ public class Movie {
         this.decription = decription;
     }
 
-    public Movie(int movie_id, String movie_name, int type_id, int duration, Date date_published, String post_img, String trailer, String decription, TypeMovie type_movie) {
+    public Movie(int movie_id, String movie_name, int type_id, int duration, String date_published, String post_img, String trailer, String decription, TypeMovie type_movie) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_id = type_id;
@@ -79,11 +106,11 @@ public class Movie {
         this.duration = duration;
     }
 
-    public Date getDate_published() {
+    public String getDate_published() {
         return date_published;
     }
 
-    public void setDate_published(Date date_published) {
+    public void setDate_published(String date_published) {
         this.date_published = date_published;
     }
 

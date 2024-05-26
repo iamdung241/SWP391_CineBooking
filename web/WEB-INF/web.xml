@@ -66,4 +66,15 @@
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>movieController</servlet-name>
+        <servlet-class>controller.movieController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>movieController</servlet-name>
+        <url-pattern>/movie</url-pattern>
+    </servlet-mapping>
+    
 </web-app>
