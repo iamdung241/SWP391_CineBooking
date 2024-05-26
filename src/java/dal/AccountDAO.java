@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author DungTT
+ * @author DungTT and VuTA
  */
 public class AccountDAO extends DBContext {
 
@@ -103,4 +103,101 @@ public class AccountDAO extends DBContext {
         }
     }
 
+    public Account getAccountByID(int id) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE account_id = ?";
+        try {
+            // Prepare the SQL statement and set the account_id parameter
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                // Retrieve account details from the result set
+                int account_id = rs.getInt("account_id");
+                String fullname = rs.getString("fullname");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                int role_id = rs.getInt("role_id");
+
+                // Create an Account object and return it
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                return u;
+            }
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the result set and statement
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // Return null if no account is found
+        return null;
+    }
+
+    public void updateAccountRole(int account_id, int new_role_id) {
+        PreparedStatement stm = null;
+        String sql = "UPDATE [Account] SET role_id = ? WHERE account_id = ?";
+        try {
+            // Prepare the SQL statement and set the parameters for role_id and account_id
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, new_role_id);
+            stm.setInt(2, account_id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the statement
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public boolean usernameExists(String username) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE username = ?";
+        try {
+            // Prepare the SQL statement and set the username parameter
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            rs = stm.executeQuery();
+            // Return true if the username exists in the database
+            return rs.next();
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the result set and statement
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // Return false if the username does not exist
+        return false;
+    }
 }
