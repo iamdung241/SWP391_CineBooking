@@ -84,55 +84,68 @@
                         <div class="col-12">
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
-                                    <h6 class="card-title m-0">List Movie</h6>
-                                    <a class="btn btn-sm btn-primary" href="movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
-                                </div>
-                                <div class="card-body">
+                                    <h6 class="card-title m-0">Update Movie</h6>
+                                    <a class="btn btn-sm btn-primary" href="movie"><i class="align-bottom"></i>Back</a>
+                                </div>                            
+                            <div class="container">
+                                <form action="movie?mode=update" method="post" enctype="multipart/form-data">
                                     <div class="table-responsive">
+                                        <c:set value="${movieUpdate}" var="m"/>
                                         <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th class="text-center">Name</th>                                                   
-                                                    <th class="text-center">Image</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${data}" var="m">
-                                                
-                                                    <tr>
-                                                        <td class="">${m.movie_id}</td>
-                                                        <td class="text-center">${m.movie_name}</td>
-                                                        <td class="text-center"><img src="${m.post_img}" style="width: 100px;height: 100px"/></td>
-                                                        <td class="text-center">${m.status}</td> 
-                                                        <td class="text-center">
-                                                            <div class="d-flex p-6">
-                                                                <a class="btn btn-sm btn-primary me-1" href="movie?mode=detail&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i>Detail</a>
-                                                                <a class="btn btn-sm btn-success me-1" href="movie?mode=update&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                                <a class="btn btn-sm btn-danger" href="movie?mode=del&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Delete</a>
-                                                            </div> 
-                                                        </td>
-                                                    </tr>
-                                                
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>    
-                                <nav>
-                                    <ul class="pagination justify-content-end mt-3 mb-0">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
+                                            <tr>
+                                                <td>ID</td>
+                                                <td><input name="id" type="text" class="form-control" readonly="" value="${m.movie_id}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td><input name="name" type="text" class="form-control" required value="${m.movie_name}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Type</td>
+                                                <td>
+                                                    <select name="type" class="form-control text-center">
+                                                        <c:forEach items="${typeMovie}" var="tm">
+                                                            <option value="${tm.type_id}" ${tm.type_id == m.type_id ? 'selected' : ''}>${tm.type_name}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Duration</td>
+                                                <td><input name="duration" type="text" class="form-control" required value="${m.duration}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td><input name="date" type="date" class="form-control" required value="${m.date_published}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trailer</td>
+                                                <td><input name="trailer" type="text" class="form-control" required value="${m.trailer}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Descripton</td>
+                                                <td><input name="description" type="text" class="form-control" required value="${m.decription}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Image</td>
+                                                <td>
+                                                    <img src="${m.post_img}" style="width: 400px;height: 400px" alt="alt"/>
+                                                    <input type="hidden" value="${m.post_img}" name="img">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Image</td>
+                                                <td><input type="file" name="file" class="form-control"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Update</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <!-- Latest Orders-->
+                </div>
+                <!-- Latest Orders-->
 
                 </div>
                 <!-- / Middle Row Widgets-->
