@@ -9,7 +9,61 @@
             30
         </session-timeout>
     </session-config>
-        <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
+    
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieDetailServlet</servlet-name>
+        <servlet-class>controller.MovieDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieTrailerServlet</servlet-name>
+        <servlet-class>controller.MovieTrailerServlet</servlet-class>
+    </servlet>
+    
+
+
+    <servlet>
+        <servlet-name>ManageConcessionServlet</servlet-name>
+        <servlet-class>controller.admin.concession.ManageConcessionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConcessionControlServlet</servlet-name>
+        <servlet-class>controller.admin.concession.ConcessionControlServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchConcession</servlet-name>
+        <servlet-class>controller.admin.concession.SearchConcession</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageConcessionServlet</servlet-name>
+        <url-pattern>/admin/concession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConcessionControlServlet</servlet-name>
+        <url-pattern>/admin/control</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchConcession</servlet-name>
+        <url-pattern>/admin/search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>controller.RegisterController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>controller.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
 </web-app>
