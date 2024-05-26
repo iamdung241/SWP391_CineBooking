@@ -13,7 +13,7 @@ import model.Account;
  *
  * @author DungTT
  */
-
+//url: /register
 public class RegisterController extends HttpServlet {
 
     @Override
