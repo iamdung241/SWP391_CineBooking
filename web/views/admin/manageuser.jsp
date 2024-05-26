@@ -1,10 +1,12 @@
 <%-- 
-    Document   : manageuser
+    Document   : dashboard
     Created on : 18 May 2024, 10:18:31
-    Author     : Son
+    Author     : VuTA
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.*, java.util.Vector, dal.AccountDAO, model.Account"%>
 <!doctype html>
 <html lang="en">
 
@@ -80,108 +82,68 @@
                     <!-- / Page Title-->
 
                     <!-- Content-->
-                    <div class="row g-4 mb-4 mt-0">
-                        <div class="col-12">
-                            <div class="card mb-4 h-100">
-                                <div class="card-header justify-content-between align-items-center d-flex">
-                                    <h6 class="card-title m-0">Latest orders</h6>
-                                    <a class="btn btn-sm btn-primary" href="#"><i class="ri-add-circle-line align-bottom"></i> Add User</a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table m-0 table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Billing Name</th>
-                                                    <th>Date</th>
-                                                    <th>Payment Method</th>
-                                                    <th>Items</th>
-                                                    <th>Amount</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="fw-bolder">#1234-5679</span>
-                                                    </td>
-                                                    <td>Patria Nelson</td>
-                                                    <td class="text-muted">24th June, 2021</td>
-                                                    <td class="text-muted">
-                                                        <div class="d-flex align-items-center">
-                                                            <i class="ri-visa-line ri-lg me-2"></i> **** 6789
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-muted">5</td>
-                                                    <th class="text-muted">$123.99</th>
-                                                    <td><span class="badge rounded-pill bg-success-faded text-success">completed</span></td>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-success" href="#" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                        <a class="btn btn-sm btn-danger" href="#" style="color: white"><i class="align-bottom"></i> Delete</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="fw-bolder">#1235-7755</span>
-                                                    </td>
-                                                    <td>Dominic Patterson</td>
-                                                    <td class="text-muted">22nd June, 2021</td>
-                                                    <td class="text-muted">
-                                                        <div class="d-flex align-items-center">
-                                                            <i class="ri-mastercard-fill ri-lg me-2"></i> **** 1233
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-muted">5</td>
-                                                    <th class="text-muted">$123.99</th>
-                                                    <td><span class="badge rounded-pill bg-info-faded text-info">processing</span></td>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-success" href="#" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                        <a class="btn btn-sm btn-danger" href="#" style="color: white"><i class="align-bottom"></i> Delete</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="fw-bolder">#1236-6579</span>
-                                                    </td>
-                                                    <td>Steven Smith</td>
-                                                    <td class="text-muted">21st June, 2021</td>
-                                                    <td class="text-muted">
-                                                        <div class="d-flex align-items-center">
-                                                            <i class="ri-paypal-line ri-lg me-2"></i> **** 7766
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-muted">5</td>
-                                                    <th class="text-muted">$123.99</th>
-                                                    <td><span class="badge rounded-pill bg-danger-faded text-danger">cancelled</span></td>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-success" href="#" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                        <a class="btn btn-sm btn-danger" href="#" style="color: white"><i class="align-bottom"></i> Delete</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>    
-                                    <nav>
-                                        <ul class="pagination justify-content-end mt-3 mb-0">
-                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
+                    <div class="col-12">
+                        <div class="card mb-4 h-100">
+                            <div class="card-header justify-content-between align-items-center d-flex">
+                                <h6 class="card-title m-0">User List</h6>
+                                <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add User</a>
                             </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table m-0 table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Account ID</th>
+                                                <th>Username</th>
+                                                <th>Role</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <%
+                                            AccountDAO ad = new AccountDAO();
+                                            Vector<Account> list = ad.getAllAccount();
+
+                                            if (list != null) {
+                                                for (Account a : list) {
+                                        %>
+                                        <tr>
+                                            <td><%= a.getAccount_id() %></td>
+                                            <td><%= a.getUsername() %></td>
+                                            <td>
+                                                <%
+                                                    int roleId = a.getRole_id();
+                                                    String roleName = "";
+                                                    if (roleId == 2) {
+                                                        roleName = "Staff";
+                                                    } else if (roleId == 3) {
+                                                        roleName = "Customer";
+                                                    } else if (roleId == 1) {
+                                                        roleName = "Admin";
+                                                    }
+                                                %>
+                                                <%= roleName %>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-success" href="accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
+                                            </td>
+                                        </tr>
+                                        <%
+                                                }
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>                        
                         </div>
-                    </div>
-                    <!-- / Content-->
+                    </div>  
+                </div>
+                <!-- / Content-->
 
-            </main>
-            <!-- /Page Content -->
+        </main>
+        <!-- /Page Content -->
 
-            <!-- Page Aside-->
+        <!-- Page Aside-->
         <jsp:include page="../common/admin/aside.jsp"></jsp:include>
             <!-- Theme JS -->
             <!-- Vendor JS -->
