@@ -3,7 +3,7 @@
     Created on : May 20, 2024, 9:01:05 AM
     Author     : thanh
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -39,10 +39,15 @@
                                 <a class="nav-link" href="/CineBooking/concession">Concession</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/CineBooking/views/homepage/Cinema.jsp">Cinema</a>
+                                <a class="nav-link" href="/CineBooking/views/homepage/Showtimings.jsp">Showtimings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Account</a>
+                                <c:if test="${sessionScope.account == null}">
+                                    <a class="nav-link" href="login.jsp">Account</a>
+                                </c:if>       
+                                <c:if test="${sessionScope.account != null}">
+                                    <a class="nav-link" href="/views/homepage/Home.jsp">Account</a>
+                                </c:if>  
                             </li>		
                         </ul>
                         <ul class="navbar-nav mb-0 ms-auto">
@@ -89,8 +94,12 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-
-                                <a class="nav-link" href="#"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
+                                <c:if test="${sessionScope.account == null}">
+                                    <a class="nav-link" href="login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
+                                </c:if>       
+                                <c:if test="${sessionScope.account != null}">
+                                    <a class="nav-link" href="/views/homepage/Home.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
+                                </c:if>  
                             </li>
                         </ul>
                     </div>
