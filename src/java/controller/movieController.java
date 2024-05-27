@@ -67,7 +67,7 @@ public class movieController extends HttpServlet {
     private static final String MANAGEMOVIE_PAGE = "movie";
     private static final String MODE = "mode";
     private static final String MOVIEID = "idMovie";
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -93,8 +93,8 @@ public class movieController extends HttpServlet {
             MovieDAO md = new MovieDAO();
             md.DeleteMovie(Integer.parseInt(idMovie));
         }
-        List<Movie> data = new MovieDAO().getMovie();
-        request.setAttribute("data", data);
+        List<Movie> list = new MovieDAO().getMovie();
+        request.setAttribute("listMovie", list);
         request.getRequestDispatcher(MANAGEMOVIE).forward(request, response);
     }
 

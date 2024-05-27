@@ -14,16 +14,28 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>MovieDetailServlet</servlet-name>
         <servlet-class>controller.MovieDetailServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>MovieDetailServlet</servlet-name>
+        <url-pattern>/moviedetail</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>MovieTrailerServlet</servlet-name>
         <servlet-class>controller.MovieTrailerServlet</servlet-class>
     </servlet>
-    
-
+    <servlet-mapping>
+        <servlet-name>MovieTrailerServlet</servlet-name>
+        <url-pattern>/movietrailer</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>ManageConcessionServlet</servlet-name>

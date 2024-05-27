@@ -9,8 +9,6 @@ package model;
  * @author DungTT
  */
 
-import java.util.Date;
-
 public class Movie {
     private int movie_id;
     private String movie_name;
@@ -110,6 +108,24 @@ public class Movie {
         return date_published;
     }
 
+    public String getType_name() {
+        return type_name;
+    }
+
+    public void setType_name(String type_name) {
+        this.type_name = type_name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
+
     public void setDate_published(String date_published) {
         this.date_published = date_published;
     }
@@ -144,6 +160,11 @@ public class Movie {
 
     public void setType_movie(TypeMovie type_movie) {
         this.type_movie = type_movie;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" + "movie_id=" + movie_id + ", movie_name=" + movie_name + ", type_id=" + type_id + ", type_name=" + type_name + ", duration=" + duration + ", date_published=" + date_published + ", post_img=" + post_img + ", trailer=" + trailer + ", decription=" + decription + ", status=" + status + ", type_movie=" + type_movie + '}';
     }
     
     

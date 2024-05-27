@@ -4,9 +4,10 @@
     Author     : Huy
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
 <html lang="en">
 
     <!-- Head -->
@@ -33,7 +34,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-
+        <title></title>
         <!-- Fix for custom scrollbar if JS is disabled-->
         <noscript>
         <style>
@@ -60,7 +61,7 @@
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/SWP391_Project_CineBooking/home">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Manage Film</li>
                             </ol>
                         </nav>
@@ -85,7 +86,7 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">List Movie</h6>
-                                    <a class="btn btn-sm btn-primary" href="movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
+                                    <a class="btn btn-sm btn-primary" href="/SWP391_Project_CineBooking/movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -96,12 +97,12 @@
                                                     <th class="text-center">Name</th>                                                   
                                                     <th class="text-center">Image</th>
                                                     <th class="text-center">Status</th>
-                                                    <th class="text-center"></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach items="${data}" var="m">
-                                                
+                                            <c:forEach items="${listMovie}" var="m">
+                                                <c:if test="${m.status eq 'on'}">
                                                     <tr>
                                                         <td class="">${m.movie_id}</td>
                                                         <td class="text-center">${m.movie_name}</td>
@@ -115,7 +116,7 @@
                                                             </div> 
                                                         </td>
                                                     </tr>
-                                                
+                                                </c:if>
                                             </c:forEach>
                                         </tbody>
                                     </table>
@@ -129,6 +130,7 @@
                                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                     </ul>
                                 </nav>
+
                             </div>
                         </div>
                     </div>

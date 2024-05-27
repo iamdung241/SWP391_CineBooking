@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
     <!-- Head -->
@@ -33,7 +33,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-
+        <title></title>
         <!-- Fix for custom scrollbar if JS is disabled-->
         <noscript>
         <style>
@@ -51,7 +51,6 @@
 
         <!--Header-->
         <jsp:include page="../common/admin/header.jsp"></jsp:include>
-
             <!-- Page Content -->
             <main id="main">
 
