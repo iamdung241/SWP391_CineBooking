@@ -133,7 +133,7 @@
                                                     <td name="image">
                                                         <img src="${c.image}" width="100" height="100"/> 
                                                     </td>
-                                                    <td name="price">${c.price}đ</td>
+                                                    <td name="price">${c.price}</td>
                                                     <td name="quantity">${c.quantity}</td>
                                                     <td class="">
                                                         <form>  
