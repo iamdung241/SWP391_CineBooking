@@ -68,6 +68,13 @@ public class ConcessionControlServlet extends HttpServlet {
 //        request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
     }
 
+    /**
+     * Add a concession item to the database based on the data sent from the
+     * HTTP request.
+     *
+     * @param request the HTTP request containing information about the
+     * concession item to be added
+     */
     private void addConcession(HttpServletRequest request) {
         try {
             String name = request.getParameter("name");
@@ -106,7 +113,14 @@ public class ConcessionControlServlet extends HttpServlet {
             ex.printStackTrace();
         }
     }
-    
+
+    /**
+     * Extracts the filename from the content-disposition header of a Part
+     * object.
+     *
+     * @param part the Part object from which to extract the filename
+     * @return the extracted filename or an empty string if not found
+     */
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");
@@ -118,6 +132,14 @@ public class ConcessionControlServlet extends HttpServlet {
         return "";
     }
 
+    /**
+     * Edits a concession item in the database based on the data sent from the
+     * HTTP request. If a new image is uploaded, it is saved and the item's
+     * image path is updated accordingly.
+     *
+     * @param request the HTTP request containing information about the
+     * concession item to be edited
+     */
     private void editConcession(HttpServletRequest request) {
         try {
 
@@ -125,7 +147,7 @@ public class ConcessionControlServlet extends HttpServlet {
             String name = request.getParameter("name");
             float price = Float.parseFloat(request.getParameter("price"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-            
+
             String img = request.getParameter("currentImage");
             System.out.println(img);
             String imgDir = "/CineBooking/img/ConcessionImage/";
@@ -144,11 +166,10 @@ public class ConcessionControlServlet extends HttpServlet {
                     part.write(UPLOAD_DIR + File.separator + fileName);
                 }
                 concession.setImage(imgDir);
-            }else{
+            } else {
                 concession.setImage(img);
             }
-            
-            
+
             concession.setConcessions_name(name);
             concession.setPrice(price);
             concession.setQuantity(quantity);
@@ -161,6 +182,13 @@ public class ConcessionControlServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Deletes a concession item from the database based on the ID sent from the
+     * HTTP request.
+     *
+     * @param request the HTTP request containing the ID of the concession item
+     * to be deleted
+     */
     private void deleteConcession(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         dao.deleteConcession(id);
