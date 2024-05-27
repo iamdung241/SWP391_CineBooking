@@ -81,7 +81,7 @@ public class UpdateRole extends HttpServlet {
         accountDAO.updateAccountRole(accountId, roleId);
 
         // Back to the account detail page
-        response.sendRedirect("/CineBooking/views/admin/accountDetail.jsp?id=" + accountId);
+        response.sendRedirect("accountDetail.jsp?id=" + accountId);
     }
 
     /**
