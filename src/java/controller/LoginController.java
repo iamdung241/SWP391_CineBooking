@@ -18,7 +18,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("login.jsp"); 
+        resp.sendRedirect("login.jsp");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 
         // Attempt to authenticate the user
         Account user = (new AccountDAO()).login(username, password);
-        System.out.println(user.getUsername());
+        //System.out.println(user.getUsername());
 
         // Handle login flow based on authentication result
         if (user == null) {
@@ -40,11 +40,11 @@ public class LoginController extends HttpServlet {
             req.setAttribute("usernameOrPasswordWrong", "Username or Password is invalid!");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else if (user.getRole_id() == 3) {
-            // Admin role
-            session.setAttribute("user", user);
-            resp.sendRedirect("index.html");
-        } else if (user.getRole_id() == 1) {
             // Customer role
+            session.setAttribute("user", user);
+            resp.sendRedirect("home");
+        } else if (user.getRole_id() == 1) {
+            // Admin role
             session.setAttribute("user", user);
             resp.sendRedirect("home");
         }
