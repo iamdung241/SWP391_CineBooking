@@ -23,6 +23,16 @@ public class ManageConcessionServlet extends HttpServlet {
 
     ConcessionDAO dao = new ConcessionDAO();
 
+    /**
+     * Handles GET requests to retrieve all concession items from the database,
+     * sets them as a session attribute, and forwards the request to the
+     * manageconcession.jsp view.
+     *
+     * @param request the HTTP request object
+     * @param response the HTTP response object
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,6 +46,15 @@ public class ManageConcessionServlet extends HttpServlet {
         request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
     }
 
+    /**
+     * Handles POST requests by forwarding them to the manageconcession.jsp
+     * view.
+     *
+     * @param request the HTTP request object
+     * @param response the HTTP response object
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

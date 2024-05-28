@@ -17,7 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author VuTA
  */
-    @WebServlet(name = "UpdateRole", urlPatterns = {"/views/admin/updateRole"})
+// url : updateRole
+@WebServlet(name = "UpdateRole", urlPatterns = {"/views/admin/updateRole"})
 public class UpdateRole extends HttpServlet {
 
     /**
@@ -81,7 +82,7 @@ public class UpdateRole extends HttpServlet {
         accountDAO.updateAccountRole(accountId, roleId);
 
         // Back to the account detail page
-        response.sendRedirect("/CineBooking/views/admin/accountDetail.jsp?id=" + accountId);
+        response.sendRedirect("accountDetail.jsp?id=" + accountId);
     }
 
     /**

@@ -86,7 +86,7 @@
                         <div class="card mb-4 h-100">
                             <div class="card-header justify-content-between align-items-center d-flex">
                                 <h6 class="card-title m-0">User List</h6>
-                                <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add User</a>
+                                <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -125,7 +125,7 @@
                                                 <%= roleName %>
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-success" href="accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
+                                                <a class="btn btn-sm btn-success" href="views/admin/accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
                                             </td>
                                         </tr>
                                         <%

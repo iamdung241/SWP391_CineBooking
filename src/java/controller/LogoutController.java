@@ -15,6 +15,7 @@ import java.io.IOException;
  *
  * @author DungTT
  */
+// url : logout
 public class LogoutController extends HttpServlet{
 
     @Override
