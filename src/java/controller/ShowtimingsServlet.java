@@ -4,22 +4,21 @@
  */
 package controller;
 
-import dal.AccountDAO;
+import dal.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Movie;
 
 /**
  *
- * @author VuTA
+ * @author thanh
  */
-// url : updateRole
-@WebServlet(name = "UpdateRole", urlPatterns = {"/views/admin/updateRole"})
-public class UpdateRole extends HttpServlet {
+public class ShowtimingsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,15 +32,15 @@ public class UpdateRole extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateRole</title>");
+            out.println("<title>Servlet ShowtimingsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateRole at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ShowtimingsServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +58,10 @@ public class UpdateRole extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        MovieDAO mdao = new MovieDAO();
+        List<Movie> listM = mdao.getAllMovies();
+        request.setAttribute("listM", listM);
+        request.getRequestDispatcher("/views/homepage/Showtimings.jsp").forward(request, response);
     }
 
     /**
@@ -73,16 +75,7 @@ public class UpdateRole extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Change String type into Integer type
-        int accountId = Integer.parseInt(request.getParameter("accountId"));
-        int roleId = Integer.parseInt(request.getParameter("roleId"));
-
-        //Update account's role
-        AccountDAO accountDAO = new AccountDAO();
-        accountDAO.updateAccountRole(accountId, roleId);
-
-        // Back to the account detail page
-        response.sendRedirect("accountDetail.jsp?id=" + accountId);
+        processRequest(request, response);
     }
 
     /**

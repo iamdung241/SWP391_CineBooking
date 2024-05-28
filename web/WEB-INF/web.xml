@@ -4,11 +4,16 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	 version="2.5">
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
     
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
@@ -17,6 +22,15 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ShowtimingsServlet</servlet-name>
+        <servlet-class>controller.ShowtimingsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowtimingsServlet</servlet-name>
+        <url-pattern>/showtiming</url-pattern>
     </servlet-mapping>
     
     <servlet>
@@ -37,6 +51,14 @@
         <url-pattern>/movietrailer</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ConcessionServlet</servlet-name>
+        <servlet-class>controller.ConcessionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConcessionServlet</servlet-name>
+        <url-pattern>/concession</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>ManageConcessionServlet</servlet-name>
         <servlet-class>controller.admin.concession.ManageConcessionServlet</servlet-class>
@@ -79,6 +101,14 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>movieController</servlet-name>
@@ -90,3 +120,4 @@
     </servlet-mapping>
     
 </web-app>
+    

@@ -61,7 +61,7 @@
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/SWP391_Project_CineBooking/home">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/CineBooking/home">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Manage Film</li>
                             </ol>
                         </nav>
@@ -86,7 +86,7 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">List Movie</h6>
-                                    <a class="btn btn-sm btn-primary" href="/SWP391_Project_CineBooking/movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
+                                    <a class="btn btn-sm btn-primary" href="movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">

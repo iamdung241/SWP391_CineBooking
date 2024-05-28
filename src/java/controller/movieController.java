@@ -20,8 +20,9 @@ import model.TypeMovie;
 
 /**
  *
- * @author tranh
+ * @author HuyTQ
  */
+// url : movie
 @MultipartConfig
 public class movieController extends HttpServlet {
 
