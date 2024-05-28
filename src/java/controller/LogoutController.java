@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Admin
+ * @author DungTT
  */
 public class LogoutController extends HttpServlet{
 
@@ -25,7 +25,7 @@ public class LogoutController extends HttpServlet{
         session.removeAttribute("user");
         session.removeAttribute("fullname");
         
-        resp.sendRedirect("customer");
+        resp.sendRedirect("home");
     }
     
 }

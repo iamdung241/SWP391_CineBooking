@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet-mapping>
-        <servlet-name>ShowtimingsServlet</servlet-name>
-        <url-pattern>/showtiming</url-pattern>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -14,8 +14,8 @@
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShowtimingsServlet</servlet-name>
-        <servlet-class>controller.ShowtimingsServlet</servlet-class>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -36,14 +36,6 @@
     <servlet-mapping>
         <servlet-name>MovieTrailerServlet</servlet-name>
         <url-pattern>/movietrailer</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ConcessionServlet</servlet-name>
-        <servlet-class>controller.ConcessionServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConcessionServlet</servlet-name>
-        <url-pattern>/concession</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ManageConcessionServlet</servlet-name>
@@ -93,7 +85,4 @@
         <servlet-name>movieController</servlet-name>
         <url-pattern>/movie</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
 </web-app>
