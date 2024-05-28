@@ -18,6 +18,7 @@ import model.Account;
  *
  * @author VuTA
  */
+//url : view/admin/adduser
 @WebServlet(name = "AddUser", urlPatterns = {"/views/admin/adduser"})
 public class AddUser extends HttpServlet {
 
@@ -86,28 +87,28 @@ public class AddUser extends HttpServlet {
         // Check rePassword
         if (!password.equals(rePassword)) {
             request.setAttribute("errorMessage", "Passwords do not match");
-            request.getRequestDispatcher("adduser.jsp").forward(request, response);
+            request.getRequestDispatcher("views/admin/adduser.jsp").forward(request, response);
             return;
         }
         
         // Check valid "Phone" format
         if (!phone.matches("\\d{10}")) {
             request.setAttribute("errorMessage", "Phone must be a string of exactly 10 digits");
-            request.getRequestDispatcher("adduser.jsp").forward(request, response);
+            request.getRequestDispatcher("views/admin/adduser.jsp").forward(request, response);
             return;
         }
         
         // Check valid "Email" format
         if (!email.matches("^[^ ]+@gmail\\.com$")) {
             request.setAttribute("errorMessage", "Email must be in the format of 'example@gmail.com' with no spaces");
-            request.getRequestDispatcher("adduser.jsp").forward(request, response);
+            request.getRequestDispatcher("views/admin/adduser.jsp").forward(request, response);
             return;
         }
         
         // Check is "Username" exists
         if (accountDAO.usernameExists(username)) {
             request.setAttribute("errorMessage", "Username already exists");
-            request.getRequestDispatcher("adduser.jsp").forward(request, response);
+            request.getRequestDispatcher("views/admin/adduser.jsp").forward(request, response);
             return;
         }
 
@@ -125,7 +126,7 @@ public class AddUser extends HttpServlet {
 
         // Back to the add user page
         request.setAttribute("successMessage", "Add staff success");
-        request.getRequestDispatcher("adduser.jsp").forward(request, response);
+        request.getRequestDispatcher("views/admin/adduser.jsp").forward(request, response);
     }
 
     /**

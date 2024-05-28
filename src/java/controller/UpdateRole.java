@@ -17,7 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author VuTA
  */
-    @WebServlet(name = "UpdateRole", urlPatterns = {"/views/admin/updateRole"})
+// url : updateRole
+@WebServlet(name = "UpdateRole", urlPatterns = {"/views/admin/updateRole"})
 public class UpdateRole extends HttpServlet {
 
     /**
