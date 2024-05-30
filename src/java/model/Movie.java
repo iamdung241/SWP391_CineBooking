@@ -9,15 +9,13 @@ package model;
  * @author DungTT
  */
 
-import java.util.Date;
-
 public class Movie {
     private int movie_id;
     private String movie_name;
     private int type_id;
     private String type_name;
     private int duration;
-    private String date_published;
+    private String date_published,age;
     private String post_img, trailer, decription,status;
     private TypeMovie type_movie;
 
@@ -25,25 +23,27 @@ public class Movie {
     }
     
     
-    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String post_img, String trailer, String decription) {
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published,String age, String post_img, String trailer, String decription) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_id = type_id;
         this.type_name = type_name;
         this.duration = duration;
         this.date_published = date_published;
+        this.age = age;
         this.post_img = post_img;
         this.trailer = trailer;
         this.decription = decription;
     }
 
-    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String post_img, String trailer, String decription,String status) {
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published,String age, String post_img, String trailer, String decription,String status) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_id = type_id;
         this.type_name = type_name;
         this.duration = duration;
         this.date_published = date_published;
+        this.age = age;
         this.post_img = post_img;
         this.trailer = trailer;
         this.decription = decription;
@@ -110,6 +110,30 @@ public class Movie {
         return date_published;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getType_name() {
+        return type_name;
+    }
+
+    public void setType_name(String type_name) {
+        this.type_name = type_name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     public void setDate_published(String date_published) {
         this.date_published = date_published;
     }
@@ -144,6 +168,11 @@ public class Movie {
 
     public void setType_movie(TypeMovie type_movie) {
         this.type_movie = type_movie;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" + "movie_id=" + movie_id + ", movie_name=" + movie_name + ", type_id=" + type_id + ", type_name=" + type_name + ", duration=" + duration + ", date_published=" + date_published + ", post_img=" + post_img + ", trailer=" + trailer + ", decription=" + decription + ", status=" + status + ", type_movie=" + type_movie + '}';
     }
     
     

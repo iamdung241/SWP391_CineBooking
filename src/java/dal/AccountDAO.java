@@ -200,4 +200,41 @@ public class AccountDAO extends DBContext {
         // Return false if the username does not exist
         return false;
     }
+    
+    public Vector<Account> searchAccountsByUsername(String username) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Vector<Account> accounts = new Vector<>();
+        String sql = "SELECT * FROM [Account] WHERE username LIKE ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, "%" + username + "%");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                int account_id = rs.getInt("account_id");
+                String fullname = rs.getString("fullname");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String usernameDB = rs.getString("username");
+                String password = rs.getString("password");
+                int role_id = rs.getInt("role_id");
+                Account u = new Account(account_id, fullname, phone, email, usernameDB, password, role_id);
+                accounts.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return accounts;
+    }
 }

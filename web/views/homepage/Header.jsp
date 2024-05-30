@@ -43,7 +43,7 @@
                             </li>
                             <li class="nav-item">
                                 <c:if test="${sessionScope.account == null}">
-                                    <a class="nav-link" href="login.jsp">Account</a>
+                                    <a class="nav-link" href="/CineBooking/login.jsp">Account</a>
                                 </c:if>       
                                 <c:if test="${sessionScope.account != null}">
                                     <a class="nav-link" href="/views/homepage/Home.jsp">Account</a>
@@ -95,7 +95,7 @@
                             </li>
                             <li class="nav-item">
                                 <c:if test="${sessionScope.account == null}">
-                                    <a class="nav-link" href="login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
+                                    <a class="nav-link" href="/CineBooking/login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
                                 </c:if>       
                                 <c:if test="${sessionScope.account != null}">
                                     <a class="nav-link" href="/views/homepage/Home.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>

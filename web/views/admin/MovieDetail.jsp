@@ -91,15 +91,15 @@
                                 <c:set value="${movieDetail}" var="m"/>
                                     <div class="row">
                                         <div class="col-6">
-                                            <img src="${m.post_img}" style="width: 100%; height: 500px" alt="" />
+                                            <img src="${m.post_img}" style="width: 100%; height: 500px" alt="${m.movie_name}" />
                                         </div>
                                         <div class="col-6 m-0 p0">
                                             <p class="h3 p-0">${m.movie_name}</p>
                                             <p class="p-0">
-                                                Date published: 19-11-2019<br />
-                                                Type: ${m.type_name}<br />
+                                                Date published: ${m.date_published}<br />
+                                                Type: ${m.type_name}(${m.age})<br />
                                                 Duration: ${m.duration}m<br />
-                                                Status: ${m.status}<br />
+                                                Status: <br />
                                                 <a href="">${m.trailer}</a><br>
                                             <p>${m.decription}</p>
                                             </p>
