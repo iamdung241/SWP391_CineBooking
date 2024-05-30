@@ -115,6 +115,7 @@ public class movieController extends HttpServlet {
     private static final String TRAILER = "trailer";
     private static final String DESCRIPTION = "description";
     private static final String IMG = "img";
+    private static final String AGE = "age";
     private static final String UPLOAD_DIR = "E:\\SWP391\\CineBooking\\web\\img\\FilmPoster";
 
     @Override
@@ -123,6 +124,8 @@ public class movieController extends HttpServlet {
         String name = request.getParameter(NAME);
         String type = request.getParameter(TYPE);
         String duration = request.getParameter(DURATION);
+        String ageRequest = request.getParameter(AGE);
+        String age = ageRequest + "+";
         String date = request.getParameter(DATE);
         String trailer = request.getParameter(TRAILER);
         String description = request.getParameter(DESCRIPTION);
@@ -142,7 +145,7 @@ public class movieController extends HttpServlet {
             }
             img += fileName;
         }
-        Movie movie = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date, img, trailer, description);
+        Movie movie = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date,age, img, trailer, description);
         if(request.getParameter(MODE)!=null&&request.getParameter(MODE).equals("add")){
             md.addNewMovie(movie);
         }
@@ -150,7 +153,7 @@ public class movieController extends HttpServlet {
             String id = request.getParameter(ID);
             String imgs = request.getParameter(IMG);
             if( part != null && part.getSize() <=0){
-                Movie movies = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date, imgs, trailer, description);
+                Movie movies = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date,age, imgs, trailer, description);
                 movies.setMovie_id(Integer.parseInt(id));
                 md.updateMovie(movies);
             }else{
