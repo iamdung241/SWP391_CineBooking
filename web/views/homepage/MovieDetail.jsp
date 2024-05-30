@@ -78,7 +78,7 @@
                                         <hr/>
                                         <li>
                                             <a class="bookTicket" href="movietrailer?trailer=${m.trailer}&ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i>Watch Trailer</a>
-                                            <a class="bookTicket" href="#">Book Tickets</a>
+                                            <a class="bookTicket" href="showtiming">Book Tickets</a>
                                         </li>
                                     </ul>
                                 </div>

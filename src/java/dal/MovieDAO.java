@@ -347,11 +347,31 @@ public class MovieDAO extends DBContext {
         }
         return data;
     }
-
-    public static void main(String[] args) {
-        List<Movie> data = new MovieDAO().getMovie();
-        for (Movie movie : data) {
-            System.out.println(movie.toString());
+    
+    public Movie getMovieWithListShowtiming(List<Showtiming> listshow) {
+        ShowtimingDAO showdao = new ShowtimingDAO();
+        String sql = "select * from Showtime s, Movie m where s.movie_id = m.movie_id";
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while(rs.next()) {
+                int movie_id = rs.getInt(4);
+                String movie_name = rs.getString(7);
+                int duration = rs.getInt(9);
+                String post_img = rs.getString(11);     
+                listshow = showdao.getShowtimingByRoomID(movie_id);
+                Movie movie = new Movie(movie_id, movie_name, duration, post_img, listshow);
+                return movie;
+            }
+        } catch(SQLException e) {
+            
         }
+        return null;
+    }
+    
+    public static void main(String[] args) {
+        ShowtimingDAO show = new ShowtimingDAO();
+        Movie movie = new MovieDAO().getMovieWithListShowtiming(show.getShowtimingByRoomID(1));
+        System.out.println(movie.getMovie_name());
     }
 }

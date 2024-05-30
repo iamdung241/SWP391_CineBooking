@@ -103,6 +103,28 @@ public class ShowtimingDAO extends DBContext {
         return null;
     }
     
+    public List<Showtiming> getShowtimingByRoomID(int roomid) {
+        String sql = "select * from Showtime s, Room r where room_id = ?";
+        List<Showtiming> listShow = new ArrayList();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, roomid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int showtimeID = rs.getInt(1);
+                String showtimeName = rs.getString(2);
+                int roomID = rs.getInt(3);
+                int movieID = rs.getInt(4);
+                String roomName = rs.getString(7);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
+                listShow.add(showtime);
+            }
+        } catch(SQLException e) {
+            
+        }
+        return listShow;
+    }
+    
     public static void main(String[] args) {
         Showtiming s = new ShowtimingDAO().getShowtimingByShowtimeID(1);
         System.out.println(s.getRoom_name());

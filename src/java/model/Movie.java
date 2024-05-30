@@ -76,6 +76,15 @@ public class Movie {
         this.listShowtime = listShowtime;
     }
 
+    public Movie(int movie_id, String movie_name, int duration, String post_img, List<Showtiming> listShowtime) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.duration = duration;
+        this.post_img = post_img;
+        this.listShowtime = listShowtime;
+    }
+    
+
     
 
     public Movie(int movie_id) {

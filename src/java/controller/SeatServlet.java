@@ -7,6 +7,7 @@ package controller;
 import dal.MovieDAO;
 import dal.RoomDAO;
 import dal.SeatDAO;
+import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,8 +15,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Movie;
 import model.Room;
 import model.Seat;
+import model.Showtiming;
 
 /**
  *
@@ -64,13 +67,19 @@ public class SeatServlet extends HttpServlet {
        SeatDAO sdao = new SeatDAO();
        List<Seat> listS;
        String roomID = request.getParameter("roomID");
+       MovieDAO moviedao = new MovieDAO();
+      ShowtimingDAO showdao = new ShowtimingDAO();
        try {
            int roomid = Integer.parseInt(roomID);
            RoomDAO rdao = new RoomDAO();
            Room room = rdao.getRoomByID(roomid);
            listS = sdao.getSeatsByCharacterName(room.getRoom_name());
            request.setAttribute("listS", listS);
-       } catch(NumberFormatException e) {
+           List<Showtiming> listshow = showdao.getShowtimingByRoomID(roomid);
+           
+           Movie movie = moviedao.getMovieWithListShowtiming(listshow );
+           request.setAttribute("movie", movie);
+       } catch(Exception e) {
            
        }
        request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);

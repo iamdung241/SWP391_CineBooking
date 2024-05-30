@@ -27,7 +27,7 @@
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/home">Homepage</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/views/homepage/About.jsp">About PlayShow</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/views/homepage/About.jsp">Rules</a></li>
-                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/Cinema.jsp">Cinema</a></li>
+                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/showtiming">Cinema</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/concession">Concession</a></li>
                             </ul>
                         </div>
@@ -44,8 +44,8 @@
                                         <a class="text-muted" href="/views/homepage/Home.jsp">Account</a>
                                     </c:if>  
                                 </li>
-                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="#">Showtimings</a></li>
-                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="#">Ticket booking instructions</a></li>
+                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/showtiming">Showtimings</a></li>
+                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/showtiming">Ticket booking instructions</a></li>
                             </ul>
                         </div>
                     </div>
