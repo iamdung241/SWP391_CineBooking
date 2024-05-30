@@ -69,9 +69,9 @@ public class MovieDAO extends DBContext {
      *
      * @return a vector of movies published before today
      */
-    public Vector<Movie> getMoviesPublishedBeforeToday() {
-        String sql = "SELECT * FROM [Movie] WHERE date_published < GETDATE()";
-        Vector<Movie> movies = new Vector<>();
+    public List<Movie> getMoviesPublishedBeforeToday() {
+        String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm WHERE m.type_id = tm.type_id AND date_published < GETDATE()";
+        List<Movie> movies = new ArrayList<>();
 
         // Use try-with-resources to ensure resources are closed properly
         try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -85,10 +85,12 @@ public class MovieDAO extends DBContext {
                     String date_published = rs.getString("date_published");
                     String post_img = rs.getString("post_img");
                     String trailer = rs.getString("trailer");
-                    String description = rs.getString("description");
+                    String decription = rs.getString("decription");
+                    String type_name = rs.getString("type_name");
+                    TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, description));
+                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, decription, type_movie));
                 }
             }
         } catch (SQLException ex) {
@@ -98,14 +100,15 @@ public class MovieDAO extends DBContext {
         return movies;
     }
 
+
     /**
      * Retrieves movies published after the current date.
      *
      * @return a vector of movies published after today
      */
-    public Vector<Movie> getMoviesPublishedAfterToday() {
-        String sql = "SELECT * FROM [Movie] WHERE date_published > GETDATE()";
-        Vector<Movie> movies = new Vector<>();
+    public List<Movie> getMoviesPublishedAfterToday() {
+        String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm WHERE m.type_id = tm.type_id AND date_published > GETDATE()";
+        List<Movie> movies = new ArrayList<>();
 
         // Use try-with-resources to ensure resources are closed properly
         try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
@@ -119,14 +122,16 @@ public class MovieDAO extends DBContext {
                     String date_published = rs.getString("date_published");
                     String post_img = rs.getString("post_img");
                     String trailer = rs.getString("trailer");
-                    String description = rs.getString("description");
+                    String decription = rs.getString("decription");
+                    String type_name = rs.getString("type_name");
+                    TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, description));
+                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, decription, type_movie));
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, "Error fetching movies published after today", ex);
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, "Error fetching movies published before today", ex);
         }
 
         return movies;

@@ -35,6 +35,13 @@
             .film{
                 border: 8px solid #000;
             }
+            .error-message {
+                color: red;
+                margin-top: 10px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -179,22 +186,26 @@
                             <h1 class="mb-0 text-white font_50">Now Showing</h1>
                         </div>
                     </div>
-                    <div class="col mb-5 w-50 offset-md-4">
-    <form action="movieController" method="GET" class="input-group">
-        <input
-            type="text"
-            name="keyword"
-            class="form-control"
-            placeholder="Search film by name"
-            style="width: 70%;"><!-- Thay đổi chiều rộng của input -->
-        <button class="btn btn-outline-secondary" type="submit">
-            Search
-        </button>
-        <input type="hidden" name="service" value="search">
-    </form>
-</div>
+                    <div class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <form action="movieController" method="GET" class="input-group" id="searchForm">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;">
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                    <input type="hidden" name="service" value="search" id="serviceInput">
+                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
+                                        <option value="all">All</option>
+                                        <option value="upcoming">Upcoming Film</option>
+                                        <option value="nowshowing">Nowshowing Film</option>
+                                    </select>
+                                </form>
 
-                    <div class="row spec_1 mt-4">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="error-message">${requestScope.resultNull}</p>
+
+                <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
                         <div class="pe-0 col-3">
                             <div class="spec_1im clearfix position-relative">
@@ -347,6 +358,24 @@
                     document.body.style.paddingTop = '0'
                 }
             }
+            document.getElementById('dateSelect').addEventListener('change', function () {
+                        document.getElementById('serviceInput').value = 'filter';
+                        document.getElementById('searchForm').submit();
+                    });
+
+
+                    // Function to set the selected option in the dropdown
+                    function setSelectedOption() {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const dateFilter = urlParams.get('dateFilter');
+                        if (dateFilter) {
+                            const selectElement = document.getElementById('dateSelect');
+                            selectElement.value = dateFilter;
+                        }
+                    }
+
+                    // Call the function to set the selected option when the page loads
+                    window.onload = setSelectedOption;
         </script>
 
     </body>
