@@ -36,7 +36,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
         <title></title>
         <!-- Fix for custom scrollbar if JS is disabled-->
-        <noscript>
         <style>
             /**
             * Reinstate scrolling for non-JS clients
@@ -45,7 +44,6 @@
                 overflow: auto;
             }
         </style>
-        </noscript>
 
         <script>
             function confirmDelete(movieId) {
