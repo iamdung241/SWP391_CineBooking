@@ -35,6 +35,13 @@
             .film{
                 border: 8px solid #000;
             }
+            .error-message {
+                color: red;
+                margin-top: 10px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -176,10 +183,29 @@
                 <div class="container-xl">
                     <div class="row stream_1 text-center">
                         <div class="col-md-12">
-                            <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
+                            <h1 class="mb-0 text-white font_50">Now Showing</h1>
                         </div>
                     </div>
-                    <div class="row spec_1 mt-4">
+                    <div class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <form action="movieController" method="GET" class="input-group" id="searchForm">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;">
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                    <input type="hidden" name="service" value="search" id="serviceInput">
+                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
+                                        <option value="all">All</option>
+                                        <option value="upcoming">Upcoming Film</option>
+                                        <option value="nowshowing">Nowshowing Film</option>
+                                    </select>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <p class="error-message">${requestScope.resultNull}</p>
+
+                <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
                         <div class="pe-0 col-3">
                             <div class="spec_1im clearfix position-relative">
@@ -201,10 +227,10 @@
                                         Duration: ${m.getDuration()} minutes
                                     </li>
                                     <li class="col_black">
-                                        Category: ${m.getType_name()}
+                                        Category: ${m.getType_movie().getType_name()}
                                     </li>
                                     <li>
-                                        <a class="bookTicket" href="showtiming">Book Tickets</a>
+                                        <a class="bookTicket" href="#">Book Tickets</a>
                                         <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
                                     </li>
                                 </ul>
@@ -214,8 +240,6 @@
                 </div>
         </section>
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
-
-
         <script>
             window.onscroll = function () {
                 myFunction()
@@ -234,8 +258,25 @@
                     document.body.style.paddingTop = '0'
                 }
             }
-        </script>
+            document.getElementById('dateSelect').addEventListener('change', function () {
+                        document.getElementById('serviceInput').value = 'filter';
+                        document.getElementById('searchForm').submit();
+                    });
 
+
+                    // Function to set the selected option in the dropdown
+                    function setSelectedOption() {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const dateFilter = urlParams.get('dateFilter');
+                        if (dateFilter) {
+                            const selectElement = document.getElementById('dateSelect');
+                            selectElement.value = dateFilter;
+                        }
+                    }
+
+                    // Call the function to set the selected option when the page loads
+                    window.onload = setSelectedOption;
+        </script>
     </body>
 
 </html>

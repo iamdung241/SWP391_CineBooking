@@ -20,8 +20,9 @@ import model.TypeMovie;
 
 /**
  *
- * @author tranh
+ * @author HuyTQ
  */
+// url : movie
 @MultipartConfig
 public class movieController extends HttpServlet {
 
@@ -67,7 +68,7 @@ public class movieController extends HttpServlet {
     private static final String MANAGEMOVIE_PAGE = "movie";
     private static final String MODE = "mode";
     private static final String MOVIEID = "idMovie";
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -93,8 +94,8 @@ public class movieController extends HttpServlet {
             MovieDAO md = new MovieDAO();
             md.DeleteMovie(Integer.parseInt(idMovie));
         }
-        List<Movie> data = new MovieDAO().getMovie();
-        request.setAttribute("data", data);
+        List<Movie> list = new MovieDAO().getMovie();
+        request.setAttribute("listMovie", list);
         request.getRequestDispatcher(MANAGEMOVIE).forward(request, response);
     }
 
@@ -114,7 +115,8 @@ public class movieController extends HttpServlet {
     private static final String TRAILER = "trailer";
     private static final String DESCRIPTION = "description";
     private static final String IMG = "img";
-    private static final String UPLOAD_DIR = "E:\\SWP391\\CineBooking\\web\\img\\FilmPoster";
+    private static final String AGE = "age";
+    private static final String UPLOAD_DIR = "E:\\CineBooking_SWP391_G3\\SWP391_CineBooking\\web\\img\\FilmPoster";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -122,6 +124,8 @@ public class movieController extends HttpServlet {
         String name = request.getParameter(NAME);
         String type = request.getParameter(TYPE);
         String duration = request.getParameter(DURATION);
+        String ageRequest = request.getParameter(AGE);
+        String age = ageRequest + "+";
         String date = request.getParameter(DATE);
         String trailer = request.getParameter(TRAILER);
         String description = request.getParameter(DESCRIPTION);
@@ -141,7 +145,7 @@ public class movieController extends HttpServlet {
             }
             img += fileName;
         }
-        Movie movie = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date, img, trailer, description);
+        Movie movie = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date,age, img, trailer, description);
         if(request.getParameter(MODE)!=null&&request.getParameter(MODE).equals("add")){
             md.addNewMovie(movie);
         }
@@ -149,7 +153,7 @@ public class movieController extends HttpServlet {
             String id = request.getParameter(ID);
             String imgs = request.getParameter(IMG);
             if( part != null && part.getSize() <=0){
-                Movie movies = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date, imgs, trailer, description);
+                Movie movies = new Movie(0, name, Integer.parseInt(type), "", Integer.parseInt(duration), date,age, imgs, trailer, description);
                 movies.setMovie_id(Integer.parseInt(id));
                 md.updateMovie(movies);
             }else{

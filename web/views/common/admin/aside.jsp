@@ -1,6 +1,6 @@
 <%-- 
     Document   : newjsp
-    Created on : 18 May 2024, 10:27:57
+    Created on : 20 May 2024, 10:24:29
     Author     : Son
 --%>
 
@@ -101,7 +101,7 @@
                             <div class="collapse" id="collapseMenuItemFilms">
                                 <ul class="submenu">
                                     <li>
-                                        <li><a href="../admin/managefilm.jsp">Film Listing</a></li>
+                                        <li><a href="movie">Film Listing</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -116,7 +116,7 @@
                                 <span class="menu-link">Concessions</span></a>
                             <div class="collapse" id="collapseMenuItemConcessions">
                                 <ul class="submenu">
-                                    <li><a href="../admin/concession">Concessions Listing</a></li>
+                                    <li><a href="admin/concession">Concessions Listing</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -149,7 +149,7 @@
                                     class="menu-link">Users</span></a>
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
-                                    <li><a href="../admin/manageuser.jsp">User Listing</a></li>
+                                    <li><a href="../views/admin/manageuser.jsp">User Listing</a></li>
                                 </ul>
                             </div>
                         </li>

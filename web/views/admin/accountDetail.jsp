@@ -9,89 +9,142 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Setting the content type and character encoding for the page -->
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Page Meta Tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="keywords" content="">
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/./assets/images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/./assets/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/./assets/images/favicon/favicon-16x16.png">
+        <link rel="mask-icon" href="${pageContext.request.contextPath}/./assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <!-- Google Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+        <!-- Vendor CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
+
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
+
+        <!-- Fix for custom scrollbar if JS is disabled -->
+        <noscript>
+        <style>
+            /**
+            * Reinstate scrolling for non-JS clients
+            */
+            .simplebar-content-wrapper {
+                overflow: auto;
+            }
+        </style>
+        </noscript>
+
+        <!-- Page Title -->
         <title>Account Detail</title>
     </head>
     <body>
-        <%
-        // Retrieve the account ID from the request parameter
-        String id = request.getParameter("id");
-        int accountId = 0;
-        if (id != null) {
-            accountId = Integer.parseInt(id);
-        }
+        <!-- Main Section -->
+        <section class="d-flex justify-content-center align-items-start vh-100 py-5 px-3 px-md-0">
+            <div class="d-flex flex-column w-100 align-items-center">
+                <!-- Logo -->
+                <a href="./index.html" class="d-table mt-5 mb-4 mx-auto">
+                    <div class="d-flex align-items-center">
+                        <svg class="f-w-5 me-2 text-primary d-flex align-self-center lh-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.58 182"><path d="M101.66,41.34C94.54,58.53,88.89,72.13,84,83.78A21.2,21.2,0,0,1,69.76,96.41,94.86,94.86,0,0,0,26.61,122.3L81.12,0h41.6l55.07,123.15c-12-12.59-26.38-21.88-44.25-26.81a21.22,21.22,0,0,1-14.35-12.69c-4.71-11.35-10.3-24.86-17.53-42.31Z" fill="currentColor" fill-rule="evenodd" fill-opacity="0.5"/><path d="M0,182H29.76a21.3,21.3,0,0,0,18.56-10.33,63.27,63.27,0,0,1,106.94,0A21.3,21.3,0,0,0,173.82,182h29.76c-22.66-50.84-49.5-80.34-101.79-80.34S22.66,131.16,0,182Z" fill="currentColor" fill-rule="evenodd"/></svg>
+                        <span class="fw-black text-uppercase tracking-wide fs-6 lh-1">Apollo</span>
+                    </div>
+                </a>
 
-        // Create an instance of AccountDAO and retrieve the account details using the account ID
-        AccountDAO ad = new AccountDAO();
-        Account account = ad.getAccountByID(accountId);
-        %>
+                <%
+                    // Retrieve the account ID from the request parameter
+                    String id = request.getParameter("id");
+                    int accountId = 0;
+                    if (id != null) {
+                        accountId = Integer.parseInt(id);
+                    }
 
-        <% if (account != null) { %>
-        <!-- Display account details if the account is not null -->
-        <h1>Account Detail</h1>
-        <table border="1">
-            <tr>
-                <!-- Display account ID -->
-                <th>Account ID</th>
-                <td><%= account.getAccount_id() %></td>
-            </tr>
-            <tr>
-                <!-- Display fullname -->
-                <th>Fullname</th>
-                <td><%= account.getFullname() %></td>
-            </tr>
-            <tr>
-                <!-- Display phone number -->
-                <th>Phone</th>
-                <td><%= account.getPhone() %></td>
-            </tr>
-            <tr>
-                <!-- Display email -->
-                <th>Email</th>
-                <td><%= account.getEmail() %></td>
-            </tr>
-            <tr>
-                <!-- Display username -->
-                <th>Username</th>
-                <td><%= account.getUsername() %></td>
-            </tr>
-            <tr>
-                <!-- Display role and allow role update if applicable -->
-                <th>Role</th>
-                <td>
-                    <%
-                        // Determine the role name based on the role ID
-                        int roleId = account.getRole_id();
-                        String roleName = "";
-                        if (roleId == 2) {
-                            roleName = "Staff";
-                        } else if (roleId == 3) {
-                            roleName = "Customer";
-                        } else if (roleId == 1) {
-                            roleName = "Admin";
-                        }
-                    %>
+                    // Create an instance of AccountDAO and retrieve the account details using the account ID
+                    AccountDAO ad = new AccountDAO();
+                    Account account = ad.getAccountByID(accountId);
+                %>
 
-                    <% if (roleId == 2 || roleId == 3) { %>
-                    <!-- Form to update the role if the role is Staff or Customer -->
-                    <form action="updateRole" method="post">
-                        <input type="hidden" name="accountId" value="<%= account.getAccount_id() %>">
-                        <select name="roleId">
-                            <option value="2" <%= roleId == 2 ? "selected" : "" %>>Staff</option>
-                            <option value="3" <%= roleId == 3 ? "selected" : "" %>>Customer</option>
-                        </select>
-                        <input type="submit" value="Update Role">
-                    </form>
-                    <% } else { %>
-                    <!-- Display role name if the role is Admin -->
-                    <%= roleName %>
-                    <% } %>
-                </td>
-            </tr>
-        </table>
-        <%}%>
-        <!-- Link to go back to manage users page -->
-        <a href="manageuser.jsp">Back</a>
+                <% if (account != null) { %>
+                <div class="shadow-lg rounded p-4 p-sm-5 bg-white form mb-4">
+                    <h3 class="fw-bold mb-3">Account Detail</h3>
+                    <table class="table">
+                        <tr>
+                            <td><label>Account ID: </label></td>
+                            <td><%= account.getAccount_id() %></td>
+                        </tr>
+                        <tr>
+                            <td><label>Fullname: </label></td>
+                            <td><%= account.getFullname() %></td>
+                        </tr>
+                        <tr>
+                            <td><label>Phone: </label></td>
+                            <td><%= account.getPhone() %></td>
+                        </tr>
+                        <tr>
+                            <td><label>Email: </label></td>
+                            <td><%= account.getEmail() %></td>
+                        </tr>
+                        <tr>
+                            <td><label>Username: </label></td>
+                            <td><%= account.getUsername() %></td>
+                        </tr>
+                        <tr>
+                            <td><label>Role: </label></td>
+                            <td>
+                                <%
+                                    // Determine the role name based on the role ID
+                                    int roleId = account.getRole_id();
+                                    String roleName = "";
+                                    if (roleId == 2) {
+                                        roleName = "Staff";
+                                    } else if (roleId == 3) {
+                                        roleName = "Customer";
+                                    } else if (roleId == 1) {
+                                        roleName = "Admin";
+                                    }
+                                %>
+
+                                <% if (roleId == 2 || roleId == 3) { %>
+                                <!-- Form to update the role if the role is Staff or Customer -->
+                                <form action="updateRole" method="post">
+                                    <input type="hidden" name="accountId" value="<%= account.getAccount_id() %>">
+                                    <select name="roleId">
+                                        <option value="2" <%= roleId == 2 ? "selected" : "" %>>Staff</option>
+                                        <option value="3" <%= roleId == 3 ? "selected" : "" %>>Customer</option>
+                                    </select>
+                                    <input type="submit" value="Update Role">
+                                </form>
+                                <% } else { %>
+                                <!-- Display role name if the role is Admin -->
+                                <%= roleName %>
+                                <% } %>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <%}%>      
+                <a class="text-muted text-decoration-underline" href="manageuser.jsp">Back</a>
+            </div>
+        </section>
+        <!-- / Main Section -->
+
+        <!-- Theme JS -->
+        <!-- Vendor JS -->
+        <script src="./assets/js/vendor.bundle.js"></script>
+
+        <!-- Theme JS -->
+        <script src="./assets/js/theme.bundle.js"></script>
     </body>
 </html>

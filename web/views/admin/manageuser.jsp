@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.*, java.util.Vector, dal.AccountDAO, model.Account"%>
 <!doctype html>
 <html lang="en">
@@ -86,24 +85,32 @@
                         <div class="card mb-4 h-100">
                             <div class="card-header justify-content-between align-items-center d-flex">
                                 <h6 class="card-title m-0">User List</h6>
-                                <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add User</a>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table m-0 table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Account ID</th>
-                                                <th>Username</th>
-                                                <th>Role</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                <!-- Search by Username -->
+                                <form class="d-flex" action="${pageContext.request.contextPath}/searchAccount" method="get">
+                                    <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
+                                    <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
+                                </form>
+                                <!-- Add User -->
+                                <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table m-0 table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Account ID</th>
+                                            <th>Username</th>
+                                            <th>Role</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <%
-                                            AccountDAO ad = new AccountDAO();
-                                            Vector<Account> list = ad.getAllAccount();
-
+                                            Vector<Account> list = (Vector<Account>) request.getAttribute("accounts");
+                                            if (list == null) {
+                                                AccountDAO ad = new AccountDAO();
+                                                list = ad.getAllAccount();
+                                            }
                                             if (list != null) {
                                                 for (Account a : list) {
                                         %>
@@ -125,7 +132,7 @@
                                                 <%= roleName %>
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-success" href="accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
+                                                <a class="btn btn-sm btn-success" href="/CineBooking/views/admin/accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
                                             </td>
                                         </tr>
                                         <%
