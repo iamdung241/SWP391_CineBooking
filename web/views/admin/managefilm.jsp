@@ -4,9 +4,10 @@
     Author     : Huy
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
 <html lang="en">
 
     <!-- Head -->
@@ -33,9 +34,8 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-
+        <title></title>
         <!-- Fix for custom scrollbar if JS is disabled-->
-        <noscript>
         <style>
             /**
             * Reinstate scrolling for non-JS clients
@@ -44,7 +44,15 @@
                 overflow: auto;
             }
         </style>
-        </noscript>
+
+        <script>
+            function confirmDelete(movieId) {
+                const confirmation = confirm(`Bạn có chắc chắn muốn xóa '${movieId}' không?`);
+                if (confirmation) {
+                    window.location.href = `movie?mode=del&idMovie=${movieId}`;
+                }
+            }
+        </script>
 
     </head>
     <body class="">
@@ -60,7 +68,7 @@
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/CineBooking/home">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Manage Film</li>
                             </ol>
                         </nav>
@@ -96,12 +104,12 @@
                                                     <th class="text-center">Name</th>                                                   
                                                     <th class="text-center">Image</th>
                                                     <th class="text-center">Status</th>
-                                                    <th class="text-center"></th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach items="${data}" var="m">
-                                                
+                                            <c:forEach items="${listMovie}" var="m">
+                                                <c:if test="${m.status eq 'on'}">
                                                     <tr>
                                                         <td class="">${m.movie_id}</td>
                                                         <td class="text-center">${m.movie_name}</td>
@@ -111,11 +119,11 @@
                                                             <div class="d-flex p-6">
                                                                 <a class="btn btn-sm btn-primary me-1" href="movie?mode=detail&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i>Detail</a>
                                                                 <a class="btn btn-sm btn-success me-1" href="movie?mode=update&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                                <a class="btn btn-sm btn-danger" href="movie?mode=del&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Delete</a>
+                                                                <a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('${m.movie_id}')" style="color: white"><i class="align-bottom"></i> Delete</a>
                                                             </div> 
                                                         </td>
                                                     </tr>
-                                                
+                                                </c:if>
                                             </c:forEach>
                                         </tbody>
                                     </table>
@@ -129,6 +137,7 @@
                                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                     </ul>
                                 </nav>
+
                             </div>
                         </div>
                     </div>

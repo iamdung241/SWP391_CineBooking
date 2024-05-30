@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
     <!-- Head -->
@@ -33,7 +33,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-
+        <title></title>
         <!-- Fix for custom scrollbar if JS is disabled-->
         <noscript>
         <style>
@@ -51,7 +51,6 @@
 
         <!--Header-->
         <jsp:include page="../common/admin/header.jsp"></jsp:include>
-
             <!-- Page Content -->
             <main id="main">
 
@@ -106,43 +105,47 @@
                                                         <c:forEach items="${typeMovie}" var="tm">
                                                             <option value="${tm.type_id}">${tm.type_name}</option>
                                                         </c:forEach>    
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Duration</td>
-                                                    <td><input type="text" name="duration" class="form-control" required/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Date</td>
-                                                    <td><input type="date" name="date" class="form-control" required/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Trailer</td>
-                                                    <td><input type="text" name="trailer" class="form-control" required/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Descripton</td>
-                                                    <td><input type="text" name="description" class="form-control" required/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Image</td>
-                                                    <td><input type="file" name="file" class="form-control" required/></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <button type="submit" class="btn btn-success">Add</button>
-                                    </form>
-                                </div>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Age</td>
+                                                <td><input name="age" type="number" class="form-control" required value="${m.age}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Duration</td>
+                                                <td><input type="number" name="duration" class="form-control" required/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td><input type="date" name="date" class="form-control" required/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trailer</td>
+                                                <td><input type="text" name="trailer" class="form-control" required/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Descripton</td>
+                                                <td><input type="text" name="description" class="form-control" required/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Image</td>
+                                                <td><input type="file" name="file" class="form-control" required/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Add</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <!-- Latest Orders-->
+                </div>
+                <!-- Latest Orders-->
 
-                    </div>
-                    <!-- / Middle Row Widgets-->
+                </div>
+                <!-- / Middle Row Widgets-->
 
-                    <!-- Focus later in iter3-->
+                <!-- Focus later in iter3-->
                 <%--<jsp:include page="../common/admin/focuslater3.jsp"></jsp:include>--%>
 
                 <!-- Footer -->

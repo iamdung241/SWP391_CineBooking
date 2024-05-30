@@ -15,10 +15,17 @@ import model.Concession;
  *
  * @author Admin
  */
-public class ConcessionDAO extends DBContext{
+public class ConcessionDAO extends DBContext {
+
     ResultSet resultSet;
     PreparedStatement statement;
     //author: thanh 
+
+    /**
+     * Retrieves all concession items from the database.
+     *
+     * @return a list containing all concession items found in the database
+     */
     public List<Concession> getAllConcessions() {
         List<Concession> listFound = new ArrayList<>();
         String sql = "SELECT * FROM Concessions";
@@ -43,7 +50,12 @@ public class ConcessionDAO extends DBContext{
 
         return listFound;
     }
-    
+
+    /**
+     * Adds a new concession item to the database.
+     *
+     * @param concession the concession item to be added to the database
+     */
     public void add(Concession concession) {
         String sql = "INSERT INTO Concessions (concessions_name, image, price, quantity) VALUES (?, ?, ?, ?)";
 
@@ -58,7 +70,12 @@ public class ConcessionDAO extends DBContext{
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Updates an existing concession item in the database with new information.
+     *
+     * @param concession the concession item containing the updated information
+     */
     public void editConcession(Concession concession) {
         String sql = "UPDATE Concessions SET concessions_name = ?, image = ?, price = ?, quantity = ? WHERE concessions_id = ?";
 
@@ -75,6 +92,13 @@ public class ConcessionDAO extends DBContext{
         }
     }
 
+    /**
+     * Searches for concession items in the database based on a keyword.
+     *
+     * @param keyword the keyword to search for in concession names, images,
+     * prices, and quantities
+     * @return a list of concession items matching the keyword
+     */
     public List<Concession> findByKeyword(String keyword) {
         List<Concession> concessions = new ArrayList<>();
         String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR price = ? OR quantity = ?";
@@ -96,7 +120,7 @@ public class ConcessionDAO extends DBContext{
             } catch (NumberFormatException e) {
                 statement.setFloat(4, -1);
             }
-            
+
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -113,7 +137,7 @@ public class ConcessionDAO extends DBContext{
         }
         return concessions;
     }
-    
+
     public void deleteConcession(int id) {
         String sql = "UPDATE Concessions SET status = 0 WHERE concessions_id  = ?";
 
@@ -128,16 +152,14 @@ public class ConcessionDAO extends DBContext{
             e.printStackTrace();
         }
     }
-    
+
     public static void main(String[] args) {
         ConcessionDAO concessionDAO = new ConcessionDAO();
         List<Concession> listFound = concessionDAO.findByKeyword("80000");
-        
+
         for (Concession concession : listFound) {
             System.out.println(concession.toString());
         }
     }
 
-    
 }
-
