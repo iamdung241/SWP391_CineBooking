@@ -239,107 +239,7 @@
                     </c:forEach>
                 </div>
         </section>
-
-        <section id="testim" class="p_3 pb-5">
-            <div class="container-xl">
-                <div class="row stream_1 text-center">
-                    <div class="col-md-12">
-                        <h6 class="text-uppercase col_red">Testimonials</h6>
-                        <h1 class="mb-0 font_50">Trusted by tech experts and <br>  real users</h1>
-                    </div>
-                </div>
-                <div class="row testim_1 mt-4">
-                    <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="testim_1i row">
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/22.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Semp Porta</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/23.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Eget Nulla</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="testim_1i row">
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/24.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Dapibus Diam</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/21.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Per Conubia</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
-
-
         <script>
             window.onscroll = function () {
                 myFunction()
@@ -377,7 +277,6 @@
                     // Call the function to set the selected option when the page loads
                     window.onload = setSelectedOption;
         </script>
-
     </body>
 
 </html>

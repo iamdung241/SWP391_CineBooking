@@ -19,7 +19,6 @@ public class ConcessionDAO extends DBContext {
 
     ResultSet resultSet;
     PreparedStatement statement;
-
     /**
      * Retrieves all concession items from the database.
      *
@@ -153,3 +152,4 @@ public class ConcessionDAO extends DBContext {
     }
 
 }
+
