@@ -97,7 +97,7 @@
                                             <p class="h3 p-0">${m.movie_name}</p>
                                             <p class="p-0">
                                                 Date published: ${m.date_published}<br />
-                                                Type: ${m.type_name}<br />
+                                                Type: ${m.type_name}(${m.age})<br />
                                                 Duration: ${m.duration}m<br />
                                                 Status: <br />
                                                 <a href="">${m.trailer}</a><br>

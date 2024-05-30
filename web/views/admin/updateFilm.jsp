@@ -111,8 +111,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>Age</td>
+                                                <td><input name="age" type="text" class="form-control" required value="${m.age}"/></td>
+                                            </tr>
+                                            <tr>
                                                 <td>Duration</td>
-                                                <td><input name="duration" type="text" class="form-control" required value="${m.duration}"/></td>
+                                                <td><input name="duration" type="number" class="form-control" required value="${m.duration}"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Date</td>
