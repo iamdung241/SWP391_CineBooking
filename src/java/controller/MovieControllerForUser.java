@@ -4,29 +4,32 @@
  */
 package controller;
 
+import dal.DBContext;
+import dal.MovieDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
+import model.Movie;
 
 /**
  *
- * @author DungTT
+ * @author Admin
  */
-// url : logout
-public class LogoutController extends HttpServlet{
+public class MovieControllerForUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        HttpSession session = req.getSession();
-        
-        session.removeAttribute("user");
-        session.removeAttribute("fullname");
-        
-        resp.sendRedirect("home");
+        String service = req.getParameter("service");
+        if (service.equals("search")) {
+            String keyword = req.getParameter("keyword");
+            List<Movie> listM = (new MovieDAO()).getMoviesByKeywords(keyword);
+
+            req.setAttribute("listM", listM);
+            req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
+        }
     }
-    
+
 }

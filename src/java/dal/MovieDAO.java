@@ -31,13 +31,14 @@ public class MovieDAO extends DBContext {
      * @param s the search keyword
      * @return a vector of movies that match the search criteria
      */
-    public Vector<Movie> getMoviesByKeywords(String s) {
-        String sql = "SELECT * FROM [Movie] WHERE movie_name LIKE ?";
-        Vector<Movie> movies = new Vector<>();
+    public List<Movie> getMoviesByKeywords(String names) {
+        String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm WHERE m.type_id = tm.type_id AND movie_name LIKE ?";
+        List<Movie> movies = new ArrayList<>();
+        String b="%" + names + "%";
 
         // Use try-with-resources to ensure resources are closed properly
         try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
-            stm.setString(1, "%" + s + "%");
+            stm.setString(1, b);
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
@@ -48,10 +49,12 @@ public class MovieDAO extends DBContext {
                     String date_published = rs.getString("date_published");
                     String post_img = rs.getString("post_img");
                     String trailer = rs.getString("trailer");
-                    String description = rs.getString("description");
+                    String decription = rs.getString("decription");
+                    String type_name = rs.getString("type_name");
+                    TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, description));
+                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, decription, type_movie));
                 }
             }
         } catch (SQLException ex) {
