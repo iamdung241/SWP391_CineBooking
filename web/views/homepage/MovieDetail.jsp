@@ -50,9 +50,9 @@
                             <div class="col-5">
                                 <div class="exep1l">
                                     <div class="grid clearfix">
-                                        <figure class="effect-jazz mb-0">
+                                        
                                             <img height="450px" src="${m.getPost_img()}" class="w-100" alt="abc">
-                                        </figure>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -70,14 +70,14 @@
                                             <span>Date published:</span>&nbsp&nbsp ${m.getDate_published()}
                                         </li>
                                         <li>
-                                            <span>Category:</span>&nbsp&nbsp ${m.getType_movie().getType_name()}
+                                            <span>Category:</span>&nbsp&nbsp ${m.getType_name()}
                                         </li>
                                         <li>
                                             <span>Description:</span>&nbsp&nbsp ${m.getDecription()}
                                         </li>
                                         <hr/>
                                         <li>
-                                            <a class="bookTicket" href="movietrailer?ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i>Watch Trailer</a>
+                                            <a class="bookTicket" href="movietrailer?trailer=${m.trailer}&ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i>Watch Trailer</a>
                                             <a class="bookTicket" href="#">Book Tickets</a>
                                         </li>
                                     </ul>
@@ -88,6 +88,7 @@
                     </div>
             </section>
         </div>
+        
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
     </body>
 </html>

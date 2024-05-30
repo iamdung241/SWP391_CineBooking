@@ -18,7 +18,7 @@ import model.Concession;
 public class ConcessionDAO extends DBContext{
     ResultSet resultSet;
     PreparedStatement statement;
-    //author: thanh 
+    //author: thanhbtm
     public List<Concession> getAllConcessions() {
         List<Concession> listFound = new ArrayList<>();
         String sql = "SELECT * FROM Concessions";

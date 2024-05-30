@@ -77,48 +77,6 @@
                     </div>
                 </div>
             </section>
-
-            <section id="spec" class="p_3 bg-light">
-                <div class="container-xl">
-                    <div class="row serve_1 mb-3 text-center">
-                        <div class="col-md-12">
-                            <h2 class="col_red">Why People Believe In Us?</h2>
-                            <p>The manufacture of industrial equipment requires a vast knowledge base of<br>
-                                processes and understanding of fundamental concepts.</p>
-                        </div>
-                    </div>
-                    <div class="spec_1 row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="spec_1i text-center clearfix p-4">
-                                <span class="col_red font_60 d-inline-block lh-1 mb-3"><i class="fa fa-shield"></i></span>
-                                <h4>Data Encripted</h4>
-                                <h5 class="mb-0 mt-3"><a class="button_2" href="#">Learn More</a></h5>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="spec_1i text-center clearfix p-4">
-                                <span class="col_red font_60 d-inline-block lh-1 mb-3"><i class="fa fa-user"></i></span>
-                                <h4>Clients Helped</h4>
-                                <h5 class="mb-0 mt-3"><a class="button_1" href="#">Learn More</a></h5>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="spec_1i text-center clearfix p-4">
-                                <span class="col_red font_60 d-inline-block lh-1 mb-3"><i class="fa fa-rupee"></i></span>
-                                <h4>Brilliant value</h4>
-                                <h5 class="mb-0 mt-3"><a class="button_2" href="#">Learn More</a></h5>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="spec_1i text-center clearfix p-4">
-                                <span class="col_red font_60 d-inline-block lh-1 mb-3"><i class="fa fa-support"></i></span>
-                                <h4>Great Support</h4>
-                                <h5 class="mb-0 mt-3"><a class="button_1" href="#">Learn More</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             <section id="contact_h" class="p_3 bg-light">
                 <div class="container-xl">
                     <div class="row contact_h_1">                      
@@ -126,7 +84,7 @@
                             <div class="contact_h_1l">
                                 <div class="grid clearfix">
                                     <figure class="effect-jazz mb-0">
-                                        <a href="#"><img height="500px" src="/CineBooking/img/about2.jpg" class="w-100" alt="abc"></a>
+                                        <img height="500px" src="/CineBooking/img/about2.jpg" class="w-100" alt="abc">
                                     </figure>
                                 </div>
                             </div>

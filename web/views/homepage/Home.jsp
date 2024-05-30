@@ -42,8 +42,8 @@
         <div class="main clearfix position-relative">
             <div class="main_1 clearfix position-absolute top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-            </div>
-            <div class="main_2 clearfix">
+                </div>
+                <div class="main_2 clearfix">
                     <section id="center" class="center_home">
                         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
@@ -176,164 +176,66 @@
                 <div class="container-xl">
                     <div class="row stream_1 text-center">
                         <div class="col-md-12">
-                            <h1 class="mb-0 text-white font_50">Now Showing</h1>
+                            <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
                         </div>
                     </div>
                     <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
-                            <div class="pe-0 col-3">
-                                    <div class="spec_1im clearfix position-relative">
-                                        <div class="spec_1imi clearfix film">
-                                            <a href="moviedetail?ID=${m.getMovie_id()}">
-                                                <img width="240px" height="355px" src="${m.getPost_img()}" class="w-100" alt="abc" >
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <br/>
-                                    <div class="spec_1im1 clearfix">
-                                        <ul>
-                                            <li>
-                                                <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${m.getMovie_id()}">
-                                                ${m.getMovie_name()}
-                                            </a>
-                                            </li>
-                                            <li class="col_black">
-                                               Duration: ${m.getDuration()} minutes
-                                            </li>
-                                            <li class="col_black">
-                                                Category: ${m.getType_movie().getType_name()}
-                                            </li>
-                                            <li>
-                                                <a class="bookTicket" href="#">Book Tickets</a>
-                                                <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <div class="pe-0 col-3">
+                            <div class="spec_1im clearfix position-relative">
+                                <div class="spec_1imi clearfix film">
+                                    <a href="moviedetail?ID=${m.getMovie_id()}">
+                                        <img width="240px" height="355px" src="${m.getPost_img()}" class="w-100" alt="abc" >
+                                    </a>
+                                </div>
                             </div>
+                            <br/>
+                            <div class="spec_1im1 clearfix">
+                                <ul>
+                                    <li>
+                                        <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${m.getMovie_id()}">
+                                            ${m.getMovie_name()}
+                                        </a>
+                                    </li>
+                                    <li class="col_black">
+                                        Duration: ${m.getDuration()} minutes
+                                    </li>
+                                    <li class="col_black">
+                                        Category: ${m.getType_name()}
+                                    </li>
+                                    <li>
+                                        <a class="bookTicket" href="showtiming">Book Tickets</a>
+                                        <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </c:forEach>
                 </div>
         </section>
-
-    <section id="testim" class="p_3 pb-5">
-        <div class="container-xl">
-            <div class="row stream_1 text-center">
-                <div class="col-md-12">
-                    <h6 class="text-uppercase col_red">Testimonials</h6>
-                    <h1 class="mb-0 font_50">Trusted by tech experts and <br>  real users</h1>
-                </div>
-            </div>
-            <div class="row testim_1 mt-4">
-                <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="testim_1i row">
-                                <div class="col-md-6">
-                                    <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                        <img src="img/22.jpg" alt="abc" class="rounded-circle">
-                                        <h4 class="col_red mt-3">Semp Porta</h4>
-                                        <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                        <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                        <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                            dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                        <span class="col_red">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                        <img src="img/23.jpg" alt="abc" class="rounded-circle">
-                                        <h4 class="col_red mt-3">Eget Nulla</h4>
-                                        <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                        <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                        <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                            dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                        <span class="col_red">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="testim_1i row">
-                                <div class="col-md-6">
-                                    <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                        <img src="img/24.jpg" alt="abc" class="rounded-circle">
-                                        <h4 class="col_red mt-3">Dapibus Diam</h4>
-                                        <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                        <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                        <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                            dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                        <span class="col_red">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                        <img src="img/21.jpg" alt="abc" class="rounded-circle">
-                                        <h4 class="col_red mt-3">Per Conubia</h4>
-                                        <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                        <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                        <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                            dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                        <span class="col_red">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
+        <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
 
 
-    <script>
-        window.onscroll = function () {
-            myFunction()
-        };
+        <script>
+            window.onscroll = function () {
+                myFunction()
+            };
 
-        var navbar_sticky = document.getElementById("navbar_sticky");
-        var sticky = navbar_sticky.offsetTop;
-        var navbar_height = document.querySelector('.navbar').offsetHeight;
+            var navbar_sticky = document.getElementById("navbar_sticky");
+            var sticky = navbar_sticky.offsetTop;
+            var navbar_height = document.querySelector('.navbar').offsetHeight;
 
-        function myFunction() {
-            if (window.pageYOffset >= sticky + navbar_height) {
-                navbar_sticky.classList.add("sticky")
-                document.body.style.paddingTop = navbar_height + 'px';
-            } else {
-                navbar_sticky.classList.remove("sticky");
-                document.body.style.paddingTop = '0'
+            function myFunction() {
+                if (window.pageYOffset >= sticky + navbar_height) {
+                    navbar_sticky.classList.add("sticky")
+                    document.body.style.paddingTop = navbar_height + 'px';
+                } else {
+                    navbar_sticky.classList.remove("sticky");
+                    document.body.style.paddingTop = '0'
+                }
             }
-        }
-    </script>
+        </script>
 
-</body>
+    </body>
 
 </html>

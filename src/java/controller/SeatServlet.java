@@ -5,6 +5,8 @@
 package controller;
 
 import dal.MovieDAO;
+import dal.RoomDAO;
+import dal.SeatDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,13 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Movie;
+import model.Room;
+import model.Seat;
 
 /**
  *
  * @author thanh
  */
-public class ShowtimingsServlet extends HttpServlet {
+public class SeatServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class ShowtimingsServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ShowtimingsServlet</title>");            
+            out.println("<title>Servlet SeatServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ShowtimingsServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +61,19 @@ public class ShowtimingsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MovieDAO mdao = new MovieDAO();
-        List<Movie> listM = mdao.getAllMovies();
-        request.setAttribute("listM", listM);
-        request.getRequestDispatcher("/views/homepage/Showtimings.jsp").forward(request, response);
+       SeatDAO sdao = new SeatDAO();
+       List<Seat> listS;
+       String roomID = request.getParameter("roomID");
+       try {
+           int roomid = Integer.parseInt(roomID);
+           RoomDAO rdao = new RoomDAO();
+           Room room = rdao.getRoomByID(roomid);
+           listS = sdao.getSeatsByCharacterName(room.getRoom_name());
+           request.setAttribute("listS", listS);
+       } catch(NumberFormatException e) {
+           
+       }
+       request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
     }
 
     /**

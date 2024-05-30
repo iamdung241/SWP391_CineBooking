@@ -11,6 +11,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Movie;
+import model.Showtiming;
 import model.TypeMovie;
 
 /**
@@ -24,6 +25,7 @@ public class MovieDAO extends DBContext {
 
     PreparedStatement stm;
     ResultSet rs;
+
     /**
      * Retrieves movies matching the given search keyword.
      *
@@ -35,9 +37,9 @@ public class MovieDAO extends DBContext {
         Vector<Movie> movies = new Vector<>();
 
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, "%" + s + "%");
-            try (ResultSet rs = stm.executeQuery()) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
                     int movie_id = rs.getInt("movie_id");
@@ -70,8 +72,8 @@ public class MovieDAO extends DBContext {
         Vector<Movie> movies = new Vector<>();
 
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
-            try (ResultSet rs = stm.executeQuery()) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
                     int movie_id = rs.getInt("movie_id");
@@ -104,8 +106,8 @@ public class MovieDAO extends DBContext {
         Vector<Movie> movies = new Vector<>();
 
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
-            try (ResultSet rs = stm.executeQuery()) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
                     int movie_id = rs.getInt("movie_id");
@@ -127,15 +129,14 @@ public class MovieDAO extends DBContext {
 
         return movies;
     }
-    
-    
+
+    //author: thanhbtm
     public List<Movie> getAllMovies() {
         List<Movie> listMovie = new ArrayList<>();
-        String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm \n"
-                + "WHERE m.type_id = tm.type_id";
+        String sql = "SELECT m.movie_id, m.movie_name, m.type_id, m.duration, m.date_published, m.post_img, m.trailer, m.decription, tm.type_name FROM Movie m, TypeMovie tm \n"
+                + "                 WHERE m.type_id = tm.type_id";
         try {
             Movie movie;
-            TypeMovie type_movie;
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -148,8 +149,7 @@ public class MovieDAO extends DBContext {
                 String trailer = rs.getString(7);
                 String decription = rs.getString(8);
                 String type_name = rs.getString(9);
-                type_movie = new TypeMovie(type_id, type_name);
-                movie = new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, decription, type_movie);
+                movie = new Movie(movie_id, movie_name, type_id, type_name, duration, date_published, post_img, trailer, decription);
                 listMovie.add(movie);
             }
         } catch (SQLException e) {
@@ -159,8 +159,9 @@ public class MovieDAO extends DBContext {
         return listMovie;
     }
 
+    //author: thanhbtm
     public Movie getMovieById(int movie_id) {
-        String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm \n"
+        String sql = "SELECT m.movie_id, m.movie_name, m.type_id, m.duration, m.date_published, m.post_img, m.trailer, m.decription, tm.type_name FROM Movie m, TypeMovie tm \n"
                 + "WHERE m.type_id = tm.type_id AND movie_id = ?";
         try {
             Movie movie;
@@ -181,8 +182,7 @@ public class MovieDAO extends DBContext {
                 trailer = rs.getString(7);
                 decription = rs.getString(8);
                 type_name = rs.getString(9);
-                TypeMovie type_movie = new TypeMovie(type_id, type_name);
-                movie = new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, decription, type_movie);
+                movie = new Movie(movie_id, movie_name, type_id, type_name, duration, date_published, post_img, trailer, decription);
                 return movie;
             }
         } catch (SQLException e) {
@@ -190,8 +190,7 @@ public class MovieDAO extends DBContext {
         }
         return null;
     }
-    
-    
+
     //HuyTQ
     public List<Movie> getMovie() {
         List<Movie> data = new ArrayList<>();
@@ -348,7 +347,7 @@ public class MovieDAO extends DBContext {
         }
         return data;
     }
-    
+
     public static void main(String[] args) {
         List<Movie> data = new MovieDAO().getMovie();
         for (Movie movie : data) {
