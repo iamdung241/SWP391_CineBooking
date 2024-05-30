@@ -13,19 +13,19 @@ import model.Concession;
 
 /**
  *
- * @author Admin
+ * @author Son
  */
 public class ConcessionDAO extends DBContext {
 
     ResultSet resultSet;
     PreparedStatement statement;
-    //author: thanh 
 
     /**
      * Retrieves all concession items from the database.
      *
      * @return a list containing all concession items found in the database
      */
+    //author: thanh
     public List<Concession> getAllConcessions() {
         List<Concession> listFound = new ArrayList<>();
         String sql = "SELECT * FROM Concessions";
@@ -101,25 +101,15 @@ public class ConcessionDAO extends DBContext {
      */
     public List<Concession> findByKeyword(String keyword) {
         List<Concession> concessions = new ArrayList<>();
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR price = ? OR quantity = ?";
+        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             String queryKeyword = "%" + keyword + "%";
             statement.setString(1, queryKeyword);
             statement.setString(2, queryKeyword);
-            try {
-                float priceKeyword = Float.parseFloat(keyword);
-                statement.setFloat(3, priceKeyword);
-            } catch (NumberFormatException e) {
-                statement.setFloat(3, -1);
-            }
-            try {
-                int quantityKeyword = Integer.parseInt(keyword);
-                statement.setFloat(4, quantityKeyword);
-            } catch (NumberFormatException e) {
-                statement.setFloat(4, -1);
-            }
+            statement.setString(3, queryKeyword);
+            statement.setString(4, queryKeyword);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -155,7 +145,7 @@ public class ConcessionDAO extends DBContext {
 
     public static void main(String[] args) {
         ConcessionDAO concessionDAO = new ConcessionDAO();
-        List<Concession> listFound = concessionDAO.findByKeyword("80000");
+        List<Concession> listFound = concessionDAO.findByKeyword("6");
 
         for (Concession concession : listFound) {
             System.out.println(concession.toString());
