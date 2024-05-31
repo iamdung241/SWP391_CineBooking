@@ -94,10 +94,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <c:if test="${sessionScope.account == null}">
+                                <c:if test="${sessionScope.user == null}">
                                     <a class="nav-link" href="/CineBooking/login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
                                 </c:if>       
-                                <c:if test="${sessionScope.account != null}">
+                                <c:if test="${sessionScope.user != null}">
                                     <a class="nav-link" href="/views/homepage/Home.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
                                 </c:if>  
                             </li>
