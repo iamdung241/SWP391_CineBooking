@@ -25,15 +25,13 @@ import model.Concession;
  * @author Son
  */
 public class ConcessionControlServlet extends HttpServlet {
-
-    private static final String UPLOAD_DIR = "D:\\Semester 5\\SWP391\\CineBooking\\web\\img\\ConcessionImage";
-
+    private static final String UPLOAD_DIR = "D:\\Semester 5\\CineBooking\\SWP391_CineBooking\\web\\img\\ConcessionImage";
     ConcessionDAO dao = new ConcessionDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     @Override
@@ -147,7 +145,7 @@ public class ConcessionControlServlet extends HttpServlet {
             String name = request.getParameter("name");
             float price = Float.parseFloat(request.getParameter("price"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-
+            
             String img = request.getParameter("currentImage");
             System.out.println(img);
             String imgDir = "/CineBooking/img/ConcessionImage/";

@@ -131,6 +131,7 @@ public class ConcessionDAO extends DBContext {
         String sql = "UPDATE Concessions SET status = 0 WHERE concessions_id  = ?";
 
         try {
+            PreparedStatement statement = connection.prepareStatement(sql);
 
             statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -142,14 +143,85 @@ public class ConcessionDAO extends DBContext {
         }
     }
 
+    public List<Concession> getConcessionsByPriceGreaterThan(float price) {
+        List<Concession> concessions = new ArrayList<>();
+        String sql = "SELECT * FROM Concessions WHERE price >= ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setFloat(1, price);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Concession concession = new Concession();
+                concession.setConcessions_id(resultSet.getInt("concessions_id"));
+                concession.setConcessions_name(resultSet.getString("concessions_name"));
+                concession.setImage(resultSet.getString("image"));
+                concession.setPrice(resultSet.getFloat("price"));
+                concession.setQuantity(resultSet.getInt("quantity"));
+                concessions.add(concession);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return concessions;
+    }
+
+    public List<Concession> getConcessionsByPriceLessThan(float price) {
+        List<Concession> concessions = new ArrayList<>();
+        String sql = "SELECT * FROM Concessions WHERE price < ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setFloat(1, price);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Concession concession = new Concession();
+                concession.setConcessions_id(resultSet.getInt("concessions_id"));
+                concession.setConcessions_name(resultSet.getString("concessions_name"));
+                concession.setImage(resultSet.getString("image"));
+                concession.setPrice(resultSet.getFloat("price"));
+                concession.setQuantity(resultSet.getInt("quantity"));
+                concessions.add(concession);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return concessions;
+    }
+
+    public List<Concession> getConcessionsByQuantityLessThan(int quantity) {
+        List<Concession> concessions = new ArrayList<>();
+        String sql = "SELECT * FROM Concessions WHERE quantity <= ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, quantity);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Concession concession = new Concession();
+                concession.setConcessions_id(resultSet.getInt("concessions_id"));
+                concession.setConcessions_name(resultSet.getString("concessions_name"));
+                concession.setImage(resultSet.getString("image"));
+                concession.setPrice(resultSet.getFloat("price"));
+                concession.setQuantity(resultSet.getInt("quantity"));
+                concessions.add(concession);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return concessions;
+    }
+
     public static void main(String[] args) {
         ConcessionDAO concessionDAO = new ConcessionDAO();
-        List<Concession> listFound = concessionDAO.findByKeyword("6");
+        List<Concession> listFound = concessionDAO.getConcessionsByQuantityLessThan(50);
 
         for (Concession concession : listFound) {
             System.out.println(concession.toString());
         }
     }
-
 }
 
