@@ -203,7 +203,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="error-message">${requestScope.resultNull}</p>
+                    <!--<p class="error-message">${requestScope.resultNull}</p>-->
 
                 <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
@@ -227,10 +227,10 @@
                                         Duration: ${m.getDuration()} minutes
                                     </li>
                                     <li class="col_black">
-                                        Category: ${m.getType_movie().getType_name()}
+                                        Category: ${m.getType_name()}
                                     </li>
                                     <li>
-                                        <a class="bookTicket" href="#">Book Tickets</a>
+                                        <a class="bookTicket" href="/CineBooking/showtiming">Book Tickets</a>
                                         <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
                                     </li>
                                 </ul>
@@ -280,3 +280,4 @@
     </body>
 
 </html>
+
