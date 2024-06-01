@@ -44,10 +44,6 @@
             .simplebar-content-wrapper {
                 overflow: auto;
             }
-
-            .error{
-                color:red;
-            }
         </style>
         </noscript>
 
@@ -99,31 +95,43 @@
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">Concession Listing</h6>
 
-                                    <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="search">
-                                        <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
-                                               placeholder="Search" name="keyword" aria-label="Search">
-                                        <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
-                                    </form>
 
-                                    <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal" style="color: white">
-                                        <i class="ri-add-circle-line align-bottom" style="color: white"></i>
-                                        Add Concession
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table m-0 table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Image</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+
+                                    <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" method="POST">
+                                        <select class="form-control filter-select" name="filter" aria-label="Filter">
+                                            <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
+                                        <option value=">=100000" ${selectedFilter != null && selectedFilter.equals(">=100000") ? 'selected' : ''}>Price >= 100000</option>
+                                        <option value="<100000" ${selectedFilter != null && selectedFilter.equals("<100000") ? 'selected' : ''}>Price < 100000</option>
+                                        <option value="<=30" ${selectedFilter != null && selectedFilter.equals("<=30") ? 'selected' : ''}>Quantity <= 30</option>
+                                    </select>
+                                </form>
+
+                                <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="search">
+
+                                    <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
+                                           placeholder="Search" name="keyword" aria-label="Search">
+                                    <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
+                                </form>
+
+                                <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal" style="color: white">
+                                    <i class="ri-add-circle-line align-bottom" style="color: white"></i>
+                                    Add Concession
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table m-0 table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach var="c" items="${listConcession}">
                                                 <tr>
                                                     <td name="id">
@@ -149,11 +157,11 @@
                                                                 onclick="deleteConcession(${c.concessions_id})">
                                                             Delete
                                                         </button>
-<!--                                                        <button type="button" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#restockModal"
-                                                                onclick="restockProduct">
-                                                            Restock
-                                                        </button>-->
+                                                        <!--                                                        <button type="button" class="btn btn-success"
+                                                                                                                        data-toggle="modal" data-target="#restockModal"
+                                                                                                                        onclick="restockProduct">
+                                                                                                                    Restock
+                                                                                                                </button>-->
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -185,6 +193,11 @@
             </main>
             <!-- /Page Content -->
 
+            <script>
+                document.querySelector('.filter-select').addEventListener('change', function () {
+                    this.form.submit();
+                });
+            </script>
             <!-- Page Aside-->
         <jsp:include page="../common/admin/aside.jsp"></jsp:include>
             <!-- Theme JS -->

@@ -4,6 +4,10 @@
         <servlet-name>SearchAccount</servlet-name>
         <servlet-class>controller.SearchAccount</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilterServlet</servlet-name>
+        <servlet-class>controller.admin.concession.FilterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MovieControllerForUser</servlet-name>
         <url-pattern>/movieController</url-pattern>
@@ -11,6 +15,10 @@
     <servlet-mapping>
         <servlet-name>SearchAccount</servlet-name>
         <url-pattern>/searchAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterServlet</servlet-name>
+        <url-pattern>/admin/filter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
