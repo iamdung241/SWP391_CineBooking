@@ -50,7 +50,7 @@
                                     <h1 style="color: #000" class="mb-0 font_50">Now Showing</h1>
                                 </div>
                             </div>
-                            <div class="row spec_1 mt-4">
+                            <div class="row spec_1 mt-4 ">
                             <c:forEach items = "${listC}" var = "c">
                                 <div class="pe-0 col-3">
                                     <div class="spec_1im clearfix position-relative">

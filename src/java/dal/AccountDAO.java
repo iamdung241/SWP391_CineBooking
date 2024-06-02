@@ -18,14 +18,16 @@ import java.util.logging.Logger;
  */
 public class AccountDAO extends DBContext {
 
-    public Account login(String inputUsername, String inputPassword) {
+    public Account login(String input, String inputPassword) {
         PreparedStatement stm = null;
         ResultSet rs = null;
-        String sql = "select * from [Account] where username = ? and password = ?";
+        String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
             stm = connection.prepareStatement(sql);
-            stm.setString(1, inputUsername);
-            stm.setString(2, inputPassword);
+            stm.setString(1, input);
+            stm.setString(2, input);
+            stm.setString(3, input);
+            stm.setString(4, inputPassword);
             rs = stm.executeQuery();
             while (rs.next()) {
                 Account u = new Account();
@@ -44,7 +46,6 @@ public class AccountDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -200,7 +201,7 @@ public class AccountDAO extends DBContext {
         // Return false if the username does not exist
         return false;
     }
-    
+
     public Vector<Account> searchAccountsByUsername(String username) {
         PreparedStatement stm = null;
         ResultSet rs = null;

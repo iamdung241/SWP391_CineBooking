@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
-        <servlet-name>SearchAccount</servlet-name>
-        <servlet-class>controller.SearchAccount</servlet-class>
+        <servlet-name>SeatServlet</servlet-name>
+        <servlet-class>controller.SeatServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimingServlet</servlet-name>
+        <servlet-class>controller.ShowtimingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RoomServlet</servlet-name>
+        <servlet-class>controller.RoomServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FilterServlet</servlet-name>
         <servlet-class>controller.admin.concession.FilterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieControllerForUser</servlet-name>
-        <url-pattern>/movieController</url-pattern>
+        <servlet-name>SeatServlet</servlet-name>
+        <url-pattern>/seat</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchAccount</servlet-name>
-        <url-pattern>/searchAccount</url-pattern>
+        <servlet-name>ShowtimingServlet</servlet-name>
+        <url-pattern>/showtiming</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomServlet</servlet-name>
+        <url-pattern>/room</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
@@ -25,28 +37,13 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>MovieControllerForUser</servlet-name>
-        <servlet-class>controller.MovieControllerForUser</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ShowtimingsServlet</servlet-name>
-        <servlet-class>controller.ShowtimingsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ShowtimingsServlet</servlet-name>
-        <url-pattern>/showtiming</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>MovieDetailServlet</servlet-name>
@@ -68,17 +65,9 @@
         <servlet-name>ConcessionServlet</servlet-name>
         <servlet-class>controller.ConcessionServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>controller.DashboardServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ConcessionServlet</servlet-name>
         <url-pattern>/concession</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DashboardServlet</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ManageConcessionServlet</servlet-name>
@@ -121,14 +110,6 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.LogoutController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LogoutController</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>movieController</servlet-name>
         <servlet-class>controller.movieController</servlet-class>
     </servlet>
@@ -136,4 +117,15 @@
         <servlet-name>movieController</servlet-name>
         <url-pattern>/movie</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
 </web-app>
