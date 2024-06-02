@@ -109,7 +109,7 @@
                                 <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="search">
 
                                     <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
-                                           placeholder="Search" name="keyword" aria-label="Search">
+                                           placeholder="Search" name="keyword" aria-label="Search" value="${param.keyword}">
                                     <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
                                 </form>
 
@@ -168,13 +168,21 @@
                                         </tbody>
                                     </table>
                                 </div>    
+
+                                <!--Pagination-->
                                 <nav>
                                     <ul class="pagination justify-content-end mt-3 mb-0">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        <li class="page-item ${pageControl.page == 1 ? 'disabled' : ''}">
+                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page - 1}&keyword=${param.keyword}">Previous</a>
+                                        </li>
+                                        <c:forEach begin="1" end="${pageControl.totalPage}" var="pageNumber">
+                                            <li class="page-item ${pageControl.page == pageNumber ? 'active' : ''}">
+                                                <a class="page-link" href="${pageControl.ulrPattern}page=${pageNumber}&keyword=${param.keyword}">${pageNumber}</a>
+                                            </li>
+                                        </c:forEach>
+                                        <li class="page-item ${pageControl.page == pageControl.totalPage ? 'disabled' : ''}">
+                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page + 1}&keyword=${param.keyword}">Next</a>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>

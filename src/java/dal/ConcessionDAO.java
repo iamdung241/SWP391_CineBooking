@@ -4,6 +4,7 @@
  */
 package dal;
 
+import constant.CommonConst;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,10 +28,38 @@ public class ConcessionDAO extends DBContext {
     //author: thanh
     public List<Concession> getAllConcessions() {
         List<Concession> listFound = new ArrayList<>();
-        String sql = "SELECT * FROM Concessions";
-
+        String sql = "  SELECT * FROM Concessions";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Concession concession = new Concession();
+                concession.setConcessions_id(resultSet.getInt("concessions_id"));
+                concession.setConcessions_name(resultSet.getString("concessions_name"));
+                concession.setImage(resultSet.getString("image"));
+                concession.setPrice(resultSet.getFloat("price"));
+                concession.setQuantity(resultSet.getInt("quantity"));
+                listFound.add(concession);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listFound;
+    }
+    public List<Concession> getListAllConcessions(int page) {
+        List<Concession> listFound = new ArrayList<>();
+        String sql = "  SELECT * FROM Concessions\n"
+                + "  ORDER BY[concessions_id]\n"
+                + "  OFFSET ? ROWS\n"
+                + "  FETCH NEXT ? ROWS ONLY";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,(page-1) * CommonConst.RECORD_PER_PAGE);
+            statement.setInt(2, CommonConst.RECORD_PER_PAGE);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -90,28 +119,22 @@ public class ConcessionDAO extends DBContext {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Searches for concession items in the database based on a keyword.
-     *
-     * @param keyword the keyword to search for in concession names, images,
-     * prices, and quantities
-     * @return a list of concession items matching the keyword
-     */
-    public List<Concession> findByKeyword(String keyword) {
-        List<Concession> concessions = new ArrayList<>();
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ?";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            String queryKeyword = "%" + keyword + "%";
-            statement.setString(1, queryKeyword);
-            statement.setString(2, queryKeyword);
-            statement.setString(3, queryKeyword);
-            statement.setString(4, queryKeyword);
-
-            ResultSet resultSet = statement.executeQuery();
-
+    
+    public List<Concession> findByKeywordWithPagination(String keyword, int page) {
+    List<Concession> concessions = new ArrayList<>();
+    String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? "
+                + "OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ? "
+                + "ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String queryKeyword = "%" + keyword + "%";
+        statement.setString(1, queryKeyword);
+        statement.setString(2, queryKeyword);
+        statement.setString(3, queryKeyword);
+        statement.setString(4, queryKeyword);
+        statement.setInt(5, (page - 1) * CommonConst.RECORD_PER_PAGE);
+        statement.setInt(6, CommonConst.RECORD_PER_PAGE);
+        
+        try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 Concession concession = new Concession();
                 concession.setConcessions_id(resultSet.getInt("concessions_id"));
@@ -121,11 +144,32 @@ public class ConcessionDAO extends DBContext {
                 concession.setQuantity(resultSet.getInt("quantity"));
                 concessions.add(concession);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return concessions;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return concessions;
+}
+    
+    public int getTotalRecordsByKeyword(String keyword) {
+    String sql = "SELECT COUNT(*) AS total FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String queryKeyword = "%" + keyword + "%";
+        statement.setString(1, queryKeyword);
+        statement.setString(2, queryKeyword);
+        statement.setString(3, queryKeyword);
+        statement.setString(4, queryKeyword);
+        
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
 
     public void deleteConcession(int id) {
         String sql = "UPDATE Concessions SET status = 0 WHERE concessions_id  = ?";
@@ -222,6 +266,19 @@ public class ConcessionDAO extends DBContext {
         for (Concession concession : listFound) {
             System.out.println(concession.toString());
         }
+    }
+
+    public int getTotalRecordCount() {
+        String sql = "SELECT COUNT(*) AS total FROM Concessions";
+    try (PreparedStatement statement = connection.prepareStatement(sql);
+         ResultSet resultSet = statement.executeQuery()) {
+        if (resultSet.next()) {
+            return resultSet.getInt("total");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0;
     }
 }
 
