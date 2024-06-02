@@ -259,23 +259,23 @@
                 }
             }
             document.getElementById('dateSelect').addEventListener('change', function () {
-                        document.getElementById('serviceInput').value = 'filter';
-                        document.getElementById('searchForm').submit();
-                    });
+                document.getElementById('serviceInput').value = 'filter';
+                document.getElementById('searchForm').submit();
+            });
 
 
-                    // Function to set the selected option in the dropdown
-                    function setSelectedOption() {
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const dateFilter = urlParams.get('dateFilter');
-                        if (dateFilter) {
-                            const selectElement = document.getElementById('dateSelect');
-                            selectElement.value = dateFilter;
-                        }
-                    }
+            // Function to set the selected option in the dropdown
+            function setSelectedOption() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const dateFilter = urlParams.get('dateFilter');
+                if (dateFilter) {
+                    const selectElement = document.getElementById('dateSelect');
+                    selectElement.value = dateFilter;
+                }
+            }
 
-                    // Call the function to set the selected option when the page loads
-                    window.onload = setSelectedOption;
+            // Call the function to set the selected option when the page loads
+            window.onload = setSelectedOption;
         </script>
     </body>
 

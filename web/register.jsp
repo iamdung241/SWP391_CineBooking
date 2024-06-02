@@ -1,7 +1,3 @@
-<!--/**
- *
- * @author DungTT
- */-->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,6 +92,7 @@
             .error {
                 border-color: red !important;
             }
+
             #login-with-google {
                 background-color: #dd4b39;
                 color: #fff;
@@ -115,13 +112,12 @@
         </style>
         <script>
             function validateFullname() {
-                var fullname = document.getElementById("fullname").value;
+                var fullname = document.getElementById("fullname").value.trim();
                 var fullnameError = document.getElementById("fullnameError");
-                var fullnameRegex = /^[A-Za-z\s]{8,30}$/;
+                var fullnameRegex = /^[\p{L}\s]{8,30}$/u;
 
-                // Check if the fullname matches the regex and is not just spaces
-                if (!fullnameRegex.test(fullname) || fullname.trim() === "") {
-                    fullnameError.textContent = "Fullname must be 8-30 characters long, only contain letters and spaces, and cannot be all spaces.";
+                if (!fullnameRegex.test(fullname) || fullname === "") {
+                    fullnameError.textContent = "Fullname must be 8-30 characters long, only contain letters and spaces.";
                     return false;
                 }
                 fullnameError.textContent = "";
@@ -132,9 +128,9 @@
             function validatePhone() {
                 var phone = document.getElementById("phone").value;
                 var phoneError = document.getElementById("phoneError");
-                var phoneRegex = /^[0-9]{10,15}$/;
+                var phoneRegex = /^(09|03|07|08)\d{8,9}$/;
                 if (!phoneRegex.test(phone)) {
-                    phoneError.textContent = "Valid phone number is required (10-15 digits).";
+                    phoneError.textContent = "Valid phone number is required (must start with 09, 03, 07, or 08 and be 10-11 digits long).";
                     return false;
                 }
                 phoneError.textContent = "";
@@ -144,9 +140,9 @@
             function validateEmail() {
                 var email = document.getElementById("email").value;
                 var emailError = document.getElementById("emailError");
-                var emailRegex = /^[A-Za-z0-9+_.-]+@(gmail\.com|fpt\.edu\.vn)$/;
+                var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
                 if (!emailRegex.test(email)) {
-                    emailError.textContent = "Valid email is required (must be @gmail.com or @fpt.edu.vn).";
+                    emailError.textContent = "Valid email is required.";
                     return false;
                 }
                 emailError.textContent = "";
@@ -168,10 +164,10 @@
             function validatePassword() {
                 var password = document.getElementById("password").value;
                 var passwordError = document.getElementById("passwordError");
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*.,:;])[A-Za-z\d!@#\$%\^&\*.,:;]{8,20}$/;
+                var passwordRegex = /^[A-Za-z\d!@#\$%\^&\*.,:;]{8,20}$/;
 
-                if (!passwordRegex.test(password) || password.includes(' ')) {
-                    passwordError.textContent = "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces.";
+                if (!passwordRegex.test(password) || password.includes(' ') || password.trim() === "") {
+                    passwordError.textContent = "Password must be 8-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.";
                     return false;
                 }
                 passwordError.textContent = "";
@@ -191,26 +187,26 @@
     <body>
         <div id="login-form-wrap">
             <h2>CineBooking Register</h2>
-            <form id="login-form" action="register" method="post" onsubmit="return validateForm()"">
+            <form id="login-form" action="register" method="post" onsubmit="return validateForm()">
                 <div>
                     <label for="fullname">Full Name:</label>
-                    <input type="text" id="fullname" name="fullname" onblur="validateFullname()">
-                    <span id="fullnameError" style="color: red;"></span>
+                    <input type="text" id="fullname" name="fullname" value="${param.fullname}" onblur="validateFullname()">
+                    <span id="fullnameError" class="error-message">${fullnameError}</span>
                 </div>
                 <div>
                     <label for="phone">Phone:</label>
-                    <input type="text" id="phone" name="phone" onblur="validatePhone()">
-                    <span id="phoneError" style="color: red;"></span>
+                    <input type="text" id="phone" name="phone" value="${param.phone}" onblur="validatePhone()">
+                    <span id="phoneError" class="error-message">${phoneError}</span>
                 </div>
                 <div>
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" onblur="validateEmail()">
-                    <span id="emailError" style="color: red;"></span>
+                    <input type="text" id="email" name="email" value="${param.email}" onblur="validateEmail()">
+                    <span id="emailError" class="error-message">${emailError}</span>
                 </div>
                 <div>
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" onblur="validateUsername()">
-                    <span id="usernameError" style="color: red;"></span>
+                    <input type="text" id="username" name="username" value="${param.username}" onblur="validateUsername()">
+                    <span id="usernameError" class="error-message">${usernameError}</span>
                     <c:if test="${existedUsername ne null}">
                         <p style="color: red; font-size: 1.25rem; text-align: center">${existedUsername}</p>
                     </c:if>
@@ -218,7 +214,7 @@
                 <div>
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" onblur="validatePassword()">
-                    <span id="passwordError" style="color: red;"></span>
+                    <span id="passwordError" class="error-message">${passwordError}</span>
                 </div>
                 <p>
                     <input type="submit" id="register" value="Register">

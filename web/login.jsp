@@ -1,7 +1,3 @@
-<!--/**
- *
- * @author DungTT
- */-->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,11 +32,19 @@
                 margin-bottom: 20px;
             }
 
+            label {
+                display: block;
+                text-align: left;
+                font-size: 16px; /* Increased font size */
+                color: #333;
+                margin-bottom: 5px;
+            }
+
             input[type="text"],
             input[type="password"] {
                 width: 100%;
                 padding: 12px;
-                margin: 8px 0;
+                margin: 8px 0 16px 0; /* Adjusted margin for better spacing */
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 box-sizing: border-box;
@@ -84,7 +88,6 @@
                 margin-top: 10px;
             }
 
-            /* New Styles */
             #login-with-google {
                 background-color: #dd4b39;
                 color: #fff;
@@ -115,17 +118,19 @@
         <div id="login-form-wrap">
             <h2>CineBooking Login</h2>
             <form id="login-form" action="login" method="POST">
-                <p>
-                    <input type="text" id="username" name="username" placeholder="Username" required>
-                </p>
-                <p>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                </p>
+
+                <div>
+                    <label for="username">Enter Username or Email or Phone:</label>
+                    <input type="text" id="username" name="username" value="${param.username}" required>
+                </div>
+                <div>
+                    <label for="password">Enter Password:</label>
+                    <input type="password" id="password" name="password" value="${param.password}" required>
+                </div>
 
                 <p class="error-message">${requestScope.usernameOrPasswordWrong}</p>
 
                 <input type="submit" id="login" value="Login">
-
             </form>
             <div id="create-account-wrap">
                 <p>Not a member? <a href="register.jsp">Create Account</a></p>
