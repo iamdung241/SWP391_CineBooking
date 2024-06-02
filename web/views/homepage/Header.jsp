@@ -39,13 +39,13 @@
                                 <a class="nav-link" href="/CineBooking/concession">Concession</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/CineBooking/views/homepage/Showtimings.jsp">Showtimings</a>
+                                <a class="nav-link" href="/CineBooking/showtiming">Showtimings</a>
                             </li>
                             <li class="nav-item">
-                                <c:if test="${sessionScope.account == null}">
-                                    <a class="nav-link" href="/CineBooking/login.jsp">Account</a>
+                                <c:if test="${sessionScope.user == null}">
+                                    <a class="nav-link" href="login.jsp">Account</a>
                                 </c:if>       
-                                <c:if test="${sessionScope.account != null}">
+                                <c:if test="${sessionScope.user != null}">
                                     <a class="nav-link" href="/views/homepage/Home.jsp">Account</a>
                                 </c:if>  
                             </li>		
@@ -67,38 +67,15 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle dropdown_search" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-bell-o"></i>
-                                </a>
-                                <ul class="dropdown-menu drop_1 drop_o drop_o1 p-0" aria-labelledby="navbarDropdown" data-bs-popper="none">
-                                    <li class="bg_red text-white p-3 fw-bold">
-                                        Notification <span class="bg-white col_red span_1  rounded-circle d-inline-block me-1">3</span>
-                                    </li>
-                                    <li class="p-3 pb-0">
-                                        <div class="row">
-                                            <div class="col-md-2 pe-0 col-2"><i class="fa fa-circle col_red font_8"></i></div>
-                                            <div class="col-md-10 ps-0 col-10">
-                                                <a class="fw-normal text-capitalize" href="#">Semper</a> download 2000+ Simple Line Icons and Explore<br>
-                                                <span class="text-muted font_14">2 Days</span>
-                                            </div>
-                                        </div>
-                                    </li><hr>
-                                    <li class="p-3 pt-0"><div class="row">
-                                            <div class="col-md-2 pe-0 col-2"><i class="fa fa-circle col_red font_8"></i></div>
-                                            <div class="col-md-10 ps-0 col-10">
-                                                Added new movie <a class="fw-normal text-capitalize" href="#">Porta</a> Cheatsheet to Start Using With Your Projects.<br>
-                                                <span class="text-muted font_14">3 Days</span>
-                                            </div>
-                                        </div></li>
-                                </ul>
-                            </li>
+                            
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
-                                    <a class="nav-link" href="/CineBooking/login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
-                                </c:if>       
+
+                                    <a class="nav-link" href="login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Login </a>
+                                </c:if>
                                 <c:if test="${sessionScope.user != null}">
-                                    <a class="nav-link" href="/views/homepage/Home.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Account </a>
+                                    <a class="nav-link" href="logout"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Logout </a>
+
                                 </c:if>  
                             </li>
                         </ul>
@@ -108,4 +85,3 @@
         </section>
     </body>
 </html>
-

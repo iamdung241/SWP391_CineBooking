@@ -59,16 +59,11 @@ public class MovieTrailerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idMovie = request.getParameter("ID");
-        MovieDAO mdao = new MovieDAO();
-        try {
-            int id = Integer.parseInt(idMovie);
-            Movie m = mdao.getMovieById(id);
-            request.setAttribute("m", m);
-            request.getRequestDispatcher("/views/homepage/MovieTrailer.jsp").forward(request, response);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }   
+        String idMovie = request.getParameter("trailer");
+        request.setAttribute("trailer", idMovie);
+        String id = request.getParameter("ID");
+        request.setAttribute("ID", id);
+        request.getRequestDispatcher("/views/homepage/MovieTrailer.jsp").forward(request, response);
     }
 
     /**
