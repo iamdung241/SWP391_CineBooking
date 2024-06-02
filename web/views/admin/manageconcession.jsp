@@ -97,12 +97,13 @@
 
 
 
-                                    <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" method="POST">
-                                        <select class="form-control filter-select" name="filter" aria-label="Filter">
-                                            <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
-                                        <option value=">=100000" ${selectedFilter != null && selectedFilter.equals(">=100000") ? 'selected' : ''}>Price >= 100000</option>
-                                        <option value="<100000" ${selectedFilter != null && selectedFilter.equals("<100000") ? 'selected' : ''}>Price < 100000</option>
-                                        <option value="<=30" ${selectedFilter != null && selectedFilter.equals("<=30") ? 'selected' : ''}>Quantity <= 30</option>
+                                <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" method="POST">
+                                    <select class="form-control filter-select" name="filter" aria-label="Filter">
+                                        <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
+                                        <option value="priceAsc" ${selectedFilter != null && selectedFilter.equals("priceAsc") ? 'selected' : ''}>Price Increase</option>
+                                        <option value="priceDesc" ${selectedFilter != null && selectedFilter.equals("priceDesc") ? 'selected' : ''}>Price Decrease</option>
+                                        <option value="quantityAsc" ${selectedFilter != null && selectedFilter.equals("quantityAsc") ? 'selected' : ''}>Quantity Increase</option>
+                                        <option value="quantityDesc" ${selectedFilter != null && selectedFilter.equals("quantityDesc") ? 'selected' : ''}>Quantity Decrease</option>
                                     </select>
                                 </form>
 

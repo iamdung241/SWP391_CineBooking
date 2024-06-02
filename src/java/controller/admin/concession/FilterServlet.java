@@ -35,17 +35,17 @@ public class FilterServlet extends HttpServlet {
         List<Concession> listConcession = new ArrayList<>();
         if (filter != null && !filter.isEmpty()) {
             switch (filter) {
-//                case "all":
-//                    listConcession = dao.getAllConcessions();
-//                    break;
-                case ">=100000":
-                    listConcession = dao.getConcessionsByPriceGreaterThan(100000);
+                case "priceAsc":
+                    listConcession = dao.getConcessionsOrderedByPrice(true);
                     break;
-                case "<100000":
-                    listConcession = dao.getConcessionsByPriceLessThan(100000);
+                case "priceDesc":
+                    listConcession = dao.getConcessionsOrderedByPrice(false);
                     break;
-                case "<=30":
-                    listConcession = dao.getConcessionsByQuantityLessThan(30);
+                case "quantityAsc":
+                    listConcession = dao.getConcessionsOrderedByQuantity(true);
+                    break;
+                case "quantityDesc":
+                    listConcession = dao.getConcessionsOrderedByQuantity(false);
                     break;
                 default:
                     listConcession = dao.getAllConcessions();
