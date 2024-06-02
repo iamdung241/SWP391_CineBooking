@@ -4,6 +4,7 @@
  */
 package controller.admin.concession;
 
+import constant.CommonConst;
 import dal.ConcessionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Concession;
+import model.PageControl;
 
 /**
  *
@@ -38,9 +40,32 @@ public class SearchConcession extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String keyword = request.getParameter("keyword");
-        List<Concession> listConcession = dao.findByKeyword(keyword);
+        String pageRaw = request.getParameter("page");
+        int page;
+        try {
+            page = Integer.parseInt(pageRaw);
+            if (page < 0) {
+                page = 1;
+            }
+        } catch (Exception e) {
+            page = 1;
+        }
+
+        List<Concession> listConcession = dao.findByKeywordWithPagination(keyword, page);
+        int totalRecord = dao.getTotalRecordsByKeyword(keyword);
+        int totalPage = (totalRecord % CommonConst.RECORD_PER_PAGE) == 0
+                ? (totalRecord / CommonConst.RECORD_PER_PAGE)
+                : (totalRecord / CommonConst.RECORD_PER_PAGE) + 1;
+
+        PageControl pageControl = new PageControl();
+        String requestURL = request.getRequestURI().toString();
+        pageControl.setUlrPattern(requestURL + "?keyword=" + keyword + "&");
+        pageControl.setPage(page);
+        pageControl.setTotalRecord(totalRecord);
+        pageControl.setTotalPage(totalPage);
 
         session.setAttribute("listConcession", listConcession);
+        request.setAttribute("pageControl", pageControl);
         request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
     }
 
