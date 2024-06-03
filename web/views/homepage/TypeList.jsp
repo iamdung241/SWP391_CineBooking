@@ -54,9 +54,10 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Filter by Type</h5>
-                    <ul class="list-group">
+                    <ul class="list-group" id="typeList">
                         <c:forEach items="${typeList}" var="t">
-                            <a href="movieController?service=filter_type&type_id=${t.type_id}" class="list-group-item">
+                            <a href="movieController?service=filter_type&type_id=${t.type_id}" 
+                               class="list-group-item type-item" data-type-id="${t.type_id}">
                                 ${t.type_name}
                             </a>
                         </c:forEach>
@@ -64,6 +65,31 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get the type items and current selected type ID from URL
+                const typeItems = document.querySelectorAll('.type-item');
+                const urlParams = new URLSearchParams(window.location.search);
+                const selectedTypeId = urlParams.get('type_id');
+
+                // Function to remove 'active' class from all items and add to the clicked one
+                function setActiveItem() {
+                    typeItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+
+                // Add click event listener to each type item
+                typeItems.forEach(item => {
+                    item.addEventListener('click', setActiveItem);
+                    // Highlight the item if its type_id matches the selectedTypeId from the URL
+                    if (item.getAttribute('data-type-id') === selectedTypeId) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        </script>
 
     </body>
 </html>
