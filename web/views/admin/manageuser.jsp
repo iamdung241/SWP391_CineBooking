@@ -125,7 +125,7 @@
                                                 <%= roleName %>
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-success" href="views/admin/accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
+                                                <a class="btn btn-sm btn-success" href="/CineBooking/views/admin/accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
                                             </td>
                                         </tr>
                                         <%

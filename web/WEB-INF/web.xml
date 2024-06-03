@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>AdminSearch</servlet-name>
+        <servlet-class>controller.AdminSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearch_Filter</servlet-name>
+        <servlet-class>controller.AdminSearch_Filter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MovieControllerForUser</servlet-name>
         <url-pattern>/movieController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearch</servlet-name>
+        <url-pattern>/AdminSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearch_Filter</servlet-name>
+        <url-pattern>/AdminSearchFilter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

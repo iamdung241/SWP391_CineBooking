@@ -46,6 +46,35 @@
         </style>
         </noscript>
 
+        <script>
+            function validateAge() {
+                var age = document.getElementById("age").value;
+                var AgeErr = document.getElementById("AgeErr");
+                var regex = /^([1]?[0-9]|2[0-4])\+$/;
+
+                if (!regex.test(age)) {
+                    AgeErr.textContent = "Please enter a number < 25 example 15+";
+                    return false;
+                }
+                AgeErr.textContent = "";
+                return true;
+
+            }
+
+            function validateduration() {
+                var duration = document.getElementById("duration").value;
+                var durationErr = document.getElementById("durationErr");
+                var regex = /^[0-9]+$/;
+
+                if (!regex.test(duration)) {
+                    durationErr.textContent = "Please enter a number example 100";
+                    return false;
+                } 
+                durationErr.textContent = "";
+                return true;
+            }
+        </script>
+
     </head>
     <body class="">
 
@@ -87,9 +116,9 @@
                                     <h6 class="card-title m-0">Update Movie</h6>
                                     <a class="btn btn-sm btn-primary" href="movie"><i class="align-bottom"></i>Back</a>
                                 </div>                            
-                            <div class="container">
-                                <form action="movie?mode=update" method="post" enctype="multipart/form-data">
-                                    <div class="table-responsive">
+                                <div class="container">
+                                    <form action="movie?mode=update" method="post" enctype="multipart/form-data">
+                                        <div class="table-responsive">
                                         <c:set value="${movieUpdate}" var="m"/>
                                         <table class="table">
                                             <tr>
@@ -112,11 +141,17 @@
                                             </tr>
                                             <tr>
                                                 <td>Age</td>
-                                                <td><input name="age" type="text" class="form-control" required value="${m.age}"/></td>
+                                                <td>
+                                                    <input name="age" id="age" type="text" class="form-control" required value="${m.age}" onblur="validateAge()"/>
+                                                    <span class="text-danger" id="AgeErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Duration</td>
-                                                <td><input name="duration" type="number" class="form-control" required value="${m.duration}"/></td>
+                                                <td>
+                                                    <input name="duration" id="duration" type="number" class="form-control" required value="${m.duration}" onblur="validateduration()"/>
+                                                    <span class="text-danger" id="durationErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Date</td>
@@ -143,7 +178,9 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Update</button>
+                                    <div class="container-fluid d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
