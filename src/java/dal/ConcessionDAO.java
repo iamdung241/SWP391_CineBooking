@@ -29,7 +29,7 @@ public class ConcessionDAO extends DBContext {
     //author: thanh
     public List<Concession> getAllConcessions() {
         List<Concession> listFound = new ArrayList<>();
-        String sql = "  SELECT * FROM Concessions";
+        String sql = "  SELECT * FROM Concessions WHERE status = 1";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
 
