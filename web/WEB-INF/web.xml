@@ -2,15 +2,23 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
-        <servlet-class>controller.SeatServlet</servlet-class>
+        <servlet-class>controller.hompage.SeatServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ShowtimingServlet</servlet-name>
-        <servlet-class>controller.ShowtimingServlet</servlet-class>
+        <servlet-class>controller.hompage.ShowtimingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
         <servlet-class>controller.RoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.hompage.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookTicketServlet</servlet-name>
+        <servlet-class>controller.hompage.BookTicketServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SeatServlet</servlet-name>
@@ -24,22 +32,22 @@
         <servlet-name>RoomServlet</servlet-name>
         <url-pattern>/room</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookTicketServlet</servlet-name>
+        <url-pattern>/bookticket</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>controller.HomeServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>MovieDetailServlet</servlet-name>
-        <servlet-class>controller.MovieDetailServlet</servlet-class>
+        <servlet-class>controller.hompage.MovieDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MovieDetailServlet</servlet-name>
@@ -47,7 +55,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>MovieTrailerServlet</servlet-name>
-        <servlet-class>controller.MovieTrailerServlet</servlet-class>
+        <servlet-class>controller.hompage.MovieTrailerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MovieTrailerServlet</servlet-name>
@@ -55,7 +63,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ConcessionServlet</servlet-name>
-        <servlet-class>controller.ConcessionServlet</servlet-class>
+        <servlet-class>controller.hompage.ConcessionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConcessionServlet</servlet-name>
@@ -111,7 +119,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.LogoutController</servlet-class>
+        <servlet-class>controller.hompage.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
