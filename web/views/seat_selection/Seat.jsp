@@ -50,6 +50,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
+                           
                         </div>
                     </div>
                     <div style="background-color: rgb(240,240,240); margin-left: 50px" class="col-5">

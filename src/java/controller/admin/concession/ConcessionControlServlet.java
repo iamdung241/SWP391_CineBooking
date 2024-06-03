@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Concession;
+import model.PageControl;
 
 @MultipartConfig
 /**
@@ -32,6 +33,8 @@ public class ConcessionControlServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
+               
     }
 
     @Override

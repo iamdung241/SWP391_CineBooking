@@ -65,7 +65,7 @@
                                         <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
                                         <h1 class="font_80 mt-4">Olympus Has<br/> Fallen</h1>
                                         <p class="mt-4">Secret Service agent Mike Banning is trapped inside the White House after a terrorist attack and works with the national security agency to rescue the President from kidnappers.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="movietrailer?ID=2" id="embeddedLink"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a></h5>
+                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=2" id="embeddedLink"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
                                     </div>
                                 </div>
                                 <div class="carousel-item">
@@ -74,7 +74,7 @@
                                         <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
                                         <h1 class="font_80 mt-4">5 Centimeters <br/> per Second</h1>
                                         <p class="mt-4">Takaki tells the story of his life as cruel winters, cold technology, and finally, adult obligations and responsibility converge to test the delicate petals of love.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="movietrailer?ID=8"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a></h5>
+                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=8"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
                                     </div>
                                 </div>
                                 <div class="carousel-item">
@@ -84,7 +84,7 @@
                                         <h1 class="font_80 mt-4">Spaceman</h1>
                                         <h1><br/></h1>
                                         <p class="mt-4">Half a year into his solo mission on the edge of the solar system, an astronaut concerned with the state of his life back on Earth is helped by an ancient creature he discovers in the bowels of his ship.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="movietrailer?ID=17"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a></h5>
+                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=17"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                 <div class="container-xl">
                     <div class="row stream_1 text-center">
                         <div class="col-md-12">
-                            <h1 class="mb-0 text-white font_50">Now Showing</h1>
+                            <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
                         </div>
                     </div>
                     <div class="container mt-5">
@@ -227,10 +227,13 @@
                                         Duration: ${m.getDuration()} minutes
                                     </li>
                                     <li class="col_black">
+                                        Age: ${m.getAge()}
+                                    </li>
+                                    <li class="col_black">
                                         Category: ${m.getType_name()}
                                     </li>
                                     <li>
-                                        <a class="bookTicket" href="/CineBooking/showtiming">Book Tickets</a>
+                                        <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
                                         <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
                                     </li>
                                 </ul>

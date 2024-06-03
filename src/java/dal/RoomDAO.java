@@ -15,15 +15,16 @@ import model.Room;
  *
  * @author thanh
  */
-public class RoomDAO extends DBContext{
-     public List<Room> getRoomsByShowtimeID(int showtimeID) {
+public class RoomDAO extends DBContext {
+
+    public List<Room> getRoomsByShowtimeID(int showtimeID) {
         String sql = "SELECT r.room_id, r.room_name FROM Room r JOIN Showtime s ON r.room_id = s.room_id WHERE s.showtime_id = ?";
         List<Room> listRoom = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, showtimeID);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 int roomid = rs.getInt(1);
                 String roomname = rs.getString(2);
                 listRoom.add(new Room(roomid, roomname));
@@ -33,7 +34,8 @@ public class RoomDAO extends DBContext{
         }
         return listRoom;
     }
-    
+
+   
     public Room getRoomByID(int room_id) {
         String sql = "select * from Room where room_id = ?";
         Room room;
@@ -41,7 +43,7 @@ public class RoomDAO extends DBContext{
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, room_id);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 int roomid = rs.getInt(1);
                 String roomname = rs.getString(2);
                 room = new Room(roomid, roomname);

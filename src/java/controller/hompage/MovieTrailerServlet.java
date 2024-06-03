@@ -2,29 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.hompage;
 
 import dal.MovieDAO;
-import dal.RoomDAO;
-import dal.SeatDAO;
-import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import model.Movie;
-import model.Room;
-import model.Seat;
-import model.Showtiming;
 
 /**
  *
  * @author thanh
  */
-public class SeatServlet extends HttpServlet {
+//url : /movietrailer
+public class MovieTrailerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +37,10 @@ public class SeatServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SeatServlet</title>");            
+            out.println("<title>Servlet MovieTrailerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MovieTrailerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,28 +55,15 @@ public class SeatServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //author: Thanh
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       SeatDAO sdao = new SeatDAO();
-       List<Seat> listS;
-       String roomID = request.getParameter("roomID");
-       MovieDAO moviedao = new MovieDAO();
-      ShowtimingDAO showdao = new ShowtimingDAO();
-       try {
-           int roomid = Integer.parseInt(roomID);
-           RoomDAO rdao = new RoomDAO();
-           Room room = rdao.getRoomByID(roomid);
-           listS = sdao.getSeatsByCharacterName(room.getRoom_name());
-           request.setAttribute("listS", listS);
-           List<Showtiming> listshow = showdao.getShowtimingByRoomID(roomid);
-           
-           Movie movie = moviedao.getMovieWithListShowtiming(listshow );
-           request.setAttribute("movie", movie);
-       } catch(Exception e) {
-           
-       }
-       request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
+        String idMovie = request.getParameter("trailer");
+        request.setAttribute("trailer", idMovie);
+        String id = request.getParameter("ID");
+        request.setAttribute("ID", id);
+        request.getRequestDispatcher("/views/homepage/MovieTrailer.jsp").forward(request, response);
     }
 
     /**
