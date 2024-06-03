@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.hompage;
+package controller;
 
-import dal.MovieDAO;
+import dal.ConcessionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Movie;
+import model.Concession;
 
 /**
  *
  * @author thanh
  */
-//url : moviedetail
-public class MovieDetailServlet extends HttpServlet {
+// url: /concession
+public class ConcessionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,10 @@ public class MovieDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MovieDetailServlet</title>");            
+            out.println("<title>Servlet ConcessionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MovieDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConcessionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,20 +56,15 @@ public class MovieDetailServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     //author: Thanh
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MovieDAO mdao = new MovieDAO();
-        String id = request.getParameter("ID");
-        try {
-            int idMovie = Integer.parseInt(id);
-            Movie m = mdao.getMovieById(idMovie);
-            request.setAttribute("m", m);
-            request.getRequestDispatcher("/views/homepage/MovieDetail.jsp").forward(request, response);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }
+        ConcessionDAO cdao = new ConcessionDAO();
+        List<Concession> listC = cdao.getAllConcessions();
+        request.setAttribute("listC", listC);
+        request.getRequestDispatcher("/views/homepage/Concession.jsp").forward(request, response);
     }
 
     /**
