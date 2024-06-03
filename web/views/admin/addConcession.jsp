@@ -44,7 +44,7 @@
                                 <span class="input-group-text">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image" onchange="displayImage(this)">
+                                <input type="file" class="custom-file-input" id="image" name="file" onchange="displayImage(this)">
                                 <label class="custom-file-label" >Choose file</label>
                             </div>
                         </div>

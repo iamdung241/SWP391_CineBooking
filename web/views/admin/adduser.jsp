@@ -158,7 +158,9 @@
                     </form>
                     <!-- / Register Form -->
 
-                    <a class="text-muted text-decoration-underline" href="manageuser.jsp">Back</a>
+
+                    <a class="text-muted text-decoration-underline" href="/CineBooking/views/admin/manageuser.jsp">Back</a>
+
                 </div>
             </div>
             <!-- / Login Form -->

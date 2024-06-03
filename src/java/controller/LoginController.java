@@ -47,7 +47,6 @@ public class LoginController extends HttpServlet {
             // Admin role
             session.setAttribute("user", user);
             resp.sendRedirect("dashboard");
-
         }
     }
 }
