@@ -45,14 +45,7 @@
             }
         </style>
 
-        <script>
-            function confirmDelete(movieId) {
-                const confirmation = confirm(`Bạn có chắc chắn muốn xóa '${movieId}' không?`);
-                if (confirmation) {
-                    window.location.href = `movie?mode=del&idMovie=${movieId}`;
-                }
-            }
-        </script>
+
 
     </head>
     <body class="">
@@ -93,33 +86,52 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">List Movie</h6>
-                                    <a class="btn btn-sm btn-primary" href="movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th class="text-center">Name</th>                                                   
-                                                    <th class="text-center">Image</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <div class="border-1 d-flex">
+                                        <form class="d-flex" action="AdminSearchFilter">
+                                            <input class="form-control" name ="searchAdmin" 
+                                                   placeholder="Search">
+                                            <button class="btn btn-primary p-0" type="submit">Search</button>
+                                        </form>
+                                        <div class="">
+                                            <select class="form-select mx-2" onchange="location.href='AdminSearchFilter?ACT=filter&typeId='+this.value">
+                                                <option>All</option>
+                                            <c:forEach items="${listType}" var="t">
+                                                <option value="${t.type_id}">${t.type_name}</option>
+                                            </c:forEach>   
+                                            </select>
+                                        </div>
+                                    </div>
+                                <a class="btn btn-sm btn-primary" href="movie?mode=add"><i class="ri-add-circle-line align-bottom"></i> Add Film</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="border-1">
+                                    <table class="table border-1">
+                                        <thead>
+                                            <tr>
+                                                <th class="">ID</th>
+                                                <th class="text-center">Name</th>                                                   
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Age</th>
+                                                <th class="text-center">Type</th>                                                   
+                                                <th class="text-center">Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach items="${listMovie}" var="m">
                                                 <c:if test="${m.status eq 'on'}">
                                                     <tr>
                                                         <td class="">${m.movie_id}</td>
                                                         <td class="text-center">${m.movie_name}</td>
-                                                        <td class="text-center"><img src="${m.post_img}" style="width: 100px;height: 100px"/></td>
+                                                        <td class="text-center">${m.date_published}</td>
+                                                        <td class="text-center">${m.age}</td> 
+                                                        <td class="text-center">${m.type_name}</td> 
                                                         <td class="text-center">${m.status}</td> 
                                                         <td class="text-center">
                                                             <div class="d-flex p-6">
                                                                 <a class="btn btn-sm btn-primary me-1" href="movie?mode=detail&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i>Detail</a>
                                                                 <a class="btn btn-sm btn-success me-1" href="movie?mode=update&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                                <a class="btn btn-sm btn-danger" href="#" onclick="confirmDelete('${m.movie_id}')" style="color: white"><i class="align-bottom"></i> Delete</a>
+                                                                <a class="btn btn-sm btn-danger" href="movie?mode=del&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Delete</a>
                                                             </div> 
                                                         </td>
                                                     </tr>

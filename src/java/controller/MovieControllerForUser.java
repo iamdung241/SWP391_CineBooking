@@ -41,7 +41,6 @@ public class MovieControllerForUser extends HttpServlet {
                 List<Movie> listM = (new MovieDAO()).getAllMovies();
                 req.setAttribute("listM", listM);
                 req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-
             }
         } else if (service != null && service.equals("filter")) {
             if (dateFilter != null) {
