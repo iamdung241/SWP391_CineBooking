@@ -47,7 +47,7 @@
     </session-config>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>controller.hompage.HomeServlet</servlet-class>
+        <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -135,7 +135,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>BookTicketServlet</servlet-name>
-        <servlet-class>controller.homepage.BookTicketServlet</servlet-class>
+        <servlet-class>controller.BookTicketServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BookTicketServlet</servlet-name>
