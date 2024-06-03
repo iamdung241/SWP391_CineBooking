@@ -70,10 +70,12 @@
                             
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
+
                                     <a class="nav-link" href="login.jsp"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Login </a>
                                 </c:if>
                                 <c:if test="${sessionScope.user != null}">
                                     <a class="nav-link" href="logout"><i class="fa fa-user fs-4 align-middle me-1 lh-1 col_red"></i> Logout </a>
+
                                 </c:if>  
                             </li>
                         </ul>

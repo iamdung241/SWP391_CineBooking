@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.hompage;
 
 import dal.MovieDAO;
 import dal.RoomDAO;
@@ -77,7 +77,7 @@ public class SeatServlet extends HttpServlet {
            request.setAttribute("listS", listS);
            List<Showtiming> listshow = showdao.getShowtimingByRoomID(roomid);
            
-           Movie movie = moviedao.getMovieWithListShowtiming(listshow );
+           Movie movie = moviedao.getMovieWithListShowtiming(listshow);
            request.setAttribute("movie", movie);
        } catch(Exception e) {
            

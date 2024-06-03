@@ -58,7 +58,7 @@
     <body>
         <div class="main clearfix position-relative">
             <div class="main_1 clearfix position-absolute top-0 w-100 navbarDetail">
-                <jsp:include page="/views/common/home/Header.jsp"></jsp:include>
+                <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
                 <section id="exep" class="p_3 bg-light">
                     <div class="container-xl detail">
@@ -120,7 +120,7 @@
                 </div>
             </section>
         </div>
-        <jsp:include page="/views/common/home/Footer.jsp"></jsp:include>
+        <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
             <script>
                 // Function to show rooms for a specific showtime
                 function showRooms(showtimeId) {
