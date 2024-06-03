@@ -103,6 +103,38 @@ public class MovieDAO extends DBContext {
 
         return movies;
     }
+    public List<Movie> getMoviesByType(int type) {
+        String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm WHERE m.type_id = tm.type_id AND m.type_id=?";
+        List<Movie> movies = new ArrayList<>();
+        
+
+        // Use try-with-resources to ensure resources are closed properly
+        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
+            stm.setInt(1, type);
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    // Retrieve movie details from the result set
+                    int movie_id = rs.getInt("movie_id");
+                    String movie_name = rs.getString("movie_name");
+                    int type_id = rs.getInt("type_id");
+                    int duration = rs.getInt("duration");
+                    String date_published = rs.getString("date_published");
+                    String post_img = rs.getString("post_img");
+                    String trailer = rs.getString("trailer");
+                    String decription = rs.getString("decription");
+                    String type_name = rs.getString("type_name");
+                    TypeMovie type_movie = new TypeMovie(type_id, type_name);
+
+                    // Add movie to the list
+                    movies.add(new Movie(movie_id, movie_name, type_id, duration, date_published, post_img, trailer, decription, type_movie));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, "Error fetching movies by keywords", ex);
+        }
+
+        return movies;
+    }
 
     public List<Movie> getAllMovies() {
         List<Movie> listMovie = new ArrayList<>();

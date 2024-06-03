@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import model.Movie;
+import model.TypeMovie;
+import dal.TypeMovieDAO;
 
 /**
  *
@@ -60,6 +62,13 @@ public class MovieControllerForUser extends HttpServlet {
                     req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
                 }
             }
+        } else if (service!=null && service.equals("filter_type")){
+            int typeId = Integer.parseInt(req.getParameter("type_id"));
+            List<Movie> listM = (new MovieDAO()).getMoviesByType(typeId);
+            List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType(); 
+            req.setAttribute("typeList", typeList);
+            req.setAttribute("listM", listM);
+            req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
         }
     }
 

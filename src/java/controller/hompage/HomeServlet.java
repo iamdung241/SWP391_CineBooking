@@ -5,6 +5,7 @@ package controller.hompage;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import dal.MovieDAO;
+import dal.TypeMovieDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import model.Movie;
+import model.TypeMovie;
 
 /**
  *
@@ -63,6 +65,8 @@ public class HomeServlet extends HttpServlet {
         MovieDAO mdao = new MovieDAO();
         List<Movie> listM = mdao.getAllMovies();
         request.setAttribute("listM", listM);
+        List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType(); 
+            request.setAttribute("typeList", typeList);
         request.getRequestDispatcher("/views/homepage/Home.jsp").forward(request, response);
     }
 
