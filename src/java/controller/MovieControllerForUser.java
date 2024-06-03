@@ -13,6 +13,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import model.Movie;
+import model.TypeMovie;
+import dal.TypeMovieDAO;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -25,41 +29,63 @@ public class MovieControllerForUser extends HttpServlet {
         String service = req.getParameter("service");
         String keyword = req.getParameter("keyword");
         String dateFilter = req.getParameter("dateFilter");
+        List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType();
+        List<Movie> listM = new ArrayList<>();
 
-        if (service != null && service.equals("search")) {
-            if (keyword != null && !keyword.isEmpty()) {
-                // Handle search by keyword
-                List<Movie> listM = (new MovieDAO()).getMoviesByKeywords(keyword);
-                if (listM.isEmpty()) {
-                    req.setAttribute("resultNull", "No films found matching your search criteria.");
-                    req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-                } else {
-                    req.setAttribute("listM", listM);
-                    req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-                }
-            } else {
-                List<Movie> listM = (new MovieDAO()).getAllMovies();
-                req.setAttribute("listM", listM);
-                req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-            }
-        } else if (service != null && service.equals("filter")) {
-            if (dateFilter != null) {
-                // Handle date filtering
-                if (dateFilter.equals("upcoming")) {
-                    List<Movie> listM = (new MovieDAO()).getMoviesPublishedAfterToday();
-                    req.setAttribute("listM", listM);
-                    req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-                } else if (dateFilter.equals("nowshowing")) {
-                    List<Movie> listM = (new MovieDAO()).getMoviesPublishedBeforeToday();
-                    req.setAttribute("listM", listM);
-                    req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-                } else if (dateFilter.equals("all")) {
-                    List<Movie> listM = (new MovieDAO()).getAllMovies();
-                    req.setAttribute("listM", listM);
-                    req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
-                }
+
+        if (service != null) {
+            switch (service) {
+                case "search":
+                    // Handle search by keyword
+                    if (keyword != null && !keyword.isEmpty()) {
+                        if (dateFilter != null && dateFilter.equals("nowshowing")) {
+                            listM = (new MovieDAO()).getMoviesPublishedBeforeToday();
+                            listM = searchMoviesByKeyword(listM, keyword);
+                        } else {
+                            listM = (new MovieDAO()).getMoviesByKeywords(keyword);
+                        }
+                        // Set resultNull attribute if no movies found
+                        if (listM.isEmpty()) {
+                            req.setAttribute("resultNull", "No films found matching your search criteria.");
+                        }
+                    } else {
+                        listM = (new MovieDAO()).getAllMovies();
+                    }
+                    break;
+                case "filter":
+                    if (dateFilter != null) {
+                        switch (dateFilter) {
+                            case "upcoming":
+                                listM = (new MovieDAO()).getMoviesPublishedAfterToday();
+                                break;
+                            case "nowshowing":
+                                listM = (new MovieDAO()).getMoviesPublishedBeforeToday();
+                                break;
+                            case "all":
+                                listM = (new MovieDAO()).getAllMovies();
+                                break;
+                        }
+                    }
+                    break;
+                case "filter_type":
+                    int typeId = Integer.parseInt(req.getParameter("type_id"));
+                    listM = (new MovieDAO()).getMoviesByType(typeId);
+                    break;
             }
         }
+
+        // Set the attributes
+        req.setAttribute("keyword", keyword);
+        req.setAttribute("typeList", typeList);
+        req.setAttribute("listM", listM.isEmpty() ? null : listM);
+
+        req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
     }
 
+    // Helper method to search movies by keyword within a given list
+    private List<Movie> searchMoviesByKeyword(List<Movie> movies, String keyword) {
+        return movies.stream()
+                .filter(movie -> movie.getMovie_name().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 }

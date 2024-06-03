@@ -1,6 +1,6 @@
 <%-- 
     Document   : addconcession
-    Created on : 18 May 2024, 10:18:31
+    Created on : 21 May 2024, 12:54:31
     Author     : Son
 --%>
 
@@ -52,13 +52,13 @@
                              style="display: none; max-width: 300px; max-height: 300px;">
                     </div>
                     <!--Description-->
-<!--                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea class="form-control" name="description"></textarea>
-                    </div>-->
+                    <!--                    <div class="form-group">
+                                            <label for="description">Description:</label>
+                                            <textarea class="form-control" name="description"></textarea>
+                                        </div>-->
                 </form>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary" form="addConcessionForm" onclick="validateForm()">Add</button>
@@ -69,23 +69,30 @@
 
 <script>
     function validateForm() {
-        let name = $('#nameInput').val();
+        let name = $('#nameInput').val().trim();
         let price = $('#priceInput').val();
         let quantity = $('#quantityInput').val();
+        let regex = /^(?!.* {3})[a-zA-Z0-9 ]+$/;
         //xoá thông báo lỗi hiện tại
         $('.error').html('');
         if (name === '') {
-            $('#nameError').html('The concession name cannot be empty');
+            $('#nameError').html('The concession name cannot be empty').css('color', 'red');
+        } else if (!regex.test(name)) {
+            $('#nameError').html('The concession name cannot contain special characters or more than two consecutive spaces').css('color', 'red');
+        } else if (name.trim() === '') {
+            $('#nameError').html('The concession name cannot contain only spaces').css('color', 'red');
         }
+        
         if (price === '') {
-            $('#priceError').html('Concession price cannot be blank');
+            $('#priceError').html('Concession price cannot be blank').css('color', 'red');
         } else if (!$.isNumeric(price) || parseFloat(price) < 0) {
-            $('#priceError').html('The price of the concession must be a number and cannot be less than 0');
+            $('#priceError').html('The price of the concession must be a number and cannot be less than 0').css('color', 'red');
         }
+        
         if (quantity === '') {
-            $('#quantityError').html('The quantity of concessions cannot be left blank');
-        } else if (!$.isNumeric(quantity) || parseInt(price) < 0) {
-            $('#quantityError').html('The amount of the concession must be numeric and cannot be less than 0');
+            $('#quantityError').html('The quantity of concessions cannot be left blank').css('color', 'red');
+        } else if (!$.isNumeric(quantity) || parseInt(quantity) < 0) {
+            $('#quantityError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
         }
         // Kiểm tra nếu không có lỗi thì submit form
         let error = '';

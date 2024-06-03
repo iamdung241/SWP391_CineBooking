@@ -73,9 +73,6 @@ border:1px solid #e90101;
 
 .grid figure {
 position: relative;
-float: left;
-overflow: hidden;
-width: 100%;
 text-align: center;
 cursor: pointer;
 }
