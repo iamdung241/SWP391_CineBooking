@@ -92,8 +92,8 @@
                                     <c:forEach items="${listRoom}" var="room">                    
                                         <c:forEach var="showtime" items="${listShowtime}">
                                             <c:if test="${room.getRoom_id() == showtime.getRoom_id()}">
-                                                <div id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
-                                                    <a class="showRoom" href="seat?roomID=${room.getRoom_id()}">${room.getRoom_name()}</a>
+                                                <div style="margin-top: 30px" id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
+                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}">${room.getRoom_name()}</a>
                                                 </div>
                                             </c:if>
                                         </c:forEach>
@@ -105,7 +105,7 @@
                                 <c:forEach items="${listRoom}" var="room">                    
                                     <c:forEach var="showtime" items="${listShowtime}">
                                         <c:if test="${room.getRoom_id() == showtime.getRoom_id()}">
-                                            <div id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
+                                            <div style="margin-top: 30px" id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
                                                 <a class="showRoom" href="login.jsp">${room.getRoom_name()}</a>
                                             </div>
                                         </c:if>

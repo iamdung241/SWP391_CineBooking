@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Seat</title>
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
@@ -40,7 +41,10 @@
                 <div style="padding-top: 20px" class="row">
                     <div class="col-6">
                         <div class="mx-2">
-                            <p style="background: red" class="text-center text-white">Screen</p>   
+                            <p style="background: red; border-radius: 7px" class="text-center text-white">Screen</p>   
+                        </div> 
+                        <div style="text-align: center">
+                            <div ><span style=" padding-right: 20px"><i style="color: red" class='bx bxs-square-rounded'></i> Booked</span><i style="color: black" class='bx bxs-square-rounded'></i> UnBooked</div>
                         </div>
                         <div class="row cinema-seats">
                             <c:forEach items="${listS}" var="s">
