@@ -9,10 +9,6 @@
         <servlet-class>controller.ShowtimingServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RoomServlet</servlet-name>
-        <servlet-class>controller.RoomServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>FilterServlet</servlet-name>
         <servlet-class>controller.admin.concession.FilterServlet</servlet-class>
     </servlet>
@@ -27,10 +23,6 @@
     <servlet-mapping>
         <servlet-name>ShowtimingServlet</servlet-name>
         <url-pattern>/showtiming</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RoomServlet</servlet-name>
-        <url-pattern>/room</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
