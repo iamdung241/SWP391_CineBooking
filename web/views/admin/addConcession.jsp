@@ -69,23 +69,30 @@
 
 <script>
     function validateForm() {
-        let name = $('#nameInput').val();
+        let name = $('#nameInput').val().trim();
         let price = $('#priceInput').val();
         let quantity = $('#quantityInput').val();
+        let regex = /^(?!.* {3})[a-zA-Z0-9 ]+$/;
         //xoá thông báo lỗi hiện tại
         $('.error').html('');
         if (name === '') {
-            $('#nameEditError').html('The concession name cannot be empty').css('color', 'red');
+            $('#nameError').html('The concession name cannot be empty').css('color', 'red');
+        } else if (!regex.test(name)) {
+            $('#nameError').html('The concession name cannot contain special characters or more than two consecutive spaces').css('color', 'red');
+        } else if (name.trim() === '') {
+            $('#nameError').html('The concession name cannot contain only spaces').css('color', 'red');
         }
+        
         if (price === '') {
-            $('#priceEditError').html('Concession price cannot be blank').css('color', 'red');
+            $('#priceError').html('Concession price cannot be blank').css('color', 'red');
         } else if (!$.isNumeric(price) || parseFloat(price) < 0) {
-            $('#priceEditError').html('The price of the concession must be a number and cannot be less than 0').css('color', 'red');
+            $('#priceError').html('The price of the concession must be a number and cannot be less than 0').css('color', 'red');
         }
+        
         if (quantity === '') {
-            $('#quantityEditError').html('The quantity of concessions cannot be left blank').css('color', 'red');
+            $('#quantityError').html('The quantity of concessions cannot be left blank').css('color', 'red');
         } else if (!$.isNumeric(quantity) || parseInt(quantity) < 0) {
-            $('#quantityEditError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
+            $('#quantityError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
         }
         // Kiểm tra nếu không có lỗi thì submit form
         let error = '';
