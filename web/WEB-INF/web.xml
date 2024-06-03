@@ -9,8 +9,16 @@
         <servlet-class>controller.ShowtimingServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RoomServlet</servlet-name>
+        <servlet-class>controller.RoomServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>FilterServlet</servlet-name>
         <servlet-class>controller.admin.concession.FilterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieControllerForUser</servlet-name>
+        <servlet-class>controller.MovieControllerForUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SeatServlet</servlet-name>
@@ -21,8 +29,16 @@
         <url-pattern>/showtiming</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>RoomServlet</servlet-name>
+        <url-pattern>/room</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
         <url-pattern>/admin/filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MovieControllerForUser</servlet-name>
+        <url-pattern>/movieController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -31,7 +47,7 @@
     </session-config>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>controller.HomeServlet</servlet-class>
+        <servlet-class>controller.hompage.HomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -109,7 +125,7 @@
         <servlet-name>movieController</servlet-name>
         <url-pattern>/movie</url-pattern>
     </servlet-mapping>
-        <servlet>
+    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
@@ -117,9 +133,9 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-   <servlet>
+    <servlet>
         <servlet-name>BookTicketServlet</servlet-name>
-        <servlet-class>controller.BookTicketServlet</servlet-class>
+        <servlet-class>controller.homepage.BookTicketServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BookTicketServlet</servlet-name>
