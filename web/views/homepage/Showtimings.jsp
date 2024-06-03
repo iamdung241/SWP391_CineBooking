@@ -75,8 +75,8 @@
                     <c:forEach items="${listM}" var="m">
                         <div class="col-4">
                             <div class="exep1l">
-                                <div class="grid clearfix">                                
-                                    <img style="margin-bottom: 20px; border: 5px solid #000; border-radius: 15px;" height="350px" src="${m.getPost_img()}" class="w-100" alt="abc">
+                                <div class="grid clearfix ">                                
+                                    <img style="margin-bottom: 20px; border: 5px solid #000; border-radius: 15px;" height="350px" src="${m.getPost_img()}" class="w-100 film" alt="abc">
                                 </div>
                             </div>
                         </div>

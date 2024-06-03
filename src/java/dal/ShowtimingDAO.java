@@ -72,7 +72,7 @@ public class ShowtimingDAO extends DBContext {
                 String movie_name = rs.getString(2);
                 int duration = rs.getInt(4);
                 String post_img = rs.getString(6);
-                String type_name = rs.getString(11);
+                String type_name = rs.getString(12);
                 List<Showtiming> listShow = sdao.getShowtimeByMovieID(movie_id);
                 listMovie.add(new Movie(movie_id, movie_name, type_name, duration, post_img, listShow));
             }
@@ -81,7 +81,7 @@ public class ShowtimingDAO extends DBContext {
         }
         return listMovie;
     }
-    
+
     public Showtiming getShowtimingByShowtimeID(int showtimeid) {
         String sql = "select * from Showtime s, Room r where showtime_id = ?";
         try {
@@ -97,12 +97,12 @@ public class ShowtimingDAO extends DBContext {
                 Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
                 return showtime;
             }
-        } catch(SQLException e) {
-            
+        } catch (SQLException e) {
+
         }
         return null;
     }
-    
+
     public List<Showtiming> getShowtimingByRoomID(int roomid) {
         String sql = "select * from Showtime s, Room r where room_id = ?";
         List<Showtiming> listShow = new ArrayList();
@@ -119,14 +119,15 @@ public class ShowtimingDAO extends DBContext {
                 Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
                 listShow.add(showtime);
             }
-        } catch(SQLException e) {
-            
+        } catch (SQLException e) {
+
         }
         return listShow;
     }
-    
+
     public static void main(String[] args) {
         Showtiming s = new ShowtimingDAO().getShowtimingByShowtimeID(1);
         System.out.println(s.getRoom_name());
     }
+
 }
