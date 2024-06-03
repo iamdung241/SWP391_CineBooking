@@ -87,15 +87,15 @@
                                 <h6 class="card-title m-0">User List</h6>
                                 <!-- Search by Username -->
                                 <form class="d-flex" action="${pageContext.request.contextPath}/searchAccount" method="get">
-                                    <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
-                                    <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
-                                </form>
-                                <!-- Add User -->
-                                <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
+                                <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
+                            </form>
+                            <!-- Add User -->
+                            <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table m-0 table-striped">
+                                <table class="table m-0 table-striped" border ="1">
                                     <thead>
                                         <tr>
                                             <th>Account ID</th>
@@ -132,7 +132,7 @@
                                                 <%= roleName %>
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-success" href="/CineBooking/views/admin/accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
+                                                <a class="btn btn-sm btn-success" href="accountDetail.jsp?id=<%= a.getAccount_id() %>" style="color: white"><i class="align-bottom"></i>Detail</a>
                                             </td>
                                         </tr>
                                         <%
@@ -141,7 +141,16 @@
                                         %>
                                     </tbody>
                                 </table>
-                            </div>                        
+                            </div>
+                            <nav>
+                                <ul class="pagination justify-content-end mt-3 mb-0">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>  
                 </div>

@@ -238,4 +238,66 @@ public class AccountDAO extends DBContext {
         }
         return accounts;
     }
+
+    public boolean phoneExists(String phone) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE phone = ?";
+        try {
+            // Prepare the SQL statement and set the phone parameter
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, phone);
+            rs = stm.executeQuery();
+            // Return true if the phone exists in the database
+            return rs.next();
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the result set and statement
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // Return false if the phone does not exist
+        return false;
+    }
+
+    public boolean emailExists(String email) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE email = ?";
+        try {
+            // Prepare the SQL statement and set the email parameter
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            rs = stm.executeQuery();
+            // Return true if the email exists in the database
+            return rs.next();
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the result set and statement
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // Return false if the email does not exist
+        return false;
+    }
 }
