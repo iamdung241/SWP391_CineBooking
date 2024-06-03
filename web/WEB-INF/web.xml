@@ -16,6 +16,10 @@
         <servlet-name>FilterServlet</servlet-name>
         <servlet-class>controller.admin.concession.FilterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MovieControllerForUser</servlet-name>
+        <servlet-class>controller.MovieControllerForUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/seat</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
         <url-pattern>/admin/filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MovieControllerForUser</servlet-name>
+        <url-pattern>/movieController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

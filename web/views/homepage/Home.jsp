@@ -203,9 +203,9 @@
                             </div>
                         </div>
                     </div>
-                    <!--<p class="error-message">${requestScope.resultNull}</p>-->
-
-                <div class="row spec_1 mt-4">
+                    <p class="error-message">${requestScope.resultNull}</p>
+                <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
+                    <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
                         <div class="pe-0 col-3">
                             <div class="spec_1im clearfix position-relative">
