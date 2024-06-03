@@ -1,24 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
+\<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
-        <servlet-class>controller.hompage.SeatServlet</servlet-class>
+        <servlet-class>controller.SeatServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ShowtimingServlet</servlet-name>
-        <servlet-class>controller.hompage.ShowtimingServlet</servlet-class>
+        <servlet-class>controller.ShowtimingServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RoomServlet</servlet-name>
         <servlet-class>controller.RoomServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>controller.hompage.HomeServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>BookTicketServlet</servlet-name>
-        <servlet-class>controller.hompage.BookTicketServlet</servlet-class>
+        <servlet-name>FilterServlet</servlet-name>
+        <servlet-class>controller.admin.concession.FilterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SeatServlet</servlet-name>
@@ -33,12 +29,8 @@
         <url-pattern>/room</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BookTicketServlet</servlet-name>
-        <url-pattern>/bookticket</url-pattern>
+        <servlet-name>FilterServlet</servlet-name>
+        <url-pattern>/admin/filter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -46,8 +38,16 @@
         </session-timeout>
     </session-config>
     <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>MovieDetailServlet</servlet-name>
-        <servlet-class>controller.hompage.MovieDetailServlet</servlet-class>
+        <servlet-class>controller.MovieDetailServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MovieDetailServlet</servlet-name>
@@ -55,7 +55,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>MovieTrailerServlet</servlet-name>
-        <servlet-class>controller.hompage.MovieTrailerServlet</servlet-class>
+        <servlet-class>controller.MovieTrailerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MovieTrailerServlet</servlet-name>
@@ -63,7 +63,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ConcessionServlet</servlet-name>
-        <servlet-class>controller.hompage.ConcessionServlet</servlet-class>
+        <servlet-class>controller.ConcessionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConcessionServlet</servlet-name>
@@ -117,13 +117,21 @@
         <servlet-name>movieController</servlet-name>
         <url-pattern>/movie</url-pattern>
     </servlet-mapping>
-    <servlet>
+        <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.hompage.LogoutController</servlet-class>
+        <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+        <servlet>
+        <servlet-name>BookTicketServlet</servlet-name>
+        <servlet-class>controller.homepage.BookTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookTicketServlet</servlet-name>
+        <url-pattern>/bookticket</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
