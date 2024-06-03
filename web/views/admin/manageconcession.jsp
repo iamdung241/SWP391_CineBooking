@@ -1,6 +1,6 @@
 <%-- 
     Document   : manageconcession
-    Created on : 18 May 2024, 10:18:31
+    Created on : 20 May 2024, 09:25:31
     Author     : Son
 --%>
 
@@ -44,10 +44,6 @@
             .simplebar-content-wrapper {
                 overflow: auto;
             }
-
-            .error{
-                color:red;
-            }
         </style>
         </noscript>
 
@@ -69,7 +65,7 @@
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="../admin/dashboard">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Manage Concession</li>
                             </ol>
                         </nav>
@@ -98,32 +94,46 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">Concession Listing</h6>
+                                    
+                                <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" onchange="this.form.submit()">
+                                    <input type="hidden" name="keyword" value="${keyword}">
+                                    <input type="hidden" name="page" value="${pageControl.page}">
+                                    <select class="form-control filter-select" name="filter" aria-label="Filter">
+                                        <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
+                                        <option value="priceAsc" ${selectedFilter != null && selectedFilter.equals("priceAsc") ? 'selected' : ''}>Price Increase</option>
+                                        <option value="priceDesc" ${selectedFilter != null && selectedFilter.equals("priceDesc") ? 'selected' : ''}>Price Decrease</option>
+                                        <option value="quantityAsc" ${selectedFilter != null && selectedFilter.equals("quantityAsc") ? 'selected' : ''}>Quantity Increase</option>
+                                        <option value="quantityDesc" ${selectedFilter != null && selectedFilter.equals("quantityDesc") ? 'selected' : ''}>Quantity Decrease</option>
+                                    </select>
+                                </form>
 
-                                    <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="search">
-                                        <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
-                                               placeholder="Search" name="keyword" aria-label="Search">
-                                        <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
-                                    </form>
+                                <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="filter">
+                                    <input type="hidden" name="filter" value="${selectedFilter}">
+                                    <input type="hidden" name="page" value="${pageControl.page}">
+                                    <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
+                                           placeholder="Search" name="keyword" aria-label="Search ..." value="${param.keyword}">
+                                    <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
+                                </form>
 
-                                    <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal" style="color: white">
-                                        <i class="ri-add-circle-line align-bottom" style="color: white"></i>
-                                        Add Concession
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table m-0 table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Image</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal" style="color: white">
+                                    <i class="ri-add-circle-line align-bottom" style="color: white"></i>
+                                    Add Concession
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table m-0 table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach var="c" items="${listConcession}">
                                                 <tr>
                                                     <td name="id">
@@ -149,26 +159,37 @@
                                                                 onclick="deleteConcession(${c.concessions_id})">
                                                             Delete
                                                         </button>
-<!--                                                        <button type="button" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#restockModal"
-                                                                onclick="restockProduct">
-                                                            Restock
-                                                        </button>-->
+                                                        <!--                                                        <button type="button" class="btn btn-success"
+                                                                                                                        data-toggle="modal" data-target="#restockModal"
+                                                                                                                        onclick="restockProduct">
+                                                                                                                    Restock
+                                                                                                                </button>-->
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>    
+
+                                <!--Pagination for filter and search results-->
                                 <nav>
                                     <ul class="pagination justify-content-end mt-3 mb-0">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        <li class="page-item ${pageControl.page == 1 ? 'disabled' : ''}">
+                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page - 1}">Previous</a>
+                                        </li>
+                                        <c:forEach begin="1" end="${pageControl.totalPage}" var="pageNumber">
+                                            <li class="page-item ${pageControl.page == pageNumber ? 'active' : ''}">
+                                                <a class="page-link" href="${pageControl.ulrPattern}page=${pageNumber}">${pageNumber}</a>
+                                            </li>
+                                        </c:forEach>
+                                        <li class="page-item ${pageControl.page == pageControl.totalPage ? 'disabled' : ''}">
+                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page + 1}">Next</a>
+                                        </li>
                                     </ul>
                                 </nav>
+                                        
+                                        
+                                        
                             </div>
                         </div>
                     </div>
@@ -185,6 +206,11 @@
             </main>
             <!-- /Page Content -->
 
+            <script>
+                document.querySelector('.filter-select').addEventListener('change', function () {
+                    this.form.submit();
+                });
+            </script>
             <!-- Page Aside-->
         <jsp:include page="../common/admin/aside.jsp"></jsp:include>
             <!-- Theme JS -->

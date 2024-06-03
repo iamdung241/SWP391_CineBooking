@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+import java.util.List;
 
 /**
  *
@@ -17,11 +18,47 @@ public class Movie {
     private int duration;
     private String date_published,age;
     private String post_img, trailer, decription,status;
+    private List<Showtiming> listShowtime;
     private TypeMovie type_movie;
-
     public Movie() {
     }
+
+    public Movie(int movie_id, String movie_name, String type_name, int duration,String date_published,  String post_img, String trailer, String decription, String age) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.age = age;
+    }
+
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String post_img, String trailer, String decription) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+    }
     
+    
+    public Movie(int movie_id, String movie_name, int type_id, int duration, String date_published, String post_img, String trailer, String decription, TypeMovie type_movie) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.type_movie = type_movie;
+    }
     
     public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published,String age, String post_img, String trailer, String decription) {
         this.movie_id = movie_id;
@@ -60,20 +97,37 @@ public class Movie {
         this.trailer = trailer;
         this.decription = decription;
     }
-
-    public Movie(int movie_id, String movie_name, int type_id, int duration, String date_published, String post_img, String trailer, String decription, TypeMovie type_movie) {
-        this.movie_id = movie_id;
-        this.movie_name = movie_name;
-        this.type_id = type_id;
-        this.duration = duration;
-        this.date_published = date_published;
-        this.post_img = post_img;
-        this.trailer = trailer;
-        this.decription = decription;
-        this.type_movie = type_movie;
-    }
     
 
+    public Movie(int movie_id, String movie_name) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+    }
+
+    public Movie(int movie_id, String movie_name, String type_name, int duration, String post_img, List<Showtiming> listShowtime) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.post_img = post_img;
+        this.listShowtime = listShowtime;
+    }
+
+    public Movie(int movie_id, String movie_name, int duration, String post_img, List<Showtiming> listShowtime) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.duration = duration;
+        this.post_img = post_img;
+        this.listShowtime = listShowtime;
+    }
+
+
+   
+
+    public Movie(int movie_id) {
+        this.movie_id = movie_id;
+    }
+    
     public int getMovie_id() {
         return movie_id;
     }
@@ -162,18 +216,13 @@ public class Movie {
         this.decription = decription;
     }
 
-    public TypeMovie getType_movie() {
-        return type_movie;
+    public List<Showtiming> getListShowtime() {
+        return listShowtime;
     }
 
-    public void setType_movie(TypeMovie type_movie) {
-        this.type_movie = type_movie;
+    public void setListShowtime(List<Showtiming> listShowtime) {
+        this.listShowtime = listShowtime;
     }
-
-    @Override
-    public String toString() {
-        return "Movie{" + "movie_id=" + movie_id + ", movie_name=" + movie_name + ", type_id=" + type_id + ", type_name=" + type_name + ", duration=" + duration + ", date_published=" + date_published + ", post_img=" + post_img + ", trailer=" + trailer + ", decription=" + decription + ", status=" + status + ", type_movie=" + type_movie + '}';
-    }
-    
     
 }
+

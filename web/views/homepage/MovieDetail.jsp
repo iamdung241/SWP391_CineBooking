@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
             .detail{
                 margin-top: 100px;
@@ -50,9 +51,8 @@
                             <div class="col-5">
                                 <div class="exep1l">
                                     <div class="grid clearfix">
-                                        <figure class="effect-jazz mb-0">
-                                            <img height="450px" src="${m.getPost_img()}" class="w-100" alt="abc">
-                                        </figure>
+                                        <img style="border-style: solid; border-width: 10px"  height="450px" src="${m.getPost_img()}" class="w-100" alt="abc">
+                                        <span style="border-style: solid; background-color: black; color: #fff; padding: 11px"><i style="color:green; font-size: 28px" class='bx bx-error'></i>&nbsp${m.getAge()}</span>
                                     </div>
                                 </div>
                             </div>
@@ -64,21 +64,24 @@
                                 <div>
                                     <ul>
                                         <li>
+                                            <span>Age:</span>&nbsp&nbsp ${m.getAge()}
+                                        </li>
+                                        <li>
                                             <span>Duration:</span>&nbsp&nbsp ${m.getDuration()} minutes
                                         </li>
                                         <li>
                                             <span>Date published:</span>&nbsp&nbsp ${m.getDate_published()}
                                         </li>
                                         <li>
-                                            <span>Category:</span>&nbsp&nbsp ${m.getType_movie().getType_name()}
+                                            <span>Category:</span>&nbsp&nbsp ${m.getType_name()}
                                         </li>
                                         <li>
                                             <span>Description:</span>&nbsp&nbsp ${m.getDecription()}
                                         </li>
                                         <hr/>
                                         <li>
-                                            <a class="bookTicket" href="movietrailer?ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i>Watch Trailer</a>
-                                            <a class="bookTicket" href="#">Book Tickets</a>
+                                            <a class="bookTicket" href="movietrailer?trailer=${m.trailer}&ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i>Watch Trailer</a>
+                                            <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -88,6 +91,7 @@
                     </div>
             </section>
         </div>
+        
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
     </body>
 </html>
