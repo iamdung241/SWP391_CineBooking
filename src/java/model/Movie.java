@@ -23,16 +23,16 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(int movie_id, String movie_name, String type_name, int duration,String date_published,  String post_img, String trailer, String decription) {
+    public Movie(int movie_id, String movie_name, String type_name, int duration,String date_published,  String post_img, String trailer, String decription, String age) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_name = type_name;
-        
         this.duration = duration;
         this.date_published = date_published;
         this.post_img = post_img;
         this.trailer = trailer;
         this.decription = decription;
+        this.age = age;
     }
 
     public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String post_img, String trailer, String decription) {
@@ -120,9 +120,9 @@ public class Movie {
         this.post_img = post_img;
         this.listShowtime = listShowtime;
     }
-    
 
-    
+
+   
 
     public Movie(int movie_id) {
         this.movie_id = movie_id;

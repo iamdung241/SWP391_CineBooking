@@ -1,24 +1,27 @@
+package controller.hompage;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
-
 import dal.MovieDAO;
-import java.io.IOException;
-import java.io.PrintWriter;
+import dal.TypeMovieDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import model.Movie;
+import model.TypeMovie;
 
 /**
  *
  * @author thanh
  */
-//url : /movietrailer
-public class MovieTrailerServlet extends HttpServlet {
+//url : /home
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class MovieTrailerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MovieTrailerServlet</title>");            
+            out.println("<title>Servlet HomeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MovieTrailerServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,15 +58,16 @@ public class MovieTrailerServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //author: Thanh
+    //author: Thanh 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idMovie = request.getParameter("trailer");
-        request.setAttribute("trailer", idMovie);
-        String id = request.getParameter("ID");
-        request.setAttribute("ID", id);
-        request.getRequestDispatcher("/views/homepage/MovieTrailer.jsp").forward(request, response);
+        MovieDAO mdao = new MovieDAO();
+        List<Movie> listM = mdao.getAllMovies();
+        request.setAttribute("listM", listM);
+        List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType(); 
+            request.setAttribute("typeList", typeList);
+        request.getRequestDispatcher("/views/homepage/Home.jsp").forward(request, response);
     }
 
     /**
