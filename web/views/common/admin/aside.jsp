@@ -28,7 +28,7 @@
 
                         <!-- Dashboard Menu Section-->
                         <li class="menu-section mt-2">Menu</li>
-                        <li class="menu-item"><a class="d-flex align-items-center" href="../admin/dashboard.jsp">
+                        <li class="menu-item"><a class="d-flex align-items-center" href="/CineBooking/dashboard">
                                 <span class="menu-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-100">
                                         <rect fill-opacity=".5" fill="currentColor" x="3" y="3" width="7" height="7"></rect>
@@ -149,7 +149,7 @@
                                     class="menu-link">Users</span></a>
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
-                                    <li><a href="manageuser.jsp">User Listing</a></li>
+                                    <li><a href="views/admin/manageuser.jsp">User Listing</a></li>
                                 </ul>
                             </div>
                         </li>
