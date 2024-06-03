@@ -190,20 +190,20 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <form action="movieController" method="GET" class="input-group" id="searchForm">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;">
-                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                    <input type="hidden" name="service" value="search" id="serviceInput">
-                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
-                                        <option value="all">All</option>
-                                        <option value="upcoming">Upcoming Film</option>
-                                        <option value="nowshowing">Nowshowing Film</option>
-                                    </select>
-                                </form>
-
-                            </div>
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;"
+                                           value="${keyword != null ? keyword : ''}">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                <input type="hidden" name="service" value="search" id="serviceInput">
+                                <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
+                                    <option value="all">All</option>
+                                    <option value="upcoming">Upcoming Film</option>
+                                    <option value="nowshowing">Nowshowing Film</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
-                    <p class="error-message">${requestScope.resultNull}</p>
+                </div>
+                <p class="error-message">${requestScope.resultNull}</p>
                 <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
                     <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
