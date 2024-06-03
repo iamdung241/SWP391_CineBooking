@@ -65,7 +65,7 @@
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="../admin/dashboard">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Manage Concession</li>
                             </ol>
                         </nav>
@@ -94,10 +94,10 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">Concession Listing</h6>
-
-
-
-                                <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" method="POST">
+                                    
+                                <form class="filter-form d-none d-md-flex bg-light rounded" action="filter">
+                                    <input type="hidden" name="keyword" value="${keyword}">
+                                    <input type="hidden" name="page" value="${pageControl.page}">
                                     <select class="form-control filter-select" name="filter" aria-label="Filter">
                                         <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
                                         <option value="priceAsc" ${selectedFilter != null && selectedFilter.equals("priceAsc") ? 'selected' : ''}>Price Increase</option>
@@ -107,10 +107,11 @@
                                     </select>
                                 </form>
 
-                                <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="search">
-
+                                <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="filter">
+                                    <input type="hidden" name="filter" value="${selectedFilter}">
+                                    <input type="hidden" name="page" value="${pageControl.page}">
                                     <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
-                                           placeholder="Search" name="keyword" aria-label="Search" value="${param.keyword}">
+                                           placeholder="Search" name="keyword" aria-label="Search ..." value="${param.keyword}">
                                     <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
                                 </form>
 
@@ -170,22 +171,25 @@
                                     </table>
                                 </div>    
 
-                                <!--Pagination-->
+                                <!--Pagination for filter and search results-->
                                 <nav>
                                     <ul class="pagination justify-content-end mt-3 mb-0">
                                         <li class="page-item ${pageControl.page == 1 ? 'disabled' : ''}">
-                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page - 1}&keyword=${param.keyword}">Previous</a>
+                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page - 1}">Previous</a>
                                         </li>
                                         <c:forEach begin="1" end="${pageControl.totalPage}" var="pageNumber">
                                             <li class="page-item ${pageControl.page == pageNumber ? 'active' : ''}">
-                                                <a class="page-link" href="${pageControl.ulrPattern}page=${pageNumber}&keyword=${param.keyword}">${pageNumber}</a>
+                                                <a class="page-link" href="${pageControl.ulrPattern}page=${pageNumber}">${pageNumber}</a>
                                             </li>
                                         </c:forEach>
                                         <li class="page-item ${pageControl.page == pageControl.totalPage ? 'disabled' : ''}">
-                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page + 1}&keyword=${param.keyword}">Next</a>
+                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page + 1}">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
+                                        
+                                        
+                                        
                             </div>
                         </div>
                     </div>

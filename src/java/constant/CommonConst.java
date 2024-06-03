@@ -9,5 +9,5 @@ package constant;
  * @author Son
  */
 public class CommonConst {
-    public static final int RECORD_PER_PAGE = 3; 
+    public static final int RECORD_PER_PAGE = 4; 
 }

@@ -83,7 +83,7 @@ public class ManageConcessionServlet extends HttpServlet {
             page = 1;
         }
          String requestULR = request.getRequestURI().toString();
-        List<Concession> listConcession = dao.getListAllConcessions(page);
+        List<Concession> listConcession = dao.getAllConcessions(page, CommonConst.RECORD_PER_PAGE);
         pageControl.setUlrPattern(requestULR + "?");
         // total record 
         int totalRecord = dao.getTotalRecordCount();
