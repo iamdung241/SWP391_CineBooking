@@ -95,7 +95,7 @@
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">Concession Listing</h6>
                                     
-                                <form class="filter-form d-none d-md-flex bg-light rounded" action="filter">
+                                <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" onchange="this.form.submit()">
                                     <input type="hidden" name="keyword" value="${keyword}">
                                     <input type="hidden" name="page" value="${pageControl.page}">
                                     <select class="form-control filter-select" name="filter" aria-label="Filter">
