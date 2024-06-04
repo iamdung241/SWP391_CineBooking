@@ -95,7 +95,7 @@ public class AddUser extends HttpServlet {
         }
 
         // Forward to the JSP with error messages or success message
-        request.getRequestDispatcher("adduser.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/admin/addUser.jsp").forward(request, response);
     }
 
     @Override

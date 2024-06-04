@@ -202,14 +202,30 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public Vector<Account> searchAccountsByUsername(String username) {
+    public Vector<Account> searchAccounts(String username, String roleFilter) {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<Account> accounts = new Vector<>();
-        String sql = "SELECT * FROM [Account] WHERE username LIKE ?";
+        StringBuilder sql = new StringBuilder("SELECT * FROM [Account] WHERE 1=1");
+
+        if (username != null && !username.isEmpty()) {
+            sql.append(" AND username LIKE ?");
+        }
+        if (roleFilter != null && !roleFilter.isEmpty()) {
+            sql.append(" AND role_id = ?");
+        }
+
         try {
-            stm = connection.prepareStatement(sql);
-            stm.setString(1, "%" + username + "%");
+            stm = connection.prepareStatement(sql.toString());
+            int paramIndex = 1;
+
+            if (username != null && !username.isEmpty()) {
+                stm.setString(paramIndex++, "%" + username + "%");
+            }
+            if (roleFilter != null && !roleFilter.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(roleFilter));
+            }
+
             rs = stm.executeQuery();
             while (rs.next()) {
                 int account_id = rs.getInt("account_id");

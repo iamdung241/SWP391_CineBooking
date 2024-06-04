@@ -1,13 +1,13 @@
 <%-- 
-    Document   : accountDetail
-    Created on : May 24, 2024, 7:48:04 AM
+    Document   : addUser
+    Created on : May 24, 2024, 8:39:47 AM
     Author     : VuTA
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <!DOCTYPE html>
-
 <html lang="en">
     <!-- Head -->
     <head>
@@ -71,81 +71,91 @@
                     <div class="card mb-4 h-100">
                         <div class="card-body">
                             <div class="card-header justify-content-between align-items-center d-flex">
-                                <h6 class="card-title m-0">User Detail</h6>
+                                <h6 class="card-title m-0">Add Staff</h6>
                                 <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="align-bottom"></i>Back</a>
                             </div>
                             <div class="container">
-
-                                <%
-                                    // Retrieve the account ID from the request parameter
-                                    String id = request.getParameter("id");
-                                    int accountId = 0;
-                                    if (id != null) {
-                                        accountId = Integer.parseInt(id);
-                                    }
-
-                                    // Create an instance of AccountDAO and retrieve the account details using the account ID
-                                    AccountDAO ad = new AccountDAO();
-                                    Account account = ad.getAccountByID(accountId);
-                                %>
-
-                                <% if (account != null) { %>
+                                <form class="mt-4" action="adduser" method="post">
                                     <table class="table">
                                         <tr>
-                                            <td><label>Account ID: </label></td>
-                                            <td><%= account.getAccount_id() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>Fullname: </label></td>
-                                            <td><%= account.getFullname() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>Phone: </label></td>
-                                            <td><%= account.getPhone() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>Email: </label></td>
-                                            <td><%= account.getEmail() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>Username: </label></td>
-                                            <td><%= account.getUsername() %></td>
-                                        </tr>
-                                        <tr>
-                                            <td><label>Role: </label></td>
+                                            <td><label class="form-label">Username: </label></td>
                                             <td>
-                                                <%
-                                                    // Determine the role name based on the role ID
-                                                    int roleId = account.getRole_id();
-                                                    String roleName = "";
-                                                    if (roleId == 2) {
-                                                        roleName = "Staff";
-                                                    } else if (roleId == 3) {
-                                                        roleName = "Customer";
-                                                    } else if (roleId == 1) {
-                                                        roleName = "Admin";
-                                                    }
+                                                <input type="text" name="username" placeholder="Username" required>
+                                                <% 
+                                                    // Check if there's an error message set in the request and display it
+                                                    String errorUsername = (String) request.getAttribute("errorUsername");
+                                                    if (errorUsername != null) {
                                                 %>
-
-                                                <% if (roleId == 2 || roleId == 3) { %>
-                                                <!-- Form to update the role if the role is Staff or Customer -->
-                                                <form action="updateRole" method="post">
-                                                    <input type="hidden" name="accountId" value="<%= account.getAccount_id() %>">
-                                                    <select name="roleId">
-                                                        <option value="2" <%= roleId == 2 ? "selected" : "" %>>Staff</option>
-                                                        <option value="3" <%= roleId == 3 ? "selected" : "" %>>Customer</option>
-                                                    </select>
-                                                    <input type="submit" class="btn btn-sm btn-primary" value="Update Role">
-                                                </form>
-                                                <% } else { %>
-                                                <!-- Display role name if the role is Admin -->
-                                                <%= roleName %>
+                                                <p style="color: red; font-size: smaller;"><%= errorUsername %></p>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="form-label">Password: </label></td>
+                                            <td>
+                                                <input type="password" name="password" placeholder="Password" required>
+                                                <% 
+                                                    String errorPassword = (String) request.getAttribute("errorPassword");
+                                                    if (errorPassword != null) {
+                                                %>
+                                                <p style="color: red; font-size: smaller;"><%= errorPassword %></p>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="form-label">Re-enter Password: </label></td>
+                                            <td>
+                                                <input type="password" name="repassword" placeholder="Re-enter Password" required>
+                                                <% 
+                                                    String errorRePassword = (String) request.getAttribute("errorRePassword");
+                                                    if (errorRePassword != null) {
+                                                %>
+                                                <p style="color: red; font-size: smaller;"><%= errorRePassword %></p>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="form-label">Fullname: </label></td>
+                                            <td>
+                                                <input type="text" name="fullname" placeholder="Fullname" required>
+                                                <% 
+                                                    String errorFullname = (String) request.getAttribute("errorFullname");
+                                                    if (errorFullname != null) {
+                                                %>
+                                                <p style="color: red; font-size: smaller;"><%= errorFullname %></p>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="form-label">Email: </label></td>
+                                            <td>
+                                                <input type="text" name="email" placeholder="Email" required>
+                                                <% 
+                                                    String errorEmail = (String) request.getAttribute("errorEmail");
+                                                    if (errorEmail != null) {
+                                                %>
+                                                <p style="color: red; font-size: smaller;"><%= errorEmail %></p>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label class="form-label">Phone: </label></td>
+                                            <td>
+                                                <input type="text" name="phone" placeholder="Phone" required>
+                                                <% 
+                                                    String errorPhone = (String) request.getAttribute("errorPhone");
+                                                    if (errorPhone != null) {
+                                                %>
+                                                <p style="color: red; font-size: smaller;"><%= errorPhone %></p>
                                                 <% } %>
                                             </td>
                                         </tr>
                                     </table>
-                                <%}%>      
-
+                                    <!-- Submit button for the form -->
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Add</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>  

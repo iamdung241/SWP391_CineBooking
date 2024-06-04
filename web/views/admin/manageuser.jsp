@@ -8,7 +8,6 @@
 <%@page import="java.util.*, java.util.Vector, dal.AccountDAO, model.Account"%>
 <!doctype html>
 <html lang="en">
-
     <!-- Head -->
     <head>
         <!-- Page Meta Tags-->
@@ -29,32 +28,21 @@
 
         <!-- Vendor CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
-
-
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-
         <!-- Fix for custom scrollbar if JS is disabled-->
         <noscript>
         <style>
-            /**
-            * Reinstate scrolling for non-JS clients
-            */
             .simplebar-content-wrapper {
                 overflow: auto;
             }
         </style>
         </noscript>
-
     </head>
     <body class="">
-
         <!--Header-->
-        <jsp:include page="../common/admin/header.jsp"></jsp:include>
-
             <!-- Page Content -->
             <main id="main">
-
                 <!-- Breadcrumbs-->
                 <div class="bg-white border-bottom py-3 mb-5">
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
@@ -71,52 +59,59 @@
                         </div>-->
                     </div>
                 </div>
-
                 <!-- Content-->
                 <section class="container-fluid">
-
                     <!-- Page Title-->
                     <h2 class="fs-3 fw-bold mb-2">Welcome, Manager 👋</h2>
                     <p class="text-muted mb-5">Get a quick overview of your project, or click into one of the sections for a more detailed breakdown.</p>
                     <!-- / Page Title-->
-
                     <!-- Content-->
                     <div class="col-12">
                         <div class="card mb-4 h-100">
                             <div class="card-header justify-content-between align-items-center d-flex">
                                 <h6 class="card-title m-0">User List</h6>
-                                <!-- Search by Username -->
+                                <!-- Search by Username and Role -->
                                 <form class="d-flex" action="${pageContext.request.contextPath}/searchAccount" method="get">
-                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
-                                <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
-                            </form>
+                                    <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
+                                    <select name="role" class="form-control form-control-sm ms-2" style="width: 150px;">
+                                        <option value="">All Roles</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">Staff</option>
+                                        <option value="3">Customer</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
+                                </form>
                             <!-- Add User -->
-                            <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                            <a class="btn btn-sm btn-primary" href="addUser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table m-0 table-striped" border ="1">
+                                <table class="table m-0 table-striped" border="1">
                                     <thead>
                                         <tr>
                                             <th>Account ID</th>
                                             <th>Username</th>
+                                            <th>Fullname</th>
                                             <th>Role</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            Vector<Account> list = (Vector<Account>) request.getAttribute("accounts");
-                                            if (list == null) {
-                                                AccountDAO ad = new AccountDAO();
-                                                list = ad.getAllAccount();
-                                            }
+                                            String searchQuery = request.getParameter("query");
+                                            String roleFilter = request.getParameter("role");
+                                            Vector<Account> list;
+                                            AccountDAO ad = new AccountDAO();
+                                            
+                                            list = ad.searchAccounts(searchQuery, roleFilter);
+                                            
                                             if (list != null) {
                                                 for (Account a : list) {
                                         %>
                                         <tr>
                                             <td><%= a.getAccount_id() %></td>
                                             <td><%= a.getUsername() %></td>
+                                            <td><%= a.getFullname() %></td>
                                             <td>
                                                 <%
                                                     int roleId = a.getRole_id();
@@ -155,10 +150,9 @@
                     </div>  
                 </div>
                 <!-- / Content-->
-
+            </section>
         </main>
         <!-- /Page Content -->
-
         <!-- Page Aside-->
         <aside class="aside bg-white">
 
@@ -318,11 +312,9 @@
             <!-- Theme JS -->
             <!-- Vendor JS -->
             <script src="${pageContext.request.contextPath}/./assets/js/vendor.bundle.js"></script>
-
         <!-- Theme JS -->
         <script src="${pageContext.request.contextPath}/./assets/js/theme.bundle.js"></script>
     </body>
-
 </html>
 
 <style>
