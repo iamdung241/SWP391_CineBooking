@@ -9,6 +9,7 @@ import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import model.Account;
  *
  * @author Tran Anh Vu
  */
+@WebServlet("/searchAccount")
 public class SearchAccount extends HttpServlet {
    
     /** 
@@ -57,11 +59,17 @@ public class SearchAccount extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String searchQuery = request.getParameter("query");
+        String roleFilter = request.getParameter("role");
         AccountDAO accountDAO = new AccountDAO();
-        Vector<Account> accounts = accountDAO.searchAccountsByUsername(searchQuery);
-
-        request.setAttribute("accounts", accounts);
-        request.getRequestDispatcher("views/admin/manageuser.jsp").forward(request, response);
+        Vector<Account> accounts = accountDAO.searchAccounts(searchQuery, roleFilter);
+        
+        if(searchQuery.isBlank() && roleFilter.isBlank()){
+            response.sendRedirect("views/admin/manageuser.jsp");
+        }
+        else {
+            request.setAttribute("accounts", accounts);
+            request.getRequestDispatcher("views/admin/manageuser.jsp").forward(request, response);
+        }
     } 
 
     /** 
