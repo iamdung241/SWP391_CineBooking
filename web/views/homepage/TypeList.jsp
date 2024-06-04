@@ -50,7 +50,7 @@
     <body>
 
         <!-- Filter by type -->
-        <div class="col-md-2">
+        <div>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Filter by Type</h5>
