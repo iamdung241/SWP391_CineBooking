@@ -32,6 +32,7 @@ public class MovieControllerForUser extends HttpServlet {
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType();
         List<Movie> listM = new ArrayList<>();
 
+
         if (service != null) {
             switch (service) {
                 case "search":

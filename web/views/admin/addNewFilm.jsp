@@ -46,6 +46,34 @@
         </style>
         </noscript>
 
+        <script>
+            function validateAge() {
+                var age = document.getElementById("age").value;
+                var AgeErr = document.getElementById("AgeErr");
+                var regex = /^([1]?[0-9]|2[0-4])\+$/;
+
+                if (!regex.test(age)) {
+                    AgeErr.textContent = "Please enter a number < 25 example 15+";
+                    return false;
+                }
+                AgeErr.textContent = "";
+                return true;
+
+            }
+
+            function validateduration() {
+                var duration = document.getElementById("duration").value;
+                var durationErr = document.getElementById("durationErr");
+                var regex = /^[0-9]+$/;
+
+                if (!regex.test(duration)) {
+                    durationErr.textContent = "Please enter a number example 100";
+                    return false;
+                }
+                durationErr.textContent = "";
+                return true;
+            }
+        </script>
     </head>
     <body class="">
 
@@ -110,11 +138,17 @@
                                             </tr>
                                             <tr>
                                                 <td>Age</td>
-                                                <td><input name="age" type="number" class="form-control" required value="${m.age}"/></td>
+                                                <td>
+                                                    <input name="age" id="age" type="text" class="form-control" required onblur="validateAge()"/>
+                                                    <span id="AgeErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Duration</td>
-                                                <td><input type="number" name="duration" class="form-control" required/></td>
+                                                <td>
+                                                    <input type="text" id="duration" name="duration" class="form-control" required onblur="validateduration()"/>
+                                                    <span id="durationErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Date</td>
@@ -134,7 +168,9 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Add</button>
+                                        <div class="container-fluid d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-success">Add</button>
+                                        </div>
                                 </form>
                             </div>
                         </div>
