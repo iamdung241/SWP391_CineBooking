@@ -149,7 +149,7 @@
                                     class="menu-link">Users</span></a>
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
-                                    <li><a href="manageuser.jsp">User Listing</a></li>
+                                    <li><a href="/CineBooking/views/admin/manageuser.jsp">User Listing</a></li>
                                 </ul>
                             </div>
                         </li>
