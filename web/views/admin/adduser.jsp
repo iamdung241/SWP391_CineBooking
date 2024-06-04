@@ -1,9 +1,3 @@
-<%-- 
-    Document   : adduser
-    Created on : May 24, 2024, 8:39:47 AM
-    Author     : VuTA
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*, dal.AccountDAO, model.Account"%>
@@ -50,23 +44,14 @@
                 <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                     <nav class="mb-0" aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="./index.html">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Manage User</li>
                         </ol>
                     </nav>
-                    <div class="d-flex justify-content-end align-items-center mt-3 mt-md-0">
-                        <a class="btn btn-sm btn-primary" href="#"><i class="ri-add-circle-line align-bottom"></i> New Project</a>
-                        <a class="btn btn-sm btn-primary-faded ms-2" href="#"><i class="ri-settings-3-line align-bottom"></i> Settings</a>
-                        <a class="btn btn-sm btn-secondary-faded ms-2 text-body" href="#"><i class="ri-question-line align-bottom"></i> Help</a>
-                    </div>
                 </div>
             </div>
             <!-- Content-->
             <section class="container-fluid">
-                <!-- Page Title-->
-                <h2 class="fs-3 fw-bold mb-2">Welcome, Manager 👋</h2>
-                <p class="text-muted mb-5">Get a quick overview of your project, or click into one of the sections for a more detailed breakdown.</p>
-                <!-- / Page Title-->
                 <!-- Content-->
                 <div class="col-12">
                     <div class="card mb-4 h-100">
@@ -80,13 +65,14 @@
                                     <tr>
                                         <td><label class="form-label">Username: </label></td>
                                         <td>
-                                            <input type="text" name="username" placeholder="Username" required>
                                             <% 
-                                                // Check if there's an error message set in the request and display it
                                                 String errorUsername = (String) request.getAttribute("errorUsername");
                                                 if (errorUsername != null) {
                                             %>
+                                            <input type="text" name="username" placeholder="Username" required>
                                             <p style="color: red; font-size: smaller;"><%= errorUsername %></p>
+                                            <% } else { %>
+                                            <input type="text" name="username" placeholder="Username" value="<%= request.getAttribute("username") != null ? request.getAttribute("username") : "" %>" required>
                                             <% } %>
                                         </td>
                                     </tr>
@@ -117,40 +103,52 @@
                                     <tr>
                                         <td><label class="form-label">Fullname: </label></td>
                                         <td>
-                                            <input type="text" name="fullname" placeholder="Fullname" required>
                                             <% 
                                                 String errorFullname = (String) request.getAttribute("errorFullname");
                                                 if (errorFullname != null) {
                                             %>
+                                            <input type="text" name="fullname" placeholder="Fullname" required>
                                             <p style="color: red; font-size: smaller;"><%= errorFullname %></p>
+                                            <% } else { %>
+                                            <input type="text" name="fullname" placeholder="Fullname" value="<%= request.getAttribute("fullname") != null ? request.getAttribute("fullname") : "" %>" required>
                                             <% } %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><label class="form-label">Email: </label></td>
                                         <td>
-                                            <input type="text" name="email" placeholder="Email" required>
                                             <% 
                                                 String errorEmail = (String) request.getAttribute("errorEmail");
                                                 if (errorEmail != null) {
                                             %>
+                                            <input type="text" name="email" placeholder="Email" required>
                                             <p style="color: red; font-size: smaller;"><%= errorEmail %></p>
+                                            <% } else { %>
+                                            <input type="text" name="email" placeholder="Email" value="<%= request.getAttribute("email") != null ? request.getAttribute("email") : "" %>" required>
                                             <% } %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><label class="form-label">Phone: </label></td>
                                         <td>
-                                            <input type="text" name="phone" placeholder="Phone" required>
                                             <% 
                                                 String errorPhone = (String) request.getAttribute("errorPhone");
                                                 if (errorPhone != null) {
                                             %>
+                                            <input type="text" name="phone" placeholder="Phone" required>
                                             <p style="color: red; font-size: smaller;"><%= errorPhone %></p>
+                                            <% } else { %>
+                                            <input type="text" name="phone" placeholder="Phone" value="<%= request.getAttribute("phone") != null ? request.getAttribute("phone") : "" %>" required>
                                             <% } %>
                                         </td>
                                     </tr>
                                 </table>
+                                <% 
+                                    String successMessage = (String) request.getAttribute("successMessage");
+                                        if (successMessage != null) {
+                                %>
+                                <p style="color: green; font-size: smaller;"><%= successMessage %></p>
+                                <% } %>                
                                 <!-- Submit button for the form -->
                                 <div>
                                     <button type="submit" class="btn btn-primary">Add</button>

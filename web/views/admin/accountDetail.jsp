@@ -49,23 +49,19 @@
                 <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                     <nav class="mb-0" aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="./index.html">Dashboard</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Manage User</li>
                         </ol>
                     </nav>
-                    <div class="d-flex justify-content-end align-items-center mt-3 mt-md-0">
+<!--                    <div class="d-flex justify-content-end align-items-center mt-3 mt-md-0">
                         <a class="btn btn-sm btn-primary" href="#"><i class="ri-add-circle-line align-bottom"></i> New Project</a>
                         <a class="btn btn-sm btn-primary-faded ms-2" href="#"><i class="ri-settings-3-line align-bottom"></i> Settings</a>
                         <a class="btn btn-sm btn-secondary-faded ms-2 text-body" href="#"><i class="ri-question-line align-bottom"></i> Help</a>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <!-- Content-->
             <section class="container-fluid">
-                <!-- Page Title-->
-                <h2 class="fs-3 fw-bold mb-2">Welcome, Manager 👋</h2>
-                <p class="text-muted mb-5">Get a quick overview of your project, or click into one of the sections for a more detailed breakdown.</p>
-                <!-- / Page Title-->
                 <!-- Content-->
                 <div class="col-12">
                     <div class="card mb-4 h-100">
@@ -127,13 +123,13 @@
                                                     }
                                                 %>
 
-                                                <% if (roleId == 2 || roleId == 3) { %>
-                                                <!-- Form to update the role if the role is Staff or Customer -->
+                                                <% if (roleId == 2 || roleId == 1) { %>
+                                                <!-- Form to update the role if the role is Staff or Admin -->
                                                 <form action="updateRole" method="post">
                                                     <input type="hidden" name="accountId" value="<%= account.getAccount_id() %>">
                                                     <select name="roleId">
                                                         <option value="2" <%= roleId == 2 ? "selected" : "" %>>Staff</option>
-                                                        <option value="3" <%= roleId == 3 ? "selected" : "" %>>Customer</option>
+                                                        <option value="1" <%= roleId == 1 ? "selected" : "" %>>Admin</option>
                                                     </select>
                                                     <input type="submit" class="btn btn-sm btn-primary" value="Update Role">
                                                 </form>
