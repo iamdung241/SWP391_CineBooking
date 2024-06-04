@@ -6,7 +6,6 @@ package controller.admin.concession;
 
 import dal.ConcessionDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -15,8 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Concession;
 import model.PageControl;
 
@@ -26,15 +23,19 @@ import model.PageControl;
  * @author Son
  */
 public class ConcessionControlServlet extends HttpServlet {
-    private static final String UPLOAD_DIR = "D:\\Semester 5\\CineBooking\\SWP391_CineBooking\\web\\img\\ConcessionImage";
+
+
+
+
+    private static final String UPLOAD_DIR = "D:\\SWP391_Project_CineBooking\\web\\img\\ConcessionImage";
+
     ConcessionDAO dao = new ConcessionDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-               
+
     }
 
     @Override
@@ -76,6 +77,7 @@ public class ConcessionControlServlet extends HttpServlet {
      * @param request the HTTP request containing information about the
      * concession item to be added
      */
+    //private static final String UPLOAD_DIR = "E:\\CineBooking_SWP391_G3\\SWP391_CineBooking\\web\\img\\ConcessionImage";
     private void addConcession(HttpServletRequest request) {
         try {
             String name = request.getParameter("name");
@@ -89,7 +91,7 @@ public class ConcessionControlServlet extends HttpServlet {
             }
 
             // Lấy file upload từ request
-            Part part = request.getPart("image");
+            Part part = request.getPart("file");
             if (part != null && part.getSize() > 0) {
                 String fileName = extractFileName(part);
                 img += fileName;
@@ -195,5 +197,7 @@ public class ConcessionControlServlet extends HttpServlet {
         dao.deleteConcession(id);
 
     }
+
+    
 
 }
