@@ -114,10 +114,10 @@
             function validateFullname() {
                 var fullname = document.getElementById("fullname").value.trim();
                 var fullnameError = document.getElementById("fullnameError");
-                var fullnameRegex = /^[\p{L}\s]{8,30}$/u;
+                var fullnameRegex = /^[\p{L}\s]{6,30}$/u;
 
                 if (!fullnameRegex.test(fullname) || fullname === "") {
-                    fullnameError.textContent = "Fullname must be 8-30 characters long, only contain letters and spaces.";
+                    fullnameError.textContent = "Fullname must be 6-30 characters long, only contain letters and spaces.";
                     return false;
                 }
                 fullnameError.textContent = "";
@@ -152,9 +152,9 @@
             function validateUsername() {
                 var username = document.getElementById("username").value;
                 var usernameError = document.getElementById("usernameError");
-                var usernameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+                var usernameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
                 if (!usernameRegex.test(username)) {
-                    usernameError.textContent = "Username must be 8-20 characters long, contain both letters and numbers, and not contain any spaces.";
+                    usernameError.textContent = "Username must be 6-20 characters long, contain both letters and numbers, and not contain any spaces.";
                     return false;
                 }
                 usernameError.textContent = "";
@@ -164,10 +164,10 @@
             function validatePassword() {
                 var password = document.getElementById("password").value;
                 var passwordError = document.getElementById("passwordError");
-                var passwordRegex = /^[A-Za-z\d!@#\$%\^&\*.,:;]{8,20}$/;
+                var passwordRegex = /^[A-Za-z\d!@#\$%\^&\*.,:;]{6,20}$/;
 
                 if (!passwordRegex.test(password) || password.includes(' ') || password.trim() === "") {
-                    passwordError.textContent = "Password must be 8-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.";
+                    passwordError.textContent = "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.";
                     return false;
                 }
                 passwordError.textContent = "";
