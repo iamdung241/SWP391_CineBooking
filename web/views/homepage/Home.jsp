@@ -190,22 +190,22 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <form action="movieController" method="GET" class="input-group" id="searchForm">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;">
-                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                    <input type="hidden" name="service" value="search" id="serviceInput">
-                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
-                                        <option value="all">All</option>
-                                        <option value="upcoming">Upcoming Film</option>
-                                        <option value="nowshowing">Nowshowing Film</option>
-                                    </select>
-                                </form>
-
-                            </div>
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;"
+                                           value="${keyword != null ? keyword : ''}">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                <input type="hidden" name="service" value="search" id="serviceInput">
+                                <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
+                                    <option value="all">All</option>
+                                    <option value="upcoming">Upcoming Film</option>
+                                    <option value="nowshowing">Nowshowing Film</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
-                    <!--<p class="error-message">${requestScope.resultNull}</p>-->
-
-                <div class="row spec_1 mt-4">
+                </div>
+                <p class="error-message">${requestScope.resultNull}</p>
+                <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
+                    <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
                         <div class="pe-0 col-3">
                             <div class="spec_1im clearfix position-relative">
@@ -262,23 +262,23 @@
                 }
             }
             document.getElementById('dateSelect').addEventListener('change', function () {
-                        document.getElementById('serviceInput').value = 'filter';
-                        document.getElementById('searchForm').submit();
-                    });
+                document.getElementById('serviceInput').value = 'filter';
+                document.getElementById('searchForm').submit();
+            });
 
 
-                    // Function to set the selected option in the dropdown
-                    function setSelectedOption() {
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const dateFilter = urlParams.get('dateFilter');
-                        if (dateFilter) {
-                            const selectElement = document.getElementById('dateSelect');
-                            selectElement.value = dateFilter;
-                        }
-                    }
+            // Function to set the selected option in the dropdown
+            function setSelectedOption() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const dateFilter = urlParams.get('dateFilter');
+                if (dateFilter) {
+                    const selectElement = document.getElementById('dateSelect');
+                    selectElement.value = dateFilter;
+                }
+            }
 
-                    // Call the function to set the selected option when the page loads
-                    window.onload = setSelectedOption;
+            // Call the function to set the selected option when the page loads
+            window.onload = setSelectedOption;
         </script>
     </body>
 

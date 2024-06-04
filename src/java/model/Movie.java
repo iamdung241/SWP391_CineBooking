@@ -120,7 +120,8 @@ public class Movie {
         this.post_img = post_img;
         this.listShowtime = listShowtime;
     }
-    
+
+
    
 
     public Movie(int movie_id) {

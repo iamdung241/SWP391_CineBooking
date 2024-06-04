@@ -16,6 +16,14 @@
         <servlet-name>MovieControllerForUser</servlet-name>
         <servlet-class>controller.MovieControllerForUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/seat</url-pattern>
@@ -39,7 +47,7 @@
     </session-config>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>controller.HomeServlet</servlet-class>
+        <servlet-class>controller.hompage.HomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>

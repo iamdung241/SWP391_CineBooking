@@ -4,6 +4,7 @@
  */
 package controller.admin.concession;
 
+import constant.CommonConst;
 import dal.ConcessionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Concession;
+import model.PageControl;
 
 /**
  *
@@ -38,11 +40,11 @@ public class ManageConcessionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
-        List<Concession> listConcession = dao.getAllConcessions();
+        PageControl pageControl = new PageControl();
+        List<Concession> listConcession = listAllConcessionDoGet(request, pageControl);
 
         session.setAttribute("listConcession", listConcession);
-
+        request.setAttribute("pageControl", pageControl);
         request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
     }
 
@@ -66,5 +68,34 @@ public class ManageConcessionServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private List<Concession> listAllConcessionDoGet(HttpServletRequest request, PageControl pageControl) {
+        // get ve page, validate
+        String pageRaw = request.getParameter("page");
+        int page;
+        try {
+            page = Integer.parseInt(pageRaw);
+            if(page < 0){
+                page = 1;
+            }
+        
+        } catch (Exception e) {
+            page = 1;
+        }
+         String requestULR = request.getRequestURI().toString();
+        List<Concession> listConcession = dao.getAllConcessions(page, CommonConst.RECORD_PER_PAGE);
+        pageControl.setUlrPattern(requestULR + "?");
+        // total record 
+        int totalRecord = dao.getTotalRecordCount();
+        // total page
+        int totalPage = (totalRecord % CommonConst.RECORD_PER_PAGE) == 0
+                        ? (totalRecord / CommonConst.RECORD_PER_PAGE)
+                        : (totalRecord / CommonConst.RECORD_PER_PAGE) +1;
+        //set total record, total page, pageControl
+        pageControl.setPage(page);
+        pageControl.setTotalRecord(totalRecord);
+        pageControl.setTotalPage(totalPage);
+        return listConcession;
+    }
 
 }

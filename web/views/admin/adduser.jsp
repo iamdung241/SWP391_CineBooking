@@ -70,41 +70,83 @@
 
                 <div class="shadow-lg rounded p-4 p-sm-5 bg-white form mb-4">
                     <h3 class="fw-bold mb-3">Add Staff</h3>
-                    <% 
-                        // Check if there's an error message set in the request and display it
-                        String errorMessage = (String) request.getAttribute("errorMessage");
-                        if (errorMessage != null) {
-                    %>
-                    <!-- Display the error message in red if it exists -->
-                    <p style="color: red;"><%= errorMessage %></p>
-                    <% } %>
+
 
                     <!-- Register Form -->
                     <form class="mt-4" action="adduser" method="post">
                         <table class="table">
                             <tr>
                                 <td><label class="form-label">Username: </label></td>
-                                <td><input type="text" name="username" placeholder="Username" required></td>
+                                <td>
+                                    <input type="text" name="username" placeholder="Username" required>
+                                    <% 
+                                        // Check if there's an error message set in the request and display it
+                                        String errorUsername = (String) request.getAttribute("errorUsername");
+                                        if (errorUsername != null) {
+                                    %>
+                                    <p style="color: red; font-size: smaller;"><%= errorUsername %></p>
+                                    <% } %>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="form-label">Password: </label></td>
-                                <td><input type="password" name="password" placeholder="Password" required></td>
+                                <td>
+                                    <input type="password" name="password" placeholder="Password" required>
+                                    <% 
+                                        String errorPassword = (String) request.getAttribute("errorPassword");
+                                        if (errorPassword != null) {
+                                    %>
+                                    <p style="color: red; font-size: smaller;"><%= errorPassword %></p>
+                                    <% } %>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="form-label">Re-enter Password: </label></td>
-                                <td><input type="password" name="repassword" placeholder="Re-enter Password" required></td>
+                                <td>
+                                    <input type="password" name="repassword" placeholder="Re-enter Password" required>
+                                    <% 
+                                        String errorRePassword = (String) request.getAttribute("errorRePassword");
+                                        if (errorRePassword != null) {
+                                    %>
+                                    <p style="color: red; font-size: smaller;"><%= errorRePassword %></p>
+                                    <% } %>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="form-label">Fullname: </label></td>
-                                <td><input type="text" name="fullname" placeholder="Fullname" required></td>
+                                <td>
+                                    <input type="text" name="fullname" placeholder="Fullname" required>
+                                    <% 
+                                        String errorFullname = (String) request.getAttribute("errorFullname");
+                                        if (errorFullname != null) {
+                                    %>
+                                    <p style="color: red; font-size: smaller;"><%= errorFullname %></p>
+                                    <% } %>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="form-label">Email: </label></td>
-                                <td><input type="text" name="email" placeholder="Email" required></td>
+                                <td>
+                                    <input type="text" name="email" placeholder="Email" required>
+                                    <% 
+                                        String errorEmail = (String) request.getAttribute("errorEmail");
+                                        if (errorEmail != null) {
+                                    %>
+                                    <p style="color: red; font-size: smaller;"><%= errorEmail %></p>
+                                    <% } %>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="form-label">Phone: </label></td>
-                                <td><input type="text" name="phone" placeholder="Phone" required></td>
+                                <td>
+                                    <input type="text" name="phone" placeholder="Phone" required>
+                                    <% 
+                                        String errorPhone = (String) request.getAttribute("errorPhone");
+                                        if (errorPhone != null) {
+                                    %>
+                                    <p style="color: red; font-size: smaller;"><%= errorPhone %></p>
+                                    <% } %>
+                                </td>
                             </tr>
                         </table>
                         <!-- Submit button for the form -->
@@ -116,7 +158,9 @@
                     </form>
                     <!-- / Register Form -->
 
-                    <a class="text-muted text-decoration-underline" href="views/admin/manageuser.jsp">Back</a>
+
+                    <a class="text-muted text-decoration-underline" href="/CineBooking/views/admin/manageuser.jsp">Back</a>
+
                 </div>
             </div>
             <!-- / Login Form -->
