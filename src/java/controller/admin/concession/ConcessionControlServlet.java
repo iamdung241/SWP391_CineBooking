@@ -27,7 +27,7 @@ public class ConcessionControlServlet extends HttpServlet {
 
 
 
-    private static final String UPLOAD_DIR = "D:\\SWP391_Project_CineBooking\\web\\img\\ConcessionImage";
+    private static final String UPLOAD_DIR = "C:\\SWP391_Project_CineBooking\\web\\img\\ConcessionImage";
 
     ConcessionDAO dao = new ConcessionDAO();
 

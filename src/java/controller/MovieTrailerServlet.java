@@ -2,8 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.homepage;
-
+package controller;
 import dal.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,15 +10,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import model.Movie;
 
 /**
  *
  * @author thanh
  */
-//url : moviedetail
-public class MovieDetailServlet extends HttpServlet {
+//url : /movietrailer
+public class MovieTrailerServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class MovieDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MovieDetailServlet</title>");            
+            out.println("<title>Servlet MovieTrailerServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MovieDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MovieTrailerServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,16 +58,11 @@ public class MovieDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MovieDAO mdao = new MovieDAO();
+        String idMovie = request.getParameter("trailer");
+        request.setAttribute("trailer", idMovie);
         String id = request.getParameter("ID");
-        try {
-            int idMovie = Integer.parseInt(id);
-            Movie m = mdao.getMovieById(idMovie);
-            request.setAttribute("m", m);
-            request.getRequestDispatcher("/views/homepage/MovieDetail.jsp").forward(request, response);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("ID", id);
+        request.getRequestDispatcher("/views/homepage/MovieTrailer.jsp").forward(request, response);
     }
 
     /**

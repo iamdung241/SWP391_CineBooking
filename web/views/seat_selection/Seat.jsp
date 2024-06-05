@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Seat</title>
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
@@ -40,10 +41,13 @@
                 <div style="padding-top: 20px" class="row">
                     <div class="col-6">
                         <div class="mx-2">
-                            <p style="background: red" class="text-center text-white">Screen</p>   
+                            <p style="background: red; border-radius: 7px" class="text-center text-white">Screen</p>   
+                        </div> 
+                        <div style="text-align: center">
+                            <div ><span style=" padding-right: 20px"><i style="color: red" class='bx bxs-square-rounded'></i> Booked</span><i style="color: black" class='bx bxs-square-rounded'></i> UnBooked</div>
                         </div>
                         <div class="row cinema-seats">
-                            <c:forEach items="${listS}" var="s">
+                            <c:forEach items="${listSeat}" var="s">
                                 <div style="margin-left: 18px" class="col-2 my-2">          
                                     <div class="text-center seat ${s.getStatus().equals('Booked') ? 'booked' : ''}" style="border: 1px solid; border-radius: 5px; background-color: ${s.getStatus().equals('Booked') ? 'red' : 'black'}" >
                                         <label style="color: white; text-decoration: none">${s.getSeat_name()}</label>
@@ -55,14 +59,21 @@
                     </div>
                     <div style="background-color: rgb(240,240,240); margin-left: 50px" class="col-5">
                         <h2 style="text-align: center; color: red; padding-top: 10px">Movie Ticket</h2>
+                        <span style="font-size: 21px">PlayShow Cinema</span>
+                        <br/>
+                        <span>
+                            <span style="padding-right: 90px; font-size: 18px" ><span style="font-weight: bold">Room: &nbsp</span><span style="color: green">${room.getRoom_name()}</span></span>
+                        <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming: </span></span> 
+                        <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date: </span>
+                            
+                        </span>
+                            
+                    </span>
                         <hr/>
-                        <div><h5><i class='bx bx-movie-play'></i>Movie: ${movie.getMovie_name()} </h5></div>
-                        <div><h5>Time: </h5></div>
-                        <div><h5>Room: <h5></div>
-                        <div><h5>Date: <h5></div>  
-                        <div><h5>Selected Seats: <span style="color: green" id="selected-seats"></span></h5></div>
-                        <div><h5>Quality: <span style="color: green" id="selected-seat-count"></span> <h5></div>
-                        <div><h5>Total price: <h5></div>
+                        <div ><h4><i class='bx bx-movie-play'></i><span style="color: green"> ${movie.getMovie_name()} </span></h4></div> 
+                        <div><span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span></span></div>
+                        <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
+                        <div><h5><i class='bx bx-money-withdraw'></i> Total price: <h5></div>
                         <hr/>
                         <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" ">Proceed to Payment</a>
                        

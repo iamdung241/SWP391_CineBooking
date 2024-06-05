@@ -42,6 +42,9 @@
                                 <a class="nav-link" href="/CineBooking/showtiming">Showtimings</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="/CineBooking/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
                                     <a class="nav-link" href="login.jsp">Account</a>
                                 </c:if>       

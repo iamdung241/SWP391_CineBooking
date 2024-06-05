@@ -68,6 +68,7 @@
                                 <h6 class="card-title m-0">User List</h6>
                                 <!-- Search by Username and Role -->
                                 <form class="d-flex" action="${pageContext.request.contextPath}/searchAccount" method="get">
+                                    <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
                                     <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Name" style="width: 200px;">
                                     <select name="role" class="form-control form-control-sm ms-2" style="width: 150px;">
                                         <option value="">All Roles</option>
