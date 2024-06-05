@@ -116,7 +116,7 @@
                                 <span class="menu-link">Concessions</span></a>
                             <div class="collapse" id="collapseMenuItemConcessions">
                                 <ul class="submenu">
-                                    <li><a href="admin/concession">Concessions Listing</a></li>
+                                    <li><a href="/CineBooking/admin/concession">Concessions Listing</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -149,7 +149,11 @@
                                     class="menu-link">Users</span></a>
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
-                                    <li><a href="views/admin/manageuser.jsp">User Listing</a></li>
+
+
+                                    <li><a href="/CineBooking/views/admin/manageuser.jsp">User Listing</a></li>
+
+
                                 </ul>
                             </div>
                         </li>

@@ -94,8 +94,10 @@ public class movieController extends HttpServlet {
             MovieDAO md = new MovieDAO();
             md.DeleteMovie(Integer.parseInt(idMovie));
         }
+        List<TypeMovie> typelist = new MovieDAO().getTypeMovie();
         List<Movie> list = new MovieDAO().getMovie();
         request.setAttribute("listMovie", list);
+        request.setAttribute("listType", typelist);
         request.getRequestDispatcher(MANAGEMOVIE).forward(request, response);
     }
 
@@ -116,7 +118,7 @@ public class movieController extends HttpServlet {
     private static final String DESCRIPTION = "description";
     private static final String IMG = "img";
     private static final String AGE = "age";
-    private static final String UPLOAD_DIR = "E:\\CineBooking_SWP391_G3\\SWP391_CineBooking\\web\\img\\FilmPoster";
+    private static final String UPLOAD_DIR = "C:\\Users\\thanh\\Documents\\CinemaBookingTicket\\SWP391_CineBooking\\web\\img\\FilmPoster";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -124,8 +126,7 @@ public class movieController extends HttpServlet {
         String name = request.getParameter(NAME);
         String type = request.getParameter(TYPE);
         String duration = request.getParameter(DURATION);
-        String ageRequest = request.getParameter(AGE);
-        String age = ageRequest + "+";
+        String age = request.getParameter(AGE);
         String date = request.getParameter(DATE);
         String trailer = request.getParameter(TRAILER);
         String description = request.getParameter(DESCRIPTION);

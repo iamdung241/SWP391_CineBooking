@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.hompage;
 
-import dal.ConcessionDAO;
+package controller;
+
+
+import dal.RoomDAO;
+import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +15,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Concession;
+import model.Movie;
+import model.Room;
+import model.Showtiming;
 
 /**
  *
  * @author thanh
  */
-// url: /concession
-public class ConcessionServlet extends HttpServlet {
+public class ShowtimingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +42,10 @@ public class ConcessionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConcessionServlet</title>");            
+            out.println("<title>Servlet ShowtimingServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConcessionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ShowtimingServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,15 +60,25 @@ public class ConcessionServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    //author: Thanh
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ConcessionDAO cdao = new ConcessionDAO();
-        List<Concession> listC = cdao.getAllConcessions();
-        request.setAttribute("listC", listC);
-        request.getRequestDispatcher("/views/homepage/Concession.jsp").forward(request, response);
+        ShowtimingDAO sdao = new ShowtimingDAO();
+        List<Movie> listMovie = sdao.getMovieWithShowtime();
+        request.setAttribute("listM", listMovie);
+        String showtimeid = request.getParameter("showtimeID");
+        RoomDAO rdao = new RoomDAO();
+        if(showtimeid != null) {
+            try {
+            int showtime_id = Integer.parseInt(showtimeid);
+            List<Room> listRoom = rdao.getRoomsByShowtimeID(showtime_id);
+            request.setAttribute("listRoom", listRoom);
+            request.setAttribute("selectedShowtimeID", showtime_id);
+            } catch (NumberFormatException e) {
+
+            }
+        }     
+        request.getRequestDispatcher("/views/homepage/Showtimings.jsp").forward(request, response);
     }
 
     /**
