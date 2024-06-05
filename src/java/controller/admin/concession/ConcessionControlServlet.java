@@ -4,8 +4,10 @@
  */
 package controller.admin.concession;
 
+import constant.CommonConst;
 import dal.ConcessionDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
+
 import model.Concession;
 import model.PageControl;
 
@@ -24,18 +27,12 @@ import model.PageControl;
  */
 public class ConcessionControlServlet extends HttpServlet {
 
-
-
-
-    private static final String UPLOAD_DIR = "C:\\SWP391_Project_CineBooking\\web\\img\\ConcessionImage";
-
     ConcessionDAO dao = new ConcessionDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-
     }
 
     @Override
@@ -85,7 +82,7 @@ public class ConcessionControlServlet extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
 
             String img = "/CineBooking/img/ConcessionImage/";
-            File fileSaveDir = new File(UPLOAD_DIR);
+            File fileSaveDir = new File(CommonConst.UPLOAD_DIR);
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdirs();
             }
@@ -97,7 +94,7 @@ public class ConcessionControlServlet extends HttpServlet {
                 img += fileName;
                 // Đảm bảo fileName không null
                 if (fileName != null && !fileName.isEmpty()) {
-                    part.write(UPLOAD_DIR + File.separator + fileName);
+                    part.write(CommonConst.UPLOAD_DIR + File.separator + fileName);
                 }
             }
 
@@ -108,7 +105,7 @@ public class ConcessionControlServlet extends HttpServlet {
             concession.setQuantity(quantity);
             concession.setImage(img);
 
-            dao.add(concession);
+            dao.addConcession(concession);
 
         } catch (NumberFormatException e) {
 
@@ -154,7 +151,7 @@ public class ConcessionControlServlet extends HttpServlet {
             String img = request.getParameter("currentImage");
             System.out.println(img);
             String imgDir = "/CineBooking/img/ConcessionImage/";
-            File fileSaveDir = new File(UPLOAD_DIR);
+            File fileSaveDir = new File(CommonConst.UPLOAD_DIR);
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdirs();
             }
@@ -166,7 +163,7 @@ public class ConcessionControlServlet extends HttpServlet {
                 imgDir = imgDir + fileName;
                 // Đảm bảo fileName không null
                 if (fileName != null && !fileName.isEmpty()) {
-                    part.write(UPLOAD_DIR + File.separator + fileName);
+                    part.write(CommonConst.UPLOAD_DIR + File.separator + fileName);
                 }
                 concession.setImage(imgDir);
             } else {
@@ -197,7 +194,4 @@ public class ConcessionControlServlet extends HttpServlet {
         dao.deleteConcession(id);
 
     }
-
-    
-
 }
