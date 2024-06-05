@@ -63,9 +63,8 @@
                         <br/>
                         <span>
                             <span style="padding-right: 90px; font-size: 18px" ><span style="font-weight: bold">Room: &nbsp</span><span style="color: green">${room.getRoom_name()}</span></span>
-                        <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming: </span></span> 
-                        <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date: </span>
-                            
+                            <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming: </span></span> 
+                            <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date: </span>
                         </span>
                             
                     </span>
