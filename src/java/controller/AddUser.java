@@ -25,61 +25,51 @@ public class AddUser extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         boolean isValid = true;
 
-        // Validate Fullname
-        if (!fullname.matches("^(?!\\s*$)[a-zA-Z\\s]{8,30}$")) {
-            request.setAttribute("errorFullname", "Fullname must be 8-30 characters long, only contain letters and spaces, and cannot be all spaces");
-            isValid = false;
-        }
+        // Set the entered values as request attributes to retain the input
+        request.setAttribute("username", username);
+        request.setAttribute("fullname", fullname);
+        request.setAttribute("phone", phone);
+        request.setAttribute("email", email);
 
-        // Validate Phone
-        if (!phone.matches("\\d{10,15}")) {
-            request.setAttribute("errorPhone", "Phone must be a string of 10-15 digits");
-            isValid = false;
-        }
-
-        // Validate Email
-        if (!email.matches("^[^\\s]+@(gmail\\.com|fpt\\.edu\\.vn)$")) {
-            request.setAttribute("errorEmail", "Email must be in the format of 'example@gmail.com' or 'example@fpt.edu.vn' with no spaces");
-            isValid = false;
-        }
-
-        // Validate Username
         if (!username.matches("^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{8,20}$")) {
             request.setAttribute("errorUsername", "Username must be 8-20 characters long, contain both letters and numbers, and not contain any spaces");
             isValid = false;
-        } else if (accountDAO.usernameExists(username)) {
+        } else if (accountDAO.getAccountByUsername(username) != null) {
             request.setAttribute("errorUsername", "Username already exists");
             isValid = false;
         }
-
-        // Validate Password
+        
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
         if (!password.matches(passwordPattern)) {
             request.setAttribute("errorPassword", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
             isValid = false;
         }
-        
-
-        // Validate Re-Password
         if (!password.equals(rePassword)) {
-            request.setAttribute("errorRePassword", "Re-entered password does not match the password");
+            request.setAttribute("errorRePassword", "Passwords do not match");
             isValid = false;
         }
 
-        // If initial validations pass, check for unique phone and email
-        if (isValid) {
-            if (accountDAO.phoneExists(phone)) {
-                request.setAttribute("errorPhone", "Phone number already exists");
-                isValid = false;
-            }
-
-            if (accountDAO.emailExists(email)) {
-                request.setAttribute("errorEmail", "Email already exists");
-                isValid = false;
-            }
+        if (!fullname.matches("^(?!\\s*$)[a-zA-Z\\s]{8,30}$")) {
+            request.setAttribute("errorFullname", "Fullname must be 8-30 characters long, only contain letters and spaces, and cannot be all spaces");
+            isValid = false;
         }
 
-        // If all validations pass, insert the new account
+        if (accountDAO.phoneExists(phone)) {
+            request.setAttribute("errorPhone", "Phone number already exists");
+            isValid = false;
+        } else if (!phone.matches("\\d{10,15}")) {
+            request.setAttribute("errorPhone", "Phone must be a string of 10-15 digits");
+            isValid = false;
+        }
+
+        if (accountDAO.emailExists(email)) {
+            request.setAttribute("errorEmail", "Email already exists");
+            isValid = false;
+        } else if (!email.matches("^[^\\s]+@(gmail\\.com|fpt\\.edu\\.vn)$")) {
+            request.setAttribute("errorEmail", "Email must be in the format of 'example@gmail.com' or 'example@fpt.edu.vn' with no spaces");
+            isValid = false;
+        }
+
         if (isValid) {
             Account account = new Account();
             account.setUsername(username);
@@ -92,14 +82,11 @@ public class AddUser extends HttpServlet {
             accountDAO.insertUser(account);
 
             request.setAttribute("successMessage", "Add staff success");
+            request.setAttribute("username", null);
+            request.setAttribute("fullname", null);
+            request.setAttribute("phone", null);
+            request.setAttribute("email", null);
         }
-
-        // Forward to the JSP with error messages or success message
-        request.getRequestDispatcher("adduser.jsp").forward(request, response);
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
+        request.getRequestDispatcher("/views/admin/addUser.jsp").forward(request, response);
     }
 }
