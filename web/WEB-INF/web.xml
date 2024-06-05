@@ -40,6 +40,10 @@
         <servlet-name>BookTicketServlet</servlet-name>
         <servlet-class>controller.BookTicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConcessionServlet</servlet-name>
+        <servlet-class>controller.ConcessionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
         <url-pattern>/admin/filter</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>BookTicketServlet</servlet-name>
         <url-pattern>/bookticket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConcessionServlet</servlet-name>
+        <url-pattern>/concession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
