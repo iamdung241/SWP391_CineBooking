@@ -65,19 +65,21 @@ public class SeatServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        SeatDAO sdao = new SeatDAO();
-       List<Seat> listS;
+       List<Seat> listSeat;
        String roomID = request.getParameter("roomID");
        MovieDAO moviedao = new MovieDAO();
       ShowtimingDAO showdao = new ShowtimingDAO();
+      String movieID = request.getParameter("movieID");
+      
        try {
            int roomid = Integer.parseInt(roomID);
+           int movieid = Integer.parseInt(movieID);
            RoomDAO rdao = new RoomDAO();
            Room room = rdao.getRoomByID(roomid);
-           listS = sdao.getSeatsByCharacterName(room.getRoom_name());
-           request.setAttribute("listS", listS);
-           List<Showtiming> listshow = showdao.getShowtimingByRoomID(roomid);
-           
-           Movie movie = moviedao.getMovieWithListShowtiming(listshow);
+           request.setAttribute("room", room);
+           listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
+           request.setAttribute("listSeat", listSeat);
+           Movie movie = moviedao.getMovieByID(movieid);
            request.setAttribute("movie", movie);
        } catch(Exception e) {
            

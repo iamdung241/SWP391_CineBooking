@@ -102,7 +102,7 @@
 
             </div>
 
-            <section id="stream" class="p_3" style="background-color: rgb(240,240,240)">
+<!--            <section id="stream" class="p_3" style="background-color: rgb(240,240,240)">
                 <div class="container-xl">
                     <div class="row stream_1">
                         <div class="col-md-12">
@@ -177,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>-->
 
             <section id="spec" class="p_3 bg_dark">
                 <div class="container-xl">

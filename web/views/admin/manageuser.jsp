@@ -87,9 +87,9 @@
                                 <h6 class="card-title m-0">User List</h6>
                                 <!-- Search by Username -->
                                 <form class="d-flex" action="${pageContext.request.contextPath}/searchAccount" method="get">
-                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
-                                <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
-                            </form>
+                                    <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
+                                    <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
+                                </form>
                             <!-- Add User -->
                             <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
                         </div>
