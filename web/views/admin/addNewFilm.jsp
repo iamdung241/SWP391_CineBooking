@@ -56,9 +56,23 @@
                     AgeErr.textContent = "Please enter a number < 25 example 15+";
                     return false;
                 }
+                const regex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
                 AgeErr.textContent = "";
                 return true;
 
+            }
+            
+            function validateName(){
+                var name = document.getElementById("name").value;
+                var nameErr = document.getElementById("nameErr");
+                var regex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
+                
+                if(!regex.test(name)){
+                    nameErr.textContent = "Invalid format!";
+                    return false;
+                }
+                nameErr.textContent = "";
+                return true;
             }
 
             function validateduration() {
@@ -124,7 +138,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Name</td>
-                                                    <td><input type="text" name="name" class="form-control" required/></td>
+                                                    <td>
+                                                        <input type="text" id="name" name="name" class="form-control" required onblur="validateName()"/>
+                                                        <span class="text-danger" id="nameErr"></span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Type</td>

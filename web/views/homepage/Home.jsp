@@ -65,7 +65,7 @@
                                         <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
                                         <h1 class="font_80 mt-4">Olympus Has<br/> Fallen</h1>
                                         <p class="mt-4">Secret Service agent Mike Banning is trapped inside the White House after a terrorist attack and works with the national security agency to rescue the President from kidnappers.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="movietrailer?ID=2" id="embeddedLink"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a></h5>
+                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=2" id="embeddedLink"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
                                     </div>
                                 </div>
                                 <div class="carousel-item">
@@ -74,7 +74,7 @@
                                         <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
                                         <h1 class="font_80 mt-4">5 Centimeters <br/> per Second</h1>
                                         <p class="mt-4">Takaki tells the story of his life as cruel winters, cold technology, and finally, adult obligations and responsibility converge to test the delicate petals of love.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="movietrailer?ID=8"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a></h5>
+                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=8"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
                                     </div>
                                 </div>
                                 <div class="carousel-item">
@@ -84,7 +84,7 @@
                                         <h1 class="font_80 mt-4">Spaceman</h1>
                                         <h1><br/></h1>
                                         <p class="mt-4">Half a year into his solo mission on the edge of the solar system, an astronaut concerned with the state of his life back on Earth is helped by an ancient creature he discovers in the bowels of his ship.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="movietrailer?ID=17"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a></h5>
+                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=17"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
                                     </div>
                                 </div>
                             </div>
@@ -183,29 +183,29 @@
                 <div class="container-xl">
                     <div class="row stream_1 text-center">
                         <div class="col-md-12">
-                            <h1 class="mb-0 text-white font_50">Now Showing</h1>
+                            <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
                         </div>
                     </div>
                     <div class="container mt-5">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <form action="movieController" method="GET" class="input-group" id="searchForm">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;">
-                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                    <input type="hidden" name="service" value="search" id="serviceInput">
-                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
-                                        <option value="all">All</option>
-                                        <option value="upcoming">Upcoming Film</option>
-                                        <option value="nowshowing">Nowshowing Film</option>
-                                    </select>
-                                </form>
-
-                            </div>
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;"
+                                           value="${keyword != null ? keyword : ''}">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                <input type="hidden" name="service" value="search" id="serviceInput">
+                                <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
+                                    <option value="all">All</option>
+                                    <option value="upcoming">Upcoming Film</option>
+                                    <option value="nowshowing">Nowshowing Film</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
-                    <p class="error-message">${requestScope.resultNull}</p>
-
-                <div class="row spec_1 mt-4">
+                </div>
+                <p class="error-message">${requestScope.resultNull}</p>
+                <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
+                    <div class="row spec_1 mt-4">
                     <c:forEach items = "${listM}" var = "m">
                         <div class="pe-0 col-3">
                             <div class="spec_1im clearfix position-relative">
@@ -227,10 +227,13 @@
                                         Duration: ${m.getDuration()} minutes
                                     </li>
                                     <li class="col_black">
-                                        Category: ${m.getType_movie().getType_name()}
+                                        Age: ${m.getAge()}
+                                    </li>
+                                    <li class="col_black">
+                                        Category: ${m.getType_name()}
                                     </li>
                                     <li>
-                                        <a class="bookTicket" href="#">Book Tickets</a>
+                                        <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
                                         <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
                                     </li>
                                 </ul>
@@ -239,107 +242,7 @@
                     </c:forEach>
                 </div>
         </section>
-
-        <section id="testim" class="p_3 pb-5">
-            <div class="container-xl">
-                <div class="row stream_1 text-center">
-                    <div class="col-md-12">
-                        <h6 class="text-uppercase col_red">Testimonials</h6>
-                        <h1 class="mb-0 font_50">Trusted by tech experts and <br>  real users</h1>
-                    </div>
-                </div>
-                <div class="row testim_1 mt-4">
-                    <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="testim_1i row">
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/22.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Semp Porta</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/23.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Eget Nulla</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="testim_1i row">
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/24.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Dapibus Diam</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="testim_1i1 text-center p-4 pt-5 pb-5 bg_dark rounded">
-                                            <img src="img/21.jpg" alt="abc" class="rounded-circle">
-                                            <h4 class="col_red mt-3">Per Conubia</h4>
-                                            <h6 class="fw-normal text-muted">CEO, Company Inc.</h6>
-                                            <span class="font_60 text-white"><i class="fa fa-quote-left"></i></span>
-                                            <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos aperiam porro necessitatibus, consequuntur, reiciendis
-                                                dolore doloribus id repellendus tempora vitae quia voluptas ipsum eligendi hic.</p>
-                                            <span class="col_red">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
-
-
         <script>
             window.onscroll = function () {
                 myFunction()
@@ -359,25 +262,25 @@
                 }
             }
             document.getElementById('dateSelect').addEventListener('change', function () {
-                        document.getElementById('serviceInput').value = 'filter';
-                        document.getElementById('searchForm').submit();
-                    });
+                document.getElementById('serviceInput').value = 'filter';
+                document.getElementById('searchForm').submit();
+            });
 
 
-                    // Function to set the selected option in the dropdown
-                    function setSelectedOption() {
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const dateFilter = urlParams.get('dateFilter');
-                        if (dateFilter) {
-                            const selectElement = document.getElementById('dateSelect');
-                            selectElement.value = dateFilter;
-                        }
-                    }
+            // Function to set the selected option in the dropdown
+            function setSelectedOption() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const dateFilter = urlParams.get('dateFilter');
+                if (dateFilter) {
+                    const selectElement = document.getElementById('dateSelect');
+                    selectElement.value = dateFilter;
+                }
+            }
 
-                    // Call the function to set the selected option when the page loads
-                    window.onload = setSelectedOption;
+            // Call the function to set the selected option when the page loads
+            window.onload = setSelectedOption;
         </script>
-
     </body>
 
 </html>
+
