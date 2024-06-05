@@ -202,14 +202,31 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public Vector<Account> searchAccountsByUsername(String username) {
+    public Vector<Account> searchAccounts(String name, String roleFilter) {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<Account> accounts = new Vector<>();
-        String sql = "SELECT * FROM [Account] WHERE username LIKE ?";
+        StringBuilder sql = new StringBuilder("SELECT * FROM [Account] WHERE 1=1");
+
+        if (name != null && !name.isEmpty()) {
+            sql.append(" AND (username LIKE ? OR fullname LIKE ?)");
+        }
+        if (roleFilter != null && !roleFilter.isEmpty()) {
+            sql.append(" AND role_id = ?");
+        }
+
         try {
-            stm = connection.prepareStatement(sql);
-            stm.setString(1, "%" + username + "%");
+            stm = connection.prepareStatement(sql.toString());
+            int paramIndex = 1;
+
+            if (name != null && !name.isEmpty()) {
+                stm.setString(paramIndex++, "%" + name + "%");
+                stm.setString(paramIndex++, "%" + name + "%");
+            }
+            if (roleFilter != null && !roleFilter.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(roleFilter));
+            }
+
             rs = stm.executeQuery();
             while (rs.next()) {
                 int account_id = rs.getInt("account_id");
@@ -299,5 +316,48 @@ public class AccountDAO extends DBContext {
         }
         // Return false if the email does not exist
         return false;
+    }
+
+    public Account getAccountByUsername(String giveUsername) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE username = ?";
+        try {
+            // Prepare the SQL statement and set the account_id parameter
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, giveUsername);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                // Retrieve account details from the result set
+                int account_id = rs.getInt("account_id");
+                String fullname = rs.getString("fullname");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                int role_id = rs.getInt("role_id");
+
+                // Create an Account object and return it
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                return u;
+            }
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the result set and statement
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // Return null if no account is found
+        return null;
     }
 }

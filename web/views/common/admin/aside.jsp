@@ -150,7 +150,9 @@
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
 
+
                                     <li><a href="/CineBooking/views/admin/manageuser.jsp">User Listing</a></li>
+
 
                                 </ul>
                             </div>
