@@ -134,7 +134,7 @@ public class ConcessionDAO extends DBContext {
      *
      * @param concession the concession item to be added to the database
      */
-    public void add(Concession concession) {
+    public void addConcession(Concession concession) {
         String sql = "INSERT INTO Concessions (concessions_name, image, price, quantity) VALUES (?, ?, ?, ?)";
 
         try {

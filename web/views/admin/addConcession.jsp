@@ -72,14 +72,11 @@
         let name = $('#nameInput').val().trim();
         let price = $('#priceInput').val();
         let quantity = $('#quantityInput').val();
-        let regex = /^(?!.* {3})[a-zA-Z0-9 ]+$/;
         //xoá thông báo lỗi hiện tại
         $('.error').html('');
         if (name === '') {
             $('#nameError').html('The concession name cannot be empty').css('color', 'red');
-        } else if (!regex.test(name)) {
-            $('#nameError').html('The concession name cannot contain special characters or more than two consecutive spaces').css('color', 'red');
-        } else if (name.trim() === '') {
+        }else if (name.trim() === '') {
             $('#nameError').html('The concession name cannot contain only spaces').css('color', 'red');
         }
         
