@@ -61,10 +61,6 @@
                 </div>
                 <!-- Content-->
                 <section class="container-fluid">
-                    <!-- Page Title-->
-                    <h2 class="fs-3 fw-bold mb-2">Welcome, Manager 👋</h2>
-                    <p class="text-muted mb-5">Get a quick overview of your project, or click into one of the sections for a more detailed breakdown.</p>
-                    <!-- / Page Title-->
                     <!-- Content-->
                     <div class="col-12">
                         <div class="card mb-4 h-100">
@@ -73,6 +69,7 @@
                                 <!-- Search by Username and Role -->
                                 <form class="d-flex" action="${pageContext.request.contextPath}/searchAccount" method="get">
                                     <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Username" style="width: 200px;">
+                                    <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Name" style="width: 200px;">
                                     <select name="role" class="form-control form-control-sm ms-2" style="width: 150px;">
                                         <option value="">All Roles</option>
                                         <option value="1">Admin</option>
