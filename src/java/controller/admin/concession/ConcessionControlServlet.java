@@ -60,6 +60,9 @@ public class ConcessionControlServlet extends HttpServlet {
             case "delete":
                 deleteConcession(request);
                 break;
+            case "restock":
+                restockConcession(request);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -193,5 +196,10 @@ public class ConcessionControlServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         dao.deleteConcession(id);
 
+    }
+
+    private void restockConcession(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        dao.restockConcession(id);
     }
 }
