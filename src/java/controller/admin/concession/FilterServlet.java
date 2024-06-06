@@ -31,6 +31,16 @@ public class FilterServlet extends HttpServlet {
         doGet(request, response); // Chuyển tiếp POST request đến doGet
     }
 
+    /**
+ * Handles the HTTP GET request for managing concessions.
+ * This method processes pagination, filtering, and keyword search functionalities.
+ * 
+ * @param request  the HttpServletRequest object that contains the request the client has made of the servlet
+ * @param response the HttpServletResponse object that contains the response the servlet sends to the client
+ * @throws ServletException if the request could not be handled
+ * @throws IOException      if an input or output error is detected when the servlet handles the request
+ */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filter = request.getParameter("filter");
