@@ -71,6 +71,7 @@ public class ConcessionDAO extends DBContext {
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
                 concession.setQuantity(resultSet.getInt("quantity"));
+                concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
 
@@ -336,22 +337,6 @@ public class ConcessionDAO extends DBContext {
     public static void main(String[] args) {
         ConcessionDAO concessionDAO = new ConcessionDAO();
 
-    // Test findByKeywordAndType method
-    String keyword = "COKE"; // Từ khóa tìm kiếm
-    String type = "Combo"; // hoặc bất kỳ loại nào bạn muốn kiểm tra
-    int page = 1;
-    int limit = 10;
-    List<Concession> concessions = concessionDAO.findByKeywordAndType(keyword, type, page, limit);
-
-    // In kết quả
-    System.out.println("Danh sách Concessions theo từ khóa '" + keyword + "' và loại '" + type + "':");
-    for (Concession concession : concessions) {
-        System.out.println(concession);
-    }
-
-    // Test getTotalRecordsByKeywordAndType method
-    int totalRecords = concessionDAO.getTotalRecordsByKeywordAndType(keyword, type);
-    System.out.println("Tổng số bản ghi cho từ khóa '" + keyword + "' và loại '" + type + "': " + totalRecords);
     }
 
     public List<Concession> findByKeywordAndType(String keyword, String type, int page, int limit) {
@@ -454,6 +439,22 @@ public int getTotalRecordsByKeywordAndType(String keyword, String type) {
             e.printStackTrace();
         }
         return totalRecords;
+    }
+
+    public void restockConcession(int id) {
+        String sql = "UPDATE Concessions SET status = 1 WHERE concessions_id  = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

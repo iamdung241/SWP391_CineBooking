@@ -14,6 +14,19 @@ public class Concession {
     private String image;
     private float price;
     private int quantity;
+    private int status;
+
+    public Concession() {
+    }
+
+    public Concession(int concessions_id, String concessions_name, String image, float price, int quantity, int status) {
+        this.concessions_id = concessions_id;
+        this.concessions_name = concessions_name;
+        this.image = image;
+        this.price = price;
+        this.quantity = quantity;
+        this.status = status;
+    }
 
     public int getConcessions_id() {
         return concessions_id;
@@ -55,9 +68,17 @@ public class Concession {
         this.quantity = quantity;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "Concession{" + "concessions_id=" + concessions_id + ", concessions_name=" + concessions_name + ", image=" + image + ", price=" + price + ", quantity=" + quantity + '}';
+        return "Concession{" + "concessions_id=" + concessions_id + ", concessions_name=" + concessions_name + ", image=" + image + ", price=" + price + ", quantity=" + quantity + ", status=" + status + '}';
     }
 
     
