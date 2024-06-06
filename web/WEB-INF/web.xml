@@ -36,6 +36,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerController</servlet-name>
+        <servlet-class>controller.CustomerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FilterServlet</servlet-name>
         <url-pattern>/admin/filter</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerController</servlet-name>
+        <url-pattern>/customerController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
