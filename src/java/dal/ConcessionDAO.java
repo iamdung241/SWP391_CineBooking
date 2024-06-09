@@ -55,6 +55,7 @@ public class ConcessionDAO extends DBContext {
     public List<Concession> getAllConcessions(int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql = "  SELECT * FROM Concessions\n"
+                + "WHERE status = 1\n"
                 + "  ORDER BY[concessions_id]\n"
                 + "  OFFSET ? ROWS\n"
                 + "  FETCH NEXT ? ROWS ONLY";
@@ -83,7 +84,7 @@ public class ConcessionDAO extends DBContext {
 
     public List<Concession> findByKeyword(String keyword, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             String queryKeyword = "%" + keyword + "%";
@@ -111,7 +112,7 @@ public class ConcessionDAO extends DBContext {
     }
 
     public int getTotalRecordsByKeyword(String keyword) {
-        String sql = "SELECT COUNT(*) FROM Concessions WHERE concessions_name LIKE ? OR image LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ?";
+        String sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             String queryKeyword = "%" + keyword + "%";
@@ -190,7 +191,7 @@ public class ConcessionDAO extends DBContext {
     public List<Concession> getConcessionsOrderedByPrice(boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions ORDER BY price "
+        String sql = "SELECT * FROM Concessions WHERE status = 1 ORDER BY price "
                 + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -216,7 +217,8 @@ public class ConcessionDAO extends DBContext {
 
     public int getTotalRecordsByPrice(boolean ascending) {
         String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT COUNT(*) FROM Concessions";
+        String sql = "SELECT COUNT(*) FROM Concessions\n"
+                + "WHERE status = 1";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -233,7 +235,7 @@ public class ConcessionDAO extends DBContext {
     public List<Concession> getConcessionsOrderedByQuantity(boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions ORDER BY quantity " + order
+        String sql = "SELECT * FROM Concessions Where status = 1 ORDER BY quantity " + order
                 + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -260,7 +262,8 @@ public class ConcessionDAO extends DBContext {
     public List<Concession> findByKeywordOrderedByPrice(String keyword, boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? ORDER BY price " + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? ORDER BY price " 
+                + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + keyword + "%");
@@ -285,7 +288,7 @@ public class ConcessionDAO extends DBContext {
     public List<Concession> findByKeywordOrderedByQuantity(String keyword, boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? ORDER BY quantity " + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? ORDER BY quantity " + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + keyword + "%");
@@ -309,7 +312,8 @@ public class ConcessionDAO extends DBContext {
 
     public int getTotalRecordsByQuantity(boolean ascending) {
         String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT COUNT(*) FROM Concessions";
+        String sql = "SELECT COUNT(*) FROM Concessions\n"
+                + "WHERE status = 1";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -323,7 +327,7 @@ public class ConcessionDAO extends DBContext {
     }
 
     public int getTotalRecordCount() {
-        String sql = "SELECT COUNT(*) AS total FROM Concessions";
+        String sql = "SELECT COUNT(*) AS total FROM Concessions WHERE status = 1";
         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 return resultSet.getInt("total");
@@ -334,71 +338,136 @@ public class ConcessionDAO extends DBContext {
         return 0;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public static void main(String[] args) {
         ConcessionDAO concessionDAO = new ConcessionDAO();
 
+    // Test findByName method
+    String name = "med"; // Tên sản phẩm cần tìm kiếm
+    int page = 1;
+    int limit = 10;
+    List<Concession> concessions = concessionDAO.findByName(name, page, limit);
+
+    // In kết quả
+    System.out.println("Danh sách Concessions có tên chứa '" + name + "':");
+    for (Concession concession : concessions) {
+        System.out.println(concession);
     }
 
+    // Test getTotalRecordsByName method
+    int totalRecords = concessionDAO.getTotalRecordsByName(name);
+    System.out.println("Tổng số bản ghi có tên chứa '" + name + "': " + totalRecords);
+
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public List<Concession> findByKeywordAndType(String keyword, String type, int page, int limit) {
-    List<Concession> listFound = new ArrayList<>();
-    String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? AND concessions_name LIKE ? " +
-                 "ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-    try {
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, "%" + keyword + "%");
-        if (type.equals("Combo")) {
-            statement.setString(2, "%Combo%");
+        List<Concession> listFound = new ArrayList<>();
+        String sql;
+        if (type.equalsIgnoreCase("Combo")) {
+            sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? AND concessions_name LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         } else {
-            statement.setString(2, "%");
+            sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? AND concessions_name NOT LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         }
-        int offset = (page - 1) * limit;
-        statement.setInt(3, offset);
-        statement.setInt(4, limit);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            Concession concession = new Concession();
-            concession.setConcessions_id(resultSet.getInt("concessions_id"));
-            concession.setConcessions_name(resultSet.getString("concessions_name"));
-            concession.setImage(resultSet.getString("image"));
-            concession.setPrice(resultSet.getFloat("price"));
-            concession.setQuantity(resultSet.getInt("quantity"));
-            listFound.add(concession);
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return listFound;
-}
 
-public int getTotalRecordsByKeywordAndType(String keyword, String type) {
-    int totalRecords = 0;
-    String sql = "SELECT COUNT(*) FROM Concessions WHERE concessions_name LIKE ? AND concessions_name LIKE ?";
-    try {
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, "%" + keyword + "%");
-        if (type.equals("Combo")) {
-            statement.setString(2, "%Combo%");
-        } else {
-            statement.setString(2, "%");
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + keyword + "%");
+            if (type.equalsIgnoreCase("Combo")) {
+                statement.setString(2, "%Combo%");
+            } else {
+                statement.setString(2, "%Combo%");
+            }
+            int offset = (page - 1) * limit;
+            statement.setInt(3, offset);
+            statement.setInt(4, limit);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Concession concession = new Concession();
+                concession.setConcessions_id(resultSet.getInt("concessions_id"));
+                concession.setConcessions_name(resultSet.getString("concessions_name"));
+                concession.setImage(resultSet.getString("image"));
+                concession.setPrice(resultSet.getFloat("price"));
+                concession.setQuantity(resultSet.getInt("quantity"));
+                listFound.add(concession);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            totalRecords = resultSet.getInt(1);
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return listFound;
     }
-    return totalRecords;
-}
+
+    public int getTotalRecordsByKeywordAndType(String keyword, String type) {
+        int totalRecords = 0;
+        String sql;
+        if (type.equalsIgnoreCase("Combo")) {
+            sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name LIKE ? AND concessions_name LIKE ?";
+        } else {
+            sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name LIKE ? AND concessions_name NOT LIKE ?";
+        }
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + keyword + "%");
+            if (type.equalsIgnoreCase("Combo")) {
+                statement.setString(2, "%Combo%");
+            } else {
+                statement.setString(2, "%Combo%");
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                totalRecords = resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalRecords;
+    }
 
     public List<Concession> getConcessionsByType(String type, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql;
+        if (type.equalsIgnoreCase("Combo")) {
+            sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        } else {
+            sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name NOT LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        }
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            if (type.equals("Combo")) {
+            if (type.equalsIgnoreCase("Combo")) {
                 statement.setString(1, "%Combo%");
             } else {
-                statement.setString(1, "%");
+                statement.setString(1, "%Combo%");
             }
             int offset = (page - 1) * limit;
             statement.setInt(2, offset);
@@ -423,12 +492,18 @@ public int getTotalRecordsByKeywordAndType(String keyword, String type) {
 
     public int getTotalRecordsByType(String type) {
         int totalRecords = 0;
-        String sql = "SELECT COUNT(*) FROM Concessions WHERE concessions_name LIKE ?";
+        String sql;
+        if (type.equalsIgnoreCase("Combo")) {
+            sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name LIKE ?";
+        } else {
+            sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name NOT LIKE ?";
+        }
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            if (type.equals("Combo")) {
+            if (type.equalsIgnoreCase("Combo")) {
                 statement.setString(1, "%Combo%");
             } else {
-                statement.setString(1, "%");
+                statement.setString(1, "%Combo%");
             }
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -457,4 +532,49 @@ public int getTotalRecordsByKeywordAndType(String keyword, String type) {
         }
     }
 
+    public List<Concession> findByName(String name, int page, int limit) {
+    List<Concession> listFound = new ArrayList<>();
+    String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    try {
+        PreparedStatement statement = connection.prepareStatement(sql);
+        String queryName = "%" + name + "%";
+        statement.setString(1, queryName);
+        statement.setString(2, queryName);
+        statement.setInt(3, (page - 1) * limit);
+        statement.setInt(4, limit);
+
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Concession concession = new Concession();
+            concession.setConcessions_id(resultSet.getInt("concessions_id"));
+            concession.setConcessions_name(resultSet.getString("concessions_name"));
+            concession.setImage(resultSet.getString("image"));
+            concession.setPrice(resultSet.getFloat("price"));
+            concession.setQuantity(resultSet.getInt("quantity"));
+            listFound.add(concession);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return listFound;
+}
+
+public int getTotalRecordsByName(String name) {
+    String sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name LIKE ?";
+    try {
+        PreparedStatement statement = connection.prepareStatement(sql);
+        String queryName = "%" + name + "%";
+        statement.setString(1, queryName);
+
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
+    
+    
 }
