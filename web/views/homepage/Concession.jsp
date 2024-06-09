@@ -50,14 +50,14 @@
                                     <h1 style="color: #000" class="mb-0 font_50">Now Showing</h1>
                                     <!-- Search and filter section -->
                                     <div class="mt-4 search-filter-form">
-                                        <form method="get" action="${pageContext.request.contextPath}/concession" class="search-input d-inline-block me-3">
+                                        <form method="get" action="${pageContext.request.contextPath}/concession" class="search-input me-3">
                                         <input type="text" name="search" class="form-control" placeholder="Search" value="${search}">
                                         <input type="hidden" name="filter" value="${selectedFilter}">
                                         <button type="submit" class="btn">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </form>
-                                    <form method="get" action="${pageContext.request.contextPath}/concession" class="filter-select d-inline-block">
+                                    <form method="get" action="${pageContext.request.contextPath}/concession" class="filter-select">
                                         <input type="hidden" name="search" value="${search}">
                                         <select name="filter" class="form-control" onchange="this.form.submit()">
                                             <option value="all" ${selectedFilter == null || selectedFilter.equals("all") ? 'selected' : ''}>All</option>
@@ -109,15 +109,14 @@
                         </nav>
                     </div>
                 </section>
+                <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
             </div>
-
         </div>
-        <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
-    </div>
-</body>
+    </body>
 </html>
+
 <style>
-    .film{
+    .film {
         border: 2px solid #000;
     }
     .search-filter-form {
@@ -128,16 +127,22 @@
     .search-input {
         display: flex;
         width: 30%;
+        align-items: center;
     }
     .search-input input {
         flex: 1;
+        margin-right: 5px;
     }
     .search-input button {
         background-color: red;
         border: none;
         color: white;
+        padding: 6px 12px;
     }
     .filter-select {
-        width: 30%;
+        width: 20%;
+    }
+    .filter-select select {
+        width: 100%;
     }
 </style>

@@ -99,8 +99,8 @@ public class ConcessionServlet extends HttpServlet {
                 totalRecords = dao.getTotalRecordsByKeyword(search);
                 break;
             default:
-                listC = dao.findByKeyword(search, page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByKeyword(search);
+                listC = dao.findByName(search, page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByName(search);
                 break;
         }
     } else if (filter != null && !filter.isEmpty()) {
