@@ -1,6 +1,6 @@
 <%-- 
-    Document   : UserProfile
-    Created on : Jun 4, 2024, 6:28:04 PM
+    Document   : Home
+    Created on : May 19, 2024, 6:28:04 PM
     Author     : DungTT
 --%>
 
@@ -117,10 +117,10 @@
     </head>
     <body>
         <div class="main clearfix position-relative">
-            <div class="main_1 clearfix position-fixed top-0 w-100">
+            <div style="background-color: black" class="main_1 clearfix position-fixed top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-            </div>
-            <div class="main-content">
+                </div>
+                <div class="main-content">
                 <c:if test="${sessionScope.user != null}">
                     <div class="user-profile">
                         <div class="container">
@@ -137,26 +137,36 @@
                                 <div class="col-sm-8 user-profile-info">
                                     <div class="user-profile-desc">
                                         <h3 class="text-center">My Information</h3>
-                                        <form id="myForm" action="customerController?service=updateProfile&userID=${sessionScope.user.account_id}" method="post" class="edit-form" onsubmit="return validateForm()">
+                                        <form id="myForm" action="customerController" method="get" class="edit-form" onsubmit="return validateForm()">
+                                            <input type="hidden" name="service" value="updateProfile" />
+                                            <input type="hidden" name="userID" value="${sessionScope.user.account_id}" />
                                             <div class="col-sm-7">
                                                 <label for="fullname">Full Name</label>
-                                                <input type="text" name="fullname" id="fullname" value="${sessionScope.user.fullname}" class="form-control" onblur="validateFullName()" />
+                                                <input type="text" name="fullname" id="fullname" value="${account.fullname}" class="form-control" onblur="validateFullName()" />
                                                 <span class="error" id="fullnameError"></span>
 
                                                 <label for="phone">Phone number</label>
-                                                <input type="text" name="phone" id="phone" value="${sessionScope.user.phone}" class="form-control" onblur="validatePhone()" />
+                                                <input type="text" name="phone" id="phone" value="${account.phone}" class="form-control" onblur="validatePhone()" />
                                                 <span class="error" id="phoneError"></span>
 
                                                 <label for="email">Email</label>
-                                                <input type="text" name="email" id="email" value="${sessionScope.user.email}" class="form-control" onblur="validateEmail()" />
+                                                <input type="text" name="email" id="email" value="${account.email}" class="form-control" onblur="validateEmail()" />
                                                 <span class="error" id="emailError"></span>
 
                                                 <label for="username">Username</label>
-                                                <input type="text" name="username" id="username" value="${sessionScope.user.username}" class="form-control" onblur="validateUsername()" />
+                                                <input type="text" name="username" id="username" value="${account.username}" class="form-control" onblur="validateUsername()" />
                                                 <span class="error" id="usernameError"></span>
                                             </div>
-                                            <input type="submit" value="Submit" />
+                                            <input type="submit" value="Update my profile" />
                                         </form>
+
+                                        <!-- Display success message -->
+                                        <c:if test="${not empty message}">
+                                            <div class="alert alert-success">
+                                                ${message}
+                                            </div>
+                                        </c:if>
+        
                                     </div>
                                 </div>
                             </div>
@@ -168,48 +178,52 @@
         </div>
         <script>
             function validateFullName() {
-                const fullname = document.getElementById('fullname').value.trim();
-                const fullnameError = document.getElementById('fullnameError');
-                fullnameError.textContent = fullname === '' ? 'Full Name is required' : '';
-                return fullname !== '';
+                var fullname = document.getElementById("fullname").value.trim();
+                var fullnameError = document.getElementById("fullnameError");
+                var fullnameRegex = /^[\p{L}\s]{6,30}$/u;
+
+                if (!fullnameRegex.test(fullname) || fullname === "") {
+                    fullnameError.textContent = "Fullname must be 6-30 characters long, only contain letters and spaces.";
+                    return false;
+                }
+                fullnameError.textContent = "";
+                return true;
             }
 
             function validatePhone() {
-                const phone = document.getElementById('phone').value.trim();
-                const phoneError = document.getElementById('phoneError');
-                if (phone === '') {
-                    phoneError.textContent = 'Phone number is required';
+                var phone = document.getElementById("phone").value;
+                var phoneError = document.getElementById("phoneError");
+                var phoneRegex = /^(09|03|07|08)\d{8,9}$/;
+                if (!phoneRegex.test(phone)) {
+                    phoneError.textContent = "Valid phone number is required (must start with 09, 03, 07, or 08 and be 10-11 digits long).";
                     return false;
-                } else if (!/^\d+$/.test(phone)) {
-                    phoneError.textContent = 'Phone number must be digits only';
-                    return false;
-                } else {
-                    phoneError.textContent = '';
-                    return true;
                 }
+                phoneError.textContent = "";
+                return true;
             }
 
             function validateEmail() {
-                const email = document.getElementById('email').value.trim();
-                const emailError = document.getElementById('emailError');
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (email === '') {
-                    emailError.textContent = 'Email is required';
+                var email = document.getElementById("email").value;
+                var emailError = document.getElementById("emailError");
+                var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    emailError.textContent = "Valid email is required.";
                     return false;
-                } else if (!emailPattern.test(email)) {
-                    emailError.textContent = 'Invalid email format';
-                    return false;
-                } else {
-                    emailError.textContent = '';
-                    return true;
                 }
+                emailError.textContent = "";
+                return true;
             }
 
             function validateUsername() {
-                const username = document.getElementById('username').value.trim();
-                const usernameError = document.getElementById('usernameError');
-                usernameError.textContent = username === '' ? 'Username is required' : '';
-                return username !== '';
+                var username = document.getElementById("username").value;
+                var usernameError = document.getElementById("usernameError");
+                var usernameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
+                if (!usernameRegex.test(username)) {
+                    usernameError.textContent = "Username must be 6-20 characters long, contain both letters and numbers, and not contain any spaces.";
+                    return false;
+                }
+                usernameError.textContent = "";
+                return true;
             }
 
             function validateForm() {
