@@ -50,11 +50,10 @@
                             <c:forEach items="${listSeat}" var="s">
                                 <div style="margin-left: 18px" class="col-2 my-2">          
                                     <div class="text-center seat ${s.getStatus().equals('Booked') ? 'booked' : ''}" style="border: 1px solid; border-radius: 5px; background-color: ${s.getStatus().equals('Booked') ? 'red' : 'black'}" >
-                                        <label style="color: white; text-decoration: none">${s.getSeat_name()}</label>
+                                        <label style="color: white; text-decoration: none"><input type="hidden" value="${s.price}"/>${s.getSeat_name()}</label>
                                     </div>
                                 </div>
                             </c:forEach>
-                           
                         </div>
                     </div>
                     <div style="background-color: rgb(240,240,240); margin-left: 50px" class="col-5">
@@ -73,7 +72,7 @@
                         <div ><h4><i class='bx bx-movie-play'></i><span style="color: green"> ${movie.getMovie_name()} </span></h4></div> 
                         <div><span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span></span></div>
                         <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
-                        <div><h5><i class='bx bx-money-withdraw'></i> Total price: <h5></div>
+                        <div><h5><i class='bx bx-money-withdraw'></i> Total price:&nbsp<span id="total-price"></span> <h5></div>
                         <hr/>
                         <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" ">Proceed to Payment</a>
                        
@@ -99,8 +98,18 @@
                     $("#selected-seats").text(selectedSeats.join(", "));
                     //hiển thị ra số lượng ghế đã chọn
                     $("#selected-seat-count").text(selectedSeats.length);
+                    
+                    var totalPrice = $(".cinema-seats .seat.active").map(function () {
+                        return parseFloat($(this).find("input").val());
+                    }).get().reduce((total, price) => total + price, 0);
+
+                    // Hiển thị tổng giá tiền
+                    $("#total-price").text(totalPrice.toFixed(2) + " VND");
                         }
                     });
+                    
+                    // Tính tổng giá tiền của ghế đã chọn
+                    
                 </script>
     </body>
 </html>

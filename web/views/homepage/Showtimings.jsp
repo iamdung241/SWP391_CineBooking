@@ -101,7 +101,7 @@
                                                        <a class="showRoom" href="login.jsp"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     <c:if test="${sessionScope.user != null}">
-                                                       <a class="showRoom" href="seat?roomID=${r.getRoom_id()}"> Room: ${r.getRoom_name()}</a>
+                                                       <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${showtime.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     </div>
                                             </c:forEach>

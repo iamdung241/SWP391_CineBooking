@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.MovieDAO;
@@ -39,12 +38,12 @@ public class SeatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SeatServlet</title>");            
+            out.println("<title>Servlet SeatServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
@@ -65,27 +64,26 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       SeatDAO sdao = new SeatDAO();
-       List<Seat> listSeat;
-       String roomID = request.getParameter("roomID");
-       MovieDAO moviedao = new MovieDAO();
-      ShowtimingDAO showdao = new ShowtimingDAO();
-      String movieID = request.getParameter("movieID");
-      
-       try {
-           int roomid = Integer.parseInt(roomID);
-           int movieid = Integer.parseInt(movieID);
-           RoomDAO rdao = new RoomDAO();
-           Room room = rdao.getRoomByID(roomid);
-           request.setAttribute("room", room);
-           listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
-           request.setAttribute("listSeat", listSeat);
-           Movie movie = moviedao.getMovieByID(movieid);
-           request.setAttribute("movie", movie);
-       } catch(Exception e) {
-           
-       }
-       request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
+        SeatDAO sdao = new SeatDAO();
+        List<Seat> listSeat;
+        String roomID = request.getParameter("roomID");
+        MovieDAO moviedao = new MovieDAO();
+        ShowtimingDAO showdao = new ShowtimingDAO();
+        String movieID = request.getParameter("movieID");
+        try {
+            int roomid = Integer.parseInt(roomID);
+            int movieid = Integer.parseInt(movieID);
+            RoomDAO rdao = new RoomDAO();
+            Room room = rdao.getRoomByID(roomid);
+            System.out.println("Room :" + room);
+            request.setAttribute("room", room);
+            listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
+            request.setAttribute("listSeat", listSeat);
+            Movie movie = moviedao.getMovieByID(movieid);
+            request.setAttribute("movie", movie);
+        } catch (Exception e) {
+        }
+        request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
     }
 
     /**

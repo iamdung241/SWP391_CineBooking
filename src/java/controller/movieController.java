@@ -118,18 +118,18 @@ public class movieController extends HttpServlet {
     private static final String DESCRIPTION = "description";
     private static final String IMG = "img";
     private static final String AGE = "age";
-    private static final String UPLOAD_DIR = "C:\\Users\\thanh\\Documents\\CinemaBookingTicket\\SWP391_CineBooking\\web\\img\\FilmPoster";
+    private static final String UPLOAD_DIR = "E:\\CineBooking_SWP391_G3\\SWP391_CineBooking\\web\\img\\FilmPoster";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter(NAME);
-        String type = request.getParameter(TYPE);
-        String duration = request.getParameter(DURATION);
-        String age = request.getParameter(AGE);
-        String date = request.getParameter(DATE);
-        String trailer = request.getParameter(TRAILER);
-        String description = request.getParameter(DESCRIPTION);
+        String name = request.getParameter(NAME).trim();
+        String type = request.getParameter(TYPE).trim();
+        String duration = request.getParameter(DURATION).trim();
+        String age = request.getParameter(AGE).trim();
+        String date = request.getParameter(DATE).trim();
+        String trailer = request.getParameter(TRAILER).trim();
+        String description = request.getParameter(DESCRIPTION).trim();
         String img = "img/FilmPoster/";
         MovieDAO md = new MovieDAO();
         File fileSaveDir = new File(UPLOAD_DIR);
