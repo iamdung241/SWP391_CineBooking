@@ -8,6 +8,12 @@ package constant;
  *
  * @author Son
  */
+
+/**
+ * CommonConst class holds common constants used across the application.
+ */
 public class CommonConst {
     public static final int RECORD_PER_PAGE = 4; 
+    public static final int RECORD_PER_HOMEPAGE = 8; 
+    public static final String UPLOAD_DIR = "D:\\Semester 5\\CineBooking\\SWP391_CineBooking\\web\\img\\ConcessionImage";
 }

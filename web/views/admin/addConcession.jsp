@@ -72,7 +72,6 @@
         let name = $('#nameInput').val().trim();
         let price = $('#priceInput').val();
         let quantity = $('#quantityInput').val();
-        
         //xoá thông báo lỗi hiện tại
         $('.error').html('');
         if (name === '') {

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  *
- * @author Admin
+ * @author DungTT
  */
 public class MovieControllerForUser extends HttpServlet {
 

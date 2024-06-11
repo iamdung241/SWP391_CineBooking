@@ -49,7 +49,7 @@
                                     <a class="nav-link" href="login.jsp">Account</a>
                                 </c:if>       
                                 <c:if test="${sessionScope.user != null}">
-                                    <a class="nav-link" href="/views/homepage/Home.jsp">Account</a>
+                                    <a class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Account</a>
                                 </c:if>  
                             </li>		
                         </ul>
