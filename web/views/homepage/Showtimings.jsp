@@ -47,29 +47,41 @@
                 background-color: red;
                 color: #fff;
             }
+            .boxes {
+                padding-top: 30px;
+                padding-left: 50px;
+                display: flex;
+                flex-direction: row;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+            }
+            .box {
+                border: 1px solid black;
+                border-radius: 10px;
+                font-size: 19px;
+                margin-right: 20px;
+                text-align: center;
+                padding: 10px;
+            }
+            .date {
+               display: inline-block;
+           }
         </style>
     </head>
     <body>
         <div class="main clearfix position-relative">
-            <div class="main_1 clearfix position-absolute top-0 w-100">
+            <div style="background-color: #000">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
-                <div class="main_blog_dt clearfix">
-                    <section id="center" class="center_blog">
-                        <div class="container-xl">
-                            <div class="row center_o1">
-                                <div class="col-md-12">
-                                    <h2 class="text-white">Cinema</h2>
-                                    <h6 class="mb-0 mt-3 fw-normal col_red"><a class="text-light" href="/CineBooking/home">Home</a> <span class="mx-2 text-muted">/</span> Cinema</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
             </div>
         </div>
-        
-        <section id="exep" class="p_3 bg-light">
+            <div>
+                <a class="boxes" id="dateContainer">
+                </a>
+                <hr/>
+            </div>
+            
+            
+        <section style="padding-top: 50px" id="exep" class="p_3 ">
             <div class="container-xl detail">
                 <div class="row exep1">
                     <c:forEach items="${listM}" var="m">
@@ -101,7 +113,7 @@
                                                        <a class="showRoom" href="login.jsp"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     <c:if test="${sessionScope.user != null}">
-                                                       <a class="showRoom" href="seat?roomID=${r.getRoom_id()}"> Room: ${r.getRoom_name()}</a>
+                                                       <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${showtime.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     </div>
                                             </c:forEach>
@@ -118,24 +130,33 @@
         </section>
     <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
 
-    <script>
-        window.onscroll = function () {
-            myFunction()
-        };
+    <script>   
+        //lấy ra 7 ngày tiếp theo tính từ ngày hiện 
+        function displayNextWeek() {
+        var dateContainer = document.getElementById('dateContainer');
+        var currentDate = new Date();
 
-        var navbar_sticky = document.getElementById("navbar_sticky");
-        var sticky = navbar_sticky.offsetTop;
-        var navbar_height = document.querySelector('.navbar').offsetHeight;
+        for (var i = 0; i < 7; i++) {
+            var date = new Date(currentDate.getTime() + i * 24 * 60 * 60 * 1000);
+            var weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var formattedDate = day + '/' + month + '-' + weekday;
 
-        function myFunction() {
-            if (window.pageYOffset >= sticky + navbar_height) {
-                navbar_sticky.classList.add("sticky")
-                document.body.style.paddingTop = navbar_height + 'px';
-            } else {
-                navbar_sticky.classList.remove("sticky");
-                document.body.style.paddingTop = '0'
-            }
+            var box = document.createElement('div');
+            box.classList.add('box');
+
+            var dateElement = document.createElement('a'); 
+            dateElement.classList.add('date');
+            dateElement.textContent = formattedDate;
+            dateElement.href = '#' + formattedDate; 
+            box.appendChild(dateElement);
+
+            dateContainer.appendChild(box);
         }
+    }
+
+    displayNextWeek();
     </script>
 
 </body>

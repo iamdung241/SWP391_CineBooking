@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
+import dal.ConcessionDAO;
 import dal.MovieDAO;
 import dal.RoomDAO;
 import dal.SeatDAO;
@@ -15,7 +15,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Concession;
 import model.Movie;
 import model.Room;
 import model.Seat;
@@ -44,7 +46,7 @@ public class SeatServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SeatServlet</title>");            
+            out.println("<title>Servlet SeatServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
@@ -65,27 +67,35 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       SeatDAO sdao = new SeatDAO();
-       List<Seat> listSeat;
-       String roomID = request.getParameter("roomID");
-       MovieDAO moviedao = new MovieDAO();
-      ShowtimingDAO showdao = new ShowtimingDAO();
-      String movieID = request.getParameter("movieID");
-      
-       try {
-           int roomid = Integer.parseInt(roomID);
-           int movieid = Integer.parseInt(movieID);
-           RoomDAO rdao = new RoomDAO();
-           Room room = rdao.getRoomByID(roomid);
-           request.setAttribute("room", room);
-           listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
-           request.setAttribute("listSeat", listSeat);
-           Movie movie = moviedao.getMovieByID(movieid);
-           request.setAttribute("movie", movie);
-       } catch(Exception e) {
-           
-       }
-       request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
+        SeatDAO sdao = new SeatDAO();
+        List<Seat> listSeat;
+        String roomID = request.getParameter("roomID");
+        MovieDAO moviedao = new MovieDAO();
+        ShowtimingDAO showdao = new ShowtimingDAO();
+        String movieID = request.getParameter("movieID");
+        String showtimeID = request.getParameter("showtimeID");
+        ConcessionDAO cdao = new ConcessionDAO();
+        List<Concession> listConcession;
+        try {
+            int roomid = Integer.parseInt(roomID);
+            int movieid = Integer.parseInt(movieID);
+            RoomDAO rdao = new RoomDAO();
+            Room room = rdao.getRoomByID(roomid);
+            request.setAttribute("room", room);
+            listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
+            request.setAttribute("listSeat", listSeat);
+            Movie movie = moviedao.getMovieByID(movieid);
+            request.setAttribute("movie", movie);
+            int showtimeid = Integer.parseInt(showtimeID);
+            Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
+            request.setAttribute("showtime", showtime);
+            
+            listConcession = cdao.getAllConcessions();
+            request.setAttribute("listConcession", listConcession);
+        } catch (Exception e) {
+
+        }
+        request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
     }
 
     /**
@@ -99,7 +109,7 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
