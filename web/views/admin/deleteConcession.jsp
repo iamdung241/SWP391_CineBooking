@@ -36,6 +36,4 @@
         let inputId = document.querySelector("#idDeleteInput");
         inputId.value = id;
     }
-    
-    
 </script>

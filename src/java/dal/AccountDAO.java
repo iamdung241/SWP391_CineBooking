@@ -4,6 +4,8 @@
  */
 package dal;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import model.Account;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +25,14 @@ public class AccountDAO extends DBContext {
         ResultSet rs = null;
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
+            // Mã hóa mật khẩu bằng MD5
+            String hashedPassword = md5(inputPassword);
+
             stm = connection.prepareStatement(sql);
             stm.setString(1, input);
             stm.setString(2, input);
             stm.setString(3, input);
-            stm.setString(4, inputPassword);
+            stm.setString(4, hashedPassword);  // Sử dụng mật khẩu đã mã hóa
             rs = stm.executeQuery();
             while (rs.next()) {
                 Account u = new Account();
@@ -47,6 +52,21 @@ public class AccountDAO extends DBContext {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    // Hàm để mã hóa mật khẩu bằng MD5
+    private String md5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : messageDigest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Vector<Account> getAllAccount() {
@@ -95,7 +115,8 @@ public class AccountDAO extends DBContext {
             stm.setString(2, account.getPhone());
             stm.setString(3, account.getEmail());
             stm.setString(4, account.getUsername());
-            stm.setString(5, account.getPassword());
+            // Mã hóa mật khẩu bằng MD5
+            stm.setString(5, md5(account.getPassword()));
             stm.setInt(6, account.getRole_id());
             stm.executeUpdate();
 
