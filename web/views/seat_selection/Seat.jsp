@@ -25,7 +25,11 @@
             }
             .seat:hover {
                 background-color: red; /* Màu khi di chuột vào seat */
-                cursor: pointer; 
+                cursor: pointer;
+            }
+            .card-title {
+                font-size: 1rem; /* Adjust the font size for better readability */
+                margin-bottom: 0.5rem; /* Adjust margin for better spacing */
             }
         </style>
     </head>
@@ -64,26 +68,7 @@
                             </div>
                         </div>
                         <hr/>
-                        <div class="row spec_1">
-                            <c:forEach items="${listConcession}" var="concession">
-                                <div class="col-4" style="margin-top: 20px">
-                                    <div>
-                                        <img src="${concession.getImage()}" alt="imageConcession">
-                                    </div>
-                                    <div>
-                                        <span>${concession.getConcessions_name()}</span>
-                                        <div class="quantity" >
-                                            <button type="button" onclick="increaseQuantity(${concession.getConcessions_id()})">+</button>
-                                            <input type="hidden" name="concessionID" value="${concession.getConcessions_id()}"/>
-                                            <input style="width: 50px" readonly type="number" id="quantity_${concession.getConcessions_id()}" name="quantity" value="0"/>
-                                            <button type="button" onclick="decreaseQuantity(${concession.getConcessions_id()})">-</button>
-                                        </div>
-                                    </div>
-                                </div> 
 
-
-                            </c:forEach>
-                        </div>
                     </div>  
                     <div style="margin-left: 50px; padding-left: 10px" class="col-5">
                         <div style="background-color: rgb(240,240,240); padding-bottom: 100px">
@@ -91,15 +76,14 @@
                                 <h2 style="text-align: center; color: red; padding-top: 10px">Movie Ticket</h2>
                                 <span style="font-size: 21px; font-weight: bold; color: green">PlayShow Cinema</span>
                                 <br/>
-                                <span>
-                                    <span style="padding-right: 90px; font-size: 18px" ><span style="font-weight: bold">Room: &nbsp</span><span style="color: green">${room.getRoom_name()}</span></span>
-                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming:&nbsp </span> <span style="color: green"> ${showtime.getShowtiming()}:00</span></span> 
-                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date: </span></span>
-
-                                </span>
+                                <div>
+                                    <span style="padding-right: 90px; font-size: 18px" ><span style="font-weight: bold">Room: &nbsp</span><span style="color: green">${room.getRoom_name()}</span></span><br>
+                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming:&nbsp </span> <span style="color: green"> ${showtime.getShowtiming()}:00</span></span><br>
+                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date:&nbsp<span style="color: green"> ${showtime.date}</span> </span></span>
+                                </div>
                                 <hr/>
-                                <div ><h4><i class='bx bx-movie-play'></i><span style="color: green"> ${movie.getMovie_name()} </span></h4></div> 
-                                <div><span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span></span></div>
+                                <div><h4><i class='bx bx-movie-play'></i><span style="color: green"> ${movie.getMovie_name()} </span></h4></div> 
+                                <div><span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span><input type="hidden" id="ghe"></span></div>
                                 <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
                                 <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span><h5></div>
                                             <hr/>
@@ -107,92 +91,106 @@
                                             <hr/>
                                             <div style="text-align: center; padding-top: 20px">
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="#"><i class='bx bx-left-arrow'></i> Back</a>
-                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" ">Next <i class='bx bx-right-arrow'></i></a>
+                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next <i class='bx bx-right-arrow'></i></a>
                                             </div>
-                            </div>
+                                            </div>
 
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="margin-top: 60px">
-            <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>   
-        </div>
-        <script>
-            //select seat 
-            document.addEventListener("DOMContentLoaded", function() {
-                // Function to handle seat click events
-                function handleSeatClick(event) {
-                    const seat = event.target.closest('.seat');
-                    if (seat && !seat.classList.contains('booked')) {
-                        seat.classList.toggle('active');
-                        seat.style.backgroundColor = seat.classList.contains('active') ? 'green' : 'black';
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div style="margin-top: 60px">
+                                                <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>   
+                                                </div>
+                                                <script>
+                                                    function redirectWithParams() {
+                                                        // Lấy giá trị của input
+                                                        const selectedSeats = document.getElementById("ghe").value;
 
-                        // Get selected seats
-                        const selectedSeats = Array.from(document.querySelectorAll('.cinema-seats .seat.active'))
-                            .map(activeSeat => activeSeat.textContent.trim());
-                           
-                        //calculate total price 
-                        const totalPrice = Array.from(document.querySelectorAll('.cinema-seats .seat.active'))
-                        .reduce((total, activeSeat) => {
-                            const price = parseFloat(activeSeat.querySelector('.seat-price').value);
-                            return total + price;
-                        }, 0);
-                        
-                        document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
-                        document.getElementById("selected-seat-count").textContent = selectedSeats.length;
-                        document.getElementById("total-price").textContent = totalPrice.toFixed(2);
-                    }
-                }
+                                                        // Lấy giá trị của showtime từ URL
+                                                        const showtimeId = "${showtime.showtime_id}"; // Đây là biến bạn đã sử dụng trong mã JSP
 
-                // Add event listener to all seat elements
-                document.querySelectorAll('.cinema-seats .seat').forEach(seat => {
-                    seat.addEventListener('click', handleSeatClick);
-                });
-            });
-            //set quality of concession
-            function increaseQuantity(concessionID) {
-                var quantityInput = document.getElementById("quantity_" + concessionID);
-                    quantityInput.value = parseInt(quantityInput.value) + 1;
-            }
-            function decreaseQuantity(concessionID) {
-                var quantityInput = document.getElementById("quantity_" + concessionID);
-                var currentQuantity = parseInt(quantityInput.value);
-                if (currentQuantity >= 1) {
-                    quantityInput.value = currentQuantity - 1;
-                }
-            }
-            
-            //countdown
-            document.getElementById('timer').innerHTML = 05 + ":" + 00;
-            startTimer();
+                                                        // Tạo URL chuyển hướng với tham số
+                                                        const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats;
 
-            function startTimer() {
-                var presentTime = document.getElementById('timer').innerHTML;
-                var timeArray = presentTime.split(/[:]+/);
-                var m = timeArray[0];
-                var s = checkSecond((timeArray[1] - 1));
-                if (s == 59) {
-                    m -= 1;
-                }
-                if (m < 0) {
-                    return;
-                }
-                document.getElementById('timer').innerHTML = m + ":" + s;
-                console.log(m); 
-                setTimeout(startTimer, 1000);
-            }
-            function checkSecond(sec) {
-                if (sec < 10 && sec >= 0) {
-                    sec = "0" + sec;
-                } // add zero in front of numbers < 10
-                if (sec < 0) {
-                    sec = "59";
-                }
-                return sec;
-            }
-        </script>
-    </body>
-</html>
+                                                        // Chuyển hướng đến URL đã tạo
+                                                        window.location.href = url;
+                                                    }
+                                                    //select seat 
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        // Function to handle seat click events
+                                                        function handleSeatClick(event) {
+                                                            const seat = event.target.closest('.seat');
+                                                            if (seat && !seat.classList.contains('booked')) {
+                                                                seat.classList.toggle('active');
+                                                                seat.style.backgroundColor = seat.classList.contains('active') ? 'green' : 'black';
+
+                                                                // Get selected seats
+                                                                const selectedSeats = Array.from(document.querySelectorAll('.cinema-seats .seat.active'))
+                                                                        .map(activeSeat => activeSeat.textContent.trim());
+
+                                                                //calculate total price 
+                                                                const totalPrice = Array.from(document.querySelectorAll('.cinema-seats .seat.active'))
+                                                                        .reduce((total, activeSeat) => {
+                                                                            const price = parseFloat(activeSeat.querySelector('.seat-price').value);
+                                                                            return total + price;
+                                                                        }, 0);
+
+                                                                document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
+                                                                document.getElementById("ghe").value=selectedSeats.join(",");
+                                                                document.getElementById("selected-seat-count").textContent = selectedSeats.length;
+                                                                document.getElementById("total-price").textContent = totalPrice.toFixed(2);
+                                                            }
+                                                        }
+
+                                                        // Add event listener to all seat elements
+                                                        document.querySelectorAll('.cinema-seats .seat').forEach(seat => {
+                                                            seat.addEventListener('click', handleSeatClick);
+                                                        });
+                                                    });
+                                                    //set quality of concession
+                                                    function increaseQuantity(concessionID) {
+                                                        var quantityInput = document.getElementById("quantity_" + concessionID);
+                                                        quantityInput.value = parseInt(quantityInput.value) + 1;
+                                                    }
+                                                    function decreaseQuantity(concessionID) {
+                                                        var quantityInput = document.getElementById("quantity_" + concessionID);
+                                                        var currentQuantity = parseInt(quantityInput.value);
+                                                        if (currentQuantity >= 1) {
+                                                            quantityInput.value = currentQuantity - 1;
+                                                        }
+                                                    }
+
+                                                    //countdown
+                                                    document.getElementById('timer').innerHTML = 05 + ":" + 00;
+                                                    startTimer();
+
+                                                    function startTimer() {
+                                                        var presentTime = document.getElementById('timer').innerHTML;
+                                                        var timeArray = presentTime.split(/[:]+/);
+                                                        var m = timeArray[0];
+                                                        var s = checkSecond((timeArray[1] - 1));
+                                                        if (s === 59) {
+                                                            m -= 1;
+                                                        }
+                                                        if (m < 0) {
+                                                            return;
+                                                        }
+                                                        document.getElementById('timer').innerHTML = m + ":" + s;
+                                                        console.log(m);
+                                                        setTimeout(startTimer, 1000);
+                                                    }
+                                                    function checkSecond(sec) {
+                                                        if (sec < 10 && sec >= 0) {
+                                                            sec = "0" + sec;
+                                                        } // add zero in front of numbers < 10
+                                                        if (sec < 0) {
+                                                            sec = "59";
+                                                        }
+                                                        return sec;
+                                                    }
+                                            </script>
+                                            </body>
+                                            </html>

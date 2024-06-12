@@ -262,6 +262,7 @@
             <div class="col-md-9">
                 <div class="row spec_1">
                     <c:forEach items="${listM}" var="m">
+                        <c:if test="${m.status eq 'on'}">
                         <div class="col-md-3 mb-4">
                             <div class="spec_1im clearfix position-relative">
                                 <div class="spec_1imi clearfix film">
@@ -294,6 +295,7 @@
                                 </ul>
                             </div>
                         </div>
+                        </c:if>            
                     </c:forEach>
                 </div>
             </div>

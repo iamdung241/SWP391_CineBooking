@@ -3,7 +3,6 @@
     Created on : Jun 9, 2024, 10:42:17 PM
     Author     : thanh
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +11,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <
+        
     </body>
 </html>

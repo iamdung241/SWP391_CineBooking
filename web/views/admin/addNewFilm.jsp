@@ -48,31 +48,95 @@
 
         <script>
             function validateAge() {
-                var age = document.getElementById("age").value;
+                var age = document.getElementById("age").value.trim();
                 var AgeErr = document.getElementById("AgeErr");
                 var regex = /^([1]?[0-9]|2[0-4])\+$/;
-
-                if (!regex.test(age)) {
+                if (!regex.test(age) || age === "") {
                     AgeErr.textContent = "Please enter a number < 25 example 15+";
                     return false;
+                } else {
+                    AgeErr.textContent = "";
+                    return true;
                 }
-                AgeErr.textContent = "";
-                return true;
+            }
 
+            function validateName() {
+                var name = document.getElementById("name").value;
+                var nameErr = document.getElementById("nameErr");
+                var regex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
+                if (!regex.test(name)) {
+                    nameErr.textContent = "Invalid format!";
+                    return false;
+                } else {
+                    nameErr.textContent = "";
+                    return true;
+                }
             }
 
             function validateduration() {
                 var duration = document.getElementById("duration").value;
                 var durationErr = document.getElementById("durationErr");
                 var regex = /^[0-9]+$/;
-
                 if (!regex.test(duration)) {
                     durationErr.textContent = "Please enter a number example 100";
                     return false;
+                } else {
+                    durationErr.textContent = "";
+                    return true;
                 }
-                durationErr.textContent = "";
-                return true;
             }
+
+            function validateTrailer() {
+                var trailer = document.getElementById("trailer").value;
+                var trailerErr = document.getElementById("trailerErr");
+                //var regex1 = /^(?!\s)(https?:\/\/[^\s$.?#].[^\s]*)$/;
+                var regex = /^[^\s]\S*(\s*)$/;
+
+                if (!regex.test(trailer)) {
+                    trailerErr.textContent = "Enter true format, example https://www.youtube.com/embed/ar-IaAx7s8k";
+                    return false;
+                } else {
+                    trailerErr.textContent = "";
+                    return true;
+                }
+            }
+
+            function validateDes() {
+                var des = document.getElementById("des").value;
+                var desErr = document.getElementById("desErr");
+                var regex = /^[^\s]/;
+
+                if (!regex.test(des)) {
+                    desErr.textContent = "Enter true format,do not have space first";
+                    return false;
+                } else {
+                    desErr.textContent = "";
+                    return true;
+                }
+            }
+
+            function formTrue() {
+                var name = validateName();
+                var age = validateAge()();
+                var duration = validateduration();
+                var trailer = validateTrailer();
+                var des = validateDes();
+                return (name && age && duration && trailer && des);
+            }
+
+            function updateButtonState() {
+                var addButton = document.getElementById("addButton");
+                if (formTrue()) {
+                    addButton.removeAttribute("disabled");
+                } else {
+                    addButton.setAttribute("disabled", "disabled");
+                }
+            }
+            // Gọi hàm cập nhật trạng thái của nút khi trang được tải
+            window.onload = function () {
+                updateButtonState();
+            };
+
         </script>
     </head>
     <body class="">
@@ -115,7 +179,7 @@
                                     <a class="btn btn-sm btn-primary" href="movie"><i class="align-bottom"></i>Back</a>
                                 </div>
                                 <div class="container">
-                                    <form action="movie?mode=add" method="post" enctype="multipart/form-data">
+                                    <form action="movie?mode=add" method="post" enctype="multipart/form-data" onsubmit="return formTrue()">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tr>
@@ -124,7 +188,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Name</td>
-                                                    <td><input type="text" name="name" class="form-control" required/></td>
+                                                    <td>
+                                                        <input type="text" id="name" name="name" class="form-control" required onblur="validateName()"/>
+                                                        <span class="text-danger" id="nameErr"></span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Type</td>
@@ -140,14 +207,14 @@
                                                 <td>Age</td>
                                                 <td>
                                                     <input name="age" id="age" type="text" class="form-control" required onblur="validateAge()"/>
-                                                    <span id="AgeErr"></span>
+                                                    <span class="text-danger" id="AgeErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Duration</td>
                                                 <td>
                                                     <input type="text" id="duration" name="duration" class="form-control" required onblur="validateduration()"/>
-                                                    <span id="durationErr"></span>
+                                                    <span class="text-danger" id="durationErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -156,11 +223,17 @@
                                             </tr>
                                             <tr>
                                                 <td>Trailer</td>
-                                                <td><input type="text" name="trailer" class="form-control" required/></td>
+                                                <td>
+                                                    <input type="text" name="trailer" id="trailer" class="form-control" required onblur="validateTrailer()"/>
+                                                    <span class="text-danger" id="trailerErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Descripton</td>
-                                                <td><input type="text" name="description" class="form-control" required/></td>
+                                                <td>
+                                                    <input type="text" name="description" id="des" class="form-control" required onblur="validateDes()"/>
+                                                    <span class="text-danger" id="desErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Image</td>
@@ -168,9 +241,11 @@
                                             </tr>
                                         </table>
                                     </div>
-                                        <div class="container-fluid d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-success">Add</button>
-                                        </div>
+
+                                    <div class="container-fluid d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success" id="addButton">Add</button>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
