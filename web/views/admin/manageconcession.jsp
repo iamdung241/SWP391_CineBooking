@@ -112,8 +112,7 @@
                                 <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="filter">
                                     <input type="hidden" name="filter" value="${selectedFilter}">
                                     <input type="hidden" name="page" value="${pageControl.page}">
-                                    <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search"
-                                           placeholder="Search" name="keyword" aria-label="Search ..." value="${param.keyword}">
+                                    <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search" placeholder="Search" name="keyword" aria-label="Search ..." value="${param.keyword}">
                                     <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
                                 </form>
 
@@ -143,54 +142,39 @@
                                                     </td>
                                                     <td name="name">${c.concessions_name}</td>
                                                     <td name="image">
-                                                        <img src="${c.image}" width="100" height="100"/> 
+                                                        <img src="${c.image}" width="100" height="100"/>
                                                     </td>
                                                     <td name="price">${c.price}</td>
                                                     <td name="quantity">${c.quantity}</td>
                                                     <td class="">
-                                                        <form>  
+                                                        <form>
                                                             <button type="button" class="btn btn-primary"
-                                                                    data-toggle="modal" 
+                                                                    data-toggle="modal"
                                                                     data-target="#editConcessionModal"
                                                                     onclick="editConcessionModal(this)">
                                                                 Edit
                                                             </button>
                                                         </form>
                                                         <c:if test="${c.status == 1}">
-                                                        <button type="button" class="btn btn-danger"
-                                                                data-toggle="modal" data-target="#deleteModal"
-                                                                onclick="deleteConcession(${c.concessions_id})"
-                                                                >
-                                                            Delete
-                                                        </button>
-                                                        <button type="button" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#restockModal"
-                                                                onclick="restockProduct"
-                                                                style="display: none;">
-                                                            Restock
-                                                        </button>
-                                                            </c:if>
-                                                        <c:if test="${c.status == 0}">
                                                             <button type="button" class="btn btn-danger"
                                                                     data-toggle="modal" data-target="#deleteModal"
-                                                                    onclick="deleteConcession(${c.concessions_id})"
-                                                                    style="display: none;">
+                                                                    onclick="deleteConcession(${c.concessions_id})">
                                                                 Delete
                                                             </button>
+                                                        </c:if>
+                                                        <c:if test="${c.status == 0}">
                                                             <button type="button" class="btn btn-success"
                                                                     data-toggle="modal" data-target="#restockModal"
                                                                     onclick="restockConcession(${c.concessions_id})">
                                                                 Restock
                                                             </button>
                                                         </c:if>
-
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
-                                </div>    
-
+                                </div>
                                 <!--Pagination for filter and search results-->
                                 <nav>
                                     <ul class="pagination justify-content-end mt-3 mb-0">
@@ -210,6 +194,7 @@
 
                             </div>
                         </div>
+
                     </div>
                     <!-- Latest Orders-->
 
