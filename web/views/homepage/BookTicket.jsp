@@ -93,7 +93,7 @@
                                         <c:forEach var="showtime" items="${listShowtime}">
                                             <c:if test="${room.getRoom_id() == showtime.getRoom_id()}">
                                                 <div style="margin-top: 30px" id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
-                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${m.getMovie_id()}">${room.getRoom_name()}</a>
+                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${showtime.getShowtime_id()}">${room.getRoom_name()}</a>
                                                 </div>
                                             </c:if>
                                         </c:forEach>

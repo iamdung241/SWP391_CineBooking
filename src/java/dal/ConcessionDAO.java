@@ -85,6 +85,27 @@ public class ConcessionDAO extends DBContext {
         }
         return listFound;
     }
+    
+    public Concession getConcessionByID(int concession_id) {
+        String sql = "SELECT * FROM Concessions WHERE concessions_id = ?";
+        Concession concession;
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, concession_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                int concessionId = rs.getInt(1);
+                String concessionName = rs.getString(2);
+                String image = rs.getString(3);
+                float price = rs.getFloat(4);
+                concession = new Concession(concession_id, concessionName, image, price);
+                return concession;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public List<Concession> findByKeyword(String keyword, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();

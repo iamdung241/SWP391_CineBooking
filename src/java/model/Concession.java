@@ -28,6 +28,14 @@ public class Concession {
         this.status = status;
     }
 
+    public Concession(int concessions_id, String concessions_name, String image, float price) {
+        this.concessions_id = concessions_id;
+        this.concessions_name = concessions_name;
+        this.image = image;
+        this.price = price;
+    }
+
+    
     public int getConcessions_id() {
         return concessions_id;
     }
