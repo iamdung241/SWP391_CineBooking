@@ -69,28 +69,37 @@ public class ManageConcessionServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    /**
+     * Retrieves a list of all concessions for the specified page and sets
+     * pagination details.
+     *
+     * @param request the HttpServletRequest object that contains the request
+     * the client has made of the servlet
+     * @param pageControl the PageControl object to manage pagination details
+     * @return a list of Concession objects for the specified page
+     */
     private List<Concession> listAllConcessionDoGet(HttpServletRequest request, PageControl pageControl) {
         // get ve page, validate
         String pageRaw = request.getParameter("page");
         int page;
         try {
             page = Integer.parseInt(pageRaw);
-            if(page < 0){
+            if (page < 0) {
                 page = 1;
             }
-        
+
         } catch (Exception e) {
             page = 1;
         }
-         String requestULR = request.getRequestURI().toString();
+        String requestULR = request.getRequestURI().toString();
         List<Concession> listConcession = dao.getAllConcessions(page, CommonConst.RECORD_PER_PAGE);
         pageControl.setUlrPattern(requestULR + "?");
         // total record 
         int totalRecord = dao.getTotalRecordCount();
         // total page
         int totalPage = (totalRecord % CommonConst.RECORD_PER_PAGE) == 0
-                        ? (totalRecord / CommonConst.RECORD_PER_PAGE)
-                        : (totalRecord / CommonConst.RECORD_PER_PAGE) +1;
+                ? (totalRecord / CommonConst.RECORD_PER_PAGE)
+                : (totalRecord / CommonConst.RECORD_PER_PAGE) + 1;
         //set total record, total page, pageControl
         pageControl.setPage(page);
         pageControl.setTotalRecord(totalRecord);

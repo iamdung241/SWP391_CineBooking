@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
-import dal.ConcessionDAO;
+
 import dal.MovieDAO;
 import dal.RoomDAO;
-import dal.SeatDAO;
 import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,17 +17,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Concession;
 import model.Movie;
 import model.Room;
-import model.Seat;
 import model.Showtiming;
 
 /**
  *
  * @author thanh
  */
-public class SeatServlet extends HttpServlet {
+public class BookTicketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,15 +39,15 @@ public class SeatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SeatServlet</title>");
+            out.println("<title>Servlet BookTicketServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BookTicketServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,33 +65,28 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SeatDAO sdao = new SeatDAO();
-        List<Seat> listSeat;
-        String roomID = request.getParameter("roomID");
-        MovieDAO moviedao = new MovieDAO();
-        ShowtimingDAO showdao = new ShowtimingDAO();
+        MovieDAO movieDao = new MovieDAO();
+        ShowtimingDAO showDao = new ShowtimingDAO();
+        RoomDAO rdao = new RoomDAO();
+        List<Showtiming> listShowtime;
         String movieID = request.getParameter("movieID");
-        String showtimeID = request.getParameter("showtimeID");
-        ConcessionDAO cdao = new ConcessionDAO();
-        List<Concession> listConcession;
         try {
-            int roomid = Integer.parseInt(roomID);
-            int movieid = Integer.parseInt(movieID);
-            RoomDAO rdao = new RoomDAO();
-            Room room = rdao.getRoomByID(roomid);
-            request.setAttribute("room", room);
-            listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
-            request.setAttribute("listSeat", listSeat);
-            Movie movie = moviedao.getMovieByID(movieid);
-            request.setAttribute("movie", movie);
-            int showtimeid = Integer.parseInt(showtimeID);
-            Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
-            request.setAttribute("showtime", showtime);
-            listConcession = cdao.getAllConcessions();
-            request.setAttribute("listConcession", listConcession);
-        } catch (Exception e) {
+            int idMovie = Integer.parseInt(movieID);
+            Movie m = movieDao.getMovieById(idMovie);
+            request.setAttribute("m", m);
+            listShowtime = showDao.getShowtimeByMovieID(idMovie);
+            request.setAttribute("listShowtime", listShowtime);
+            String showtimeid = request.getParameter("showtimeID");
+            if (showtimeid != null) {
+                int showtime_id = Integer.parseInt(showtimeid);
+                List<Room> listRoom = rdao.getRoomsByShowtimeID(showtime_id);
+                request.setAttribute("listRoom", listRoom);
+                request.setAttribute("selectedShowtimeId", showtimeid);
+            }
+            request.getRequestDispatcher("/views/homepage/BookTicket.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-        request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
     }
 
     /**
@@ -107,7 +100,12 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String roomId = request.getParameter("roomId");
+        String showtimeId = request.getParameter("showtimeId");
 
+        if (roomId != null && showtimeId != null) {
+            response.sendRedirect("seat");
+        }
     }
 
     /**

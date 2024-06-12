@@ -230,7 +230,7 @@
             </section>-->
                         </section>-->
 
-            <section id="spec" class="p_3 bg_dark">
+            <section id="spec" class="p_3">
     <div class="container-xl">
         <div class="row stream_1 text-center">
             <div class="col-md-12">
