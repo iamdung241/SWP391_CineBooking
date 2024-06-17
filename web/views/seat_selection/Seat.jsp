@@ -108,13 +108,12 @@
                                                     function redirectWithParams() {
                                                         // Lấy giá trị của input
                                                         const selectedSeats = document.getElementById("ghe").value;
-
+                                                        const totalPrice = document.getElementById("total-price").textContent;
                                                         // Lấy giá trị của showtime từ URL
                                                         const showtimeId = "${showtime.showtime_id}"; // Đây là biến bạn đã sử dụng trong mã JSP
 
                                                         // Tạo URL chuyển hướng với tham số
-                                                        const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats;
-
+                                                        const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats + "&price=" + totalPrice;
                                                         // Chuyển hướng đến URL đã tạo
                                                         window.location.href = url;
                                                     }
