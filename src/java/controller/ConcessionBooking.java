@@ -5,12 +5,17 @@
 
 package controller;
 
+import dal.ConcessionDAO;
+import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Concession;
+import model.Showtiming;
 
 /**
  *
@@ -50,12 +55,24 @@ public class ConcessionBooking extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SHOWTIME = "showtime";
+    private static final String PRICE = "price";
+    private static final String SEAT = "seats";
+    private static final String ORDER = "/views/seat_selection/SelectedConcession.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        System.out.println("showtime: "+ request.getParameter("showtime")+", seat: " + request.getParameter("seats"));
+        String showtime = request.getParameter(SHOWTIME);
+        String seat = request.getParameter(SEAT);
+        String price = request.getParameter(PRICE);
+        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.parseInt(showtime));
+        List<Concession> conc = new ConcessionDAO().getAllConcession(1, 4);
+        request.setAttribute("concessions", conc);
+        request.setAttribute("seat", seat);
+        request.setAttribute("show", show);
+        request.setAttribute("totalprice", price);
+        request.getRequestDispatcher(ORDER).forward(request, response);        
     } 
-
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
