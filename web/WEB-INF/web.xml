@@ -24,6 +24,14 @@
         <servlet-name>CustomerController</servlet-name>
         <servlet-class>controller.CustomerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListMovieServlet</servlet-name>
+        <servlet-class>controller.ListMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ComingSoonServlet</servlet-name>
+        <servlet-class>controller.ComingSoonServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>CustomerController</servlet-name>
         <url-pattern>/customerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListMovieServlet</servlet-name>
+        <url-pattern>/listmovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComingSoonServlet</servlet-name>
+        <url-pattern>/comingsoon</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

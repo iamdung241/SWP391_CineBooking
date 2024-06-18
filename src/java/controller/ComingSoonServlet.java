@@ -4,11 +4,8 @@
  */
 package controller;
 
-import dal.ConcessionDAO;
 import dal.MovieDAO;
-import dal.RoomDAO;
-import dal.SeatDAO;
-import dal.ShowtimingDAO;
+import dal.TypeMovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,17 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Concession;
 import model.Movie;
-import model.Room;
-import model.Seat;
-import model.Showtiming;
+import model.TypeMovie;
 
 /**
  *
  * @author thanh
  */
-public class SeatServlet extends HttpServlet {
+public class ComingSoonServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,15 +34,15 @@ public class SeatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SeatServlet</title>");
+            out.println("<title>Servlet ComingSoonServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SeatServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ComingSoonServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,36 +60,10 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SeatDAO sdao = new SeatDAO();
-        List<Seat> listSeat;
-        String roomID = request.getParameter("roomID");
-        MovieDAO moviedao = new MovieDAO();
-        ShowtimingDAO showdao = new ShowtimingDAO();
-        String movieID = request.getParameter("movieID");
-        String showtimeID = request.getParameter("showtimeID");
-        ConcessionDAO cdao = new ConcessionDAO();
-        List<Concession> listConcession;
-        try {
-            int roomid = Integer.parseInt(roomID);
-            int movieid = Integer.parseInt(movieID);
-            RoomDAO rdao = new RoomDAO();
-            Room room = rdao.getRoomByID(roomid);
-            request.setAttribute("room", room);
-            listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
-            request.setAttribute("listSeat", listSeat);
-            Movie movie = moviedao.getMovieByID(movieid);
-            request.setAttribute("movie", movie);
-            int showtimeid = Integer.parseInt(showtimeID);
-            Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
-            request.setAttribute("showtime", showtime);
-<<<<<<< HEAD
-            listConcession = cdao.getAllConcessions();
-            request.setAttribute("listConcession", listConcession);
-=======
->>>>>>> b7160f18985436081fc4e871284e6daac38738a6
-        } catch (Exception e) {
-        }
-        request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
+        MovieDAO mdao = new MovieDAO();
+        List<Movie> listComingSoon = mdao.getMoviesPublishedAfterToday();
+        request.setAttribute("listComingSoon", listComingSoon);
+        request.getRequestDispatcher("/views/homepage/ComingSoon.jsp").forward(request, response);
     }
 
     /**
@@ -109,7 +77,7 @@ public class SeatServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**

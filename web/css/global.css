@@ -33,12 +33,12 @@ color: #e90101;
  }
 
 .button{
-background:#e90101;
+background-color: rgb(228, 155, 15);
 color:#fff;
 display: inline-block;
 transition: 0.3s;
 padding:23px 40px 20px 40px!important;
-border:1px solid #e90101;
+border:1px solid rgb(228, 155, 15);
  }
 .button:hover{
 background:none;
@@ -145,15 +145,10 @@ padding-bottom:30px;
 .main_1{
 z-index:2; 
  }
-.navbar{
-padding-top:20px;
-padding-bottom:20px; 
- }
-
 
 #header .nav-link{
-font-size:17px;
-color:#fff;
+font-size:15px;
+color:#000;
 padding-right:15px;
 padding-left:15px;
 text-transform:uppercase;
@@ -197,7 +192,7 @@ width: 100%;
 z-index:3;
 padding-top:10px;
 padding-bottom:6px;
-background-color: rgba(0, 0, 0, 0.9);
+background-color:  rgba(0, 0, 0, 0.9);
 }
 .sticky {
 top: -40px;

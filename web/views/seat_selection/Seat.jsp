@@ -68,7 +68,24 @@
                             </div>
                         </div>
                         <hr/>
-
+                        <div class="row spec_1">
+                            <c:forEach items="${listConcession}" var="concession">
+                                <div class="col-4" style="margin-top: 20px">
+                                    <div>
+                                        <img src="${concession.getImage()}" alt="imageConcession">
+                                    </div>
+                                    <div>
+                                        <span>${concession.getConcessions_name()}</span>
+                                        <div class="quantity" >
+                                            <button type="button" onclick="increaseQuantity(${concession.getConcessions_id()})">+</button>
+                                            <input type="hidden" name="concessionID" value="${concession.getConcessions_id()}"/>
+                                            <input style="width: 50px" readonly type="number" id="quantity_${concession.getConcessions_id()}" name="quantity" value="0"/>
+                                            <button type="button" onclick="decreaseQuantity(${concession.getConcessions_id()})">-</button>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </c:forEach>
+                        </div>
                     </div>  
                     <div style="margin-left: 50px; padding-left: 10px" class="col-5">
                         <div style="background-color: rgb(240,240,240); padding-bottom: 100px">
@@ -94,8 +111,6 @@
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next <i class='bx bx-right-arrow'></i></a>
                                             </div>
                                             </div>
-
-
                                             </div>
                                             </div>
                                             </div>

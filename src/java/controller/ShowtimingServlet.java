@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import model.Movie;
 import model.Room;
@@ -66,8 +67,21 @@ public class ShowtimingServlet extends HttpServlet {
         ShowtimingDAO sdao = new ShowtimingDAO();
         List<Movie> listMovie = sdao.getMovieWithShowtime();
         request.setAttribute("listM", listMovie);
-        String showtimeid = request.getParameter("showtimeID");
         RoomDAO rdao = new RoomDAO();
+        String selectedDate = request.getParameter("date");
+        if (selectedDate != null && !selectedDate.isEmpty()) {
+            List<Movie> filteredMovies = new ArrayList<>();
+            for (Movie movie : listMovie) {
+                for (Showtiming showtime : movie.getListShowtime()) {
+                    if (showtime.getDate().equals(selectedDate)) {
+                        filteredMovies.add(movie);
+                        break;
+                    }
+                }
+            }
+            request.setAttribute("listM", filteredMovies);
+        }
+        String showtimeid = request.getParameter("showtimeID");
         if(showtimeid != null) {
             try {
             int showtime_id = Integer.parseInt(showtimeid);
@@ -78,6 +92,7 @@ public class ShowtimingServlet extends HttpServlet {
 
             }
         }     
+        
         request.getRequestDispatcher("/views/homepage/Showtimings.jsp").forward(request, response);
     }
 
