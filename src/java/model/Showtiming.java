@@ -32,10 +32,11 @@ public class Showtiming {
         this.showtiming = showtiming;
     }
 
-    public Showtiming(int showtime_id, String showtiming, int room_id, int movie_id, String room_name) {
+    public Showtiming(int showtime_id, String showtiming, int room_id,String date, int movie_id, String room_name) {
         this.showtime_id = showtime_id;
         this.showtiming = showtiming;
         this.room_id = room_id;
+        this.date = date;
         this.movie_id = movie_id;
         this.room_name = room_name;
     }

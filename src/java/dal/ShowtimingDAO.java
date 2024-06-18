@@ -93,8 +93,9 @@ public class ShowtimingDAO extends DBContext {
                 String showtimeName = rs.getString(2);
                 int roomID = rs.getInt(3);
                 int movieID = rs.getInt(4);
+                String date = rs.getString(5);
                 String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID,date, movieID, roomName);
                 return showtime;
             }
         } catch (SQLException e) {
@@ -115,8 +116,9 @@ public class ShowtimingDAO extends DBContext {
                 String showtimeName = rs.getString(2);
                 int roomID = rs.getInt(3);
                 int movieID = rs.getInt(4);
+                String date = rs.getString(5);
                 String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID,date, movieID, roomName);
                 listShow.add(showtime);
             }
         } catch (SQLException e) {

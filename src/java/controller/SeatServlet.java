@@ -15,7 +15,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Concession;
 import model.Movie;
@@ -41,7 +40,7 @@ public class SeatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -89,10 +88,12 @@ public class SeatServlet extends HttpServlet {
             int showtimeid = Integer.parseInt(showtimeID);
             Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
             request.setAttribute("showtime", showtime);
+<<<<<<< HEAD
             listConcession = cdao.getAllConcessions();
             request.setAttribute("listConcession", listConcession);
+=======
+>>>>>>> b7160f18985436081fc4e871284e6daac38738a6
         } catch (Exception e) {
-
         }
         request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
     }

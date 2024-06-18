@@ -63,19 +63,19 @@ public class FilterServlet extends HttpServlet {
             if (filter != null && !filter.isEmpty()) {
                 switch (filter) {
                     case "priceAsc":
-                        listConcession = dao.findByKeywordOrderedByPrice(keyword, true, page, CommonConst.RECORD_PER_PAGE);
+                        listConcession = dao.findByKeywordOrderedByPricee(keyword, true, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByKeyword(keyword);
                         break;
                     case "priceDesc":
-                        listConcession = dao.findByKeywordOrderedByPrice(keyword, false, page, CommonConst.RECORD_PER_PAGE);
+                        listConcession = dao.findByKeywordOrderedByPricee(keyword, false, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByKeyword(keyword);
                         break;
                     case "quantityAsc":
-                        listConcession = dao.findByKeywordOrderedByQuantity(keyword, true, page, CommonConst.RECORD_PER_PAGE);
+                        listConcession = dao.findByKeywordOrderedByQuantityy(keyword, true, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByKeyword(keyword);
                         break;
                     case "quantityDesc":
-                        listConcession = dao.findByKeywordOrderedByQuantity(keyword, false, page, CommonConst.RECORD_PER_PAGE);
+                        listConcession = dao.findByKeywordOrderedByQuantityy(keyword, false, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByKeyword(keyword);
                         break;
                     default:
@@ -90,29 +90,29 @@ public class FilterServlet extends HttpServlet {
             } else if (filter != null && !filter.isEmpty()) {
                 switch (filter) {
                     case "priceAsc":
-                        listConcession = dao.getConcessionsOrderedByPrice(true, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByPrice(true);
+                        listConcession = dao.getConcessionsOrderedByPricee(true, page, CommonConst.RECORD_PER_PAGE);
+                        totalRecords = dao.getTotalRecordsByPricee(true);
                         break;
                     case "priceDesc":
-                        listConcession = dao.getConcessionsOrderedByPrice(false, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByPrice(false);
+                        listConcession = dao.getConcessionsOrderedByPricee(false, page, CommonConst.RECORD_PER_PAGE);
+                        totalRecords = dao.getTotalRecordsByPricee(false);
                         break;
                     case "quantityAsc":
-                        listConcession = dao.getConcessionsOrderedByQuantity(true, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByQuantity(true);
+                        listConcession = dao.getConcessionsOrderedByQuantityy(true, page, CommonConst.RECORD_PER_PAGE);
+                        totalRecords = dao.getTotalRecordsByQuantityy(true);
                         break;
                     case "quantityDesc":
-                        listConcession = dao.getConcessionsOrderedByQuantity(false, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByQuantity(false);
+                        listConcession = dao.getConcessionsOrderedByQuantityy(false, page, CommonConst.RECORD_PER_PAGE);
+                        totalRecords = dao.getTotalRecordsByQuantityy(false);
                         break;
                     default:
-                        listConcession = dao.getAllConcessions(page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getAllConcessions(1, Integer.MAX_VALUE).size();
+                        listConcession = dao.getAllConcession(page, CommonConst.RECORD_PER_PAGE);
+                        totalRecords = dao.getAllConcession(1, Integer.MAX_VALUE).size();
                         break;
                 }
             } else {
-                listConcession = dao.getAllConcessions(page, CommonConst.RECORD_PER_PAGE);
-                totalRecords = dao.getAllConcessions(1, Integer.MAX_VALUE).size();
+                listConcession = dao.getAllConcession(page, CommonConst.RECORD_PER_PAGE);
+                totalRecords = dao.getAllConcession(1, Integer.MAX_VALUE).size();
             }
 
             PageControl pageControl = new PageControl();
