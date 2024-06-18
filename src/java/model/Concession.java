@@ -28,9 +28,6 @@ public class Concession {
         this.status = status;
     }
 
-    public Concession() {
-    }
-
     
     public Concession(int concessions_id, String concessions_name, String image, float price) {
         this.concessions_id = concessions_id;

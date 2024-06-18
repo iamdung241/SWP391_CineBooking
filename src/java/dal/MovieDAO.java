@@ -25,18 +25,6 @@ public class MovieDAO extends DBContext {
 
     PreparedStatement stm;
     ResultSet rs;
-
-    /**
-     * Retrieves movies matching the given search keyword.
-     *
-     * @param s the search keyword
-     * @return a vector of movies that match the search criteria
-     */
-    /**
-     * Retrieves movies published before the current date.
-     *
-     * @return a vector of movies published before today
-     */
     public List<Movie> getMoviesPublishedBeforeToday() {
         String sql = "SELECT [movie_id]\n"
                     + "      ,[movie_name]\n"

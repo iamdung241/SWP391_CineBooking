@@ -48,13 +48,14 @@
                 color: #fff;
             }
             .boxes {
+                text-align: center;
                 padding-top: 30px;
-                padding-left: 50px;
                 display: flex;
                 flex-direction: row;
                 font-family: Arial, Helvetica, sans-serif;
                 font-weight: bold;
             }
+            
             .box {
                 border: 1px solid black;
                 border-radius: 10px;
@@ -66,6 +67,12 @@
             .date {
                display: inline-block;
            }
+           .date:hover {
+                color: rgb(228, 155, 15);
+            }
+            hr {
+                background-color: #000;
+            }
         </style>
     </head>
     <body>
@@ -77,7 +84,7 @@
             <div>
                 <a class="boxes" id="dateContainer">
                 </a>
-                <hr/>
+                <hr style="background-color: #000;"/>
             </div>
             
             
@@ -123,7 +130,7 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <hr/>
+                        <hr style="background-color: #000;"/>
                     </c:forEach>               
                 </div>    
             </div>
@@ -139,8 +146,9 @@
         for (var i = 0; i < 7; i++) {
             var date = new Date(currentDate.getTime() + i * 24 * 60 * 60 * 1000);
             var weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
+            var day = date.getDate().toString().padStart(2, '0');
+            var month = (date.getMonth() + 1).toString().padStart(2, '0');
+            var year = date.getFullYear();
             var formattedDate = day + '/' + month + '-' + weekday;
 
             var box = document.createElement('div');
@@ -149,9 +157,8 @@
             var dateElement = document.createElement('a'); 
             dateElement.classList.add('date');
             dateElement.textContent = formattedDate;
-            dateElement.href = '#' + formattedDate; 
+            dateElement.href = 'showtiming?date=' + year + "-" + month + "-" + day; 
             box.appendChild(dateElement);
-
             dateContainer.appendChild(box);
         }
     }

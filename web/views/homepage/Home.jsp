@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,14 +20,14 @@
         <link href="../../css/index.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
         <script src="js/bootstrap.bundle.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
             .bookTicket {
-                color: rgb(240,240,240);
-                background-color: red;
-                border-style: solid;
-                padding: 3px;
-                font-size: 18px;
-                border-radius: 5px;
+                color: #fff;
+                background-color: rgb(244, 187, 68);
+                font-size: 17px;
+                border-radius: 7px;
+                padding: 6px;
             }
             #nameMovie {
                 font-size: 20px;
@@ -42,6 +43,21 @@
                 font-size: 30px;
                 font-weight: bold;
             }
+            .bookTicket:hover {
+            color: #000;
+            }
+            .viewDetail{
+                color: #000;
+                background-color: #fff;
+                font-size: 17px;
+                border-radius: 5px;
+                padding: 6px;
+                border: solid 1px grey;
+            }
+            .viewDetail:hover {
+                background-color: rgb(244, 187, 68); 
+                color: #000;
+            }
         </style>
     </head>
     <body>
@@ -49,14 +65,14 @@
         <div class="main clearfix position-relative">
             <div class="main_1 clearfix position-absolute top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
+            </div>
                 <div class="main_2 clearfix">
                     <section id="center" class="center_home">
                         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                <button  style="background-color: #fff" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+                                <button style="background-color: #fff" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
+                                <button style="background-color: #fff" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
@@ -99,136 +115,7 @@
                         </div>
                     </section>
                 </div>
-
             </div>
-<!--            <section id="stream" class="p_3" style="background-color: rgb(240,240,240)">
-                <div class="container-xl">
-                    <div class="row stream_1">
-                        <div class="col-md-12">
-                            <h6 class="col_red">ONLINE STREAMING</h6>
-                            <h1 class="mb-0">Watch Shows Online</h1>
-                        </div>
-                    </div>
-                    <div class="row stream_2 mt-4">
-                        <div class="col-md-3 pe-0">
-                            <div class="stream_2im clearfix position-relative">
-                                <div class="stream_2im1 clearfix">
-                                    <div class="grid clearfix">
-                                        <figure class="effect-jazz mb-0">
-                                            <a href="#"><img src="img/4.jpg" class="w-100" alt="abc"></a>
-                                        </figure>
-            <!--            <section id="stream" class="p_3" style="background-color: rgb(240,240,240)">
-                            <div class="container-xl">
-                                <div class="row stream_1">
-                                    <div class="col-md-12">
-                                        <h6 class="col_red">ONLINE STREAMING</h6>
-                                        <h1 class="mb-0">Watch Shows Online</h1>
-                                    </div>
-                                </div>
-                                <div class="row stream_2 mt-4">
-                                    <div class="col-md-3 pe-0">
-                                        <div class="stream_2im clearfix position-relative">
-                                            <div class="stream_2im1 clearfix">
-                                                <div class="grid clearfix">
-                                                    <figure class="effect-jazz mb-0">
-                                                        <a href="#"><img src="img/4.jpg" class="w-100" alt="abc"></a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="stream_2im2 position-absolute w-100 h-100 p-3 top-0  clearfix">
-                                                <h6 class="font_14 col_red">ROMANCE, DRAMA</h6>
-                                                <h4 class="text-white">Thinking You</h4>
-                                                <h6 class="font_14 mb-0 text-white"><a class="text-white me-1 font_60 align-middle lh-1" href="#"><i class="fa fa-play-circle"></i></a> SEASON 1 - 2020</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 pe-0">
-                                        <div class="stream_2im clearfix position-relative">
-                                            <div class="stream_2im1 clearfix">
-                                                <div class="grid clearfix">
-                                                    <figure class="effect-jazz mb-0">
-                                                        <a href="#"><img src="img/5.jpg" class="w-100" alt="abc"></a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="stream_2im2 position-absolute w-100 h-100 p-3 top-0  clearfix">
-                                                <h6 class="font_14 col_red">ROMANCE, DRAMA</h6>
-                                                <h4 class="text-white">Civil War</h4>
-                                                <h6 class="font_14 mb-0 text-white"><a class="text-white me-1 font_60 align-middle lh-1" href="#"><i class="fa fa-play-circle"></i></a> SEASON 1 - 2020</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 pe-0">
-                                        <div class="stream_2im clearfix position-relative">
-                                            <div class="stream_2im1 clearfix">
-                                                <div class="grid clearfix">
-                                                    <figure class="effect-jazz mb-0">
-                                                        <a href="#"><img src="img/6.jpg" class="w-100" alt="abc"></a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="stream_2im2 position-absolute w-100 h-100 p-3 top-0  clearfix">
-                                                <h6 class="font_14 col_red">ROMANCE, DRAMA</h6>
-                                                <h4 class="text-white">Popular Movie</h4>
-                                                <h6 class="font_14 mb-0 text-white"><a class="text-white me-1 font_60 align-middle lh-1" href="#"><i class="fa fa-play-circle"></i></a> SEASON 1 - 2020</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 pe-0">
-                                        <div class="stream_2im clearfix position-relative">
-                                            <div class="stream_2im1 clearfix">
-                                                <div class="grid clearfix">
-                                                    <figure class="effect-jazz mb-0">
-                                                        <a href="#"><img src="img/7.jpg" class="w-100" alt="abc"></a>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="stream_2im2 position-absolute w-100 h-100 p-3 top-0  clearfix">
-                                                <h6 class="font_14 col_red">ROMANCE, DRAMA</h6>
-                                                <h4 class="text-white">Best Game</h4>
-                                                <h6 class="font_14 mb-0 text-white"><a class="text-white me-1 font_60 align-middle lh-1" href="#"><i class="fa fa-play-circle"></i></a> SEASON 1 - 2020</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 pe-0">
-                            <div class="stream_2im clearfix position-relative">
-                                <div class="stream_2im1 clearfix">
-                                    <div class="grid clearfix">
-                                        <figure class="effect-jazz mb-0">
-                                            <a href="#"><img src="img/6.jpg" class="w-100" alt="abc"></a>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="stream_2im2 position-absolute w-100 h-100 p-3 top-0  clearfix">
-                                    <h6 class="font_14 col_red">ROMANCE, DRAMA</h6>
-                                    <h4 class="text-white">Popular Movie</h4>
-                                    <h6 class="font_14 mb-0 text-white"><a class="text-white me-1 font_60 align-middle lh-1" href="#"><i class="fa fa-play-circle"></i></a> SEASON 1 - 2020</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 pe-0">
-                            <div class="stream_2im clearfix position-relative">
-                                <div class="stream_2im1 clearfix">
-                                    <div class="grid clearfix">
-                                        <figure class="effect-jazz mb-0">
-                                            <a href="#"><img src="img/7.jpg" class="w-100" alt="abc"></a>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="stream_2im2 position-absolute w-100 h-100 p-3 top-0  clearfix">
-                                    <h6 class="font_14 col_red">ROMANCE, DRAMA</h6>
-                                    <h4 class="text-white">Best Game</h4>
-                                    <h6 class="font_14 mb-0 text-white"><a class="text-white me-1 font_60 align-middle lh-1" href="#"><i class="fa fa-play-circle"></i></a> SEASON 1 - 2020</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>-->
-                        </section>-->
 
             <section id="spec" class="p_3">
     <div class="container-xl">
@@ -241,11 +128,11 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <form action="movieController" method="GET" class="input-group" id="searchForm">
-                        <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;"
+                        <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;border-color: rgb(228, 155, 15)"
                                value="${keyword != null ? keyword : ''}">
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                         <input type="hidden" name="service" value="search" id="serviceInput">
-                        <select name="dateFilter" class="form-select ml-3" style="width: 200px;" id="dateSelect">
+                        <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: rgb(228, 155, 15)" id="dateSelect">
                             <option value="all">All</option>
                             <option value="upcoming">Upcoming Film</option>
                             <option value="nowshowing">Now Showing Film</option>
@@ -287,9 +174,9 @@
                                     <li class="col_black">
                                         Category: ${m.getType_name()}
                                     </li>
-                                    <li>
+                                    <li style="padding-top: 10px">
                                         <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
-                                        <a class="bookTicket" href="moviedetail?ID=${m.getMovie_id()}">View</a>
+                                        <a style="margin-left: 3px" class="viewDetail" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
                                     </li>
                                 </ul>
                             </div>
