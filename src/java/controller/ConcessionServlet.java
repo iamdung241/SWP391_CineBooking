@@ -77,7 +77,7 @@ public class ConcessionServlet extends HttpServlet {
         page = 1;
     }
 
-    List<Concession> listC = new ArrayList<>();
+    List<Concession> listC = new ArrayList();
     int totalRecords = 0;
 
     if (search != null && !search.isEmpty()) {
@@ -150,7 +150,6 @@ public class ConcessionServlet extends HttpServlet {
     request.setAttribute("pageControl", pageControl);
     request.setAttribute("selectedFilter", filter);
     request.setAttribute("search", search);
-
     request.getRequestDispatcher("/views/homepage/Concession.jsp").forward(request, response);
 }
 

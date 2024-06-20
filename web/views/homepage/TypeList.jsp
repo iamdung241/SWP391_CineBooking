@@ -39,11 +39,12 @@
                 cursor: pointer;
                 transition: background-color 0.3s ease;
                 text-decoration: none; /* Loại bỏ gạch chân */
-                color: #212529; /* Màu chữ */
+                color: #000; /* Màu chữ */
             }
 
             .list-group-item:hover {
-                background-color: #e9ecef; /* Hover background color */
+                background-color: rgb(228, 155, 15); /* Hover background color */
+                color: #fff;
             }
         </style>
     </head>
