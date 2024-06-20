@@ -124,7 +124,6 @@
                 return true;
             }
 
-
             function validatePhone() {
                 var phone = document.getElementById("phone").value;
                 var phoneError = document.getElementById("phoneError");
@@ -164,7 +163,7 @@
             function validatePassword() {
                 var password = document.getElementById("password").value;
                 var passwordError = document.getElementById("passwordError");
-                var passwordRegex = /^[A-Za-z\d!@#\$%\^&\*.,:;]{6,20}$/;
+                var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#\$%\^&\*.,:;]{6,20}$/;;
 
                 if (!passwordRegex.test(password) || password.includes(' ') || password.trim() === "") {
                     passwordError.textContent = "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.";
@@ -174,13 +173,27 @@
                 return true;
             }
 
+            function validateConfirmPassword() {
+                var password = document.getElementById("password").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+                var confirmPasswordError = document.getElementById("confirmPasswordError");
+
+                if (confirmPassword !== password) {
+                    confirmPasswordError.textContent = "Passwords do not match.";
+                    return false;
+                }
+                confirmPasswordError.textContent = "";
+                return true;
+            }
+
             function validateForm() {
                 var validFullname = validateFullname();
                 var validPhone = validatePhone();
                 var validEmail = validateEmail();
                 var validUsername = validateUsername();
                 var validPassword = validatePassword();
-                return validFullname && validPhone && validEmail && validUsername && validPassword;
+                var validConfirmPassword = validateConfirmPassword();
+                return validFullname && validPhone && validEmail && validUsername && validPassword && validConfirmPassword;
             }
         </script>
     </head>
@@ -215,6 +228,11 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" onblur="validatePassword()">
                     <span id="passwordError" class="error-message">${passwordError}</span>
+                </div>
+                <div>
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" onblur="validateConfirmPassword()">
+                    <span id="confirmPasswordError" class="error-message">${confirmPasswordError}</span>
                 </div>
                 <p>
                     <input type="submit" id="register" value="Register">
