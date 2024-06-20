@@ -67,25 +67,6 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <hr/>
-                        <div class="row spec_1">
-                            <c:forEach items="${listConcession}" var="concession">
-                                <div class="col-4" style="margin-top: 20px">
-                                    <div>
-                                        <img src="${concession.getImage()}" alt="imageConcession">
-                                    </div>
-                                    <div>
-                                        <span>${concession.getConcessions_name()}</span>
-                                        <div class="quantity" >
-                                            <button type="button" onclick="increaseQuantity(${concession.getConcessions_id()})">+</button>
-                                            <input type="hidden" name="concessionID" value="${concession.getConcessions_id()}"/>
-                                            <input style="width: 50px" readonly type="number" id="quantity_${concession.getConcessions_id()}" name="quantity" value="0"/>
-                                            <button type="button" onclick="decreaseQuantity(${concession.getConcessions_id()})">-</button>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </c:forEach>
-                        </div>
                     </div>  
                     <div style="margin-left: 50px; padding-left: 10px" class="col-5">
                         <div style="background-color: rgb(240,240,240); padding-bottom: 100px">
@@ -108,7 +89,7 @@
                                             <hr/>
                                             <div style="text-align: center; padding-top: 20px">
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="#"><i class='bx bx-left-arrow'></i> Back</a>
-                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next <i class='bx bx-right-arrow'></i></a>
+                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next<i class='bx bx-right-arrow'></i></a>
                                             </div>
                                             </div>
                                             </div>
@@ -123,14 +104,19 @@
                                                     function redirectWithParams() {
                                                         // Lấy giá trị của input
                                                         const selectedSeats = document.getElementById("ghe").value;
+                                                        if(selectedSeats){
                                                         const totalPrice = document.getElementById("total-price").textContent;
                                                         // Lấy giá trị của showtime từ URL
-                                                        const showtimeId = "${showtime.showtime_id}"; // Đây là biến bạn đã sử dụng trong mã JSP
+                                                        const showtimeId = "${showtime.showtime_id}";
 
                                                         // Tạo URL chuyển hướng với tham số
                                                         const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats + "&price=" + totalPrice;
                                                         // Chuyển hướng đến URL đã tạo
                                                         window.location.href = url;
+                                                      }else {
+                                                        window.alert("Please choose seat first!");
+                                                      }
+                                                      
                                                     }
                                                     //select seat 
                                                     document.addEventListener("DOMContentLoaded", function () {
@@ -148,14 +134,14 @@
                                                                 //calculate total price 
                                                                 const totalPrice = Array.from(document.querySelectorAll('.cinema-seats .seat.active'))
                                                                         .reduce((total, activeSeat) => {
-                                                                            const price = parseFloat(activeSeat.querySelector('.seat-price').value);
+                                                                            const price = parseInt(activeSeat.querySelector('.seat-price').value);
                                                                             return total + price;
                                                                         }, 0);
 
                                                                 document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
                                                                 document.getElementById("ghe").value=selectedSeats.join(",");
                                                                 document.getElementById("selected-seat-count").textContent = selectedSeats.length;
-                                                                document.getElementById("total-price").textContent = totalPrice.toFixed(2);
+                                                                document.getElementById("total-price").textContent = totalPrice;
                                                             }
                                                         }
 
