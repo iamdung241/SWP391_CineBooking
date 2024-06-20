@@ -27,7 +27,31 @@ public class ConcessionDAO extends DBContext {
      * @return a list containing all concession items found in the database
      */
     //author: thanh
-    public List<Concession> getAllConcession(int page, int limit) {
+    public List<Concession> getAllConcessions() {
+        List<Concession> listFound = new ArrayList<>();
+        String sql = "  SELECT * FROM Concessions WHERE status = 1";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Concession concession = new Concession();
+                concession.setConcessions_id(resultSet.getInt("concessions_id"));
+                concession.setConcessions_name(resultSet.getString("concessions_name"));
+                concession.setImage(resultSet.getString("image"));
+                concession.setPrice(resultSet.getFloat("price"));
+                concession.setQuantity(resultSet.getInt("quantity"));
+                concession.setStatus(resultSet.getInt("status"));
+                listFound.add(concession);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listFound;
+    }
+    public List<Concession> getAllConcessionsAdmin(int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql = "  SELECT * FROM Concessions\n"
                 + "  ORDER BY[concessions_id]\n"
@@ -56,7 +80,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
     
-    public List<Concession> getAllConcessions(int page, int limit) {
+    public List<Concession> getAllConcessionsHome(int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql = "  SELECT * FROM Concessions\n"
                 + "WHERE status = 1\n"
@@ -129,7 +153,7 @@ public class ConcessionDAO extends DBContext {
         return null;
     }
 
-    public List<Concession> findByKeyword(String keyword, int page, int limit) {
+    public List<Concession> findByKeywordAdmin(String keyword, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
@@ -234,7 +258,7 @@ public class ConcessionDAO extends DBContext {
         }
     }
     
-    public List<Concession> getConcessionsOrderedByPricee(boolean ascending, int page, int limit) {
+    public List<Concession> getConcessionsOrderedByPriceAdmin(boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT * FROM Concessions ORDER BY price "
@@ -262,7 +286,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public int getTotalRecordsByPricee(boolean ascending) {
+    public int getTotalRecordsByPriceAdmin(boolean ascending) {
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT COUNT(*) FROM Concessions\n";
         try {
@@ -306,7 +330,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public List<Concession> findByKeywordOrderedByPricee(String keyword, boolean ascending, int page, int limit) {
+    public List<Concession> findByKeywordOrderedByPriceAdmin(String keyword, boolean ascending, int page, int limit) {
     List<Concession> listFound = new ArrayList<>();
     String order = ascending ? "ASC" : "DESC";
     String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? ORDER BY price " 
@@ -332,7 +356,7 @@ public class ConcessionDAO extends DBContext {
     }
     return listFound;
 }
-    public List<Concession> findByKeywordOrderedByQuantityy(String keyword, boolean ascending, int page, int limit) {
+    public List<Concession> findByKeywordOrderedByQuantityAdmin(String keyword, boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT * FROM Concessions AND concessions_name LIKE ? ORDER BY quantity " + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
@@ -358,7 +382,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public int getTotalRecordsByQuantityy(boolean ascending) {
+    public int getTotalRecordsByQuantityAdmin(boolean ascending) {
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT COUNT(*) FROM Concessions\n";
         try {
@@ -391,7 +415,7 @@ public class ConcessionDAO extends DBContext {
     int limit = 100;
 
     // Gọi phương thức getAllConcession
-    List<Concession> concessions = concessionDAO.getAllConcession(page, limit);
+    List<Concession> concessions = concessionDAO.getAllConcessionsAdmin(page, limit);
 
     // In kết quả
     System.out.println("Danh sách tất cả Concessions:");
@@ -429,7 +453,7 @@ public class ConcessionDAO extends DBContext {
     
     
 
-    public List<Concession> getConcessionsOrderedByPrice(boolean ascending, int page, int limit) {
+    public List<Concession> getConcessionsOrderedByPriceHome(boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT * FROM Concessions WHERE status = 1 ORDER BY price "
@@ -456,7 +480,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public int getTotalRecordsByPrice(boolean ascending) {
+    public int getTotalRecordsByPriceHome(boolean ascending) {
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT COUNT(*) FROM Concessions\n"
                 + "WHERE status = 1";
@@ -500,7 +524,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public List<Concession> findByKeywordOrderedByPrice(String keyword, boolean ascending, int page, int limit) {
+    public List<Concession> findByKeywordOrderedByPriceHome(String keyword, boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
         String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? ORDER BY price " 
@@ -579,7 +603,7 @@ public class ConcessionDAO extends DBContext {
         return 0;
     }
 
-    public List<Concession> findByKeywordAndType(String keyword, String type, int page, int limit) {
+    public List<Concession> findByKeywordAndTypeHome(String keyword, String type, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql;
         if (type.equalsIgnoreCase("Combo")) {
@@ -616,7 +640,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public int getTotalRecordsByKeywordAndType(String keyword, String type) {
+    public int getTotalRecordsByKeywordAndTypeHome(String keyword, String type) {
         int totalRecords = 0;
         String sql;
         if (type.equalsIgnoreCase("Combo")) {
@@ -644,7 +668,7 @@ public class ConcessionDAO extends DBContext {
         return totalRecords;
     }
 
-    public List<Concession> getConcessionsByType(String type, int page, int limit) {
+    public List<Concession> getConcessionsByTypeHome(String type, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql;
         if (type.equalsIgnoreCase("Combo")) {
@@ -680,7 +704,7 @@ public class ConcessionDAO extends DBContext {
         return listFound;
     }
 
-    public int getTotalRecordsByType(String type) {
+    public int getTotalRecordsByTypeHome(String type) {
         int totalRecords = 0;
         String sql;
         if (type.equalsIgnoreCase("Combo")) {
@@ -722,7 +746,7 @@ public class ConcessionDAO extends DBContext {
         }
     }
 
-    public List<Concession> findByName(String name, int page, int limit) {
+    public List<Concession> findByNameHome(String name, int page, int limit) {
     List<Concession> listFound = new ArrayList<>();
     String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
     try {
@@ -749,7 +773,7 @@ public class ConcessionDAO extends DBContext {
     return listFound;
 }
 
-public int getTotalRecordsByName(String name) {
+public int getTotalRecordsByNameHome(String name) {
     String sql = "SELECT COUNT(*) FROM Concessions WHERE status = 1 AND concessions_name LIKE ?";
     try {
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -765,6 +789,8 @@ public int getTotalRecordsByName(String name) {
     }
     return 0;
 }
+
+    
     
     
 }

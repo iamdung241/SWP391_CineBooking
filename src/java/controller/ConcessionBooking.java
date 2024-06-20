@@ -73,7 +73,7 @@ public class ConcessionBooking extends HttpServlet {
         Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.parseInt(showtime));
         Movie movie = new MovieDAO().getMovieByID(show.getMovie_id());
         Room room = new RoomDAO().getRoomByID(show.getRoom_id());
-        List<Concession> conc = new ConcessionDAO().getAllConcession(1, 4);
+        List<Concession> conc = new ConcessionDAO().getAllConcessions();
         request.setAttribute("concessions", conc);
         request.setAttribute("movie", movie);
         request.setAttribute("room", room);
