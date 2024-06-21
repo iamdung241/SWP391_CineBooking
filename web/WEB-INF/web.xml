@@ -25,6 +25,10 @@
         <servlet-class>controller.CustomerController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>controller.ChangePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ConcessionBooking</servlet-name>
         <servlet-class>controller.ConcessionBooking</servlet-class>
     </servlet>
@@ -72,7 +76,11 @@
         <servlet-name>CustomerController</servlet-name>
         <url-pattern>/customerController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping><servlet-name>ConcessionBooking</servlet-name>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
+    <servlet-mapping>
+        <servlet-name>ConcessionBooking</servlet-name>
         <url-pattern>/ConcessionBooking</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
