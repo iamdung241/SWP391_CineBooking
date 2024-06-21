@@ -65,6 +65,9 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         MovieDAO mdao = new MovieDAO();
         List<Movie> listM = mdao.getAllMovies();
+        for (Movie movie : listM) {
+            System.out.println(movie.getMovie_name());
+        }
         request.setAttribute("listM", listM);
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType(); 
             request.setAttribute("typeList", typeList);
