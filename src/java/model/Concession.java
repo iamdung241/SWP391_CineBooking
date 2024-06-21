@@ -27,6 +27,7 @@ public class Concession {
         this.quantity = quantity;
         this.status = status;
     }
+    
     public Concession(int concessions_id, String concessions_name, String image, float price) {
         this.concessions_id = concessions_id;
         this.concessions_name = concessions_name;
@@ -87,6 +88,5 @@ public class Concession {
     public String toString() {
         return "Concession{" + "concessions_id=" + concessions_id + ", concessions_name=" + concessions_name + ", image=" + image + ", price=" + price + ", quantity=" + quantity + ", status=" + status + '}';
     }
-
     
 }

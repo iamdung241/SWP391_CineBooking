@@ -6,6 +6,8 @@
 package controller;
 
 import dal.ConcessionDAO;
+import dal.MovieDAO;
+import dal.RoomDAO;
 import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +15,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Concession;
+import model.Movie;
+import model.Room;
 import model.Showtiming;
 
 /**
@@ -66,11 +71,30 @@ public class ConcessionBooking extends HttpServlet {
         String seat = request.getParameter(SEAT);
         String price = request.getParameter(PRICE);
         Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.parseInt(showtime));
-        List<Concession> conc = new ConcessionDAO().getAllConcession(1, 4);
+        Movie movie = new MovieDAO().getMovieByID(show.getMovie_id());
+        Room room = new RoomDAO().getRoomByID(show.getRoom_id());
+        List<Concession> conc = new ConcessionDAO().getAllConcessions();
         request.setAttribute("concessions", conc);
+        request.setAttribute("movie", movie);
+        request.setAttribute("room", room);
         request.setAttribute("seat", seat);
         request.setAttribute("show", show);
         request.setAttribute("totalprice", price);
+        
+        String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
+
+        // Lấy chuỗi truy vấn (query string)
+        String queryString = request.getQueryString(); // showtime=13&seats=V10,V15&price=180000
+
+        // Xây dựng phần URL cần lấy
+        StringBuilder partialUrl = new StringBuilder();
+        partialUrl.append(requestURI);
+        
+        if (queryString != null) {
+            partialUrl.append("?").append(queryString);
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("urlback", partialUrl);
         request.getRequestDispatcher(ORDER).forward(request, response);        
     } 
     /** 

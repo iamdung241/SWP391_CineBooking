@@ -3,25 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package payment;
 
-import dal.AccountDAO;
-import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
+import dal.ConcessionDAO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Vector;
-import model.Account;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Concession;
 
 /**
  *
- * @author Tran Anh Vu
+ * @author tranh
  */
-@WebServlet("/searchAccount")
-public class SearchAccount extends HttpServlet {
+public class paymentServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +38,10 @@ public class SearchAccount extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SearchAccount</title>");  
+            out.println("<title>Servlet paymentServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SearchAccount at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet paymentServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -50,38 +50,48 @@ public class SearchAccount extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
+     * @param req servlet request
+     * @param resp servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
-        String searchQuery = request.getParameter("query");
-        String roleFilter = request.getParameter("role");
-        AccountDAO accountDAO = new AccountDAO();
-        Vector<Account> accounts = accountDAO.searchAccounts(searchQuery, roleFilter);
-        if(searchQuery.isBlank() && roleFilter.isBlank()){
-            response.sendRedirect("views/admin/manageuser.jsp");
+        String showtime = req.getParameter("showtime");
+        String seat = req.getParameter("seat");
+        String totalprice = req.getParameter("total");
+        String[] ids = req.getParameterValues("name");
+        List<Concession> combo = new ArrayList<>();
+        if (ids != null) {
+            for (String id : ids) {
+                String name = id.substring(0, id.length()-1);
+                Concession c = new ConcessionDAO().getConcessionByName(name);
+                String quantity = id.substring(id.length()-1, id.length());
+                c.setQuantity(Integer.parseInt(quantity));
+                combo.add(c);               
+            }
+            req.setAttribute("combo", combo);
         }
-        else {
-            request.setAttribute("accounts", accounts);
-            request.getRequestDispatcher("views/admin/manageuser.jsp").forward(request, response);
-        }
+        HttpSession session = req.getSession();
+        session.setAttribute("showtime", showtime);
+        session.setAttribute("seat", seat);
+        session.setAttribute("price", totalprice);
+        session.setAttribute("combo", combo);
+        req.getRequestDispatcher("pay/vnpay_pay.jsp").forward(req, resp);
     } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
+     * @param req servlet request
+     * @param resp servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(req, resp);
     }
 
     /** 

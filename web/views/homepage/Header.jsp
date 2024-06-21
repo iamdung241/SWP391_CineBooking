@@ -75,7 +75,11 @@
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp">Account</a>
                                 </c:if>       
                                 <c:if test="${sessionScope.user != null}">
+<<<<<<< HEAD
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Account</a>
+=======
+                                    <a style="color: #000; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
+>>>>>>> 15775fa57df843ecd552fde92c8f5b6a2312f605
                                 </c:if>  
                             </li>		
                         </ul>
