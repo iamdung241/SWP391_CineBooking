@@ -77,58 +77,58 @@ public class ConcessionServlet extends HttpServlet {
         page = 1;
     }
 
-    List<Concession> listC = new ArrayList<>();
+    List<Concession> listC = new ArrayList();
     int totalRecords = 0;
 
     if (search != null && !search.isEmpty()) {
         switch (filter) {
             case "f_d":
-                listC = dao.findByKeywordAndType(search, "Food & Drink", page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByKeywordAndType(search, "Food & Drink");
+                listC = dao.findByKeywordAndTypeHome(search, "Food & Drink", page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByKeywordAndTypeHome(search, "Food & Drink");
                 break;
             case "combo":
-                listC = dao.findByKeywordAndType(search, "Combo", page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByKeywordAndType(search, "Combo");
+                listC = dao.findByKeywordAndTypeHome(search, "Combo", page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByKeywordAndTypeHome(search, "Combo");
                 break;
             case "price_increase":
-                listC = dao.findByKeywordOrderedByPrice(search, true, page, CommonConst.RECORD_PER_HOMEPAGE);
+                listC = dao.findByKeywordOrderedByPriceHome(search, true, page, CommonConst.RECORD_PER_HOMEPAGE);
                 totalRecords = dao.getTotalRecordsByKeyword(search);
                 break;
             case "price_decrease":
-                listC = dao.findByKeywordOrderedByPrice(search, false, page, CommonConst.RECORD_PER_HOMEPAGE);
+                listC = dao.findByKeywordOrderedByPriceHome(search, false, page, CommonConst.RECORD_PER_HOMEPAGE);
                 totalRecords = dao.getTotalRecordsByKeyword(search);
                 break;
             default:
-                listC = dao.findByName(search, page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByName(search);
+                listC = dao.findByNameHome(search, page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByNameHome(search);
                 break;
         }
     } else if (filter != null && !filter.isEmpty()) {
         switch (filter) {
             case "f_d":
-                listC = dao.getConcessionsByType("Food & Drink", page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByType("Food & Drink");
+                listC = dao.getConcessionsByTypeHome("Food & Drink", page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByTypeHome("Food & Drink");
                 break;
             case "combo":
-                listC = dao.getConcessionsByType("Combo", page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByType("Combo");
+                listC = dao.getConcessionsByTypeHome("Combo", page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByTypeHome("Combo");
                 break;
             case "price_increase":
-                listC = dao.getConcessionsOrderedByPrice(true, page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByPrice(true);
+                listC = dao.getConcessionsOrderedByPriceHome(true, page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByPriceHome(true);
                 break;
             case "price_decrease":
-                listC = dao.getConcessionsOrderedByPrice(false, page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getTotalRecordsByPrice(false);
+                listC = dao.getConcessionsOrderedByPriceHome(false, page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getTotalRecordsByPriceHome(false);
                 break;
             default:
-                listC = dao.getAllConcessions(page, CommonConst.RECORD_PER_HOMEPAGE);
-                totalRecords = dao.getAllConcessions(1, Integer.MAX_VALUE).size();
+                listC = dao.getAllConcessionsHome(page, CommonConst.RECORD_PER_HOMEPAGE);
+                totalRecords = dao.getAllConcessionsHome(1, Integer.MAX_VALUE).size();
                 break;
         }
     } else {
-        listC = dao.getAllConcessions(page, CommonConst.RECORD_PER_HOMEPAGE);
-        totalRecords = dao.getAllConcessions(1, Integer.MAX_VALUE).size();
+        listC = dao.getAllConcessionsHome(page, CommonConst.RECORD_PER_HOMEPAGE);
+        totalRecords = dao.getAllConcessionsHome(1, Integer.MAX_VALUE).size();
     }
 
     PageControl pageControl = new PageControl();
@@ -150,7 +150,6 @@ public class ConcessionServlet extends HttpServlet {
     request.setAttribute("pageControl", pageControl);
     request.setAttribute("selectedFilter", filter);
     request.setAttribute("search", search);
-
     request.getRequestDispatcher("/views/homepage/Concession.jsp").forward(request, response);
 }
 

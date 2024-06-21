@@ -48,13 +48,15 @@
                 color: #fff;
             }
             .boxes {
+                text-align: center;
                 padding-top: 30px;
-                padding-left: 50px;
                 display: flex;
                 flex-direction: row;
                 font-family: Arial, Helvetica, sans-serif;
                 font-weight: bold;
+                margin-left: 30px;
             }
+            
             .box {
                 border: 1px solid black;
                 border-radius: 10px;
@@ -66,6 +68,12 @@
             .date {
                display: inline-block;
            }
+           .date:hover {
+                color: red;
+            }
+            hr {
+                background-color: #000;
+            }
         </style>
     </head>
     <body>
@@ -74,10 +82,10 @@
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
             </div>
         </div>
-            <div>
+            <div >
                 <a class="boxes" id="dateContainer">
                 </a>
-                <hr/>
+                <hr style="background-color: #000;"/>
             </div>
             
             
@@ -85,7 +93,7 @@
             <div class="container-xl detail">
                 <div class="row exep1">
                     <c:forEach items="${listM}" var="m">
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="exep1l">
                                 <div class="grid clearfix ">                                
                                     <img style="margin-bottom: 20px; border: 5px solid #000; border-radius: 15px;" height="350px" src="${m.getPost_img()}" class="w-100 film" alt="abc">
@@ -97,7 +105,7 @@
                                 <a href="moviedetail?ID=${m.getMovie_id()}"><p style="font-weight: bold; font-size: 35px" class="mb-0 nameDetail">${m.getMovie_name()}</p></a>                                       
                             </div>
                             <div>
-                                <p><i class='bx bxs-purchase-tag-alt' ></i>${m.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${m.getDuration()} minutes</p>
+                                <p><i class='bx bxs-purchase-tag-alt'></i>${m.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${m.getDuration()} minutes</p>
                             </div> 
                             <hr/>
                             <div>
@@ -113,7 +121,7 @@
                                                        <a class="showRoom" href="login.jsp"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     <c:if test="${sessionScope.user != null}">
-                                                       <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${showtime.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
+                                                       <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${s.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     </div>
                                             </c:forEach>
@@ -123,7 +131,7 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <hr/>
+                        <hr style="background-color: #000;"/>
                     </c:forEach>               
                 </div>    
             </div>
@@ -139,8 +147,9 @@
         for (var i = 0; i < 7; i++) {
             var date = new Date(currentDate.getTime() + i * 24 * 60 * 60 * 1000);
             var weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
+            var day = date.getDate().toString().padStart(2, '0');
+            var month = (date.getMonth() + 1).toString().padStart(2, '0');
+            var year = date.getFullYear();
             var formattedDate = day + '/' + month + '-' + weekday;
 
             var box = document.createElement('div');
@@ -149,9 +158,8 @@
             var dateElement = document.createElement('a'); 
             dateElement.classList.add('date');
             dateElement.textContent = formattedDate;
-            dateElement.href = '#' + formattedDate; 
+            dateElement.href = 'showtiming?date=' + year + "-" + month + "-" + day; 
             box.appendChild(dateElement);
-
             dateContainer.appendChild(box);
         }
     }

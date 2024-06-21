@@ -92,18 +92,19 @@ public class ManageConcessionServlet extends HttpServlet {
             page = 1;
         }
         String requestULR = request.getRequestURI().toString();
-        List<Concession> listConcession = dao.getAllConcessions(page, CommonConst.RECORD_PER_PAGE);
+        List<Concession> listConcession = dao.getAllConcessionsAdmin(page, CommonConst.RECORD_PER_PAGE);
         pageControl.setUlrPattern(requestULR + "?");
         // total record 
         int totalRecord = dao.getTotalRecordCount();
         // total page
-        int totalPage = (totalRecord % CommonConst.RECORD_PER_PAGE) == 0
-                ? (totalRecord / CommonConst.RECORD_PER_PAGE)
-                : (totalRecord / CommonConst.RECORD_PER_PAGE) + 1;
+//        int totalPage = (totalRecord % CommonConst.RECORD_PER_PAGE) == 0
+//                ? (totalRecord / CommonConst.RECORD_PER_PAGE)
+//                : (totalRecord / CommonConst.RECORD_PER_PAGE) + 1;
         //set total record, total page, pageControl
         pageControl.setPage(page);
         pageControl.setTotalRecord(totalRecord);
-        pageControl.setTotalPage(totalPage);
+//        pageControl.setTotalPage(totalPage);
+        pageControl.setTotalPage((int) Math.ceil((double) totalRecord / CommonConst.RECORD_PER_PAGE));
         return listConcession;
     }
 

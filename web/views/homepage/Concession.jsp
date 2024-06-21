@@ -33,7 +33,7 @@
                             <div class="row center_o1">
                                 <div class="col-md-12">
                                     <h2 class="text-white">Concession</h2>
-                                    <h6 class="mb-0 mt-3 fw-normal col_red">
+                                    <h6 style="color: red"  class="mb-0 mt-3 fw-normal">
                                         <a class="text-light" href="home">Home</a>
                                         <span class="mx-2 text-muted">/</span>Concession
                                     </h6>
@@ -51,7 +51,7 @@
                                     <!-- Search and filter section -->
                                     <div class="mt-4 search-filter-form">
                                         <form method="get" action="${pageContext.request.contextPath}/concession" class="search-input me-3">
-                                        <input type="text" name="search" class="form-control" placeholder="Search" value="${search}">
+                                        <input style="border-color: red" type="text" name="search" class="form-control" placeholder="Search" value="${search}">
                                         <input type="hidden" name="filter" value="${selectedFilter}">
                                         <button type="submit" class="btn">
                                             <i class="fas fa-search"></i>
@@ -59,7 +59,7 @@
                                     </form>
                                     <form method="get" action="${pageContext.request.contextPath}/concession" class="filter-select">
                                         <input type="hidden" name="search" value="${search}">
-                                        <select name="filter" class="form-control" onchange="this.form.submit()">
+                                        <select style="border-color: red" name="filter" class="form-control" onchange="this.form.submit()">
                                             <option value="all" ${selectedFilter == null || selectedFilter.equals("all") ? 'selected' : ''}>All</option>
                                             <option value="f_d" ${selectedFilter != null && selectedFilter.equals("f_d") ? 'selected' : ''}>Food & Drink</option>
                                             <option value="combo" ${selectedFilter != null && selectedFilter.equals("combo") ? 'selected' : ''}>Combo</option>
@@ -81,7 +81,7 @@
                                     <br/>
                                     <div class="spec_1im1 clearfix">
                                         <ul>
-                                            <li style="font-weight: bold">
+                                            <li style="font-weight: bold; font-size: 15px">
                                                 ${c.getConcessions_name()}
                                             </li>
                                             <li class="col_black">
