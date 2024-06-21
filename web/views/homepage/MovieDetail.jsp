@@ -32,7 +32,7 @@
             }
             .bookTicket {
                 color: rgb(240,240,240);
-                background-color:  rgb(228, 155, 15);
+                background-color: red;
                 padding: 7px;
                 font-size: 20px;
                 border-radius: 5px;     
@@ -51,7 +51,7 @@
             <section id="exep" class="p_3 bg-light">
                     <div class="container-xl detail">
                         <div class="row exep1">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <div class="exep1l">
                                     <div class="grid clearfix">
                                         <img style="border-style: solid; border-width: 10px"  height="450px" src="${m.getPost_img()}" class="w-100" alt="abc">

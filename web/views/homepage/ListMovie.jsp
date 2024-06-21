@@ -20,7 +20,7 @@
         <style>
             .bookTicket {
                 color: #fff;
-                background-color: rgb(244, 187, 68);
+                background-color: red;
                 font-size: 17px;
                 border-radius: 7px;
                 padding: 6px;
@@ -57,8 +57,8 @@
                 border: solid 1px grey;
             }
             .viewDetail:hover {
-                background-color: rgb(244, 187, 68); 
-                color: #000;
+                background-color: red; 
+                color: #fff;
             }
         </style>
     </head>
@@ -78,7 +78,7 @@
                         <c:forEach items="${listM}" var="m">
                             <div class="col-md-3 mb-4">
                                 <div class="spec_1im clearfix position-relative">
-                                    <div class="spec_1imi clearfix film">
+                                    <div class="spec_1imi clearfix film m-2">
                                         <a href="moviedetail?ID=${m.getMovie_id()}">
                                             <img height="330px" src="${m.getPost_img()}" class="w-100" alt="abc">
                                         </a>

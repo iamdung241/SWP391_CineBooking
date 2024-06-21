@@ -22,56 +22,64 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <style>
         .dropdown-menu {
-            background-color: #000;
+            background-color: #fff;
             border-radius: 10px;    
         }
 
         .dropdown-item {
-            color: #fff;
+            color: #000;
             font-weight: bold;
             font-size: 18px;
         }
 
         .dropdown-item:hover {
-            color: #000; /* Text color on hover */
+            color: #fff;
         }
+         .navbar-brand .navbar-logo {
+                height: 60px; 
+                width: 170px;
+            }
     </style>
     </head>
     <body>
         <section id="header">
-            <nav style="background-color: #FAFAF5 ; padding-top: 5px; padding-bottom: 5px" class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+            <nav style="background-color: #000 ; padding-top: 5px; padding-bottom: 5px" class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
                 <div class="container-xl">
-                    <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="/CineBooking/home" style="color: rgb(228, 155, 15)"><i style=color: yellow" class="fa fa-youtube-play me-1"></i> Play Show </a>
+                    <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="/CineBooking/home"><img class="navbar-logo" src="img/movieLogo.PNG"/></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mb-0">
                             <li class="nav-item dropdown">
-                                <a style="color: #000; font-size: 15px" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                                <a style="color: #fff; font-size: 15px" class="nav-link dropdown-toggle" href='/CinemaBooking/home' id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
                                 <ul style="border: none" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/CineBooking/home">Homepage</a></li>
-                                    <li><a class="dropdown-item" href="/CineBooking/listmovie">List Movie</a></li>
+                                    <li><a class="dropdown-item" href="/CineBooking/listmovie">Now showing</a></li>
+                                    <li><a class="dropdown-item" href="/CineBooking/comingsoon">Coming soon</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a style="color: #000; font-size: 15px" class="nav-link" href="/CineBooking/views/homepage/About.jsp">About </a>
+                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/views/homepage/About.jsp">About </a>
                             </li>
                             <li class="nav-item">
-                                <a style="color: #000; font-size: 15px" class="nav-link" href="/CineBooking/concession">Concession</a>
+                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/concession">Concession</a>
                             </li>
                             <li class="nav-item">
-                                <a style="color: #000; font-size: 15px" class="nav-link" href="/CineBooking/showtiming">Showtimings</a>
+                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/showtiming">Showtimings</a>
                             </li>
 <!--                            <li class="nav-item">
                                 <a class="nav-link" href="/CineBooking/dashboard">Dashboard</a>
                             </li>-->
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
-                                    <a style="color: #000; font-size: 15px" class="nav-link" href="login.jsp">Account</a>
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp">Account</a>
                                 </c:if>       
                                 <c:if test="${sessionScope.user != null}">
+<<<<<<< HEAD
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Account</a>
+=======
                                     <a style="color: #000; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
+>>>>>>> 15775fa57df843ecd552fde92c8f5b6a2312f605
                                 </c:if>  
                             </li>		
                         </ul>
@@ -80,11 +88,10 @@
                             
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
-
-                                    <a style="color: #000; font-size: 15px" class="nav-link" href="login.jsp"><i style="color: rgb(228, 155, 15)" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
                                 </c:if>
                                 <c:if test="${sessionScope.user != null}">
-                                    <a style="color: #000; font-size: 15px" class="nav-link" href="logout"><i style="color: rgb(228, 155, 15)" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Logout </a>
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="logout"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Logout </a>
 
                                 </c:if>  
                             </li>

@@ -43,7 +43,7 @@
             }
 
             .list-group-item:hover {
-                background-color: rgb(228, 155, 15); /* Hover background color */
+                background-color: red; /* Hover background color */
                 color: #fff;
             }
         </style>

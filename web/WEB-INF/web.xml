@@ -72,8 +72,7 @@
         <servlet-name>CustomerController</servlet-name>
         <url-pattern>/customerController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ConcessionBooking</servlet-name>
+    <servlet-mapping><servlet-name>ConcessionBooking</servlet-name>
         <url-pattern>/ConcessionBooking</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -152,8 +151,7 @@
     <servlet-mapping>
         <servlet-name>ConcessionControlServlet</servlet-name>
         <url-pattern>/admin/control</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>SearchConcession</servlet-name>
         <url-pattern>/admin/search</url-pattern>
     </servlet-mapping>
@@ -183,7 +181,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.homepage.LogoutController</servlet-class>
+        <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>

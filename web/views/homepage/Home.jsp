@@ -24,7 +24,7 @@
         <style>
             .bookTicket {
                 color: #fff;
-                background-color: rgb(244, 187, 68);
+                background-color: red;
                 font-size: 17px;
                 border-radius: 7px;
                 padding: 6px;
@@ -55,7 +55,7 @@
                 border: solid 1px grey;
             }
             .viewDetail:hover {
-                background-color: rgb(244, 187, 68); 
+                background-color: red; 
                 color: #000;
             }
         </style>
@@ -121,18 +121,18 @@
     <div class="container-xl">
         <div class="row stream_1 text-center">
             <div class="col-md-12">
-                <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
+                <h1 class="mb-0 font_50" style="color: black">Film Hot</h1>
             </div>
         </div>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <form action="movieController" method="GET" class="input-group" id="searchForm">
-                        <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;border-color: rgb(228, 155, 15)"
+                        <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;border-color: red"
                                value="${keyword != null ? keyword : ''}">
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                         <input type="hidden" name="service" value="search" id="serviceInput">
-                        <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: rgb(228, 155, 15)" id="dateSelect">
+                        <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
                             <option value="all">All</option>
                             <option value="upcoming">Upcoming Film</option>
                             <option value="nowshowing">Now Showing Film</option>
