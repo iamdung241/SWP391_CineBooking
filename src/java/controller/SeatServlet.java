@@ -88,11 +88,6 @@ public class SeatServlet extends HttpServlet {
             int showtimeid = Integer.parseInt(showtimeID);
             Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
             request.setAttribute("showtime", showtime);
-<<<<<<< HEAD
-            listConcession = cdao.getAllConcessions();
-            request.setAttribute("listConcession", listConcession);
-=======
->>>>>>> b7160f18985436081fc4e871284e6daac38738a6
         } catch (Exception e) {
         }
         request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);

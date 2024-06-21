@@ -173,6 +173,14 @@
         <servlet-name>AdminSearch_Filter</servlet-name>
         <url-pattern>/AdminSearchFilter</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ConcessionBooking</servlet-name>
+        <servlet-class>controller.ConcessionBooking</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>ConcessionBooking</servlet-name>
+        <url-pattern>/ConcessionBooking</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>

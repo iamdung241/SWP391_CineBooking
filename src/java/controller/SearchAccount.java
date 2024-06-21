@@ -63,13 +63,13 @@ public class SearchAccount extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Vector<Account> accounts = accountDAO.searchAccounts(searchQuery, roleFilter);
         
-        if(searchQuery.isBlank() && roleFilter.isBlank()){
-            response.sendRedirect("views/admin/manageuser.jsp");
-        }
-        else {
-            request.setAttribute("accounts", accounts);
-            request.getRequestDispatcher("views/admin/manageuser.jsp").forward(request, response);
-        }
+//        if(searchQuery.isBlank() && roleFilter.isBlank()){
+//            response.sendRedirect("views/admin/manageuser.jsp");
+//        }
+//        else {
+//            request.setAttribute("accounts", accounts);
+//            request.getRequestDispatcher("views/admin/manageuser.jsp").forward(request, response);
+//        }
     } 
 
     /** 

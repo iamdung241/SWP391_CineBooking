@@ -24,21 +24,19 @@
         <div class="main clearfix position-relative">
             <div class="main_1 clearfix position-absolute top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
+            </div>
                 <div class="main_about clearfix">
                     <section id="center" class="center_blog">
                         <div class="container-xl">
                             <div class="row center_o1">
                                 <div class="col-md-12">
                                     <h2 class="text-white">About Us</h2>
-                                    <h6 style="color: rgb(228, 155, 15)" class="mb-0 mt-3 fw-normal"><a class="text-light" href="/CineBooking/home">Home</a> <span class="mx-2 text-muted">/</span> About Us</h6>
+                                    <h6 style="color: red" class="mb-0 mt-3 fw-normal"><a class="text-light" href="/CineBooking/home">Home</a> <span class="mx-2 text-muted">/</span> About Us</h6>
                                 </div>
                             </div>
                         </div>
                     </section>
                 </div>
-
-            </div>
 
             <section id="feature" class="p_3">
                 <div class="container-xl">
@@ -109,7 +107,7 @@
                     </div>
                 </div>
             </section>
-
+           </div>
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
         <script>
             window.onscroll = function () {

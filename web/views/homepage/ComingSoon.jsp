@@ -18,13 +18,6 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <script src="js/bootstrap.bundle.min.js"></script>
         <style>
-            .bookTicket {
-                color: #fff;
-                background-color: rgb(244, 187, 68);
-                font-size: 17px;
-                border-radius: 7px;
-                padding: 6px;
-            }
             #nameMovie {
                 font-size: 19px;
                 font-weight: bold;
@@ -41,9 +34,6 @@
                 border-bottom: 3px solid #241d1e;
                 margin-bottom: 35px;
             }
-            .bookTicket:hover {
-                color: #000;
-            }
             .information {
                 font-size: 14px;
                 color: grey;
@@ -57,8 +47,8 @@
                 border: solid 1px grey;
             }
             .viewDetail:hover {
-                background-color: rgb(244, 187, 68); 
-                color: #000;
+                background-color: red; 
+                color: #fff;
             }
         </style>
     </head>
