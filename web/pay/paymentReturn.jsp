@@ -21,7 +21,8 @@
             <span>${c.concessions_name}</span>
             <span>${c.quantity}</span><br>
         </c:forEach>
-        Total price: ${sessionScope.price}    
+        <br>    
+        Total price: ${sessionScope.price} VND<br>  
         <span>Tình trạng thanh toán : ${rs}</span><br>
         <button onclick="location.href='${sessionScope.urlback}'">Back</button>
     </body>

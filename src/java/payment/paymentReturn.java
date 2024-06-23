@@ -4,6 +4,7 @@
  */
 package payment;
 
+import dal.SeatDAO;
 import dal.ShowtimingDAO;
 import dal.TicketDAO;
 import java.io.IOException;
@@ -86,7 +87,7 @@ public class paymentReturn extends HttpServlet {
         String signValue = Config.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                rs = "Thanh Cong";
+                rs = "Thành công";
                 HttpSession session = request.getSession();
                 Account user = (Account) session.getAttribute("user");
                 Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.valueOf((String) session.getAttribute("showtime")));
@@ -97,8 +98,13 @@ public class paymentReturn extends HttpServlet {
                 Ticket newTicket = new Ticket(show.getShowtime_id(), seat, Integer.parseInt(totalprice), combo, "", "");
                 TicketDAO td = new TicketDAO();
                 td.AddTicket(newTicket, user.getAccount_id());
+                String[]seats = seat.split(",");
+                SeatDAO sd = new SeatDAO();
+                for (String s1 : seats) {
+                    sd.upDateSeatBooking(s1.trim());
+                }
             } else {
-                rs = "Khong thanh cong";
+                rs = "Không thành công";
             }
         } else {
             rs = "Invalid signature";
