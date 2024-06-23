@@ -183,7 +183,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.homepage.LogoutController</servlet-class>
+        <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>

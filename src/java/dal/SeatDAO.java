@@ -15,7 +15,8 @@ import model.Seat;
  *
  * @author thanh
  */
-public class SeatDAO extends DBContext{
+public class SeatDAO extends DBContext {
+
     public List<Seat> getAllSeats() {
         List<Seat> listSeat = new ArrayList<>();
         String sql = "SELECT * FROM Seat";
@@ -37,15 +38,14 @@ public class SeatDAO extends DBContext{
 
         return listSeat;
     }
-    
-    
+
     public Seat getSeatByID(int seat_id) {
         String sql = "SELECT * FROM Seat WHERE seat_id = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, seat_id);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 int idSeat = rs.getInt(1);
                 String seat_name = rs.getString(2);
                 Float price = rs.getFloat(3);
@@ -58,7 +58,20 @@ public class SeatDAO extends DBContext{
         }
         return null;
     }
-    
+
+    public void upDateSeatBooking(String seatName) {
+        String sql = "UPDATE [dbo].[Seat]\n"
+                + "   SET [status] = 'Booked'\n"
+                + " WHERE seat_name like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, seatName);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
+
     public List<Seat> getSeatsByCharacterName(String roomName) {
         List<Seat> listSeat = new ArrayList<>();
         String sql = "SELECT * FROM Seat WHERE seat_name LIKE ?";
@@ -81,7 +94,7 @@ public class SeatDAO extends DBContext{
         }
         return listSeat;
     }
-    
+
     public static void main(String[] args) {
         List<Seat> list = new SeatDAO().getSeatsByCharacterName("Venus");
         for (Seat seat : list) {

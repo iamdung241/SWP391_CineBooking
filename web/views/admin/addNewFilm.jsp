@@ -50,9 +50,9 @@
             function validateAge() {
                 var age = document.getElementById("age").value.trim();
                 var AgeErr = document.getElementById("AgeErr");
-                var regex = /^([1]?[0-9]|2[0-4])\+$/;
+                var regex = /^(?:[4-9]|1[0-8])\+$/;
                 if (!regex.test(age) || age === "") {
-                    AgeErr.textContent = "Please enter a number < 25 example 15+";
+                    AgeErr.textContent = "Please enter from 3 - 18 example '18+' ";
                     return false;
                 } else {
                     AgeErr.textContent = "";
@@ -63,22 +63,27 @@
             function validateName() {
                 var name = document.getElementById("name").value;
                 var nameErr = document.getElementById("nameErr");
-                var regex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
+                var regex = /^(?! )[A-Za-z0-9&]+(?: [A-Za-z0-9&]+)*$/;
                 if (!regex.test(name)) {
                     nameErr.textContent = "Invalid format!";
                     return false;
                 } else {
-                    nameErr.textContent = "";
-                    return true;
+                    if(name.length >=2 && name.length <=100){
+                        nameErr.textContent = "";
+                        return true;
+                    }else {
+                        nameErr.textContent = "Name must be have 2-100 character!";
+                        return false;
+                    }
                 }
             }
 
             function validateduration() {
                 var duration = document.getElementById("duration").value;
                 var durationErr = document.getElementById("durationErr");
-                var regex = /^[0-9]+$/;
+                var regex = /^(?:1[1-9]|[2-9][0-9]|1[0-6][0-9])$/;
                 if (!regex.test(duration)) {
-                    durationErr.textContent = "Please enter a number example 100";
+                    durationErr.textContent = "Please enter a number 10-170 example 100";
                     return false;
                 } else {
                     durationErr.textContent = "";
@@ -89,9 +94,7 @@
             function validateTrailer() {
                 var trailer = document.getElementById("trailer").value;
                 var trailerErr = document.getElementById("trailerErr");
-                //var regex1 = /^(?!\s)(https?:\/\/[^\s$.?#].[^\s]*)$/;
                 var regex = /^[^\s]\S*(\s*)$/;
-
                 if (!regex.test(trailer)) {
                     trailerErr.textContent = "Enter true format, example https://www.youtube.com/embed/ar-IaAx7s8k";
                     return false;
@@ -104,7 +107,7 @@
             function validateDes() {
                 var des = document.getElementById("des").value;
                 var desErr = document.getElementById("desErr");
-                var regex = /^[^\s]/;
+                var regex = /^(?! )(?!.* {2})([a-zA-Z0-9&,.\s]+ ?)+$/;
 
                 if (!regex.test(des)) {
                     desErr.textContent = "Enter true format,do not have space first";
@@ -114,28 +117,75 @@
                     return true;
                 }
             }
+            
+            function validateSelection() {
+                var dropdown = document.querySelector('select[name="type"]');
+                const typeErr = document.getElementById("typeErr");
+                if (dropdown.value === "all") {
+                    typeErr.textContent = "Please choose the type of film.";
+                    return false; // Prevent form submission
+                }
+                    typeErr.textContent = "";
+                    return true; // Allow form submission
+                }
+            
+            function validDate(){
+                var cur = document.getElementById("date").value;
+                var curDate = new Date(cur);
+                var dateErr = document.getElementById("dateErr");
+                const minDate = new Date('1927-01-01');
+                const maxDate = new Date('2028-12-30');
+                if(curDate > minDate && curDate < maxDate){
+                    dateErr.textContent = "";
+                    return true;
+                }else {
+                dateErr.textContent = "Invalid , enter date true format and from 1/1/1927 to 30/12/2030.";
+                return false;
+                }
+            }
+            
+            function validateImageFile() {
+            var fileInput = document.getElementById('fileInput');
+            var filePath = fileInput.value;
+            var fileErr = document.getElementById("fileErr");
+            // Các loại file ảnh hợp lệ
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            
+            if (!allowedExtensions.exec(filePath)) {
+                fileErr.textContent="Please upload a file with extensions .jpeg/.jpg/.png only.";
+                fileInput.value = '';
+                return false;
+            } else {
+                // Nếu là file ảnh, kiểm tra thêm kích thước file
+                if (fileInput.files && fileInput.files[0]) {
+                    var fileSize = fileInput.files[0].size / 1024 / 1024; // kích thước file tính bằng MB
+                    if (fileSize > 10) {
+                        fileErr.textContent="File size exceeds 10 MB.";
+                        fileInput.value = '';
+                        return false;
+                    }
+                }
+                fileErr.textContent= "";
+                return true;
+                }
+            }
 
             function formTrue() {
+                var checkType = validateSelection();
+                if(!checkType){
+                    var err = document.getElementById("typeErr");
+                    err.textContent = "Please choose the type of film.";
+                }else{
+                    err.textContent = "";
+                }
                 var name = validateName();
                 var age = validateAge()();
                 var duration = validateduration();
                 var trailer = validateTrailer();
                 var des = validateDes();
-                return (name && age && duration && trailer && des);
+                return (name && age && duration && trailer && des && checkType);
             }
-
-            function updateButtonState() {
-                var addButton = document.getElementById("addButton");
-                if (formTrue()) {
-                    addButton.removeAttribute("disabled");
-                } else {
-                    addButton.setAttribute("disabled", "disabled");
-                }
-            }
-            // Gọi hàm cập nhật trạng thái của nút khi trang được tải
-            window.onload = function () {
-                updateButtonState();
-            };
+            
 
         </script>
     </head>
@@ -196,11 +246,13 @@
                                                 <tr>
                                                     <td>Type</td>
                                                     <td>
-                                                        <select name="type" class="form-control text-center">
+                                                        <select name="type" class="form-control text-center" onblur="validateSelection()">
+                                                        <option value="all">Choose the type of film</option>    
                                                         <c:forEach items="${typeMovie}" var="tm">
                                                             <option value="${tm.type_id}">${tm.type_name}</option>
                                                         </c:forEach>    
                                                     </select>
+                                                    <span class="text-danger" id="typeErr"></span>    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -219,7 +271,10 @@
                                             </tr>
                                             <tr>
                                                 <td>Date</td>
-                                                <td><input type="date" name="date" class="form-control" required/></td>
+                                                <td>
+                                                    <input type="date" id="date" name="date" class="form-control" required onblur="validDate()"/>
+                                                    <span class="text-danger" id="dateErr"></span>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Trailer</td>
@@ -237,7 +292,10 @@
                                             </tr>
                                             <tr>
                                                 <td>Image</td>
-                                                <td><input type="file" name="file" class="form-control" required/></td>
+                                                <td>
+                                                    <input id="fileInput" type="file" name="file" class="form-control" required onblur="validateImageFile()"/>
+                                                    <span class="text-danger" id="fileErr"></span>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
