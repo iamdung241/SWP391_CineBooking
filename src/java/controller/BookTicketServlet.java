@@ -15,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Movie;
 import model.Room;
@@ -77,7 +78,7 @@ public class BookTicketServlet extends HttpServlet {
             request.setAttribute("listShowtime", listShowtime);
             String showtimeid = request.getParameter("showtimeID");
             if (showtimeid != null) {
-                int showtime_id = Integer.parseInt(showtimeid);               
+                int showtime_id = Integer.parseInt(showtimeid);
                 List<Room> listRoom = rdao.getRoomsByShowtimeID(showtime_id);
                 request.setAttribute("listRoom", listRoom);
                 request.setAttribute("selectedShowtimeId", showtimeid);

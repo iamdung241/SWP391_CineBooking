@@ -2947,13 +2947,13 @@ textarea.form-control-lg{
     padding:.5rem 0;
     margin:0;
     font-size:1rem;
-    color:#212529;
+    font-weight: bold;
     text-align:left;
     list-style:none;
-    background-color:#fff;
     background-clip:padding-box;
-    border:1px solid rgba(0,0,0,.15);
-    border-radius:.25rem
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
 }
 .dropdown-menu[data-bs-popper]{
     top:100%;

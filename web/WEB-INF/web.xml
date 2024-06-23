@@ -24,6 +24,34 @@
         <servlet-name>CustomerController</servlet-name>
         <servlet-class>controller.CustomerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>controller.ChangePasswordServlet</servlet-class>
+    </servlet>    
+    <servlet>
+        <servlet-name>ConcessionBooking</servlet-name>
+        <servlet-class>controller.ConcessionBooking</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListMovieServlet</servlet-name>
+        <servlet-class>controller.ListMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ComingSoonServlet</servlet-name>
+        <servlet-class>controller.ComingSoonServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>paymentServlet</servlet-name>
+        <servlet-class>payment.paymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>payment.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>paymentReturn</servlet-name>
+        <servlet-class>payment.paymentReturn</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -47,6 +75,34 @@
     <servlet-mapping>
         <servlet-name>CustomerController</servlet-name>
         <url-pattern>/customerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConcessionBooking</servlet-name>
+        <url-pattern>/ConcessionBooking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListMovieServlet</servlet-name>
+        <url-pattern>/listmovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComingSoonServlet</servlet-name>
+        <url-pattern>/comingsoon</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>paymentServlet</servlet-name>
+        <url-pattern>/paymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/vnpayajax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>paymentReturn</servlet-name>
+        <url-pattern>/paymentReturn</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -135,7 +191,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.homepage.LogoutController</servlet-class>
+        <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>

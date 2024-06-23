@@ -43,8 +43,7 @@ public class AddUser extends HttpServlet {
         if (!password.matches(passwordPattern)) {
             request.setAttribute("errorPassword", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
             isValid = false;
-        }
-        if (!password.equals(rePassword)) {
+        } else if (!password.equals(rePassword)) {
             request.setAttribute("errorRePassword", "Passwords do not match");
             isValid = false;
         }

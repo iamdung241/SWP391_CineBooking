@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Movie;
-import model.Room;
 import model.Showtiming;
 
 /**
@@ -41,7 +40,6 @@ public class ShowtimingDAO extends DBContext {
         String sql = "select * from Showtime where movie_id = ?";
         List<Showtiming> listShow = new ArrayList();
         try {
-
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, movieID);
             ResultSet rs = st.executeQuery();
@@ -93,12 +91,13 @@ public class ShowtimingDAO extends DBContext {
                 String showtimeName = rs.getString(2);
                 int roomID = rs.getInt(3);
                 int movieID = rs.getInt(4);
+                String date = rs.getString(5);
                 String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID,date, movieID, roomName);
                 return showtime;
             }
         } catch (SQLException e) {
-
+            
         }
         return null;
     }
@@ -115,8 +114,9 @@ public class ShowtimingDAO extends DBContext {
                 String showtimeName = rs.getString(2);
                 int roomID = rs.getInt(3);
                 int movieID = rs.getInt(4);
+                String date = rs.getString(5);
                 String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, movieID, roomName);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID,date, movieID, roomName);
                 listShow.add(showtime);
             }
         } catch (SQLException e) {

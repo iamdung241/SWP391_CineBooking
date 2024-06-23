@@ -33,10 +33,13 @@
             .bookTicket {
                 color: rgb(240,240,240);
                 background-color: red;
-                border-style: solid;
-                padding: 6px;
+                padding: 7px;
                 font-size: 20px;
-                border-radius: 5px;               
+                border-radius: 5px;     
+                margin-left: 7px;
+            }
+            .bookTicket:hover {
+                color: #000; /* Text color on hover */
             }
         </style>
     </head>
@@ -48,7 +51,7 @@
             <section id="exep" class="p_3 bg-light">
                     <div class="container-xl detail">
                         <div class="row exep1">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <div class="exep1l">
                                     <div class="grid clearfix">
                                         <img style="border-style: solid; border-width: 10px"  height="450px" src="${m.getPost_img()}" class="w-100" alt="abc">
@@ -60,7 +63,7 @@
                                 <div class="exep1r">
                                     <p class="mb-0 nameDetail">${m.getMovie_name()}</p>                                       
                                 </div>
-                                <hr/>
+                                <hr style="background-color: #000"/>
                                 <div>
                                     <ul>
                                         <li>
@@ -78,7 +81,7 @@
                                         <li>
                                             <span>Description:</span>&nbsp&nbsp ${m.getDecription()}
                                         </li>
-                                        <hr/>
+                                        <hr style="background-color: #000"/>
                                         <li>
                                             <a class="bookTicket" href="movietrailer?trailer=${m.trailer}&ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i>Watch Trailer</a>
                                             <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>

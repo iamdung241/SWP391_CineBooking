@@ -25,18 +25,6 @@ public class MovieDAO extends DBContext {
 
     PreparedStatement stm;
     ResultSet rs;
-
-    /**
-     * Retrieves movies matching the given search keyword.
-     *
-     * @param s the search keyword
-     * @return a vector of movies that match the search criteria
-     */
-    /**
-     * Retrieves movies published before the current date.
-     *
-     * @return a vector of movies published before today
-     */
     public List<Movie> getMoviesPublishedBeforeToday() {
         String sql = "SELECT [movie_id]\n"
                     + "      ,[movie_name]\n"
@@ -177,8 +165,8 @@ public class MovieDAO extends DBContext {
 
     public List<Movie> getAllMovies() {
         List<Movie> listMovie = new ArrayList<>();
-        String sql = "SELECT m.movie_id, m.movie_name, m.type_id, m.duration, m.date_published, m.post_img, m.trailer, m.decription, tm.type_name, movie_validateAge FROM Movie m, TypeMovie tm \n"
-                + "                 WHERE m.type_id = tm.type_id";
+        String sql = "SELECT m.movie_id, m.movie_name, m.type_id, m.duration, m.date_published, m.post_img, m.trailer, m.decription, tm.type_name, movie_validateAge FROM Movie m, TypeMovie tm \n" +
+"                  WHERE m.type_id = tm.type_id";
         try {
             Movie movie;
             PreparedStatement st = connection.prepareStatement(sql);
@@ -200,7 +188,6 @@ public class MovieDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return listMovie;
     }
 
@@ -491,7 +478,7 @@ public class MovieDAO extends DBContext {
                 return movie;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         return null;
     }
@@ -543,10 +530,9 @@ public class MovieDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        List<Movie> data = new MovieDAO().getMovieByType(1);
+        List<Movie> data = new MovieDAO().getMoviesPublishedAfterToday();
         for (Movie movie : data) {
             System.out.println(movie.toString());
-
         }
 
     }

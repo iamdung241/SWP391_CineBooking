@@ -62,7 +62,6 @@ public class SearchAccount extends HttpServlet {
         String roleFilter = request.getParameter("role");
         AccountDAO accountDAO = new AccountDAO();
         Vector<Account> accounts = accountDAO.searchAccounts(searchQuery, roleFilter);
-        
         if(searchQuery.isBlank() && roleFilter.isBlank()){
             response.sendRedirect("views/admin/manageuser.jsp");
         }
