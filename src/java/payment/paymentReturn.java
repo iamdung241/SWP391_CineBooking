@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import mail.Mail;
 import model.Account;
 import model.Concession;
 import model.Showtiming;
@@ -115,6 +116,14 @@ public class paymentReturn extends HttpServlet {
                 TicketDAO td = new TicketDAO();
                 td.AddTicket(newTicket, user.getAccount_id());
                 session.setAttribute("ticketCode", newTicket.getCode());
+                Mail m = new Mail();
+                Ticket ti = new TicketDAO().getTicket(code);
+                boolean mail = m.sendEmail("huytqhe170798@fpt.edu.vn", ti);
+                if(mail){
+                    request.setAttribute("mail", "Send mail sucess!");
+                }else{
+                    request.setAttribute("mail", "Send mail fail!");
+                }
             } else {
                 rs = "Không thành công";
             }
