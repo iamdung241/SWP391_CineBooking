@@ -2,9 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
-
 
 import dal.RoomDAO;
 import dal.ShowtimingDAO;
@@ -14,7 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Movie;
 import model.Room;
@@ -43,7 +43,7 @@ public class ShowtimingServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ShowtimingServlet</title>");            
+            out.println("<title>Servlet ShowtimingServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ShowtimingServlet at " + request.getContextPath() + "</h1>");
@@ -65,34 +65,39 @@ public class ShowtimingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ShowtimingDAO sdao = new ShowtimingDAO();
-        List<Movie> listMovie = sdao.getMovieWithShowtime();
-        request.setAttribute("listM", listMovie);
         RoomDAO rdao = new RoomDAO();
+        List<Movie> listMovie = sdao.getMovieWithShowtime();
         String selectedDate = request.getParameter("date");
-        if (selectedDate != null && !selectedDate.isEmpty()) {
-            List<Movie> filteredMovies = new ArrayList<>();
-            for (Movie movie : listMovie) {
-                for (Showtiming showtime : movie.getListShowtime()) {
-                    if (showtime.getDate().equals(selectedDate)) {
-                        filteredMovies.add(movie);
-                        break;
-                    }
+        if (selectedDate == null || selectedDate.isEmpty()) {
+            selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        }
+        List<Movie> filteredMovies = new ArrayList<>();
+        for (Movie movie : listMovie) {
+            List<Showtiming> filteredShowtimes = new ArrayList<>();
+            for (Showtiming showtime : movie.getListShowtime()) {
+                if (showtime.getDate().equals(selectedDate)) {
+                    filteredShowtimes.add(showtime);
                 }
             }
-            request.setAttribute("listM", filteredMovies);
+            if (!filteredShowtimes.isEmpty()) {
+                movie.setListShowtime(filteredShowtimes);
+                filteredMovies.add(movie);
+            }
         }
+        request.setAttribute("listM", filteredMovies);
+        request.setAttribute("selectedDate", selectedDate);
         String showtimeid = request.getParameter("showtimeID");
-        if(showtimeid != null) {
+        if (showtimeid != null) {
             try {
-            int showtime_id = Integer.parseInt(showtimeid);
-            List<Room> listRoom = rdao.getRoomsByShowtimeID(showtime_id);
-            request.setAttribute("listRoom", listRoom);
-            request.setAttribute("selectedShowtimeID", showtime_id);
+                int showtime_id = Integer.parseInt(showtimeid);
+                List<Room> listRoom = rdao.getRoomsByShowtimeID(showtime_id);
+                request.setAttribute("listRoom", listRoom);
+                request.setAttribute("selectedShowtimeID", showtime_id);
             } catch (NumberFormatException e) {
 
             }
-        }     
-        
+        }
+
         request.getRequestDispatcher("/views/homepage/Showtimings.jsp").forward(request, response);
     }
 

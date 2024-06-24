@@ -85,8 +85,8 @@
                                 <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
                                 <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span><h5></div>
                                             <hr/>
-                                            <div style="font-weight: bold; font-size: 19px; color: red; text-align: center">Time left: <span id="timer"></span> </div>
-                                            <hr/>
+<!--                                            <div style="font-weight: bold; font-size: 19px; color: red; text-align: center">Time left: <span id="timer"></span> </div>
+                                            <hr/>-->
                                             <div style="text-align: center; padding-top: 20px">
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="#"><i class='bx bx-left-arrow'></i> Back</a>
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next<i class='bx bx-right-arrow'></i></a>
@@ -163,34 +163,34 @@
                                                         }
                                                     }
 
-                                                    //countdown
-                                                    document.getElementById('timer').innerHTML = 05 + ":" + 00;
-                                                    startTimer();
-
-                                                    function startTimer() {
-                                                        var presentTime = document.getElementById('timer').innerHTML;
-                                                        var timeArray = presentTime.split(/[:]+/);
-                                                        var m = timeArray[0];
-                                                        var s = checkSecond((timeArray[1] - 1));
-                                                        if (s === 59) {
-                                                            m -= 1;
-                                                        }
-                                                        if (m < 0) {
-                                                            return;
-                                                        }
-                                                        document.getElementById('timer').innerHTML = m + ":" + s;
-                                                        console.log(m);
-                                                        setTimeout(startTimer, 1000);
-                                                    }
-                                                    function checkSecond(sec) {
-                                                        if (sec < 10 && sec >= 0) {
-                                                            sec = "0" + sec;
-                                                        } // add zero in front of numbers < 10
-                                                        if (sec < 0) {
-                                                            sec = "59";
-                                                        }
-                                                        return sec;
-                                                    }
+//                                                    //countdown
+//                                                    document.getElementById('timer').innerHTML = 05 + ":" + 00;
+//                                                    startTimer();
+//
+//                                                    function startTimer() {
+//                                                        var presentTime = document.getElementById('timer').innerHTML;
+//                                                        var timeArray = presentTime.split(/[:]+/);
+//                                                        var m = timeArray[0];
+//                                                        var s = checkSecond((timeArray[1] - 1));
+//                                                        if (s === 59) {
+//                                                            m -= 1;
+//                                                        }
+//                                                        if (m < 0) {
+//                                                            return;
+//                                                        }
+//                                                        document.getElementById('timer').innerHTML = m + ":" + s;
+//                                                        console.log(m);
+//                                                        setTimeout(startTimer, 1000);
+//                                                    }
+//                                                    function checkSecond(sec) {
+//                                                        if (sec < 10 && sec >= 0) {
+//                                                            sec = "0" + sec;
+//                                                        } // add zero in front of numbers < 10
+//                                                        if (sec < 0) {
+//                                                            sec = "59";
+//                                                        }
+//                                                        return sec;
+//                                                    }
                                             </script>
                                             </body>
                                             </html>

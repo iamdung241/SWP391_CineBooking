@@ -67,7 +67,7 @@ public class HomeServlet extends HttpServlet {
         List<Movie> listM = mdao.getMovie();
         request.setAttribute("listM", listM);
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType(); 
-            request.setAttribute("typeList", typeList);
+        request.setAttribute("typeList", typeList);
         request.getRequestDispatcher("/views/homepage/Home.jsp").forward(request, response);
     }
 

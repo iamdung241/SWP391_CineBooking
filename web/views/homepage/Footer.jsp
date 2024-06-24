@@ -25,7 +25,6 @@
                             <h5 class="text-uppercase col_red mb-3">PlayShow</h5>
                             <ul class="mb-0 row">
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/home">Homepage</a></li>
-                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/views/homepage/About.jsp">About PlayShow</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/views/homepage/About.jsp">Rules</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/showtiming">Cinema</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/concession">Concession</a></li>
@@ -36,25 +35,10 @@
                         <div class="footer_2i">
                             <h5 class="text-uppercase col_red mb-3">SUPPORT</h5>
                             <ul class="mb-0 row">
-                                <li class="mt-2 col-md-12 col-6 p-0">
-                                    <c:if test="${sessionScope.user == null}">
-                                        <a class="text-muted" href="login.jsp">Account</a>
-                                    </c:if>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <a class="text-muted" href="/views/homepage/Home.jsp">Account</a>
-                                    </c:if>  
-                                </li>
+                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/views/homepage/About.jsp">About PlayShow</a></li>
                                 <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/showtiming">Showtimings</a></li>
-                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/showtiming">Ticket booking instructions</a></li>
+                                <li class="mt-2 col-md-12 col-6 p-0"><a class="text-muted" href="/CineBooking/views/homepage/About.jsp">Ticket booking instructions</a></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="footer_2i">
-                            <h5 class="text-uppercase col_red mb-3">SEARCH</h5>
-                            <p class="text-muted mt-3">You can enter characters here to search for movie names.</p>
-                            <input class="form-control mt-3 bg-transparent rounded-0" placeholder="search by name film" type="text">
-                            <h6 class="mb-0 text-uppercase mt-4"><a class="button" href="#"><i class="fa fa-location-arrow me-1"></i> SEARCH NOW</a></h6>
                         </div>
                     </div>
                 </div>
