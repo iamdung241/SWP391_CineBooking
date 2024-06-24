@@ -44,12 +44,6 @@
                     </h1>
                     <div style="padding-top: 20px" class="row">
                         <div class="col-6">
-                            <!--                        <div class="mx-2">
-                                                        <p style="background: red; border-radius: 7px" class="text-center text-white">Screen</p>   
-                                                    </div> 
-                                                    <div style="text-align: center">
-                                                        <div ><span style=" padding-right: 20px"><i style="color: red" class='bx bxs-square-rounded'></i> Booked</span><i style="color: black" class='bx bxs-square-rounded'></i> UnBooked</div>
-                                                    </div>-->
                             <div style="text-align: center">
                                 <div>
                                     <img style="weight: 100px; height: 60px" src="/CineBooking/img/screen.JPG" alt="imageSrc">
@@ -84,8 +78,6 @@
                                 <div><span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span><input type="hidden" id="ghe"></span></div>
                                 <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
                                 <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span><h5></div>
-                                            <hr/>
-                                            <div style="font-weight: bold; font-size: 19px; color: red; text-align: center">Time left: <span id="timer"></span> </div>
                                             <hr/>
                                             <div style="text-align: center; padding-top: 20px">
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="/CineBooking/home"><i class='bx bx-left-arrow'></i> Back</a>
@@ -163,34 +155,34 @@
                                                         }
                                                     }
 
-                                                    //countdown
-                                                    document.getElementById('timer').innerHTML = 05 + ":" + 00;
-                                                    startTimer();
-
-                                                    function startTimer() {
-                                                        var presentTime = document.getElementById('timer').innerHTML;
-                                                        var timeArray = presentTime.split(/[:]+/);
-                                                        var m = timeArray[0];
-                                                        var s = checkSecond((timeArray[1] - 1));
-                                                        if (s === 59) {
-                                                            m -= 1;
-                                                        }
-                                                        if (m < 0) {
-                                                            return;
-                                                        }
-                                                        document.getElementById('timer').innerHTML = m + ":" + s;
-                                                        console.log(m);
-                                                        setTimeout(startTimer, 1000);
-                                                    }
-                                                    function checkSecond(sec) {
-                                                        if (sec < 10 && sec >= 0) {
-                                                            sec = "0" + sec;
-                                                        } // add zero in front of numbers < 10
-                                                        if (sec < 0) {
-                                                            sec = "59";
-                                                        }
-                                                        return sec;
-                                                    }
+//                                                    //countdown
+//                                                    document.getElementById('timer').innerHTML = 05 + ":" + 00;
+//                                                    startTimer();
+//
+//                                                    function startTimer() {
+//                                                        var presentTime = document.getElementById('timer').innerHTML;
+//                                                        var timeArray = presentTime.split(/[:]+/);
+//                                                        var m = timeArray[0];
+//                                                        var s = checkSecond((timeArray[1] - 1));
+//                                                        if (s === 59) {
+//                                                            m -= 1;
+//                                                        }
+//                                                        if (m < 0) {
+//                                                            return;
+//                                                        }
+//                                                        document.getElementById('timer').innerHTML = m + ":" + s;
+//                                                        console.log(m);
+//                                                        setTimeout(startTimer, 1000);
+//                                                    }
+//                                                    function checkSecond(sec) {
+//                                                        if (sec < 10 && sec >= 0) {
+//                                                            sec = "0" + sec;
+//                                                        } // add zero in front of numbers < 10
+//                                                        if (sec < 0) {
+//                                                            sec = "59";
+//                                                        }
+//                                                        return sec;
+//                                                    }
                                             </script>
                                             </body>
                                             </html>

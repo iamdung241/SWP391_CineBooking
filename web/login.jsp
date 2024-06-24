@@ -118,7 +118,7 @@
         <div id="login-form-wrap">
             <h2>CineBooking Login</h2>
             <form id="login-form" action="login" method="POST">
-
+                <input type="hidden" name="returnUrl" value="${param.returnUrl}">
                 <div>
                     <label for="username">Enter Username or Email or Phone:</label>
                     <input type="text" id="username" name="username" value="${param.username}" required>

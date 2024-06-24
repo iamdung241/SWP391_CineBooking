@@ -111,14 +111,14 @@
                             <div>
                                 <c:forEach items="${m.getListShowtime()}" var="s"> 
                                     <div style="padding: 15px">
-                                            <a class="showtime" href="showtiming?showtimeID=${s.getShowtime_id()}">${s.getShowtiming()}:00</a>       
+                                            <a class="showtime" href="showtiming?showtimeID=${s.getShowtime_id()}&date=${selectedDate}">${s.getShowtiming()}:00</a>       
                                     </div>                                     
                                             <c:if test="${selectedShowtimeID != null && selectedShowtimeID == s.getShowtime_id()}">
                                         <div>
                                             <c:forEach items="${listRoom}" var="r">
                                                 <div style="margin: 40px ">
                                                     <c:if test="${sessionScope.user == null}">
-                                                       <a class="showRoom" href="login.jsp"> Room: ${r.getRoom_name()}</a>
+                                                       <a class="showRoom" href="login.jsp?returnUrl=showtiming"> Room: ${r.getRoom_name()}</a>
                                                     </c:if>
                                                     <c:if test="${sessionScope.user != null}">
                                                        <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${s.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
@@ -143,6 +143,7 @@
         function displayNextWeek() {
         var dateContainer = document.getElementById('dateContainer');
         var currentDate = new Date();
+        var selectedDate = "${selectedDate}";
 
         for (var i = 0; i < 7; i++) {
             var date = new Date(currentDate.getTime() + i * 24 * 60 * 60 * 1000);
@@ -151,14 +152,18 @@
             var month = (date.getMonth() + 1).toString().padStart(2, '0');
             var year = date.getFullYear();
             var formattedDate = day + '/' + month + '-' + weekday;
-
+            var formattedDateForLink = year + "-" + month + "-" + day;
+            
             var box = document.createElement('div');
             box.classList.add('box');
 
             var dateElement = document.createElement('a'); 
             dateElement.classList.add('date');
             dateElement.textContent = formattedDate;
-            dateElement.href = 'showtiming?date=' + year + "-" + month + "-" + day; 
+            dateElement.href = 'showtiming?date=' + formattedDateForLink;
+                    if (selectedDate === formattedDateForLink) {
+                        dateElement.style.color = 'red'; // Highlight the selected date
+                    }
             box.appendChild(dateElement);
             dateContainer.appendChild(box);
         }

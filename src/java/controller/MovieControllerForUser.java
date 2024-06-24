@@ -31,6 +31,7 @@ public class MovieControllerForUser extends HttpServlet {
         String dateFilter = req.getParameter("dateFilter");
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType();
         List<Movie> listM = new ArrayList<>();
+
         if (service != null) {
             switch (service) {
                 case "search":
@@ -71,7 +72,6 @@ public class MovieControllerForUser extends HttpServlet {
                     break;
             }
         }
-
         // Set the attributes
         req.setAttribute("keyword", keyword);
         req.setAttribute("typeList", typeList);

@@ -29,6 +29,7 @@ public class LoginController extends HttpServlet {
         // Retrieve username and password from the request
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String returnUrl = req.getParameter("returnUrl");
 
         // Attempt to authenticate the user
         Account user = (new AccountDAO()).login(username, password);
@@ -39,14 +40,18 @@ public class LoginController extends HttpServlet {
             // Invalid username or password, forward back to login page with error message
             req.setAttribute("usernameOrPasswordWrong", "Username or Password is invalid!");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
-        } else if (user.getRole_id() == 3) {
-            // Customer role
+        } else {
             session.setAttribute("user", user);
-            resp.sendRedirect("home");
-        } else if (user.getRole_id() == 1) {
-            // Admin role
-            session.setAttribute("user", user);
-            resp.sendRedirect("dashboard");
+            if (returnUrl != null && !returnUrl.isEmpty()) {
+                resp.sendRedirect(returnUrl);
+            } else if (user.getRole_id() == 3) {
+                // Customer role
+                resp.sendRedirect("home");
+            } else if (user.getRole_id() == 1) {
+                // Admin role
+                resp.sendRedirect("dashboard");
+            }
         }
+        
     }
 }

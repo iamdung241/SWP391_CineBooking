@@ -35,10 +35,10 @@
         .dropdown-item:hover {
             color: #fff;
         }
-         .navbar-brand .navbar-logo {
+        .navbar-logo {
                 height: 60px; 
                 width: 170px;
-            }
+        }
     </style>
     </head>
     <body>
@@ -67,22 +67,17 @@
                             <li class="nav-item">
                                 <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/showtiming">Showtimings</a>
                             </li>
-<!--                            <li class="nav-item">
-                                <a class="nav-link" href="/CineBooking/dashboard">Dashboard</a>
-                            </li>-->
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp">Account</a>
                                 </c:if>       
                                 <c:if test="${sessionScope.user != null}">
-                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Account</a>
-                                    <a style="color: #000; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
+
                                 </c:if>  
                             </li>		
                         </ul>
                         <ul class="navbar-nav mb-0 ms-auto">
-                            
-                            
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
