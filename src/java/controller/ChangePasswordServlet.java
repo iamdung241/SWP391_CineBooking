@@ -23,29 +23,38 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        // Testuser1234@1
+        request.setAttribute("oldPassword", oldPassword);
+        request.setAttribute("newPassword", newPassword);
+        request.setAttribute("confirmPassword", confirmPassword);
+        boolean isValid = true;
+
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(userID);
 
         String hashPass = new AccountDAO().md5(oldPassword);
 
-        if (account != null && account.getPassword().equals(hashPass)) {
-            String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
-            if (!newPassword.matches(passwordPattern)) {
-                request.setAttribute("errorMessage", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
-                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            } 
-            else if (!newPassword.equals(confirmPassword)) {
-                request.setAttribute("errorMessage", "Passwords do not match");
-                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            }
-            else if (newPassword.equals(confirmPassword)) {
-                accountDAO.updatePasswordByID(userID, newPassword);
-                response.sendRedirect("login.jsp");
-            }
-        } else {
-            request.setAttribute("errorMessage", "Invalid old password.");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
+        if (!newPassword.matches(passwordPattern)) {
+            request.setAttribute("errorNew", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
+            isValid = false;
+        } 
+        if (!newPassword.equals(confirmPassword)) {
+            request.setAttribute("errorConfirm", "Passwords do not match");
+            isValid = false;
         }
+        if (account == null || !account.getPassword().equals(hashPass)) {
+            request.setAttribute("errorOld", "Invalid old password.");
+            isValid = false;
+        }
+
+        if (isValid) {
+            accountDAO.updatePasswordByID(userID, newPassword);
+            request.setAttribute("successMessage", "Change password successfully");
+            request.setAttribute("oldPassword", null);
+            request.setAttribute("newPassword", null);
+            request.setAttribute("confirmPassword", null);
+        }
+        
+        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
 }
