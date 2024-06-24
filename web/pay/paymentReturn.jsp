@@ -11,19 +11,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     </head>
     <body>
-        <h1>Hóa Đơn Thanh Toán</h1>
-        Showtime : ${sessionScope.showtime}<br>
-        Seat : ${sessionScope.seat}<br>
-        Combo
-        <c:forEach items="${sessionScope.combo}" var="c">
-            <span>${c.concessions_name}</span>
-            <span>${c.quantity}</span><br>
-        </c:forEach>
-        <br>    
-        Total price: ${sessionScope.price} VND<br>  
-        <span>Tình trạng thanh toán : ${rs}</span><br>
-        <button onclick="location.href='${sessionScope.urlback}'">Back</button>
+        <jsp:include page="/views/homepage/./Header.jsp"></jsp:include>
+        <div class="container-fluid">
+            <div class="row justify-content-center mt-3 mb-3">
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-success">${rs}</h2>
+                            <p class="card-text">
+                                Thank you for booking! Your transaction has been completed
+                                successfully.
+                            </p>
+                            <div class="mt-4">
+                                <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>
+                                <a href="/CineBooking/ShowTicket" class="btn btn-secondary">Show Ticket</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

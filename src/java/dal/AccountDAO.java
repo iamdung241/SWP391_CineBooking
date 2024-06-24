@@ -26,8 +26,8 @@ public class AccountDAO extends DBContext {
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
             // Mã hóa mật khẩu bằng MD5
-            //String hashedPassword = md5(inputPassword);
-            String hashedPassword = inputPassword;
+            String hashedPassword = md5(inputPassword);
+            
             stm = connection.prepareStatement(sql);
             stm.setString(1, input);
             stm.setString(2, input);
@@ -434,7 +434,7 @@ public class AccountDAO extends DBContext {
         String sql = "UPDATE [Account] SET password = ? WHERE account_id = ?";
         try {
             // Encrypt password using MD5
-            String hashedPassword = password;
+            String hashedPassword = md5(password);
 
             // Prepare SQL statement and set parameters for password and account_id
             stm = connection.prepareStatement(sql);

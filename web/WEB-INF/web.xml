@@ -27,7 +27,7 @@
     <servlet>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <servlet-class>controller.ChangePasswordServlet</servlet-class>
-    </servlet>    
+    </servlet>
     <servlet>
         <servlet-name>ConcessionBooking</servlet-name>
         <servlet-class>controller.ConcessionBooking</servlet-class>
@@ -51,6 +51,10 @@
     <servlet>
         <servlet-name>paymentReturn</servlet-name>
         <servlet-class>payment.paymentReturn</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowTicket</servlet-name>
+        <servlet-class>controller.ShowTicket</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>paymentReturn</servlet-name>
         <url-pattern>/paymentReturn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowTicket</servlet-name>
+        <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -20,6 +20,8 @@ public class Movie {
     private String post_img, trailer, decription,status;
     private List<Showtiming> listShowtime;
     private TypeMovie type_movie;
+    
+    
     public Movie() {
     }
 
