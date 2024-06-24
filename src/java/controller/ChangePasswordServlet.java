@@ -25,6 +25,7 @@ public class ChangePasswordServlet extends HttpServlet {
 
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(userID);
+        
 
         if (account != null && account.getPassword().equals(oldPassword)) {
             String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";

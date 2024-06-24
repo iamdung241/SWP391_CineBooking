@@ -26,8 +26,7 @@ public class AccountDAO extends DBContext {
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
             // Mã hóa mật khẩu bằng MD5
-            //String hashedPassword = md5(inputPassword);
-            String hashedPassword = inputPassword;
+            String hashedPassword = md5(inputPassword);
             stm = connection.prepareStatement(sql);
             stm.setString(1, input);
             stm.setString(2, input);
@@ -456,4 +455,62 @@ public class AccountDAO extends DBContext {
         }
     }
 
+    public Account getAccountByEmail(String email) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE email = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("account_id"));
+                account.setFullname(rs.getString("fullname"));
+                account.setPhone(rs.getString("phone"));
+                account.setEmail(rs.getString("email"));
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole_id(rs.getInt("role_id"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    public void updatePasswordByEmail(String email, String password) {
+        PreparedStatement stm = null;
+        String sql = "UPDATE [Account] SET password = ? WHERE email = ?";
+        try {
+            String hashedPassword = md5(password); // Hash the password using MD5
+
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, hashedPassword);
+            stm.setString(2, email);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
