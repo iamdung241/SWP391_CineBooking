@@ -27,33 +27,32 @@ public class ResetPasswordServlet extends HttpServlet {
         String email = request.getParameter("email");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
+    
+        request.setAttribute("newPassword", newPassword);
+        request.setAttribute("confirmPassword", confirmPassword);
+        boolean isValid = true;
 
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByEmail(email);
 
-        if (account == null) {
-            request.setAttribute("errorMessage", "Invalid token.");
-            request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
-            return;
-        }
-
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
-
         if (!newPassword.matches(passwordPattern)) {
-            request.setAttribute("errorMessage", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces.");
-            request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
-            return;
+            request.setAttribute("errorNew", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
+            isValid = false;
         } 
-
         if (!newPassword.equals(confirmPassword)) {
-            request.setAttribute("errorMessage", "Passwords do not match.");
-            request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
-            return;
+            request.setAttribute("errorConfirm", "Passwords do not match");
+            isValid = false;
         }
-
-        accountDAO.updatePasswordByEmail(account.getEmail(), newPassword);
-        request.setAttribute("successMessage", "Password has been reset successfully.");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        
+        if (isValid) {
+            accountDAO.updatePasswordByEmail(account.getEmail(), newPassword);
+            request.setAttribute("successMessage", "Password has been reset successfully.");
+            request.setAttribute("newPassword", null);
+            request.setAttribute("confirmPassword", null);
+        }
+        
+        request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
     }
 
     @Override
