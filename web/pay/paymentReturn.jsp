@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <h2 class="card-title text-success">${rs}</h2>
                             <p class="card-text">
-                                Thank you for booking ticket! Your transaction has been completed
+                                Thank you for booking! Your transaction has been completed
                                 successfully.
                             </p>
                             <div class="mt-4">
