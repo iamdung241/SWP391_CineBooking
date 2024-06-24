@@ -56,10 +56,11 @@ public class MovieDAO extends DBContext {
                     String trailer = rs.getString("trailer");
                     String decription = rs.getString("decription");
                     String type_name = rs.getString("type_name");
+                    String status = rs.getString("status");
                     //TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription));
+                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription,status));
                 }
             }
         } catch (SQLException ex) {
@@ -105,10 +106,11 @@ public class MovieDAO extends DBContext {
                     String trailer = rs.getString("trailer");
                     String decription = rs.getString("decription");
                     String type_name = rs.getString("type_name");
+                    String status = rs.getString("status");
                     //TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription));
+                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription,status));
                 }
             }
         } catch (SQLException ex) {
@@ -150,10 +152,11 @@ public class MovieDAO extends DBContext {
                     String trailer = rs.getString("trailer");
                     String decription = rs.getString("decription");
                     String type_name = rs.getString("type_name");
+                    String status = rs.getString("status");
                     //TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription));
+                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription,status));
                 }
             }
         } catch (SQLException ex) {
