@@ -79,7 +79,7 @@
                                     <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="ri-search-line align-bottom"></i> Search</button>
                                 </form>
                             <!-- Add User -->
-                            <a class="btn btn-sm btn-primary" href="addUser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                            <a class="btn btn-sm btn-primary" href="adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

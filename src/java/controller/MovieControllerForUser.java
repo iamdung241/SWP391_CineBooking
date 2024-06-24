@@ -32,7 +32,6 @@ public class MovieControllerForUser extends HttpServlet {
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType();
         List<Movie> listM = new ArrayList<>();
 
-
         if (service != null) {
             switch (service) {
                 case "search":
@@ -49,7 +48,7 @@ public class MovieControllerForUser extends HttpServlet {
                             req.setAttribute("resultNull", "No films found matching your search criteria.");
                         }
                     } else {
-                        listM = (new MovieDAO()).getAllMovies();
+                        listM = (new MovieDAO()).getMovie();
                     }
                     break;
                 case "filter":
@@ -62,7 +61,7 @@ public class MovieControllerForUser extends HttpServlet {
                                 listM = (new MovieDAO()).getMoviesPublishedBeforeToday();
                                 break;
                             case "all":
-                                listM = (new MovieDAO()).getAllMovies();
+                                listM = (new MovieDAO()).getMovie();
                                 break;
                         }
                     }
@@ -73,12 +72,10 @@ public class MovieControllerForUser extends HttpServlet {
                     break;
             }
         }
-
         // Set the attributes
         req.setAttribute("keyword", keyword);
         req.setAttribute("typeList", typeList);
         req.setAttribute("listM", listM.isEmpty() ? null : listM);
-
         req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
     }
 

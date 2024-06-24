@@ -23,11 +23,13 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
+        // Testuser1234@1
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(userID);
-        
 
-        if (account != null && account.getPassword().equals(oldPassword)) {
+        String hashPass = new AccountDAO().md5(oldPassword);
+
+        if (account != null && account.getPassword().equals(hashPass)) {
             String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
             if (!newPassword.matches(passwordPattern)) {
                 request.setAttribute("errorMessage", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");

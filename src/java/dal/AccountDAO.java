@@ -433,7 +433,7 @@ public class AccountDAO extends DBContext {
         String sql = "UPDATE [Account] SET password = ? WHERE account_id = ?";
         try {
             // Encrypt password using MD5
-            String hashedPassword = password;
+            String hashedPassword = md5(password);
 
             // Prepare SQL statement and set parameters for password and account_id
             stm = connection.prepareStatement(sql);

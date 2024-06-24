@@ -60,6 +60,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>controller.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowTicket</servlet-name>
+        <servlet-class>controller.ShowTicket</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowTicket</servlet-name>
+        <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

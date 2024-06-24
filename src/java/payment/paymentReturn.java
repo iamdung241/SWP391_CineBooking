@@ -4,6 +4,7 @@
  */
 package payment;
 
+import dal.SeatDAO;
 import dal.ShowtimingDAO;
 import dal.TicketDAO;
 import java.io.IOException;
@@ -15,10 +16,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import model.Account;
 import model.Concession;
 import model.Showtiming;
@@ -86,19 +90,33 @@ public class paymentReturn extends HttpServlet {
         String signValue = Config.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                rs = "Thanh Cong";
+                rs = "Thành công";
                 HttpSession session = request.getSession();
                 Account user = (Account) session.getAttribute("user");
-                Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.valueOf((String) session.getAttribute("showtime")));
-                String seat =(String) session.getAttribute("seat");
+                Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.parseInt((String) session.getAttribute("showtime")));
+                String seat = (String) session.getAttribute("seat");
                 String totalprice = (String) session.getAttribute("price");
-                List<Concession> comboList =(List) session.getAttribute("combo");
-                String combo = appendString(comboList);
-                Ticket newTicket = new Ticket(show.getShowtime_id(), seat, Integer.parseInt(totalprice), combo, "", "");
+                List<Concession> comboList = (List) session.getAttribute("combo");
+                String combo = appendString(comboList);                
+                String[] seats = seat.split(",");
+                SeatDAO sd = new SeatDAO();
+                for (String s1 : seats) {
+                    sd.upDateSeatBooking(s1.trim());
+                }
+                String code = generateSecretCode(6) + user.getAccount_id();
+                request.setAttribute("code", code);
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                // Định dạng ngày và giờ theo mẫu mong muốn
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                // Chuyển ngày và giờ hiện tại thành chuỗi đã định dạng
+                String formattedDateTime = currentDateTime.format(formatter);
+                // Hiển thị ngày và giờ hiện tại
+                Ticket newTicket = new Ticket(show.getShowtime_id(), seat, Integer.parseInt(totalprice), combo, "", "",code,formattedDateTime);
                 TicketDAO td = new TicketDAO();
                 td.AddTicket(newTicket, user.getAccount_id());
+                session.setAttribute("ticketCode", newTicket.getCode());
             } else {
-                rs = "Khong thanh cong";
+                rs = "Không thành công";
             }
         } else {
             rs = "Invalid signature";
@@ -107,14 +125,27 @@ public class paymentReturn extends HttpServlet {
         request.getRequestDispatcher("/pay/paymentReturn.jsp").forward(request, response);
     }
 
-    
-    private String appendString(List<Concession> combo){
+    private String appendString(List<Concession> combo) {
         StringBuilder comboString = new StringBuilder();
         for (Concession cons : combo) {
             comboString.append(cons.getConcessions_name()).append("-SL:").append(cons.getQuantity()).append(" ");
         }
         return comboString.toString();
     }
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    public static String generateSecretCode(int length) {
+        Random random = new Random();
+        StringBuilder code = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            code.append(CHARACTERS.charAt(index));
+        }
+
+        return code.toString();
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

@@ -125,7 +125,7 @@
                 %>
                 <p style="color: red; font-size: smaller;"><%= errorMessage %></p>
                 <%}%>
-                <input type="submit" value="Reset Password"></input>
+                <input type="submit" value="Change Password"></input>
                 <a href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
             </form>
             

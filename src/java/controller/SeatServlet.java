@@ -15,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Concession;
 import model.Movie;
@@ -73,8 +74,6 @@ public class SeatServlet extends HttpServlet {
         ShowtimingDAO showdao = new ShowtimingDAO();
         String movieID = request.getParameter("movieID");
         String showtimeID = request.getParameter("showtimeID");
-        ConcessionDAO cdao = new ConcessionDAO();
-        List<Concession> listConcession;
         try {
             int roomid = Integer.parseInt(roomID);
             int movieid = Integer.parseInt(movieID);
@@ -90,6 +89,22 @@ public class SeatServlet extends HttpServlet {
             request.setAttribute("showtime", showtime);
         } catch (Exception e) {
         }
+        
+        String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
+
+        // Lấy chuỗi truy vấn (query string)
+        String queryString = request.getQueryString(); // showtime=13&seats=V10,V15&price=180000
+
+        // Xây dựng phần URL cần lấy
+        StringBuilder Url = new StringBuilder();
+        Url.append(requestURI);
+        
+        if (queryString != null) {
+            Url.append("?").append(queryString);
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("urlbackSeat", Url);
+        
         request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
     }
 
