@@ -152,7 +152,7 @@
             .header {
                 background-image: linear-gradient(to right, #000, #333);
                 color: white;
-                padding: 20px 0;
+                
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             }
 

@@ -44,22 +44,18 @@ public class MovieDAO extends DBContext {
         try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    // Retrieve movie details from the result set
-                    int movie_id = rs.getInt("movie_id");
-                    String movie_name = rs.getString("movie_name");
-                    int type_id = rs.getInt("type_id");
+                    int id = rs.getInt(1);
+                    String movieName = rs.getString(2);
+                    int typeid = rs.getInt(3);
                     String typeName = rs.getString(4);
-                    int duration = rs.getInt("duration");
-                    String date_published = rs.getString("date_published");
-                    String age = rs.getString("movie_validateAge");
-                    String post_img = rs.getString("post_img");
-                    String trailer = rs.getString("trailer");
-                    String decription = rs.getString("decription");
-                    String type_name = rs.getString("type_name");
-                    //TypeMovie type_movie = new TypeMovie(type_id, type_name);
-
-                    // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription));
+                    int duration = rs.getInt(5);
+                    String datePublished = rs.getString(6);
+                    String postImg = rs.getString(7);
+                    String trailer = rs.getString(8);
+                    String description = rs.getString(9);
+                    String age = rs.getString(10);
+                    String status = rs.getString(11);
+                    movies.add(new Movie(id, movieName, typeid,typeName, duration, datePublished, age, postImg, trailer, description, status));
                 }
             }
         } catch (SQLException ex) {
@@ -93,22 +89,18 @@ public class MovieDAO extends DBContext {
         try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    // Retrieve movie details from the result set
-                    int movie_id = rs.getInt("movie_id");
-                    String movie_name = rs.getString("movie_name");
-                    int type_id = rs.getInt("type_id");
+                    int id = rs.getInt(1);
+                    String movieName = rs.getString(2);
+                    int typeid = rs.getInt(3);
                     String typeName = rs.getString(4);
-                    int duration = rs.getInt("duration");
-                    String date_published = rs.getString("date_published");
-                    String age = rs.getString("movie_validateAge");
-                    String post_img = rs.getString("post_img");
-                    String trailer = rs.getString("trailer");
-                    String decription = rs.getString("decription");
-                    String type_name = rs.getString("type_name");
-                    //TypeMovie type_movie = new TypeMovie(type_id, type_name);
-
-                    // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription));
+                    int duration = rs.getInt(5);
+                    String datePublished = rs.getString(6);
+                    String postImg = rs.getString(7);
+                    String trailer = rs.getString(8);
+                    String description = rs.getString(9);
+                    String age = rs.getString(10);
+                    String status = rs.getString(11);
+                    movies.add(new Movie(id, movieName, typeid,typeName, duration, datePublished, age, postImg, trailer, description, status));
                 }
             }
         } catch (SQLException ex) {
