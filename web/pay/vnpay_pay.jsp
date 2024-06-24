@@ -26,12 +26,10 @@
     </head>
 
     <body>
-        <div>
-            <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-        </div>
          <div class="container">
            <div class="header clearfix">
                 <h3 class="text-muted">VNPAY</h3>
+                <button class="btn btn-danger mt-2" onclick="location.href='${sessionScope.urlback}'">Back</button>
             </div>
             <h3>Thanh toán hóa đơn</h3>
             <div class="table-responsive">
@@ -65,9 +63,10 @@
                        <label for="bankCode">Thanh toán qua thẻ quốc tế</label><br>
                        
                     </div>
-                    <button type="submit" class="btn btn-primary" href>Thanh toán</button>
+                    <div class="d-flex text-center">
+                        <button type="submit" class="btn btn-primary" href>Thanh toán</button>
+                    </div>    
                 </form>
-                <button class="btn btn-danger mt-2" onclick="location.href='${sessionScope.urlback}'">Back</button>
             </div>
             <p>
                 &nbsp;

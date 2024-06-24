@@ -215,6 +215,9 @@
                     <label for="email">Email:</label>
                     <input type="text" id="email" name="email" value="${param.email}" onblur="validateEmail()">
                     <span id="emailError" class="error-message">${emailError}</span>
+                    <c:if test="${existedEmail ne null}">
+                        <p style="color: red; font-size: 1.25rem; text-align: center">${existedEmail}</p>
+                    </c:if>
                 </div>
                 <div>
                     <label for="username">Username:</label>

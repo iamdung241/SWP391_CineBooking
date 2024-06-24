@@ -77,7 +77,7 @@
                                     <!-- Order items will be dynamically added here -->
                                 </ul>
                                 <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span></h5>
-                                <button id="backButton" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</button>
+                                <button id="backButton" class="btn btn-secondary" onclick="location.href='${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
                                 <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
                         </div>
                     </div>

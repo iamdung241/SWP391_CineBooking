@@ -34,6 +34,12 @@ public class RegisterController extends HttpServlet {
                 req.getRequestDispatcher("register.jsp").forward(req, resp);
                 return; // Exit the method to prevent further processing
             }
+            if (user.getEmail().equals(email)) {
+                // Username already exists, set error message and forward back to register.jsp
+                req.setAttribute("existedEmail", "Email is already exists, try again!");
+                req.getRequestDispatcher("register.jsp").forward(req, resp);
+                return; // Exit the method to prevent further processing
+            }
         }
 
         // Proceed with registration if validation passes

@@ -55,7 +55,7 @@ public class AccountDAO extends DBContext {
     }
 
     // Hàm để mã hóa mật khẩu bằng MD5
-    private String md5(String input) {
+    public String md5(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());
@@ -399,6 +399,60 @@ public class AccountDAO extends DBContext {
             stm.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updatePassword(String email, String password) {
+        PreparedStatement stm = null;
+        String sql = "UPDATE [Account] SET password = ? WHERE email = ?";
+        try {
+            // Mã hóa mật khẩu bằng MD5
+            String hashedPassword = md5(password);
+
+            // Prepare the SQL statement and set the parameters for password and email
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, hashedPassword);
+            stm.setString(2, email);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            // Log any SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the statement
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void updatePasswordByID(int userID, String password) {
+        PreparedStatement stm = null;
+        String sql = "UPDATE [Account] SET password = ? WHERE account_id = ?";
+        try {
+            // Encrypt password using MD5
+            String hashedPassword = password;
+
+            // Prepare SQL statement and set parameters for password and account_id
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, hashedPassword);
+            stm.setInt(2, userID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            // Log SQL exceptions
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close statement
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

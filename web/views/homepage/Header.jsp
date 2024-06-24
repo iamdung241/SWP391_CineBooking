@@ -73,6 +73,7 @@
                                 </c:if>       
                                 <c:if test="${sessionScope.user != null}">
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
+
                                 </c:if>  
                             </li>		
                         </ul>

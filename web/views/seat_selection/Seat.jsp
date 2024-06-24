@@ -44,12 +44,6 @@
                     </h1>
                     <div style="padding-top: 20px" class="row">
                         <div class="col-6">
-                            <!--                        <div class="mx-2">
-                                                        <p style="background: red; border-radius: 7px" class="text-center text-white">Screen</p>   
-                                                    </div> 
-                                                    <div style="text-align: center">
-                                                        <div ><span style=" padding-right: 20px"><i style="color: red" class='bx bxs-square-rounded'></i> Booked</span><i style="color: black" class='bx bxs-square-rounded'></i> UnBooked</div>
-                                                    </div>-->
                             <div style="text-align: center">
                                 <div>
                                     <img style="weight: 100px; height: 60px" src="/CineBooking/img/screen.JPG" alt="imageSrc">
@@ -85,10 +79,8 @@
                                 <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
                                 <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span><h5></div>
                                             <hr/>
-<!--                                            <div style="font-weight: bold; font-size: 19px; color: red; text-align: center">Time left: <span id="timer"></span> </div>
-                                            <hr/>-->
                                             <div style="text-align: center; padding-top: 20px">
-                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="#"><i class='bx bx-left-arrow'></i> Back</a>
+                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="/CineBooking/home"><i class='bx bx-left-arrow'></i> Back</a>
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next<i class='bx bx-right-arrow'></i></a>
                                             </div>
                                             </div>
