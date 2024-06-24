@@ -1,9 +1,15 @@
+<%-- 
+    Document   : resetpassword
+    Created on : Jun 24, 2024, 9:54:42 PM
+    Author     : Tran Anh Vu
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>Reset Password</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
         <style>
             body {
@@ -17,7 +23,7 @@
                 height: 100vh;
             }
 
-            #login-form-wrap {
+            #form-wrap {
                 background-color: #fff;
                 width: 350px;
                 border-radius: 8px;
@@ -40,8 +46,7 @@
                 margin-bottom: 5px;
             }
 
-            input[type="text"],
-            input[type="password"] {
+            input[type="text"], input[type="password"] {
                 width: 100%;
                 padding: 12px;
                 margin: 8px 0 16px 0; /* Adjusted margin for better spacing */
@@ -88,24 +93,7 @@
                 margin-top: 10px;
             }
 
-            #login-with-google {
-                background-color: #dd4b39;
-                color: #fff;
-                padding: 12px 20px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 16px;
-                margin-top: 20px;
-                width: 100%;
-                transition: background-color 0.3s ease;
-            }
-
-            #login-with-google:hover {
-                background-color: #c23321;
-            }
-
-            #forgot-password-link {
+            #back {
                 display: block;
                 margin-top: 10px;
                 color: #007bff;
@@ -115,30 +103,33 @@
         </style>
     </head>
     <body>
-        <div id="login-form-wrap">
-            <h2>CineBooking Login</h2>
-            <form id="login-form" action="login" method="POST">
-                <input type="hidden" name="returnUrl" value="${param.returnUrl}">
+        <div id="form-wrap">
+            <h2>Reset Password</h2>
+            <form action="resetpassword" method="POST">
+                <input type="hidden" name="email" value="<%= request.getParameter("email") %>">
                 <div>
-                    <label for="username">Enter Username or Email or Phone:</label>
-                    <input type="text" id="username" name="username" value="${param.username}" required>
+                    <label>New Password:</label>
+                    <input type="password" name="newPassword" placeholder="Enter new password" required>
                 </div>
                 <div>
-                    <label for="password">Enter Password:</label>
-                    <input type="password" id="password" name="password" value="${param.password}" required>
+                    <label>Confirm Password:</label>
+                    <input type="password" name="confirmPassword" placeholder="Confirm new password" required>
                 </div>
-
-                <p class="error-message">${requestScope.usernameOrPasswordWrong}</p>
-
-                <input type="submit" id="login" value="Login">
+                <% 
+                    String errorMessage = (String) request.getAttribute("errorMessage");
+                    if (errorMessage != null) {
+                %>
+                <p class="error-message"><%= errorMessage %></p>
+                <%}%>
+                <% 
+                    String successMessage = (String) request.getAttribute("successMessage");
+                    if (successMessage != null) {
+                %>
+                <p class="success-message" style="color: green;"><%= successMessage %></p>
+                <%}%>
+                <input type="submit" value="Reset Password"></input>
+                <a href="forgotpassword.jsp" id="back">Back</a>
             </form>
-            <div id="create-account-wrap">
-                <p>Not a member? <a href="register.jsp">Create Account</a></p>
-            </div><!--create-account-wrap-->
-
-            <!-- New Elements -->
-            <button id="login-with-google">Login with Google</button>
-            <a href="forgotpassword.jsp" id="forgot-password-link">Forgot Password?</a>
-        </div><!--login-form-wrap-->
+        </div>
     </body>
 </html>

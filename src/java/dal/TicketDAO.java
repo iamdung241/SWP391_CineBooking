@@ -19,17 +19,17 @@ public class TicketDAO extends DBContext {
     ResultSet rs;
 
     public void AddTicket(Ticket ticket, int accountId) {
-        String sql = """
-                     INSERT INTO [dbo].[Ticket]
-                                ([code]
-                                ,[account_id]
-                                ,[showtime_id]
-                                ,[seat]
-                                ,[combo]
-                                ,[totalprice]
-                                ,[date_book])
-                          VALUES
-                                (?,?,?,?,?,?,?)""";
+        String sql = ""
+                + "INSERT INTO [dbo].[Ticket]\n"
+                + "                                ([code]\n"
+                + "                                ,[account_id]\n"
+                + "                                ,[showtime_id]\n"
+                + "                                ,[seat]\n"
+                + "                                ,[combo]\n"
+                + "                                ,[totalprice]\n"
+                + "                                ,[date_book])\n"
+                + "                          VALUES\n"
+                + "(?,?,?,?,?,?,?)";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, ticket.getCode());
@@ -46,24 +46,24 @@ public class TicketDAO extends DBContext {
     }
 
     public Ticket getTicket(String code) {
-        String sql = """
-                     SELECT [ticket_id]
-                           ,[code]
-                           ,[account_id]
-                           ,[showtime_id]
-                           ,[seat]
-                           ,[combo]
-                           ,[totalprice]
-                           ,[payment]
-                           ,[ticket_status]
-                           ,[date_book]
-                       FROM [dbo].[Ticket]
-                       WHERE code = ?""";
+        String sql = ""
+                + "SELECT [ticket_id]\n"
+                + "                           ,[code]\n"
+                + "                           ,[account_id]\n"
+                + "                           ,[showtime_id]\n"
+                + "                           ,[seat]\n"
+                + "                           ,[combo]\n"
+                + "                           ,[totalprice]\n"
+                + "                           ,[payment]\n"
+                + "                           ,[ticket_status]\n"
+                + "                           ,[date_book]\n"
+                + "                       FROM [dbo].[Ticket]\n" 
+                + "                       WHERE code = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, code);
             rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 Ticket tick = new Ticket();
                 tick.setId(rs.getInt(1));
                 tick.setCode(rs.getString(2));

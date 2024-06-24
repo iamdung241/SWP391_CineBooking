@@ -26,6 +26,7 @@ public class ChangePasswordServlet extends HttpServlet {
         // Testuser1234@1
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(userID);
+
         String hashPass = new AccountDAO().md5(oldPassword);
 
         if (account != null && account.getPassword().equals(hashPass)) {
