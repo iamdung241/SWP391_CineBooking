@@ -16,7 +16,7 @@ import model.Ticket;
 public class TicketDAO extends DBContext {
 
     PreparedStatement stm;
-    ResultSet rs;
+    ResultSet rs ;
 
     public void AddTicket(Ticket ticket, int accountId) {
         String sql = ""
@@ -34,11 +34,11 @@ public class TicketDAO extends DBContext {
             stm = connection.prepareStatement(sql);
             stm.setString(1, ticket.getCode());
             stm.setInt(2, accountId);
-            stm.setInt(3, ticket.getShowtime());
+            stm.setInt(3, ticket.getShowtimeId());
             stm.setString(4, ticket.getSeat());
             stm.setString(5, ticket.getCombo());
             stm.setInt(6, ticket.getTotalprice());
-            stm.setString(7, ticket.getDate());
+            stm.setString(7, ticket.getDate_book());
             stm.executeQuery();
         } catch (SQLException e) {
             e.getMessage();
@@ -68,14 +68,50 @@ public class TicketDAO extends DBContext {
                 tick.setId(rs.getInt(1));
                 tick.setCode(rs.getString(2));
                 tick.setAccountId(rs.getInt(3));
-                tick.setShowtime(rs.getInt(4));
+                tick.setShowtimeId(rs.getInt(4));
                 tick.setSeat(rs.getString(5));
                 tick.setCombo(rs.getString(6));
                 tick.setTotalprice(Integer.parseInt(rs.getString(7)));
                 tick.setPayment(rs.getString(8));
                 tick.setStatus(rs.getString(9));
-                tick.setDate(rs.getString(10));
+                tick.setDate_book(rs.getString(10));
                 return tick;
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return null;
+    }
+    
+    public void updateTicketStatus(String code, String status) {
+        String sql = "UPDATE Ticket SET ticket_status = ? WHERE code = ?";
+        try{
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, status);
+            stm.setString(2, code);
+            stm.executeUpdate();
+        } catch(SQLException e) {
+            e.getMessage();
+        }
+    }
+    
+    public Ticket getTicketByCode(String code ) {
+        String sql = "select * from Ticket t join Showtime s on t.showtime_id = s.showtime_id where t.code = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, code);
+            rs = stm.executeQuery();
+            while(rs.next()) {
+                String codeTicket = rs.getString(2);
+                String seat = rs.getString(5);
+                int totalprice = rs.getInt(7);
+                String combo = rs.getString(6);
+                String payment = rs.getString(8);
+                String status = rs.getString(9);
+                String date_book = rs.getString(10);
+                String showtime = rs.getString(12);
+                Ticket ticket = new Ticket(code, seat, totalprice, combo, payment, status, date_book, showtime);
+                return ticket;
             }
         } catch (SQLException e) {
             e.getMessage();
