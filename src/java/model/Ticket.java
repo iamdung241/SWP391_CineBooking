@@ -9,45 +9,56 @@ package model;
  * @author tranh
  */
 public class Ticket {
+
     private int id;
-    private int showtime;
+    private String code;
+    private int showtimeId;
     private String seat;
     private int totalprice;
     private String combo;
     private String payment;
     private String status;
-    private String code;
-    private String date;
+    private String date_book;
+    private String showtime;
     private int accountId;
 
     public Ticket() {
     }
 
-    public Ticket(int showtime, String seat, int totalprice, String combo, String payment, String status, String code, String date) {
-        this.showtime = showtime;
+    public Ticket(int showtimeId, String seat, int totalprice, String combo, String payment, String status, String code, String date_book) {
+        this.showtimeId = showtimeId;
         this.seat = seat;
         this.totalprice = totalprice;
         this.combo = combo;
         this.payment = payment;
         this.status = status;
         this.code = code;
-        this.date = date;
+        this.date_book = date_book;
     }
 
-    public Ticket(int id, int showtime, String seat, int totalprice, String combo, String payment, String status, String code, String date, int accountId) {
+    public Ticket(int id, int showtimeId, String seat, int totalprice, String combo, String payment, String status, String code, String date_book, int accountId) {
         this.id = id;
-        this.showtime = showtime;
+        this.showtimeId = showtimeId;
         this.seat = seat;
         this.totalprice = totalprice;
         this.combo = combo;
         this.payment = payment;
         this.status = status;
         this.code = code;
-        this.date = date;
+        this.date_book = date_book;
         this.accountId = accountId;
     }
 
-    
+    public Ticket(String code, String seat, int totalprice, String combo, String payment, String status, String date_book, String showtime) {
+        this.code = code;
+        this.seat = seat;
+        this.totalprice = totalprice;
+        this.combo = combo;
+        this.payment = payment;
+        this.status = status;
+        this.date_book = date_book;
+        this.showtime = showtime;
+    }
 
     public int getId() {
         return id;
@@ -65,12 +76,20 @@ public class Ticket {
         this.accountId = accountId;
     }
 
-    public int getShowtime() {
-        return showtime;
+    public String getCode() {
+        return code;
     }
 
-    public void setShowtime(int showtime) {
-        this.showtime = showtime;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getShowtimeId() {
+        return showtimeId;
+    }
+
+    public void setShowtimeId(int showtimeId) {
+        this.showtimeId = showtimeId;
     }
 
     public String getSeat() {
@@ -113,27 +132,24 @@ public class Ticket {
         this.status = status;
     }
 
-    public String getCode() {
-        return code;
+    public String getDate_book() {
+        return date_book;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setDate_book(String date_book) {
+        this.date_book = date_book;
     }
 
-    public String getDate() {
-        return date;
+    public String getShowtime() {
+        return showtime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setShowtime(String showtime) {
+        this.showtime = showtime;
     }
 
     @Override
     public String toString() {
-        return "Ticket{" + "showtime=" + showtime + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", payment=" + payment + ", status=" + status + ", code=" + code + ", date=" + date + '}';
+        return "Ticket{" + "showtime=" + showtime + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", payment=" + payment + ", status=" + status + ", code=" + code + ", date=" + date_book + '}';
     }
-
-   
-    
 }
