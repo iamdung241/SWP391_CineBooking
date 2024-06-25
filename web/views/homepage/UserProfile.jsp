@@ -202,7 +202,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="username">Username</label>
-                                            <input type="text" name="username" id="username" value="${account.username}" class="form-control" onblur="validateUsername()" />
+                                            <input type="text" name="username" id="username" value="${account.username}" class="form-control" onblur="validateUsername()" readonly/>
                                             <span class="error" id="usernameError"></span>
                                         </div>
                                         <input type="submit" value="Update my profile" />
