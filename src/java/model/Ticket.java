@@ -9,18 +9,18 @@ package model;
  * @author tranh
  */
 public class Ticket {
-    private int showtime;
+    private String code;
+    private int showtimeId;
     private String seat;
     private int totalprice;
     private String combo;
     private String payment;
     private String status;
+    private String date_book;
+    private String showtime;
 
-    public Ticket() {
-    }
-
-    public Ticket(int showtime, String seat, int totalprice, String combo, String payment, String status) {
-        this.showtime = showtime;
+    public Ticket(int showtimeId, String seat, int totalprice, String combo, String payment, String status) {
+        this.showtimeId = showtimeId;
         this.seat = seat;
         this.totalprice = totalprice;
         this.combo = combo;
@@ -28,12 +28,36 @@ public class Ticket {
         this.status = status;
     }
 
-    public int getShowtime() {
-        return showtime;
+    
+    
+    public Ticket(String code, String seat, int totalprice, String combo, String payment, String status, String date_book, String showtime) {
+        this.code = code;
+        this.seat = seat;
+        this.totalprice = totalprice;
+        this.combo = combo;
+        this.payment = payment;
+        this.status = status;
+        this.date_book = date_book;
+        this.showtime = showtime;
     }
 
-    public void setShowtime(int showtime) {
-        this.showtime = showtime;
+    public Ticket() {
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getShowtimeId() {
+        return showtimeId;
+    }
+
+    public void setShowtimeId(int showtimeId) {
+        this.showtimeId = showtimeId;
     }
 
     public String getSeat() {
@@ -76,6 +100,22 @@ public class Ticket {
         this.status = status;
     }
 
+    public String getDate_book() {
+        return date_book;
+    }
+
+    public void setDate_book(String date_book) {
+        this.date_book = date_book;
+    }
+
+    public String getShowtime() {
+        return showtime;
+    }
+
+    public void setShowtime(String showtime) {
+        this.showtime = showtime;
+    }
+    
     @Override
     public String toString() {
         return "Ticket{" + "showtime=" + showtime + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", payment=" + payment + ", status=" + status + '}';

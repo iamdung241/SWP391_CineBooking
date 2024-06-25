@@ -50,8 +50,9 @@ public class LoginController extends HttpServlet {
             } else if (user.getRole_id() == 1) {
                 // Admin role
                 resp.sendRedirect("dashboard");
+            } else if(user.getRole_id() == 2) {
+                resp.sendRedirect("scanticket");
             }
-        }
-        
+        }    
     }
 }
