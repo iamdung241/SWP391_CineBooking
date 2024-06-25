@@ -72,8 +72,7 @@
         <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/seat</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowtimingServlet</servlet-name>
+    <servlet-mapping><servlet-name>ShowtimingServlet</servlet-name>
         <url-pattern>/showtiming</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -154,8 +153,7 @@
         <servlet-class>controller.MovieTrailerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieTrailerServlet</servlet-name>
-        <url-pattern>/movietrailer</url-pattern>
+        <servlet-name>MovieTrailerServlet</servlet-name><url-pattern>/movietrailer</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ConcessionServlet</servlet-name>
@@ -233,9 +231,16 @@
         <servlet-name>AdminSearch_Filter</servlet-name>
         <servlet-class>controller.AdminSearch_Filter</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminSearch_Filter</servlet-name>
+    <servlet-mapping><servlet-name>AdminSearch_Filter</servlet-name>
         <url-pattern>/AdminSearchFilter</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ScanTicketServlet</servlet-name>
+        <servlet-class>controller.ScanTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScanTicketServlet</servlet-name>
+        <url-pattern>/scanticket</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
