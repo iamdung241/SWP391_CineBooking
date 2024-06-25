@@ -48,7 +48,7 @@ public class MovieControllerForUser extends HttpServlet {
                             req.setAttribute("resultNull", "No films found matching your search criteria.");
                         }
                     } else {
-                        listM = (new MovieDAO()).getAllMovies();
+                        listM = (new MovieDAO()).getMovie();
                     }
                     break;
                 case "filter":

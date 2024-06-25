@@ -193,7 +193,7 @@
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
         <script>
             window.onscroll = function () {
-                myFunction()
+                myFunction();
             };
 
             var navbar_sticky = document.getElementById("navbar_sticky");
@@ -202,11 +202,11 @@
 
             function myFunction() {
                 if (window.pageYOffset >= sticky + navbar_height) {
-                    navbar_sticky.classList.add("sticky")
+                    navbar_sticky.classList.add("sticky");
                     document.body.style.paddingTop = navbar_height + 'px';
                 } else {
                     navbar_sticky.classList.remove("sticky");
-                    document.body.style.paddingTop = '0'
+                    document.body.style.paddingTop = '0';
                 }
             }
             document.getElementById('dateSelect').addEventListener('change', function () {

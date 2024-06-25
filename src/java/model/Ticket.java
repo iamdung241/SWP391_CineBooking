@@ -9,6 +9,8 @@ package model;
  * @author tranh
  */
 public class Ticket {
+
+    private int id;
     private String code;
     private int showtimeId;
     private String seat;
@@ -18,18 +20,35 @@ public class Ticket {
     private String status;
     private String date_book;
     private String showtime;
+    private int accountId;
 
-    public Ticket(int showtimeId, String seat, int totalprice, String combo, String payment, String status) {
+    public Ticket() {
+    }
+
+    public Ticket(int showtimeId, String seat, int totalprice, String combo, String payment, String status, String code, String date_book) {
         this.showtimeId = showtimeId;
         this.seat = seat;
         this.totalprice = totalprice;
         this.combo = combo;
         this.payment = payment;
         this.status = status;
+        this.code = code;
+        this.date_book = date_book;
     }
 
-    
-    
+    public Ticket(int id, int showtimeId, String seat, int totalprice, String combo, String payment, String status, String code, String date_book, int accountId) {
+        this.id = id;
+        this.showtimeId = showtimeId;
+        this.seat = seat;
+        this.totalprice = totalprice;
+        this.combo = combo;
+        this.payment = payment;
+        this.status = status;
+        this.code = code;
+        this.date_book = date_book;
+        this.accountId = accountId;
+    }
+
     public Ticket(String code, String seat, int totalprice, String combo, String payment, String status, String date_book, String showtime) {
         this.code = code;
         this.seat = seat;
@@ -41,7 +60,20 @@ public class Ticket {
         this.showtime = showtime;
     }
 
-    public Ticket() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     public String getCode() {
@@ -115,10 +147,9 @@ public class Ticket {
     public void setShowtime(String showtime) {
         this.showtime = showtime;
     }
-    
+
     @Override
     public String toString() {
-        return "Ticket{" + "showtime=" + showtime + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", payment=" + payment + ", status=" + status + '}';
+        return "Ticket{" + "showtime=" + showtime + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", payment=" + payment + ", status=" + status + ", code=" + code + ", date=" + date_book + '}';
     }
-    
 }
