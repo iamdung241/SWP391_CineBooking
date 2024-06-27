@@ -39,9 +39,9 @@ public class AddUser extends HttpServlet {
             isValid = false;
         }
         
-        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,20}$";
         if (!password.matches(passwordPattern)) {
-            request.setAttribute("errorPassword", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
+            request.setAttribute("errorPassword", "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.");
             isValid = false;
         } else if (!password.equals(rePassword)) {
             request.setAttribute("errorRePassword", "Passwords do not match");
