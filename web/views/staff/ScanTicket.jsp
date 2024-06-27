@@ -1,37 +1,35 @@
-<%-- 
-    Document   : MovieDetail
-    Created on : May 21, 2024, 9:33:45 AM
-    Author     : thanh
---%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <title>QR Code Scanner</title>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="js/html5-qrcode.min.js"></script>
         <style>
-            .detail{
+            .detail {
                 margin-top: 100px;
                 margin-bottom: 30px;
             }
-            .navbarDetail{
+            .navbarDetail {
                 background-color: #000;
             }
-            .nameDetail{
+            .nameDetail {
                 font-size: 30px;
                 font-weight: bold;
                 margin-left: 20px;
             }
-            ul{
+            ul {
                 font-family: sans-serif;
             }
-            span{
+            span {
                 font-weight: bold;
                 font-size: 17px;
             }
             .bookTicket {
-                color: rgb(240,240,240);
+                color: rgb(240, 240, 240);
                 background-color: red;
                 padding: 5px;
                 font-size: 15px;
@@ -52,20 +50,21 @@
                     <div class="container-xl detail">
                         <div class="row exep1">
                             <div class="col-4">
-                                <form action="scanticket" method="get">
+                                <form id="scanForm" action="scanticket" method="get">
                                     <label for="code">Enter Ticket Code:</label>
                                     <br/>
                                     <input type="text" id="code" name="code" required />
                                     <button type="submit" class="bookTicket">Search</button>
                                 </form>
                             </div>
+                        
                             <div class="col-7">
                                 <div class="ticketDetail">
                                 <c:if test="${param.code != null}">
                                     <c:choose>
                                         <c:when test="${ticket != null}">
                                             <div class="exep1r">
-                                                <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: ${ticket.getStatus()}</p>                                       
+                                                <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: ${ticket.getStatus()}</p>
                                             </div>
                                             <hr style="background-color: #000"/>
                                             <div>
@@ -76,9 +75,9 @@
                                                     <li>
                                                         <span>Seat:</span>&nbsp&nbsp ${ticket.getSeat()}
                                                     </li>
-                                                        <li>
-                                                            <span>Combo:</span>&nbsp&nbsp ${ticket.getCombo()}
-                                                        </li>
+                                                    <li>
+                                                        <span>Combo:</span>&nbsp&nbsp ${ticket.getCombo()}
+                                                    </li>
                                                     <li>
                                                         <span>Date:</span>&nbsp&nbsp ${ticket.getDate_book()}
                                                     </li>
@@ -111,7 +110,22 @@
                 </div>
             </section>
         </div>
+                <jsp:include page="QRCode.jsp"></jsp:include>
 
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
+
+        <script type="text/javascript">
+            function onScanSuccess(qrCodeMessage) {
+                document.getElementById('code').value = qrCodeMessage;
+                document.getElementById('scanForm').submit();
+            }
+
+            function onScanError(errorMessage) {
+                // Handle scan error if needed
+            }
+
+            var html5QrcodeScanner = new Html5QrcodeScanner("reader", {fps: 10, qrbox: 250});
+            html5QrcodeScanner.render(onScanSuccess, onScanError);
+        </script>
     </body>
 </html>
