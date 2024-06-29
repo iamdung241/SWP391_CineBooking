@@ -38,7 +38,7 @@ public class Mail {
         //
         
         Account user = new AccountDAO().getAccountByID(tick.getAccountId());
-        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(tick.getShowtime());
+        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(tick.getShowtimeId());
         Movie movie = new MovieDAO().getMovieByID(show.getMovie_id());
         
         // Properties : khai báo các thuộc tính
@@ -110,7 +110,7 @@ public class Mail {
                     .replace("${ticket.combo}", tick.getCombo())
                     .replace("${ticket.totalprice}", totalprice)
                     .replace("${user.fullname}", user.getFullname())
-                    .replace("${ticket.date}", tick.getDate())
+                    .replace("${ticket.date}", tick.getDate_book())
                     .replace("${ticket.payment}", tick.getPayment());
             
             // Set content
