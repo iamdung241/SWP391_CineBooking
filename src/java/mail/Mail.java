@@ -110,7 +110,7 @@ public class Mail {
                     .replace("${ticket.combo}", tick.getCombo())
                     .replace("${ticket.totalprice}", totalprice)
                     .replace("${user.fullname}", user.getFullname())
-                    .replace("${ticket.date}", tick.getDate())
+                    .replace("${ticket.date}", tick.getDate_book())
                     .replace("${ticket.payment}", tick.getPayment());
             
             // Set content

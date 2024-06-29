@@ -131,18 +131,9 @@
                     <%} else {%>
                     <input type="password" name="confirmPassword" placeholder="Confirm new password" value="<%= request.getAttribute("confirmPassword") != null ? request.getAttribute("confirmPassword") : "" %>" required>
                     <%}%>
-                </div>
-
-                <% 
-                    String successMessage = (String) request.getAttribute("successMessage");
-                    if (successMessage != null) {
-                %>
-                <p style="color: green; font-size: smaller;"><%= successMessage %></p>
-                <a href="login.jsp" id="back">Back to login</a>
-                <%} else {%>
+                </div>     
                 <input type="submit" value="Change Password"></input>
                 <a href="forgotpassword.jsp" id="back">Back</a>
-                <%}%>
             </form>
         </div>
     </body>
