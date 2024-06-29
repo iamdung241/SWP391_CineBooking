@@ -18,6 +18,7 @@ public class Showtiming {
     private String date;
     private int movie_id;
     private String room_name;
+    
 
     public Showtiming(int showtime_id, String showtiming, int room_id, String date, int movie_id) {
         this.showtime_id = showtime_id;
@@ -91,4 +92,5 @@ public class Showtiming {
     public void setRoom_name(String room_name) {
         this.room_name = room_name;
     }
+
 }

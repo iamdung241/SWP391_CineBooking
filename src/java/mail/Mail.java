@@ -38,7 +38,7 @@ public class Mail {
         //
         
         Account user = new AccountDAO().getAccountByID(tick.getAccountId());
-        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(tick.getShowtime());
+        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(tick.getShowtimeId());
         Movie movie = new MovieDAO().getMovieByID(show.getMovie_id());
         
         // Properties : khai báo các thuộc tính
