@@ -21,6 +21,9 @@ public class Ticket {
     private String date_book;
     private String showtime;
     private int accountId;
+    
+    private String movieName;
+    private String movieImage;
 
     public Ticket() {
     }
@@ -147,6 +150,24 @@ public class Ticket {
     public void setShowtime(String showtime) {
         this.showtime = showtime;
     }
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public String getMovieImage() {
+        return movieImage;
+    }
+
+    public void setMovieImage(String movieImage) {
+        this.movieImage = movieImage;
+    }
+
+    
 
     @Override
     public String toString() {
