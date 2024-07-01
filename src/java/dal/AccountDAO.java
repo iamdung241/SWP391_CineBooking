@@ -229,7 +229,7 @@ public class AccountDAO extends DBContext {
         StringBuilder sql = new StringBuilder("SELECT * FROM [Account] WHERE 1=1");
 
         if (name != null && !name.isEmpty()) {
-            sql.append(" AND (username LIKE ? OR fullname LIKE ?)");
+            sql.append(" AND fullname LIKE ?");
         }
         if (roleFilter != null && !roleFilter.isEmpty()) {
             sql.append(" AND role_id = ?");
@@ -240,7 +240,6 @@ public class AccountDAO extends DBContext {
             int paramIndex = 1;
 
             if (name != null && !name.isEmpty()) {
-                stm.setString(paramIndex++, "%" + name + "%");
                 stm.setString(paramIndex++, "%" + name + "%");
             }
             if (roleFilter != null && !roleFilter.isEmpty()) {
