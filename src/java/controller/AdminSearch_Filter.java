@@ -67,11 +67,17 @@ public class AdminSearch_Filter extends HttpServlet {
         if (request.getParameter(ACT) != null && request.getParameter(ACT).equals("filter")) {
             int type = Integer.parseInt(request.getParameter(TYPE_SEARCH));
             request.setAttribute("typeSearch", type);
-            List<Movie> searchTypeList = new MovieDAO().getMovieByType(type);
-            request.setAttribute("listMovie", searchTypeList);
+            if (type == 10) {
+                List<Movie> searchTypeList = new MovieDAO().getMovie();
+                request.setAttribute("listMovie", searchTypeList);
+            } else {
+                List<Movie> searchTypeList = new MovieDAO().getMovieByType(type);
+                request.setAttribute("listMovie", searchTypeList);
+            }
         }
         if (request.getParameter(KEY_SEARCH) != null) {
             String search = request.getParameter(KEY_SEARCH);
+            request.setAttribute("key", search);
             List<Movie> searchList = new MovieDAO().getMoviesBySearch(search);
             request.setAttribute("listMovie", searchList);
         }
