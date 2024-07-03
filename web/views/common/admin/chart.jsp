@@ -11,17 +11,6 @@
                     <div class="card mb-4 h-100">
                         <div class="card-header justify-content-between align-items-center d-flex">
                             <h6 class="card-title m-0">Monthly expenses</h6>
-<!--                            <div class="dropdown">
-                                <button class="btn btn-link dropdown-toggle dropdown-toggle-icon fw-bold p-0" type="button"
-                                    id="dropdownExpenses" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="ri-more-2-line"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown" aria-labelledby="dropdownExpenses">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>-->
                         </div>
                         <div class="card-body">
                             <div class="chart chart-lg">
