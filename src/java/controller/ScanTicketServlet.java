@@ -59,7 +59,7 @@ public class ScanTicketServlet extends HttpServlet {
             throws ServletException, IOException {
         String code = request.getParameter("code");
         TicketDAO ticketDao = new TicketDAO();
-        Ticket ticket = ticketDao.getTicketByCode(code);
+        Ticket ticket = ticketDao.getTicket(code);
         request.setAttribute("ticket", ticket);
         request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
     }
@@ -77,14 +77,14 @@ public class ScanTicketServlet extends HttpServlet {
             throws ServletException, IOException {
         String code = request.getParameter("code");
         TicketDAO ticketDao = new TicketDAO();
-        Ticket ticket = ticketDao.getTicketByCode(code);
+        Ticket ticket = ticketDao.getTicket(code);
 
         if (ticket != null && "Nocheck".equals(ticket.getStatus())) {
             ticketDao.updateTicketStatus(code, "Checked");
             request.setAttribute("message", "Accept ticket successfully");
         }
 
-        ticket = ticketDao.getTicketByCode(code);
+        ticket = ticketDao.getTicket(code);
         request.setAttribute("ticket", ticket);
         request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
     }

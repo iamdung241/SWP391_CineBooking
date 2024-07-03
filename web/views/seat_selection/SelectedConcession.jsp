@@ -94,14 +94,13 @@
                     let items = orderSummary.querySelectorAll('li');
                     let orderData = [];
                     items.forEach(item => {
-                        let name = item.innerText.trim();
+                        let name = item.id;
                         let quantity = item.querySelector('.badge').innerText;
                         // Create an object for each item
                         orderData.push({name: name, quantity: quantity});
                     });
-
                     // Prepare the query string
-                    let queryString = orderData.map(item => 'name=' + item.name).join('&');
+                    let queryString = orderData.map(item => 'name=' + item.name+"-"+ item.quantity).join('&');
                     const show = "${show.showtime_id}";
                     const totalPrice = document.getElementById("totalPrice").innerHTML;
                     const seat = "${seat}";
@@ -112,7 +111,7 @@
                 const totalPriceE = parseFloat('${totalprice}');
                 const orderSummary = document.getElementById('orderSummary');
                 const totalPriceElement = document.getElementById('totalPrice');
-                function updateQuantity(name, price, change) {
+                function updateQuantity(name, price, change,id) {
                     const quantityElement = document.getElementById('quantity-' + name);
                     let quantity = parseInt(quantityElement.innerText);
                     quantity += change;
@@ -127,14 +126,14 @@
                     totalPriceElement.innerText = totalPrice;
 
                     // Update order summary
-                    let item = document.getElementById('order-item-' + name);
+                    let item = document.getElementById(id);
                     if (quantity === 0) {
                         if (item)
                             orderSummary.removeChild(item);
                     } else {
                         if (!item) {
                             item = document.createElement('li');
-                            item.id = 'order-item-' + name;
+                            item.id = id;
                             item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
                             item.innerText = name;
                             item.innerHTML += `<span class="badge badge-primary badge-pill">1</span>`;

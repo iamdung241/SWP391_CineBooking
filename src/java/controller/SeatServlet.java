@@ -77,17 +77,18 @@ public class SeatServlet extends HttpServlet {
         try {
             int roomid = Integer.parseInt(roomID);
             int movieid = Integer.parseInt(movieID);
+            int showtimeid = Integer.parseInt(showtimeID);
             RoomDAO rdao = new RoomDAO();
             Room room = rdao.getRoomByID(roomid);
             request.setAttribute("room", room);
-            listSeat = sdao.getSeatsByCharacterName(room.getRoom_name());
+            listSeat = sdao.getSeatCustomer(showtimeid, sdao.getSeatsByRoomId(roomid));
             request.setAttribute("listSeat", listSeat);
             Movie movie = moviedao.getMovieByID(movieid);
             request.setAttribute("movie", movie);
-            int showtimeid = Integer.parseInt(showtimeID);
             Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
             request.setAttribute("showtime", showtime);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            e.getMessage();
         }
         
         String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
