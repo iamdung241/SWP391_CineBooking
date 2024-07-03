@@ -45,7 +45,7 @@
         <section id="header">
             <nav style="background-color: #000 ; padding-top: 5px; padding-bottom: 5px" class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
                 <div class="container-xl">
-                    <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="/CineBooking/home"><img class="navbar-logo" src="img/movieLogo.PNG"/></a>
+                    <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="/CineBooking/home"><img class="navbar-logo" src="/CineBooking/img/movieLogo.PNG"/></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -69,7 +69,7 @@
                             </li>
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
-                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp">Account</a>
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp">Account</a>
                                 </c:if>       
                                 <c:if test="${sessionScope.user != null}">
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
@@ -80,7 +80,7 @@
                         <ul class="navbar-nav mb-0 ms-auto">
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
-                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
                                 </c:if>
                                 <c:if test="${sessionScope.user != null}">
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="logout"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Logout </a>
