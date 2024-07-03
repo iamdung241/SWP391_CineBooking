@@ -84,8 +84,6 @@ public class MovieDAO extends DBContext {
                     + "      ,[status]\n"
                     + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where date_published > GETDATE()";
         List<Movie> movies = new ArrayList<>();
-
-        // Use try-with-resources to ensure resources are closed properly
         try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
@@ -520,6 +518,22 @@ public class MovieDAO extends DBContext {
         }
 
         return movies;
+    }
+    
+    public int getMovieIdByMovieName(String movieName) {
+        int movieId = -1;
+        String sql = "select movie_id from Movie where movie_name = ?";
+        try{
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, movieName);
+            rs = stm.executeQuery();
+            if(rs.next()) {
+                movieId = rs.getInt(1);
+            }
+        } catch(SQLException e) {
+            
+        }
+        return movieId;
     }
 
     public static void main(String[] args) {
