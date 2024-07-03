@@ -35,9 +35,9 @@ public class ResetPasswordServlet extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByEmail(email);
 
-        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,20}$";
         if (!newPassword.matches(passwordPattern)) {
-            request.setAttribute("errorNew", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
+            request.setAttribute("errorNew", "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.");
             isValid = false;
         } 
         if (!newPassword.equals(confirmPassword)) {
@@ -47,12 +47,13 @@ public class ResetPasswordServlet extends HttpServlet {
         
         if (isValid) {
             accountDAO.updatePasswordByEmail(account.getEmail(), newPassword);
-            request.setAttribute("successMessage", "Password has been reset successfully.");
             request.setAttribute("newPassword", null);
             request.setAttribute("confirmPassword", null);
+            response.sendRedirect("login.jsp");
+            return;
+        } else {
+            request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
         }
-        
-        request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
     }
 
     @Override

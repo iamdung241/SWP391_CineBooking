@@ -22,6 +22,7 @@ public class Ticket {
     private String status;
     private String date_book;
 
+
     public Ticket() {
     }
 

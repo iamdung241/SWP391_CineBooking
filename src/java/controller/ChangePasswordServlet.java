@@ -34,9 +34,9 @@ public class ChangePasswordServlet extends HttpServlet {
 
         String hashPass = new AccountDAO().md5(oldPassword);
 
-        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{8,20}$";
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,20}$";
         if (!newPassword.matches(passwordPattern)) {
-            request.setAttribute("errorNew", "Password must be 8-20 characters long, contain uppercase and lowercase letters, numbers, special characters, and not contain any spaces");
+            request.setAttribute("errorNew", "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.");
             isValid = false;
         } 
         if (!newPassword.equals(confirmPassword)) {

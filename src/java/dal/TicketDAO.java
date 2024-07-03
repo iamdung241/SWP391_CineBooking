@@ -237,7 +237,6 @@ public class TicketDAO extends DBContext {
         }
         return null;
     }
-    
 
     public void updateTicketStatus(String code, String status) {
         String sql = "UPDATE Ticket SET status = ? WHERE code = ?";
@@ -249,6 +248,24 @@ public class TicketDAO extends DBContext {
         } catch (SQLException e) {
             e.getMessage();
         }
+    }
+
+    public Ticket getTicketByCode(String code) {
+        String sql = "Select * from Ticket t \n"
+                + "join Showtime s on s.showtime_id = t.showtime_id\n"
+                + "join Movie m on m.movie_id = s.movie_id\n"
+                + "where t.code = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, code);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return null;
     }
 
 //    public Ticket getTicketByCode(String code) {
@@ -274,4 +291,10 @@ public class TicketDAO extends DBContext {
 //        }
 //        return null;
 //    }
+    
+    public static void main(String[] args) {
+        
+                
+    }
+
 }

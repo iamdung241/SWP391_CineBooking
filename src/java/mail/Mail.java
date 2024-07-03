@@ -107,6 +107,7 @@ public class Mail {
                     .replace("${ticket.totalprice}", totalprice)
                     .replace("${user.fullname}", user.getFullname())
                     .replace("${ticket.date}", tick.getDate_book());
+
             
             // Set content
             msg.setContent(htmlContent, "text/HTML; charset=UTF-8");
