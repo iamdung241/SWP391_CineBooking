@@ -28,6 +28,7 @@ public class ChangePasswordServlet extends HttpServlet {
         request.setAttribute("confirmPassword", confirmPassword);
         boolean isValid = true;
 
+        //Testuser1234@1
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(userID);
 

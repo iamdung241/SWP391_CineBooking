@@ -12,8 +12,25 @@ public class Seat {
     private int seat_id;
     private String seat_name;
     private float price;
+    private int room_id;
     private String status;
 
+    public Seat(int seat_id, String seat_name, float price, int room_id) {
+        this.seat_id = seat_id;
+        this.seat_name = seat_name;
+        this.price = price;
+        this.room_id = room_id;
+    }
+
+    public int getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
+    }
+
+    
     public Seat(int seat_id, String seat_name, float price, String status) {
         this.seat_id = seat_id;
         this.seat_name = seat_name;
@@ -54,5 +71,11 @@ public class Seat {
 
     public void setStatus(String status) {
         this.status = status;
-    }  
+    }
+
+    @Override
+    public String toString() {
+        return "Seat{" + "seat_id=" + seat_id + ", seat_name=" + seat_name + ", price=" + price + ", room_id=" + room_id + ", status=" + status + '}';
+    }
+
 }

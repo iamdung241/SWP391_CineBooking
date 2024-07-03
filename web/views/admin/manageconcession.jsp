@@ -52,7 +52,6 @@
 
         <!--Header-->
         <jsp:include page="../common/admin/header.jsp"></jsp:include>
-
         <jsp:include page="addConcession.jsp"></jsp:include>
         <jsp:include page="editConcession.jsp"></jsp:include>
         <jsp:include page="deleteConcession.jsp"></jsp:include>
@@ -142,7 +141,7 @@
                                                     </td>
                                                     <td name="name">${c.concessions_name}</td>
                                                     <td name="image">
-                                                        <img src="${c.image}" width="100" height="100"/>
+                                                        <img src="../${c.image}" width="100" height="100"/>
                                                     </td>
                                                     <td name="price">${c.price}</td>
                                                     <td name="quantity">${c.quantity}</td>

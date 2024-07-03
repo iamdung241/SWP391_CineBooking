@@ -4,6 +4,8 @@
     Author     : tranh
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +15,7 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        
+        <jsp:include page="/views/homepage/./Header.jsp"></jsp:include>
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -26,13 +28,20 @@
                             <p><strong>Movie:</strong> ${movie.movie_name}</p>
                             <p><strong>Date watch:</strong> ${show.date} | <strong>Time:</strong> ${show.showtiming}:00</p>
                             <p><strong>Room:</strong> ${show.room_name}</p>
-                            <p><strong>Seat:</strong> ${ticket.seat}</p>
-                            <p><strong>Combo:</strong> ${ticket.combo}</p>
+                            <p><strong>Seat:</strong>
+                                <c:forEach items="${ticket.seat}" var="ts">
+                                    ${ts.seat_name}
+                                </c:forEach>
+                            </p>
+                            <p><strong>Combo:</strong><br> 
+                                <c:forEach items="${ticket.combo}" var="tc">
+                                    ${tc.concessions_name} - Sl : ${tc.quantity} <br>
+                                </c:forEach>
+                            </p>
                             <p><strong>Total Price:</strong> ${ticket.totalprice} VND</p>
                             <hr>
                             <p><strong>User:</strong> ${user.fullname}</p>
-                            <p><strong>Date book:</strong> ${ticket.date}</p>
-                            <p><strong>Payment:</strong> ${ticket.payment}</p>
+                            <p><strong>Date book:</strong> ${ticket.date_book}</p>
                         </div>
                         <div class="card-footer text-center">
                             <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>

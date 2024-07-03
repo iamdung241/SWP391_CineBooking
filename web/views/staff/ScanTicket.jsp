@@ -71,14 +71,20 @@
                                             <div>
                                                 <ul>
                                                     <li>
-                                                        <span>Showtime:</span>&nbsp&nbsp ${ticket.getShowtime()}
+                                                        <span>Showtime:</span>&nbsp&nbsp ${ticket.showtimeId}
                                                     </li>
                                                     <li>
-                                                        <span>Seat:</span>&nbsp&nbsp ${ticket.getSeat()}
+                                                        <span>Seat:</span>&nbsp&nbsp 
+                                                        <c:forEach items="${ticket.seat}" var="ts">
+                                                            ${ts.seat_name}
+                                                        </c:forEach>
                                                     </li>
-                                                        <li>
-                                                            <span>Combo:</span>&nbsp&nbsp ${ticket.getCombo()}
-                                                        </li>
+                                                    <li>
+                                                        <span>Combo:</span>&nbsp&nbsp <br>
+                                                        <c:forEach items="${ticket.combo}" var="tc">
+                                                            ${tc.concessions_name} - Sl : ${tc.quantity} <br>
+                                                        </c:forEach>
+                                                    </li>
                                                     <li>
                                                         <span>Date:</span>&nbsp&nbsp ${ticket.getDate_book()}
                                                     </li>

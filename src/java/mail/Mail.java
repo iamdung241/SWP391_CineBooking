@@ -12,7 +12,6 @@ import dal.AccountDAO;
 import dal.MovieDAO;
 import dal.ShowtimingDAO;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -22,8 +21,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import model.Account;
 import model.Movie;
 import model.Showtiming;
@@ -38,7 +35,7 @@ public class Mail {
         //
         
         Account user = new AccountDAO().getAccountByID(tick.getAccountId());
-        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(tick.getShowtime());
+        Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(tick.getShowtimeId());
         Movie movie = new MovieDAO().getMovieByID(show.getMovie_id());
         
         // Properties : khai báo các thuộc tính
@@ -96,8 +93,7 @@ public class Mail {
                     + "<p><strong>Combo:</strong> ${ticket.combo}</p><br>"
                     + "<p><strong>Total Price:</strong> ${ticket.totalprice} VND</p><br>"
                     + "<p><strong>User:</strong> ${user.fullname}</p><br>"
-                    + "<p><strong>Date book:</strong> ${ticket.date}</p><br>"
-                    + "<p><strong>Payment:</strong> ${ticket.payment}</p>";
+                    + "<p><strong>Date book:</strong> ${ticket.date}</p><br>";
 
             String totalprice = ""+ tick.getTotalprice();
             // Replacing placeholders with actual values
@@ -106,12 +102,11 @@ public class Mail {
                     .replace("${show.date}", show.getDate())
                     .replace("${show.showtiming}", show.getShowtiming())
                     .replace("${show.room_name}", show.getRoom_name())
-                    .replace("${ticket.seat}", tick.getSeat())
-                    .replace("${ticket.combo}", tick.getCombo())
+                    .replace("${ticket.seat}", tick.getSeatToString(tick.getSeat()))
+                    .replace("${ticket.combo}", tick.getComboToString(tick.getCombo()))
                     .replace("${ticket.totalprice}", totalprice)
                     .replace("${user.fullname}", user.getFullname())
-                    .replace("${ticket.date}", tick.getDate())
-                    .replace("${ticket.payment}", tick.getPayment());
+                    .replace("${ticket.date}", tick.getDate_book());
             
             // Set content
             msg.setContent(htmlContent, "text/HTML; charset=UTF-8");
