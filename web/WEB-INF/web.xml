@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>controller.DashboardServlet</servlet-class>
+        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerController</servlet-name>
@@ -72,7 +72,8 @@
         <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/seat</url-pattern>
     </servlet-mapping>
-    <servlet-mapping><servlet-name>ShowtimingServlet</servlet-name>
+    <servlet-mapping>
+        <servlet-name>ShowtimingServlet</servlet-name>
         <url-pattern>/showtiming</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -153,7 +154,8 @@
         <servlet-class>controller.MovieTrailerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieTrailerServlet</servlet-name><url-pattern>/movietrailer</url-pattern>
+        <servlet-name>MovieTrailerServlet</servlet-name>
+        <url-pattern>/movietrailer</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ConcessionServlet</servlet-name>
@@ -231,7 +233,8 @@
         <servlet-name>AdminSearch_Filter</servlet-name>
         <servlet-class>controller.AdminSearch_Filter</servlet-class>
     </servlet>
-    <servlet-mapping><servlet-name>AdminSearch_Filter</servlet-name>
+    <servlet-mapping>
+        <servlet-name>AdminSearch_Filter</servlet-name>
         <url-pattern>/AdminSearchFilter</url-pattern>
     </servlet-mapping>
     <servlet>
