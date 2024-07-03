@@ -76,11 +76,23 @@
                 <!-- Content-->
                 <section class="container-fluid">
 
-                    <!-- Page Title-->
-                    <h2 class="fs-3 fw-bold mb-2">Welcome back, Patricia Smith 👋</h2>
-                    <p class="text-muted mb-5">Get a quick overview of your company's current status below, or click into one of the sections for a more detailed breakdown.</p>
-                    <!-- / Page Title-->
-
+                    <form method="get" action="">
+                        <div class="row align-items-center g-4">
+                            <div class="col-6 col-md-3">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" id="startDate" name="startDate" class="form-control" value="${startDate}">
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" id="endDate" name="endDate" class="form-control" value="${endDate}">
+                            </div>
+                            <div class="col-12 col-md-2">
+                                <label for=" " class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary w-100">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                            <br/>
                     <!-- Focus later in iter3-->
                 <jsp:include page="../common/admin/focuslater1.jsp"></jsp:include>
 
@@ -93,7 +105,7 @@
                     <!-- Page Aside-->
                 <jsp:include page="../common/admin/aside.jsp"></jsp:include>
                     <!-- Focus later in iter3-->
-                <jsp:include page="../common/admin/focuslater3.jsp"></jsp:include>
+                <%--<jsp:include page="../common/admin/focuslater3.jsp"></jsp:include>--%>
 
                     <!-- Footer -->
                 <jsp:include page="../common/admin/footer.jsp"></jsp:include>
