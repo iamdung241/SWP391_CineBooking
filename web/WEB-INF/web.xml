@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>controller.DashboardServlet</servlet-class>
+        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerController</servlet-name>

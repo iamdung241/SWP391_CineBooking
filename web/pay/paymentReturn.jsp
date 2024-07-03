@@ -21,10 +21,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="card-title text-success">${rs}</h2>
-                            <p class="card-text">
-                                Thank you for booking! Your transaction has been completed
-                                successfully.
-                            </p><br>
+                            <br>
                             <p class="text-success">${mail}</p>
                             <div class="mt-4">
                                 <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>
