@@ -161,8 +161,8 @@
                 </section>
             </main>
 
-            <!-- Vendor JS -->
-            <script src="${pageContext.request.contextPath}/./assets/js/vendor.bundle.js"></script>
+            <!-- Vendor JS (can bo) --> 
+            <!--<script src="${pageContext.request.contextPath}/./assets/js/vendor.bundle.js"></script>-->
                 
 
         <!-- Theme JS -->
