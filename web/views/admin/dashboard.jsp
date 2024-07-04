@@ -163,10 +163,11 @@
 
             <!-- Vendor JS -->
             <script src="${pageContext.request.contextPath}/./assets/js/vendor.bundle.js"></script>
+                
 
         <!-- Theme JS -->
         <script src="${pageContext.request.contextPath}/./assets/js/theme.bundle.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js?version=1"></script>
     </body>
-
 </html>
 
