@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.List;
-
 
 /**
  *
@@ -18,6 +16,8 @@ public class Showtiming {
     private String date;
     private int movie_id;
     private String room_name;
+    private String movie_name;
+    private String movieImage;
     
 
     public Showtiming(int showtime_id, String showtiming, int room_id, String date, int movie_id) {
@@ -33,7 +33,7 @@ public class Showtiming {
         this.showtiming = showtiming;
     }
 
-    public Showtiming(int showtime_id, String showtiming, int room_id,String date, int movie_id, String room_name) {
+    public Showtiming(int showtime_id, String showtiming, int room_id, String date, int movie_id, String room_name) {
         this.showtime_id = showtime_id;
         this.showtiming = showtiming;
         this.room_id = room_id;
@@ -42,8 +42,18 @@ public class Showtiming {
         this.room_name = room_name;
     }
 
+    public Showtiming(String showtiming, int room_id, String date, int movie_id) {
+        this.showtiming = showtiming;
+        this.room_id = room_id;
+        this.date = date;
+        this.movie_id = movie_id;
+    }
+
+
+
     public Showtiming() {
     }
+
 
     public int getShowtime_id() {
         return showtime_id;
@@ -91,6 +101,22 @@ public class Showtiming {
 
     public void setRoom_name(String room_name) {
         this.room_name = room_name;
+    }
+
+    public String getMovie_name() {
+        return movie_name;
+    }
+
+    public void setMovie_name(String movie_name) {
+        this.movie_name = movie_name;
+    }
+
+    public String getMovieImage() {
+        return movieImage;
+    }
+
+    public void setMovieImage(String movieImage) {
+        this.movieImage = movieImage;
     }
 
 }

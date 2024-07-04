@@ -5,7 +5,7 @@
 --%>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <aside class="aside bg-white">
 
@@ -129,17 +129,24 @@
                                     class="menu-link">Users</span></a>
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
-
-
                                     <li><a href="/CineBooking/views/admin/manageuser.jsp">User Listing</a></li>
-
-
                                 </ul>
                             </div>
                         </li>
-
-
-
+                        <li class="menu-section mt-4">Showtime Management</li>
+                        <li class="menu-item"><a class="d-flex align-items-center collapsed" href="#"
+                                                 data-bs-toggle="collapse" data-bs-target="#collapseMenuItemShowtimes" aria-expanded="false"
+                                                 aria-controls="collapseMenuItemShowtimes">
+                                <span class="menu-icon">
+                                    <i style="font-size: 20px"class='bx bx-time-five'></i> <!-- Sử dụng biểu tượng Water từ Font Awesome -->
+                                </span>
+                                <span class="menu-link">Showtimes</span></a>
+                            <div class="collapse" id="collapseMenuItemShowtimes">
+                                <ul class="submenu">
+                                    <li><a href="/CineBooking/showtimeControl">Showtime Listing</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

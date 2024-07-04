@@ -31,7 +31,9 @@
                             <div class="row center_o1">
                                 <div class="col-md-12">
                                     <h2 class="text-white">About Us</h2>
-                                    <h6 style="color: red" class="mb-0 mt-3 fw-normal"><a class="text-light" href="/CineBooking/home">Home</a> <span class="mx-2 text-muted">/</span> About Us</h6>
+                                    <h6 style="color: red" class="mb-0 mt-3 fw-normal">
+                                        <a class="text-light" href="/CineBooking/home">Home</a> <span class="mx-2 text-muted">/</span> About Us
+                                    </h6>
                                 </div>
                             </div>
                         </div>
