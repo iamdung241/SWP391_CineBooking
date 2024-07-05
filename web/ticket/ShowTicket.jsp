@@ -16,8 +16,11 @@
     </head>
     <body>
         <jsp:include page="/views/homepage/./Header.jsp"></jsp:include>
-        <div class="container mt-5">
-            <div class="row justify-content-center">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <img class="img-fluid rounded" src="${movie.post_img}" alt="Movie Poster"/>
+                </div>
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header text-center">
@@ -42,6 +45,8 @@
                             <hr>
                             <p><strong>User:</strong> ${user.fullname}</p>
                             <p><strong>Date book:</strong> ${ticket.date_book}</p>
+                            <p><strong>QR</strong></p>
+                            <img src="generateQR?text=${ticket.code}" style="width: 200px; height: 200px;" class="d-block mx-auto"/>
                         </div>
                         <div class="card-footer text-center">
                             <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>
@@ -50,6 +55,5 @@
                 </div>
             </div>
         </div>
-
     </body>
 </html>

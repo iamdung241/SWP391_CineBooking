@@ -65,9 +65,9 @@ public class paymentServlet extends HttpServlet {
         List<Concession> combo = new ArrayList<>();
         if (ids != null) {
             for (String id : ids) {
-                String name = id.substring(0, 1);
-                Concession c = new ConcessionDAO().getConcessionByID(Integer.parseInt(name));
-                String quantity = id.substring(id.length()-1, id.length());
+                String[] name = id.split("-");
+                Concession c = new ConcessionDAO().getConcessionByID(Integer.parseInt(name[0]));
+                String quantity = name[1];
                 c.setQuantity(Integer.parseInt(quantity));
                 combo.add(c);               
             }

@@ -72,6 +72,10 @@
         <servlet-name>AddNewShowtimeServlet</servlet-name>
         <servlet-class>controller.AddNewShowtimeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>generateQR</servlet-name>
+        <servlet-class>qrcode.generateQR</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>AddNewShowtimeServlet</servlet-name>
         <url-pattern>/addNewShowtime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>generateQR</servlet-name>
+        <url-pattern>/generateQR</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
