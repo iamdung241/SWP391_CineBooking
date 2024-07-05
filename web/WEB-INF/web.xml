@@ -64,6 +64,14 @@
         <servlet-name>ShowTicket</servlet-name>
         <servlet-class>controller.ShowTicket</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginGoogle</servlet-name>
+        <servlet-class>controller.LoginGoogle</servlet-class>
+    </servlet>
+<!--    <servlet>
+        <servlet-name>UploadExcel</servlet-name>
+        <servlet-class>controller.UploadExcel</servlet-class>
+    </servlet>-->
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -72,7 +80,8 @@
         <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/seat</url-pattern>
     </servlet-mapping>
-    <servlet-mapping><servlet-name>ShowtimingServlet</servlet-name>
+    <servlet-mapping>
+        <servlet-name>ShowtimingServlet</servlet-name>
         <url-pattern>/showtiming</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -127,6 +136,14 @@
         <servlet-name>ShowTicket</servlet-name>
         <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginGoogle</servlet-name>
+        <url-pattern>/logingoogle</url-pattern>
+    </servlet-mapping>
+<!--    <servlet-mapping>
+        <servlet-name>UploadExcel</servlet-name>
+        <url-pattern>/CineBooking/views/admin/uploadexcel</url-pattern>
+    </servlet-mapping>-->
     <session-config>
         <session-timeout>
             30
@@ -153,7 +170,8 @@
         <servlet-class>controller.MovieTrailerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MovieTrailerServlet</servlet-name><url-pattern>/movietrailer</url-pattern>
+        <servlet-name>MovieTrailerServlet</servlet-name>
+        <url-pattern>/movietrailer</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ConcessionServlet</servlet-name>
@@ -231,7 +249,8 @@
         <servlet-name>AdminSearch_Filter</servlet-name>
         <servlet-class>controller.AdminSearch_Filter</servlet-class>
     </servlet>
-    <servlet-mapping><servlet-name>AdminSearch_Filter</servlet-name>
+    <servlet-mapping>
+        <servlet-name>AdminSearch_Filter</servlet-name>
         <url-pattern>/AdminSearchFilter</url-pattern>
     </servlet-mapping>
     <servlet>
