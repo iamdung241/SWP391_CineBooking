@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>controller.DashboardServlet</servlet-class>
+        <servlet-class>controller.admin.dashboard.DashboardServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CustomerController</servlet-name>
@@ -68,10 +68,13 @@
         <servlet-name>LoginGoogle</servlet-name>
         <servlet-class>controller.LoginGoogle</servlet-class>
     </servlet>
-<!--    <servlet>
-        <servlet-name>UploadExcel</servlet-name>
-        <servlet-class>controller.UploadExcel</servlet-class>
-    </servlet>-->
+        <servlet-name>ShowtimeControlServlet</servlet-name>
+        <servlet-class>controller.ShowtimeControlServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewShowtimeServlet</servlet-name>
+        <servlet-class>controller.AddNewShowtimeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -140,10 +143,14 @@
         <servlet-name>LoginGoogle</servlet-name>
         <url-pattern>/logingoogle</url-pattern>
     </servlet-mapping>
-<!--    <servlet-mapping>
-        <servlet-name>UploadExcel</servlet-name>
-        <url-pattern>/CineBooking/views/admin/uploadexcel</url-pattern>
-    </servlet-mapping>-->
+
+        <servlet-name>ShowtimeControlServlet</servlet-name>
+        <url-pattern>/showtimeControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewShowtimeServlet</servlet-name>
+        <url-pattern>/addNewShowtime</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -93,11 +93,11 @@ public class ShowtimingDAO extends DBContext {
                 int movieID = rs.getInt(4);
                 String date = rs.getString(5);
                 String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID,date, movieID, roomName);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, date, movieID, roomName);
                 return showtime;
             }
         } catch (SQLException e) {
-            
+
         }
         return null;
     }
@@ -116,7 +116,7 @@ public class ShowtimingDAO extends DBContext {
                 int movieID = rs.getInt(4);
                 String date = rs.getString(5);
                 String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID,date, movieID, roomName);
+                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, date, movieID, roomName);
                 listShow.add(showtime);
             }
         } catch (SQLException e) {
@@ -125,9 +125,72 @@ public class ShowtimingDAO extends DBContext {
         return listShow;
     }
 
-    public static void main(String[] args) {
-        Showtiming s = new ShowtimingDAO().getShowtimingByShowtimeID(1);
-        System.out.println(s.getRoom_name());
+    public List<Showtiming> getListShowtiming() {
+        List<Showtiming> listShowtime = new ArrayList();
+        String sql = "select * from showtime s\n"
+                + "join movie m on m.movie_id = s.movie_id\n"
+                + "join room r on r.room_id = s.room_id ORDER BY s.date DESC, s.showtime";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                Showtiming showtime = new Showtiming();
+                showtime.setShowtime_id(rs.getInt(1));
+                showtime.setShowtiming(rs.getString(2));
+                showtime.setRoom_id(rs.getInt(3));
+                showtime.setMovie_id(rs.getInt(4));
+                showtime.setDate(rs.getString(5));
+                showtime.setMovie_name(rs.getString(7));
+                showtime.setMovieImage(rs.getString(11));
+                showtime.setRoom_name(rs.getString(17));
+                listShowtime.add(showtime);
+            }
+        } catch(SQLException e) {
+            
+        }
+        return listShowtime;
     }
+    
+    public boolean checkShowtimeExists(String date, String showtime, int roomId) {
+        boolean exists = false;
+        String sql = "SELECT COUNT(*) FROM Showtime WHERE date = ? AND showtime = ? AND room_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, date);
+            st.setString(2, showtime);
+            st.setInt(3, roomId);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                if (rs.getInt(1) > 0) {
+                    exists = true;
+                }
+            }
+        } catch (SQLException e) {
+            
+        }
+        
+        return exists;
+    }
+    
+    public void addShowtime(Showtiming showtime) {
+        String sql = "INSERT INTO dbo.[Showtime] ([showtime], [room_id], [movie_id], [date]) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, showtime.getShowtiming());
+            st.setInt(2, showtime.getRoom_id());
+            st.setInt(3, showtime.getMovie_id());
+            st.setString(4, showtime.getDate());
+            st.executeUpdate();
+        } catch(SQLException e) {
+            
+        }
+    }
+
+    
+//    public static void main(String[] args) {
+//        Showtiming s = new Showtiming("10", 2, "2024-07-04", 6);
+//        new ShowtimingDAO().addShowtime(s);
+//        
+//    }
 
 }

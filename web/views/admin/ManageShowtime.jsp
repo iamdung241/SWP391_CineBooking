@@ -1,13 +1,14 @@
 <%-- 
-    Document   : manageconcession
-    Created on : 20 May 2024, 09:25:31
-    Author     : Son
+    Document   : ManageShowtime
+    Created on : Jul 1, 2024, 5:20:42 PM
+    Author     : thanh
 --%>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
 <html lang="en">
 
     <!-- Head -->
@@ -34,9 +35,8 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-
+        <title></title>
         <!-- Fix for custom scrollbar if JS is disabled-->
-        <noscript>
         <style>
             /**
             * Reinstate scrolling for non-JS clients
@@ -45,29 +45,25 @@
                 overflow: auto;
             }
         </style>
-        </noscript>
+
+
 
     </head>
     <body class="">
 
         <!--Header-->
         <jsp:include page="../common/admin/header.jsp"></jsp:include>
-        <jsp:include page="addConcession.jsp"></jsp:include>
-        <jsp:include page="editConcession.jsp"></jsp:include>
-        <jsp:include page="deleteConcession.jsp"></jsp:include>
-        <jsp:include page="deleteConcession.jsp"></jsp:include>
-        <jsp:include page="restockConcession.jsp"></jsp:include>
 
             <!-- Page Content -->
             <main id="main">
 
                 <!-- Breadcrumbs-->
-                <div class="bg-white border-bottom py-3 mb-5">
+                <div class="bg-white border-bottom py-3">
                     <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item">Dashboard</li>
-                                <li class="breadcrumb-item active" aria-current="page">Manage Concession</li>
+                                <li class="breadcrumb-item">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Manage Showtime</li>
                             </ol>
                         </nav>
                     </div>
@@ -77,125 +73,88 @@
                 <section class="container-fluid">
 
                     <!-- Page Title-->
-                    <h2 class="fs-3 fw-bold mb-2">Welcome, Manager 👋</h2>
-                    <p class="text-muted mb-5">Get a quick overview of your project, or click into one of the sections for a more detailed breakdown.</p>
-                    <!-- / Page Title-->
-
                     <!-- Middle Row Widgets-->
                     <div class="row g-4 mb-4 mt-0">
-
-
                         <!-- Latest Orders-->
                         <div class="col-12">
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
-                                    <h6 class="card-title m-0">Concession Listing</h6>
-
-                                    <form class="filter-form d-none d-md-flex bg-light rounded" action="filter" onchange="this.form.submit()">
-                                        <input type="hidden" name="keyword" value="${keyword}">
-                                    <input type="hidden" name="page" value="${pageControl.page}">
-                                    <select class="form-control filter-select" name="filter" aria-label="Filter">
-                                        <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
-                                        <option value="priceAsc" ${selectedFilter != null && selectedFilter.equals("priceAsc") ? 'selected' : ''}>Price Increase</option>
-                                        <option value="priceDesc" ${selectedFilter != null && selectedFilter.equals("priceDesc") ? 'selected' : ''}>Price Decrease</option>
-                                        <option value="quantityAsc" ${selectedFilter != null && selectedFilter.equals("quantityAsc") ? 'selected' : ''}>Quantity Increase</option>
-                                        <option value="quantityDesc" ${selectedFilter != null && selectedFilter.equals("quantityDesc") ? 'selected' : ''}>Quantity Decrease</option>
-                                    </select>
-                                </form>
-
-                                <form class="d-none d-md-flex bg-light rounded px-3 py-1" action="filter">
-                                    <input type="hidden" name="filter" value="${selectedFilter}">
-                                    <input type="hidden" name="page" value="${pageControl.page}">
-                                    <input class="form-control border-0 bg-transparent px-0 py-2 me-2 fw-bolder" type="search" placeholder="Search" name="keyword" aria-label="Search ..." value="${param.keyword}">
-                                    <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
-                                </form>
-
-                                <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal" style="color: white">
-                                    <i class="ri-add-circle-line align-bottom" style="color: white"></i>
-                                    Add Concession
-                                </a>
+                                    <h6 class="card-title m-0">List Showtime</h6>
+<!--                                    <div class="border-1 d-flex">
+                                        <form class="d-flex" action="AdminSearchFilter">
+                                            <input class="form-control" name ="searchAdmin" 
+                                                   placeholder="Search">
+                                            <button class="btn btn-primary p-0" type="submit">Search</button>
+                                        </form>
+                                        <div class="">
+                                            <select class="form-select mx-2" onchange="location.href = 'AdminSearchFilter?ACT=filter&typeId=' + this.value">
+                                                <option>All</option>
+                                            <c:forEach items="${listType}" var="t">
+                                                <option value="${t.type_id}">${t.type_name}</option>
+                                            </c:forEach>   
+                                        </select>
+                                    </div>
+                                </div>-->
+                                <a class="btn btn-sm btn-primary" href="addNewShowtime"><i class="ri-add-circle-line align-bottom"></i> Add Showtime</a>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table m-0 table-striped">
+                                <div class="border-1">
+                                    <table class="table border-1">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Image</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Action</th>
+                                                <th class="text-center">Movie Image</th>           
+                                                <th class="text-center">Movie Name</th>                                                   
+                                                <th class="text-center">Room</th>
+                                                <th class="text-center">Date</th>
+                                                <th class="text-center">Showtime</th>                                                   
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="c" items="${listConcession}">
+                                            <c:forEach items="${listShowtime}" var="showtime">
                                                 <tr>
-                                                    <td name="id">
-                                                        <span class="fw-bolder">${c.concessions_id}</span>
-                                                    </td>
-                                                    <td name="name">${c.concessions_name}</td>
-                                                    <td name="image">
-                                                        <img src="../${c.image}" width="100" height="100"/>
-                                                    </td>
-                                                    <td name="price">${c.price}</td>
-                                                    <td name="quantity">${c.quantity}</td>
-                                                    <td class="">
-                                                        <form>
-                                                            <button type="button" class="btn btn-primary"
-                                                                    data-toggle="modal"
-                                                                    data-target="#editConcessionModal"
-                                                                    onclick="editConcessionModal(this)">
-                                                                Edit
-                                                            </button>
-                                                        </form>
-                                                        <c:if test="${c.status == 1}">
-                                                            <button type="button" class="btn btn-danger"
-                                                                    data-toggle="modal" data-target="#deleteModal"
-                                                                    onclick="deleteConcession(${c.concessions_id})">
-                                                                Delete
-                                                            </button>
-                                                        </c:if>
-                                                        <c:if test="${c.status == 0}">
-                                                            <button type="button" class="btn btn-success"
-                                                                    data-toggle="modal" data-target="#restockModal"
-                                                                    onclick="restockConcession(${c.concessions_id})">
-                                                                Restock
-                                                            </button>
-                                                        </c:if>
+                                                    <td class="text-center"><img border="2px" width="130px" height="130px" src="${showtime.getMovieImage()}"/></td>
+                                                    <td class="text-center">${showtime.getMovie_name()}</td>
+                                                    <td class="text-center">${showtime.getRoom_name()}</td>
+                                                    <td class="text-center">${showtime.getDate()}</td> 
+                                                    <td class="text-center">${showtime.getShowtiming()}</td> 
+                                                    <td class="text-center">
+                                                        <div class="d-flex p-6">
+                                                            <a class="btn btn-sm btn-success me-1" href="showtimeControl?mode=update&showtimeID=${showtime.getShowtime_id()}" style="color: white"><i class="align-bottom"></i> Edit</a>
+                                                        </div> 
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
-                                </div>
-                                <!--Pagination for filter and search results-->
+                                </div>    
                                 <nav>
                                     <ul class="pagination justify-content-end mt-3 mb-0">
-                                        <li class="page-item ${pageControl.page == 1 ? 'disabled' : ''}">
-                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page - 1}">Previous</a>
-                                        </li>
-                                        <c:forEach begin="1" end="${pageControl.totalPage}" var="pageNumber">
-                                            <li class="page-item ${pageControl.page == pageNumber ? 'active' : ''}">
-                                                <a class="page-link" href="${pageControl.ulrPattern}page=${pageNumber}">${pageNumber}</a>
-                                            </li>
-                                        </c:forEach>
-                                        <li class="page-item ${pageControl.page == pageControl.totalPage ? 'disabled' : ''}">
-                                            <a class="page-link" href="${pageControl.ulrPattern}page=${pageControl.page + 1}">Next</a>
-                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                     </ul>
                                 </nav>
 
                             </div>
                         </div>
-
                     </div>
                     <!-- Latest Orders-->
 
                 </div>
+                <!-- / Middle Row Widgets-->
+
+                <!-- Focus later in iter3-->
+                <%--<jsp:include page="../common/admin/focuslater3.jsp"></jsp:include>--%>
 
                 <!-- Footer -->
                 <jsp:include page="../common/admin/footer.jsp"></jsp:include>
+
+
+                    <!-- Sidebar Menu Overlay-->
+                    <div class="menu-overlay-bg"></div>
 
                 </section>
                 <!-- / Content-->
@@ -203,11 +162,6 @@
             </main>
             <!-- /Page Content -->
 
-            <script>
-                document.querySelector('.filter-select').addEventListener('change', function () {
-                    this.form.submit();
-                });
-            </script>
             <!-- Page Aside-->
             <aside class="aside bg-white">
 
@@ -230,7 +184,7 @@
 
                                 <!-- Dashboard Menu Section-->
                                 <li class="menu-section mt-2">Menu</li>
-                                <li class="menu-item"><a class="d-flex align-items-center" href="../dashboard">
+                                <li class="menu-item"><a class="d-flex align-items-center" href="dashboard">
                                         <span class="menu-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-100">
                                             <rect fill-opacity=".5" fill="currentColor" x="3" y="3" width="7" height="7"></rect>
@@ -243,6 +197,26 @@
                                         <span class="menu-link">
                                             Dashboard
                                             <span class="badge bg-success-faded text-success pb-1 ms-2 align-middle rounded-pill">beta</span>
+                                        </span></a></li>
+                                <!-- / Dashboard Menu Section-->
+
+                                <!-- Dashboard Menu Section-->
+                                <li class="menu-section mt-4">Data</li>
+                                <li class="menu-item"><a class="d-flex align-items-center" href="./charts.html">
+                                        <span class="menu-icon">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 viewBox="0 0 489.902 489.902" style="enable-background:new 0 0 489.902 489.902;">
+                                            <path fill="currentColor" opacity="0.5" d="M349.2,178.251l113.6-45.9c-37.7-72.7-110.1-124-195.6-131.8v122.5C301.8,129.651,330.9,149.851,349.2,178.251z"/>
+                                            <path fill="currentColor" opacity="0.75" d="M121.3,244.751c0-60.7,43.6-110.8,101.1-121.3V0.551C98,11.851,0,116.851,0,244.751c0,54.8,17.9,105.4,48.2,146.2
+                                                  l91.4-81.7C128.3,290.251,121.3,268.051,121.3,244.751z"/>
+                                            <path fill="currentColor" d="M479.5,173.551l-113.6,45.9c1.6,8.2,2.7,16.3,2.7,24.9c0,68.1-55.2,123.7-123.7,123.7c-28.4,0-54.8-9.7-75.4-26.1
+                                                  l-91.4,81.7c43.9,40.8,102.3,65.7,166.8,65.7c135.3,0,245-109.7,245-245C490,219.851,486.1,196.151,479.5,173.551z"/>
+
+                                            </svg>
+                                        </span>
+                                        <span class="menu-link">
+                                            Charts
+                                            <span class="badge bg-danger-faded text-danger pb-1 ms-2 align-middle rounded-pill">new</span>
                                         </span></a></li>
                                 <!-- / Dashboard Menu Section-->
 
@@ -283,7 +257,7 @@
                                     <div class="collapse" id="collapseMenuItemFilms">
                                         <ul class="submenu">
                                             <li>
-                                            <li><a href="../movie">Film Listing</a></li>
+                                            <li style="primary" class="blue-text">Film Listing</li>
                                         </ul>
                                     </div>
                                 </li>
@@ -298,7 +272,7 @@
                                         <span class="menu-link">Concessions</span></a>
                                     <div class="collapse" id="collapseMenuItemConcessions">
                                         <ul class="submenu">
-                                            <li style="primary" class="blue-text">Concessions Listing</li>
+                                            <li><a href="admin/concession">Concessions Listing</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -331,7 +305,7 @@
                                             class="menu-link">Users</span></a>
                                     <div class="collapse" id="collapseMenuItemUsers">
                                         <ul class="submenu">
-                                            <li><a href="../views/admin/manageuser.jsp">User Listing</a></li>
+                                            <li><a href="views/admin/manageuser.jsp">User Listing</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -345,14 +319,11 @@
 
             </aside>
             <!-- Theme JS -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
             <!-- Vendor JS -->
             <script src="${pageContext.request.contextPath}/./assets/js/vendor.bundle.js"></script>
 
         <!-- Theme JS -->
-        <script src="${pageContext.request.contextPath}/./assets/js/theme.bundle.js"></script>
+        <script src="${pageContext.request.contextPath}/./assets/js/theme.bundle.js"></script>        
     </body>
 
 </html>
@@ -364,4 +335,3 @@
         cursor: pointer;
     }
 </style>
-

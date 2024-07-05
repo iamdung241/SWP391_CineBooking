@@ -5,7 +5,7 @@
 --%>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <aside class="aside bg-white">
 
@@ -41,26 +41,6 @@
                                 <span class="menu-link">
                                     Dashboard
                                     <span class="badge bg-success-faded text-success pb-1 ms-2 align-middle rounded-pill">beta</span>
-                                </span></a></li>
-                        <!-- / Dashboard Menu Section-->
-
-                        <!-- Dashboard Menu Section-->
-                        <li class="menu-section mt-4">Data</li>
-                        <li class="menu-item"><a class="d-flex align-items-center" href="./charts.html">
-                                <span class="menu-icon">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                         viewBox="0 0 489.902 489.902" style="enable-background:new 0 0 489.902 489.902;">
-                                        <path fill="currentColor" opacity="0.5" d="M349.2,178.251l113.6-45.9c-37.7-72.7-110.1-124-195.6-131.8v122.5C301.8,129.651,330.9,149.851,349.2,178.251z"/>
-                                        <path fill="currentColor" opacity="0.75" d="M121.3,244.751c0-60.7,43.6-110.8,101.1-121.3V0.551C98,11.851,0,116.851,0,244.751c0,54.8,17.9,105.4,48.2,146.2
-                                              l91.4-81.7C128.3,290.251,121.3,268.051,121.3,244.751z"/>
-                                        <path fill="currentColor" d="M479.5,173.551l-113.6,45.9c1.6,8.2,2.7,16.3,2.7,24.9c0,68.1-55.2,123.7-123.7,123.7c-28.4,0-54.8-9.7-75.4-26.1
-                                              l-91.4,81.7c43.9,40.8,102.3,65.7,166.8,65.7c135.3,0,245-109.7,245-245C490,219.851,486.1,196.151,479.5,173.551z"/>
-
-                                    </svg>
-                                </span>
-                                <span class="menu-link">
-                                    Charts
-                                    <span class="badge bg-danger-faded text-danger pb-1 ms-2 align-middle rounded-pill">new</span>
                                 </span></a></li>
                         <!-- / Dashboard Menu Section-->
 
@@ -149,20 +129,26 @@
                                     class="menu-link">Users</span></a>
                             <div class="collapse" id="collapseMenuItemUsers">
                                 <ul class="submenu">
-
-
                                     <li><a href="/CineBooking/views/admin/manageuser.jsp">User Listing</a></li>
-
-
                                 </ul>
                             </div>
                         </li>
-
-
-
+                        <li class="menu-section mt-4">Showtime Management</li>
+                        <li class="menu-item"><a class="d-flex align-items-center collapsed" href="#"
+                                                 data-bs-toggle="collapse" data-bs-target="#collapseMenuItemShowtimes" aria-expanded="false"
+                                                 aria-controls="collapseMenuItemShowtimes">
+                                <span class="menu-icon">
+                                    <i style="font-size: 20px"class='bx bx-time-five'></i> <!-- Sử dụng biểu tượng Water từ Font Awesome -->
+                                </span>
+                                <span class="menu-link">Showtimes</span></a>
+                            <div class="collapse" id="collapseMenuItemShowtimes">
+                                <ul class="submenu">
+                                    <li><a href="/CineBooking/showtimeControl">Showtime Listing</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-
     </aside>
