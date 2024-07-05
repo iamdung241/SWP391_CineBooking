@@ -65,6 +65,9 @@
         <servlet-class>controller.ShowTicket</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LoginGoogle</servlet-name>
+        <servlet-class>controller.LoginGoogle</servlet-class>
+    </servlet>
         <servlet-name>ShowtimeControlServlet</servlet-name>
         <servlet-class>controller.ShowtimeControlServlet</servlet-class>
     </servlet>
@@ -137,6 +140,10 @@
         <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>LoginGoogle</servlet-name>
+        <url-pattern>/logingoogle</url-pattern>
+    </servlet-mapping>
+
         <servlet-name>ShowtimeControlServlet</servlet-name>
         <url-pattern>/showtimeControl</url-pattern>
     </servlet-mapping>
