@@ -11,7 +11,6 @@ import java.util.List;
  * @author tranh
  */
 public class Ticket {
-
     private int id;
     private String code;
     private int accountId;
@@ -21,7 +20,9 @@ public class Ticket {
     private List<Concession> combo;
     private String status;
     private String date_book;
-
+    private Showtiming showtime;
+    private String movieName;
+    private String movieImage;
 
     public Ticket() {
     }
@@ -137,6 +138,31 @@ public class Ticket {
         this.date_book = date_book;
     }
 
+    public Showtiming getShowtime() {
+        return showtime;
+    }
+
+    public void setShowtime(Showtiming showtime) {
+        this.showtime = showtime;
+    }
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public String getMovieImage() {
+        return movieImage;
+    }
+
+    public void setMovieImage(String movieImage) {
+        this.movieImage = movieImage;
+    }
+    
+    
     @Override
     public String toString() {
         return "Ticket{" + "id=" + id + ", code=" + code + ", accountId=" + accountId + ", showtimeId=" + showtimeId + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", status=" + status + ", date_book=" + date_book + '}';
