@@ -90,19 +90,28 @@ public class AddNewShowtimeServlet extends HttpServlet {
         String date = request.getParameter("date");
         try {
             int movieId = movieDao.getMovieIdByMovieName(movieName);
+            if (roomId == null || "all".equals(roomId)) {
+                request.setAttribute("errorMessage", "Please choose a room.");
+                request.getRequestDispatcher("/views/admin/AddShowtime.jsp").forward(request, response);
+                return;
+            }
             boolean isShowtime = showDao.checkShowtimeExists(date, showtime, Integer.parseInt(roomId));
             if (isShowtime) {
                 request.setAttribute("errorMessage", "Showtime already exists");
                 request.getRequestDispatcher("/views/admin/AddShowtime.jsp").forward(request, response);
             } else {
-                Showtiming showtiming = new Showtiming(0, showtime, Integer.parseInt(roomId), date, movieId);
+                Showtiming showtiming = new Showtiming(showtime, Integer.parseInt(roomId), date, movieId);
                 showDao.addShowtime(showtiming);
-                response.sendRedirect("showtimeControl");
+                request.setAttribute("successMessage", "Add showtime successfully");
+                List<Showtiming> listShowtime = showDao.getListShowtiming();
+                request.setAttribute("listShowtime", listShowtime);
+                request.getRequestDispatcher("/views/admin/ManageShowtime.jsp").forward(request, response);
             }
-
         } catch (Exception e) {
-
+            request.setAttribute("errorMessage", "Add showtime fail");
+            request.getRequestDispatcher("/views/admin/AddShowtime.jsp").forward(request, response);
         }
+
     }
 
     /**

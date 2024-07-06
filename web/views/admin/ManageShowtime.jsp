@@ -80,23 +80,28 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">List Showtime</h6>
-<!--                                    <div class="border-1 d-flex">
-                                        <form class="d-flex" action="AdminSearchFilter">
-                                            <input class="form-control" name ="searchAdmin" 
-                                                   placeholder="Search">
-                                            <button class="btn btn-primary p-0" type="submit">Search</button>
-                                        </form>
-                                        <div class="">
-                                            <select class="form-select mx-2" onchange="location.href = 'AdminSearchFilter?ACT=filter&typeId=' + this.value">
-                                                <option>All</option>
-                                            <c:forEach items="${listType}" var="t">
-                                                <option value="${t.type_id}">${t.type_name}</option>
-                                            </c:forEach>   
-                                        </select>
-                                    </div>
-                                </div>-->
+                                    <!--                                    <div class="border-1 d-flex">
+                                                                            <form class="d-flex" action="AdminSearchFilter">
+                                                                                <input class="form-control" name ="searchAdmin" 
+                                                                                       placeholder="Search">
+                                                                                <button class="btn btn-primary p-0" type="submit">Search</button>
+                                                                            </form>
+                                                                            <div class="">
+                                                                                <select class="form-select mx-2" onchange="location.href = 'AdminSearchFilter?ACT=filter&typeId=' + this.value">
+                                                                                    <option>All</option>
+                                <c:forEach items="${listType}" var="t">
+                                    <option value="${t.type_id}">${t.type_name}</option>
+                                </c:forEach>   
+                            </select>
+                        </div>
+                    </div>-->
                                 <a class="btn btn-sm btn-primary" href="addNewShowtime"><i class="ri-add-circle-line align-bottom"></i> Add Showtime</a>
                             </div>
+                            <c:if test="${not empty successMessage}">
+                                <div class="alert alert-success" role="alert">
+                                    ${successMessage}
+                                </div>
+                            </c:if>
                             <div class="card-body">
                                 <div class="border-1">
                                     <table class="table border-1">
@@ -120,7 +125,7 @@
                                                     <td class="text-center">${showtime.getShowtiming()}</td> 
                                                     <td class="text-center">
                                                         <div class="d-flex p-6">
-                                                            <a class="btn btn-sm btn-success me-1" href="showtimeControl?mode=update&showtimeID=${showtime.getShowtime_id()}" style="color: white"><i class="align-bottom"></i> Edit</a>
+                                                            <a class="btn btn-sm btn-success me-1" href="updateShowtime?showtimeID=${showtime.getShowtime_id()}" style="color: white"><i class="align-bottom"></i> Edit</a>
                                                         </div> 
                                                     </td>
                                                 </tr>

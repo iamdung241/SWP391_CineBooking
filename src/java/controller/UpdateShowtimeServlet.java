@@ -1,28 +1,26 @@
-
-package controller;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-import dal.MovieDAO;
-import dal.TypeMovieDAO;
+package controller;
+
+import dal.RoomDAO;
+import dal.ShowtimingDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import model.Movie;
-import model.TypeMovie;
+import model.Room;
+import model.Showtiming;
 
 /**
  *
  * @author thanh
  */
-//url : /home
-public class HomeServlet extends HttpServlet {
+public class UpdateShowtimeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");            
+            out.println("<title>Servlet UpdateShowtimeServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateShowtimeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,18 +57,22 @@ public class HomeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //author: Thanh 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MovieDAO mdao = new MovieDAO();
-        List<Movie> topMovie = mdao.getTopMovieForMonth();
-        request.setAttribute("topMovie", topMovie);
-        List<Movie> listM = mdao.getMoviesPublishedBeforeToday();
-        request.setAttribute("listM", listM);
-        List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType(); 
-        request.setAttribute("typeList", typeList);
-        request.getRequestDispatcher("/views/homepage/Home.jsp").forward(request, response);
+        RoomDAO roomDao = new RoomDAO();
+        List<Room> listRoom = roomDao.getAllRooms();
+        request.setAttribute("listRoom", listRoom);
+        ShowtimingDAO showDao = new ShowtimingDAO();
+        String showtimeID = request.getParameter("showtimeID");
+        try {
+            int showtime_id = Integer.parseInt(showtimeID);
+            Showtiming showtime = showDao.getShowtimingByShowtimeID(showtime_id);
+            request.setAttribute("showtimeUpdate", showtime);
+        } catch (NumberFormatException e) {
+            e.getMessage();
+        }
+        request.getRequestDispatcher("/views/admin/EditShowtime.jsp").forward(request, response);
     }
 
     /**
@@ -84,7 +86,25 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String roomID = request.getParameter("room");
+        String showtime = request.getParameter("showtime");
+        String date = request.getParameter("date");
+        Showtiming showtiming = new Showtiming();
+        ShowtimingDAO showDao = new ShowtimingDAO();
+        try {
+            int roomId = Integer.parseInt(roomID);
+            showtiming.setRoom_id(roomId);
+            showtiming.setShowtiming(showtime);
+            showtiming.setDate(date);
+            showDao.updateShowtime(showtiming);
+            request.setAttribute("successMessage", "Edit showtime successfully");
+            List<Showtiming> listShowtime = showDao.getListShowtiming();
+            request.setAttribute("listShowtime", listShowtime);
+            request.getRequestDispatcher("/views/admin/ManageShowtime.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Update showtime fail");
+            request.getRequestDispatcher("/views/admin/EditShowtime.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -65,12 +65,16 @@
         <servlet-class>controller.ShowTicket</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShowtimeControlServlet</servlet-name>
-        <servlet-class>controller.ShowtimeControlServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddNewShowtimeServlet</servlet-name>
         <servlet-class>controller.AddNewShowtimeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateShowtimeServlet</servlet-name>
+        <servlet-class>controller.UpdateShowtimeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimeController</servlet-name>
+        <servlet-class>controller.ShowtimeController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -137,12 +141,16 @@
         <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ShowtimeControlServlet</servlet-name>
-        <url-pattern>/showtimeControl</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddNewShowtimeServlet</servlet-name>
         <url-pattern>/addNewShowtime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateShowtimeServlet</servlet-name>
+        <url-pattern>/updateShowtime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowtimeController</servlet-name>
+        <url-pattern>/showtimeControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
