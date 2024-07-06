@@ -51,11 +51,6 @@
                         <img id="previewImage" src="#" alt="Preview"
                              style="display: none; max-width: 300px; max-height: 300px;">
                     </div>
-                    <!--Description-->
-                    <!--                    <div class="form-group">
-                                            <label for="description">Description:</label>
-                                            <textarea class="form-control" name="description"></textarea>
-                                        </div>-->
                 </form>
             </div>
 

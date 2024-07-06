@@ -67,7 +67,7 @@ public class ShowtimeControlServlet extends HttpServlet {
         ShowtimingDAO showtimeDao = new ShowtimingDAO();
         List<Showtiming> listShowtime = showtimeDao.getListShowtiming();
         request.setAttribute("listShowtime", listShowtime);
-        request.getRequestDispatcher("/views/admin/ManageShowtime.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/dashboard/manageshowtime.jsp").forward(request, response);
     }
 
     /**

@@ -68,7 +68,7 @@ public class AddNewShowtimeServlet extends HttpServlet {
         request.setAttribute("listRoom", listRoom);
         List<Movie> listMovie = movieDao.getMoviesPublishedBeforeToday();
         request.setAttribute("listMovie", listMovie);
-        request.getRequestDispatcher("/views/admin/AddShowtime.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/dashboard/addshowtime.jsp").forward(request, response);
     }
 
     /**

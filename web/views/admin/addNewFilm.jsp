@@ -11,33 +11,6 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="keywords" content="">
-
-        <!-- Favicon -->
-        <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/./assets/images/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/./assets/images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/./assets/images/favicon/favicon-16x16.png">
-        <link rel="mask-icon" href="${pageContext.request.contextPath}/./assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
-
-        <!-- Vendor CSS -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
-
-        <!-- Main CSS -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-        <title></title>
-        <!-- Fix for custom scrollbar if JS is disabled-->
-        <noscript>
-        <style>
-            /**
-            * Reinstate scrolling for non-JS clients
-            */
-            .simplebar-content-wrapper {
-                overflow: auto;
-            }
-        </style>
-        </noscript>
-
         <script>
             function validateAge() {
                 var age = document.getElementById("age").value.trim();
@@ -181,33 +154,10 @@
         </script>
     </head>
     <body class="">
-
-        <!--Header-->
-        <jsp:include page="../common/admin/header.jsp"></jsp:include>
-            <!-- Page Content -->
-            <main id="main">
-
-                <!-- Breadcrumbs-->
-                <div class="bg-white border-bottom py-3">
-                    <div class="container-fluid d-flex justify-content-between align-items-start align-items-md-center flex-column flex-md-row">
-                        <nav class="mb-0" aria-label="breadcrumb">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Manage Film</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-
-                <!-- Content-->
+        <jsp:include page="../dashboard/main.jsp"></jsp:include>
+            <main id="main" class="container-fluid">
                 <section class="container-fluid">
-
-                    <!-- Page Title-->
-                    <!-- / Page Title-->
-
-                    <!-- Middle Row Widgets-->
                     <div class="row g-4 mb-4 mt-0">
-                        <!-- Latest Orders-->
                         <div class="col-12">
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
@@ -268,7 +218,7 @@
                                             <tr>
                                                 <td>Description</td>
                                                 <td>
-                                                    <input type="text" name="description" id="des" class="form-control" required onblur="validateDes()" />
+                                                    <textarea type="text" name="description" id="des" rows="5" class="form-control" required onblur="validateDes()"></textarea>
                                                     <span class="text-danger" id="desErr"></span>
                                                 </td>
                                             </tr>
@@ -289,34 +239,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Latest Orders-->
-
-                </div>
-                <!-- / Middle Row Widgets-->
-
-                <!-- Focus later in iter3-->
-                <%--<jsp:include page="../common/admin/focuslater3.jsp"></jsp:include>--%>
-
-                <!-- Footer -->
-                <jsp:include page="../common/admin/footer.jsp"></jsp:include>
-
-                    <!-- Sidebar Menu Overlay-->
-                    <div class="menu-overlay-bg"></div>
-
-                </section>
-                <!-- / Content-->
-
-            </main>
-            <!-- /Page Content -->
-
-            <!-- Page Aside-->
-        <jsp:include page="../common/admin/aside.jsp"></jsp:include>
-            <!-- Theme JS -->
-            <!-- Vendor JS -->
-            <script src="${pageContext.request.contextPath}/./assets/js/vendor.bundle.js"></script>
-
-        <!-- Theme JS -->
-        <script src="${pageContext.request.contextPath}/./assets/js/theme.bundle.js"></script>
+            </section>
+        </main>
     </body>
-
 </html>
