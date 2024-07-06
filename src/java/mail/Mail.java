@@ -83,17 +83,43 @@ public class Mail {
             //
 
             // HTML content
-            String htmlContent = "Thank for booking ticket!" 
-                    +"<h3>Film ticket details</h3><br>" 
-                    +"<p><strong>Ticket Code:</strong> ${ticket.code}</p><br>"
-                    + "<p><strong>Movie:</strong> ${movie.movie_name}</p><br>"
-                    + "<p><strong>Date watch:</strong> ${show.date} | <strong>Time:</strong> ${show.showtiming}:00</p><br>"
-                    + "<p><strong>Room:</strong> ${show.room_name}</p><br>"
-                    + "<p><strong>Seat:</strong> ${ticket.seat}</p><br>"
-                    + "<p><strong>Combo:</strong> ${ticket.combo}</p><br>"
-                    + "<p><strong>Total Price:</strong> ${ticket.totalprice} VND</p><br>"
-                    + "<p><strong>User:</strong> ${user.fullname}</p><br>"
-                    + "<p><strong>Date book:</strong> ${ticket.date}</p><br>";
+            String htmlContent = "<!DOCTYPE html>"
+                + "<html>"
+                + "<head>"
+                + "<style>"
+                + "body { font-family: Arial, sans-serif; }"
+                + ".container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }"
+                + ".header { text-align: center; }"
+                + ".header img { max-width: 100%; }"
+                + ".details { margin-top: 20px; }"
+                + ".details p { margin: 5px 0; }"
+                + ".qr-code { text-align: center; margin-top: 20px; }"
+                + "</style>"
+                + "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\">"
+                + "</head>"
+                + "<body>"
+                + "<div class='container'>"
+                + "<div class='header'>"
+                + "<h2>Thank you for booking a ticket!</h2>"
+                + "<img src='movie_poster_url' alt='Movie Poster'>"
+                + "</div>"
+                + "<div class='details'>"
+                + "<p><strong>Ticket Code:</strong> ${ticket.code}</p>"
+                + "<p><strong>Movie:</strong> ${movie.movie_name}</p>"
+                + "<p><strong>Date Watch:</strong> ${show.date} | <strong>Time:</strong> ${show.showtiming}:00</p>"
+                + "<p><strong>Room:</strong> ${show.room_name}</p>"
+                + "<p><strong>Seat:</strong> ${ticket.seat}</p>"
+                + "<p><strong>Combo:</strong> ${ticket.combo}</p>"
+                + "<p><strong>Total Price:</strong> ${ticket.totalprice} VND</p>"
+                + "<p><strong>User:</strong> ${user.fullname}</p>"
+                + "<p><strong>Date Book:</strong> ${ticket.date}</p>"
+                + "</div>"
+                + "<div class='qr-code'>"
+                + "<img src='generateQR?text=${ticket.code}' style='width: 200px; height: 200px;'/>"
+                + "</div>"
+                + "</div>"
+                + "</body>"
+                + "</html>";
 
             String totalprice = ""+ tick.getTotalprice();
             // Replacing placeholders with actual values
@@ -106,7 +132,8 @@ public class Mail {
                     .replace("${ticket.combo}", tick.getComboToString(tick.getCombo()))
                     .replace("${ticket.totalprice}", totalprice)
                     .replace("${user.fullname}", user.getFullname())
-                    .replace("${ticket.date}", tick.getDate_book());
+                    .replace("${ticket.date}", tick.getDate_book())
+                    ;
 
             
             // Set content
