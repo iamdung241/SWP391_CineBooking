@@ -3,25 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package payment;
+package qrcode;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.http.HttpServlet;
-import dal.ConcessionDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import model.Concession;
+import java.io.OutputStream;
 
 /**
  *
  * @author tranh
  */
-public class paymentServlet extends HttpServlet {
+public class generateQR extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +39,10 @@ public class paymentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet paymentServlet</title>");  
+            out.println("<title>Servlet generateQR</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet paymentServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet generateQR at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -50,48 +51,39 @@ public class paymentServlet extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
-     * @param req servlet request
-     * @param resp servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-    throws ServletException, IOException {
-        String showtime = req.getParameter("showtime");
-        String seat = req.getParameter("seat");
-        String totalprice = req.getParameter("total");
-        String[] ids = req.getParameterValues("name");
-        List<Concession> combo = new ArrayList<>();
-        if (ids != null) {
-            for (String id : ids) {
-                String[] name = id.split("-");
-                Concession c = new ConcessionDAO().getConcessionByID(Integer.parseInt(name[0]));
-                String quantity = name[1];
-                c.setQuantity(Integer.parseInt(quantity));
-                combo.add(c);               
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String qrCodeText = request.getParameter("text");
+        int size = 200; // Kích thước của QR code
+
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, size, size);
+            response.setContentType("image/png");
+            try (OutputStream outputStream = response.getOutputStream()) {
+                MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
             }
-            req.setAttribute("combo", combo);
+        } catch (WriterException e) {
+            e.getMessage();
         }
-        HttpSession session = req.getSession();
-        session.setAttribute("showtime", showtime);
-        session.setAttribute("seat", seat);
-        session.setAttribute("price", totalprice);
-        session.setAttribute("combo", combo);
-        req.getRequestDispatcher("pay/vnpay_pay.jsp").forward(req, resp);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
-     * @param req servlet request
-     * @param resp servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(req, resp);
+        processRequest(request, response);
     }
 
     /** 

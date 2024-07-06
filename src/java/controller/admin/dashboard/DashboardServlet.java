@@ -15,6 +15,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  *
@@ -36,12 +37,12 @@ public class DashboardServlet extends HttpServlet {
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String startDateParam = request.getParameter("startDate");
+        String endDateParam = request.getParameter("endDate");
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(7);
-
-        String startDateParam = request.getParameter("startDate");
-        String endDateParam = request.getParameter("endDate");
 
         if (startDateParam == null || endDateParam == null) {
             startDateParam = startDate.format(formatter);
@@ -53,21 +54,29 @@ public class DashboardServlet extends HttpServlet {
         double totalRevenue = dao.getTotalRevenue(startDateParam, endDateParam);
         int totalOrders = dao.getTotalOrders(startDateParam, endDateParam);
         double averageOrder = dao.getAverageOrder(startDateParam, endDateParam);
+        Map<String, Double> revenueByTypeMovie = dao.getRevenueByTypeMovie(startDateParam, endDateParam);
+        Map<String, Integer> orderStatistics = dao.getOrderStatistics(startDateParam, endDateParam);
 
-        
         // Format the total revenue and average order
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
         String formattedTotalRevenue = currencyFormatter.format(totalRevenue).replace("₫", "VNĐ");
         String formattedAverageOrder = currencyFormatter.format(averageOrder).replace("₫", "VNĐ");
-
+        
+        System.out.println("Total Revenue: " + formattedTotalRevenue);
+        System.out.println("Total Orders: " + totalOrders);
+        System.out.println("Average Order: " + formattedAverageOrder);
+        System.out.println("Revenue By Type Movie: " + revenueByTypeMovie);
+        System.out.println("Order Statistics: " + orderStatistics);
         
         request.setAttribute("totalRevenue", formattedTotalRevenue);
         request.setAttribute("totalOrders", totalOrders);
         request.setAttribute("averageOrder", formattedAverageOrder);
+        request.setAttribute("revenueByTypeMovie", revenueByTypeMovie);
+        request.setAttribute("orderStatistics", orderStatistics);
         request.setAttribute("startDate", startDateParam);
         request.setAttribute("endDate", endDateParam);
-
+        
         request.setAttribute("defaultStartDate", startDate.format(formatter));
         request.setAttribute("defaultEndDate", endDate.format(formatter));
 

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.SeatServlet</servlet-class>
@@ -65,16 +64,16 @@
         <servlet-class>controller.ShowTicket</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ShowtimeController</servlet-name>
+        <servlet-class>controller.ShowtimeController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddNewShowtimeServlet</servlet-name>
         <servlet-class>controller.AddNewShowtimeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateShowtimeServlet</servlet-name>
-        <servlet-class>controller.UpdateShowtimeServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ShowtimeController</servlet-name>
-        <servlet-class>controller.ShowtimeController</servlet-class>
+        <servlet-name>generateQR</servlet-name>
+        <servlet-class>qrcode.generateQR</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -141,21 +140,19 @@
         <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ShowtimeController</servlet-name>
+        <url-pattern>/showtimeControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddNewShowtimeServlet</servlet-name>
         <url-pattern>/addNewShowtime</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateShowtimeServlet</servlet-name>
-        <url-pattern>/updateShowtime</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowtimeController</servlet-name>
-        <url-pattern>/showtimeControl</url-pattern>
+        <servlet-name>generateQR</servlet-name>
+        <url-pattern>/generateQR</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout> 30 </session-timeout>
     </session-config>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>

@@ -42,7 +42,7 @@
                         Combo<br>
                         <c:forEach items="${sessionScope.combo}" var="c">
                             <span>${c.concessions_name}</span>
-                            <span>${c.quantity}</span><br>
+                            <span style="color: red">${c.quantity}</span><br>
                         </c:forEach>
                     </div>
                     <div class="form-group">
