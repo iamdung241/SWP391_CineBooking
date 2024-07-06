@@ -22,6 +22,11 @@
                                 <h6 class="card-title m-0">List Showtime</h6>
                                 <a class="btn btn-sm btn-primary" href="addNewShowtime"><i class="ri-add-circle-line align-bottom"></i> Add Showtime</a>
                             </div>
+                            <c:if test="${not empty successMessage}">
+                                <div class="alert alert-success" role="alert">
+                                    ${successMessage}
+                                </div>
+                            </c:if>
                             <div class="card-body">
                                 <div class="table-responsive" style="max-height: 530px">
                                     <table class="table table-bordered table-hover align-middle overflow-auto">
@@ -47,7 +52,7 @@
                                                 <td>${showtime.getShowtiming()}</td> 
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a class="btn btn-sm text-success" href="showtimeControl?mode=update&showtimeID=${showtime.getShowtime_id()}" style="color: white">
+                                                        <a class="btn btn-sm text-success" href="updateShowtime?showtimeID=${showtime.getShowtime_id()}" style="color: white">
                                                             <i class="fas fa-edit"></i> Edit
                                                         </a>
                                                     </div> 

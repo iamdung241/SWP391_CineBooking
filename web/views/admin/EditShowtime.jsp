@@ -1,12 +1,12 @@
 <%-- 
-    Document   : AddShowtime
-    Created on : Jul 3, 2024, 1:46:08 PM
+    Document   : EditShowtime
+    Created on : Jul 5, 2024, 10:40:16 PM
     Author     : thanh
 --%>
 
-\<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
     <!-- Head -->
@@ -33,7 +33,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-        <title></title>
+
         <!-- Fix for custom scrollbar if JS is disabled-->
         <noscript>
         <style>
@@ -48,7 +48,7 @@
 
         <script>
             function validateShowtime() {
-                var showtime = document.getElementById("showtime").value;
+                var showtime = document.getElementById("showtiming").value;
                 var showtimeErr = document.getElementById("showtimeErr");
                 var validShowtimes = [7, 10, 13, 16, 19, 22];
 
@@ -79,43 +79,14 @@
                     return false;
                 }
             }
-            
-            var movieList = [];
-            <c:forEach var="movie" items="${listMovie}">
-            movieList.push("${movie.getMovie_name()}".trim());
-            </c:forEach>
-            console.log(movieList);
-            function validateMovie() {
-                var movieInput = document.getElementById("movie").value.trim();
-                var movieErr = document.getElementById("movieErr");
-                var isValid = false;
-                isValid = movieList.some(function (movie) {
-                    return movie.toLowerCase() === movieInput.toLowerCase();
-                });
-                if (!isValid) {
-                    movieErr.textContent = "You must enter a correct movie name that is currently showing.";
-                } else {
-                    movieErr.textContent = "";
-                }
-                return isValid;
-            }
-
-            function validateRoom() {
-                var dropdown = document.querySelector('select[name="room"]');
-                const roomErr = document.getElementById("roomErr");
-                if (dropdown.value === "all") {
-                    roomErr.textContent = "Please choose the room.";
-                    return false; // Prevent form submission
-                }
-                roomErr.textContent = "";
-                return true;
-            }
         </script>
+
     </head>
     <body class="">
 
         <!--Header-->
         <jsp:include page="../common/admin/header.jsp"></jsp:include>
+
             <!-- Page Content -->
             <main id="main">
 
@@ -125,9 +96,14 @@
                         <nav class="mb-0" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Manage Showtime</li>
+                                <li class="breadcrumb-item active" aria-current="page">Manage Film</li>
                             </ol>
                         </nav>
+                        <div class="d-flex justify-content-end align-items-center mt-3 mt-md-0">
+                            <a class="btn btn-sm btn-primary" href="#"><i class="ri-add-circle-line align-bottom"></i> New Project</a>
+                            <a class="btn btn-sm btn-primary-faded ms-2" href="#"><i class="ri-settings-3-line align-bottom"></i> Settings</a>
+                            <a class="btn btn-sm btn-secondary-faded ms-2 text-body" href="#"><i class="ri-question-line align-bottom"></i> Help</a>
+                        </div>
                     </div>
                 </div>
 
@@ -143,63 +119,57 @@
                         <div class="col-12">
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
-                                    <h6 class="card-title m-0">Add Showtime</h6>
+                                    <h6 class="card-title m-0">Update Showtime</h6>
                                     <a class="btn btn-sm btn-primary" href="showtimeControl"><i class="align-bottom"></i>Back</a>
-                                </div>
+                                </div>                            
                                 <div class="container">
                                 <c:if test="${not empty errorMessage}">
                                     <div class="alert alert-danger">
                                         <strong>Error!</strong> ${errorMessage}
                                     </div>
                                 </c:if>
-                                <form action="addNewShowtime" method="post">
+                                <form action="updateShowtime" method="post">
                                     <div class="table-responsive">
+                                        <c:set value="${showtimeUpdate}" var="s"/>
                                         <table class="table">
                                             <tr>
                                                 <td>ID</td>
-                                                <td><input type="text" class="form-control" readonly=""/></td>
+                                                <td><input name="id" type="text" class="form-control" readonly="" value="${s.getShowtime_id()}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Movie name</td>
+                                                <td><input name="movie" type="text" class="form-control" readonly="" value="${s.getMovie_name()}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Room</td>
+                                                <td>
+                                                    <select name="room" class="form-control text-center">
+                                                        <c:forEach items="${listRoom}" var="r">
+                                                            <option value="${r.getRoom_id()}" ${r.getRoom_id() == s.getRoom_id() ? 'selected' : ''}>${r.getRoom_name()}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Showtime</td>
                                                 <td>
-                                                    <input type="text" id="showtime" name="showtime" class="form-control" required onblur="validateShowtime()"/>
+                                                    <input name="showtiming" id="showtiming" type="text" class="form-control" required value="${s.getShowtiming()}" onblur="validateShowtime()"/>
                                                     <span class="text-danger" id="showtimeErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Date</td>
                                                 <td>
-                                                    <input type="date" id="date" name="date" class="form-control" required onblur="validateDate()"/>
+                                                    <input name="date" id="date" type="date" class="form-control" required value="${s.getDate()}" onblur="validateDate()"/>
                                                     <span class="text-danger" id="dateErr"></span>
                                                 </td>
+                                                
                                             </tr>
-                                            <tr>
-                                                <td>Movie name</td>
-                                                <td>
-                                                    <input type="text" id="movie" name="movie" class="form-control" required onblur="validateMovie()"/>
-                                                    <span class="text-danger" id="movieErr"></span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Room</td>
-                                                <td>
-                                                   <select name="room" class="form-control text-center" onblur="validateRoom()">
-                                                        <option value="all">Choose the room</option>    
-                                                        <c:forEach items="${listRoom}" var="r">
-                                                            <option value="${r.getRoom_id()}">${r.getRoom_name()}</option>
-                                                        </c:forEach>    
-                                                    </select>
-                                                    <span class="text-danger" id="roomErr"></span>  
-                                                </td>
-                                            </tr>
-
                                         </table>
                                     </div>
-
                                     <div class="container-fluid d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-success" id="addButton">Add</button>
+                                        <button type="submit" class="btn btn-success">Update</button>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -210,6 +180,8 @@
                 </div>
                 <!-- / Middle Row Widgets-->
 
+                <!-- Focus later in iter3-->
+                <%--<jsp:include page="../common/admin/focuslater3.jsp"></jsp:include>--%>
 
                 <!-- Footer -->
                 <jsp:include page="../common/admin/footer.jsp"></jsp:include>

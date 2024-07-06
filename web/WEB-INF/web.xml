@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.SeatServlet</servlet-class>
@@ -65,8 +64,8 @@
         <servlet-class>controller.ShowTicket</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShowtimeControlServlet</servlet-name>
-        <servlet-class>controller.ShowtimeControlServlet</servlet-class>
+        <servlet-name>ShowtimeController</servlet-name>
+        <servlet-class>controller.ShowtimeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddNewShowtimeServlet</servlet-name>
@@ -141,7 +140,7 @@
         <url-pattern>/ShowTicket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ShowtimeControlServlet</servlet-name>
+        <servlet-name>ShowtimeController</servlet-name>
         <url-pattern>/showtimeControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -153,9 +152,7 @@
         <url-pattern>/generateQR</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout> 30 </session-timeout>
     </session-config>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>

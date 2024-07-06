@@ -56,27 +56,33 @@
                                     <input type="text" id="code" name="code" required />
                                     <button type="submit" class="bookTicket">Search Code</button>
                                 </form>
-                                <jsp:include page="QRCode.jsp"></jsp:include>
+                            <jsp:include page="QRCode.jsp"></jsp:include>
                             </div>
-                            
+
                             <div class="col-7">
-                                <div class="ticketDetail">
+                                <div class="ticketDetail row">
                                 <c:if test="${param.code != null}">
                                     <c:choose>
                                         <c:when test="${ticket != null}">
                                             <div class="exep1r">
                                                 <c:if test="${ticket.getStatus() == 'Nocheck'}">
                                                     <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>  
-                                                </c:if>
-                                                 <c:if test="${ticket.getStatus() == 'Checked'}">
+                                                    </c:if>
+                                                    <c:if test="${ticket.getStatus() == 'Checked'}">
                                                     <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>  
-                                                </c:if>                                     
+                                                    </c:if>                                     
                                             </div>
                                             <hr style="background-color: #000"/>
-                                            <div>
+                                            <div class="col-4">
+                                                <img border="2px" width="200px" height="250px" src="${ticket.getMovieImage()}" alt="movieImage"/>
+                                            </div>
+                                            <div class="col-7">
                                                 <ul>
                                                     <li>
-                                                        <span>Showtime:</span>&nbsp&nbsp ${ticket.showtimeId}
+                                                        <span>Movie:</span>&nbsp&nbsp ${ticket.getMovieName()}
+                                                    </li>
+                                                    <li>
+                                                        <span>Showtime:</span>&nbsp&nbsp ${ticket.getShowtime().getShowtiming()}
                                                     </li>
                                                     <li>
                                                         <span>Seat:</span>&nbsp&nbsp 
@@ -85,25 +91,34 @@
                                                         </c:forEach>
                                                     </li>
                                                     <li>
-                                                        <span>Combo:</span>&nbsp&nbsp <br>
-                                                        <c:forEach items="${ticket.combo}" var="tc">
-                                                            ${tc.concessions_name} - Sl : ${tc.quantity} <br>
-                                                        </c:forEach>
+                                                        <c:if test="${not empty ticket.combo}">
+                                                            <span>Combo:</span>&nbsp;&nbsp;<br>
+                                                            <c:forEach items="${ticket.combo}" var="tc">
+                                                                ${tc.concessions_name} - <span style="font-weight: bold">Quantity :</span> ${tc.quantity} <br>
+                                                            </c:forEach>
+                                                        </c:if>
                                                     </li>
                                                     <li>
                                                         <span>Date:</span>&nbsp&nbsp ${ticket.getDate_book()}
                                                     </li>
+                                                    <li>
+                                                        <span>Total price:</span>&nbsp&nbsp ${ticket.getTotalprice()}
+                                                    </li>
                                                     <hr style="background-color: #000"/>
                                                     <li>
                                                         <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                            <form action="scanticket" method="post">
-                                                                <input type="hidden" name="code" value="${ticket.getCode()}" />
-                                                                <button type="submit" class="bookTicket">Accept</button>
-                                                            </form>
+                                                            <c:choose>
+                                                                <c:when test="${showAcceptButton}">
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <form action="scanticket" method="post">
+                                                                        <input type="hidden" name="code" value="${ticket.getCode()}" />
+                                                                        <button type="submit" class="bookTicket">Accept</button>
+                                                                    </form>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:if>
-                                                        <c:if test="${ticket.getStatus() == 'Checked'}">
-                                                            <button class="bookTicket">View</button>
-                                                        </c:if>
+
                                                     </li>
                                                 </ul>
                                             </div>
@@ -122,7 +137,7 @@
                 </div>
             </section>
         </div>
-         
+
 
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
 
