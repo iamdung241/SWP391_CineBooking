@@ -35,7 +35,7 @@ public class DashboardDAO extends DBContext {
         String query = "SELECT COUNT(*) AS totalOrders FROM Ticket_Detail WHERE date_book BETWEEN ? AND ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, startDate);
-            ps.setString(2, endDate);
+            ps.setString(2, endDate) ;
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     totalOrders = rs.getInt("totalOrders");

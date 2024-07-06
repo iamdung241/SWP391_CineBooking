@@ -59,7 +59,7 @@ public class AdminSearch_Filter extends HttpServlet {
     private static final String KEY_SEARCH = "searchAdmin";
     private static final String TYPE_SEARCH = "typeId";
     private static final String ACT = "ACT";
-    private static final String MANAGEMOVIE_ADMIN = "views/admin/managefilm.jsp";
+    private static final String MANAGEMOVIE_ADMIN = "views/dashboard/managefilm.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

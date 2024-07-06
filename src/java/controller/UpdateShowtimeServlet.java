@@ -9,6 +9,7 @@ import dal.ShowtimingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import model.Showtiming;
  *
  * @author thanh
  */
+@WebServlet(name = "UpdateShowtimeServlet", urlPatterns = {"/updateShowtime"})
 public class UpdateShowtimeServlet extends HttpServlet {
 
     /**
@@ -72,7 +74,7 @@ public class UpdateShowtimeServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             e.getMessage();
         }
-        request.getRequestDispatcher("/views/admin/EditShowtime.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
     }
 
     /**
@@ -100,10 +102,10 @@ public class UpdateShowtimeServlet extends HttpServlet {
             request.setAttribute("successMessage", "Edit showtime successfully");
             List<Showtiming> listShowtime = showDao.getListShowtiming();
             request.setAttribute("listShowtime", listShowtime);
-            request.getRequestDispatcher("/views/admin/ManageShowtime.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/dashboard/manageshowtime.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "Update showtime fail");
-            request.getRequestDispatcher("/views/admin/EditShowtime.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
         }
     }
 
