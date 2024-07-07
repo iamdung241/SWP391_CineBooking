@@ -298,5 +298,59 @@ public class TicketDAO extends DBContext {
         }
         return null;
     }
-    
+
+//    public Ticket getTicketByCode(String code) {
+//        String sql = "select * from Ticket t join Showtime s on t.showtime_id = s.showtime_id where t.code = ?";
+//        try {
+//            stm = connection.prepareStatement(sql);
+//            stm.setString(1, code);
+//            rs = stm.executeQuery();
+//            while (rs.next()) {
+//                String codeTicket = rs.getString(2);
+//                String seat = rs.getString(5);
+//                int totalprice = rs.getInt(7);
+//                String combo = rs.getString(6);
+//                String payment = rs.getString(8);
+//                String status = rs.getString(9);
+//                String date_book = rs.getString(10);
+//                String showtime = rs.getString(12);
+//                Ticket ticket = new Ticket(code, seat, totalprice, combo, payment, status, date_book, showtime);
+//                return ticket;
+//            }
+//        } catch (SQLException e) {
+//            e.getMessage();
+//        }
+//        return null;
+//    }
+    public List<Ticket> getTicketsByUserId(int userId) {
+        List<Ticket> tickets = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Ticket] WHERE account_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Ticket ticket = new Ticket();
+                ticket.setId(rs.getInt("ticket_id"));
+                ticket.setCode(rs.getString("code"));
+                ticket.setAccountId(rs.getInt("account_id"));
+                ticket.setStatus(rs.getString("status"));
+                ticket.setShowtimeId(rs.getInt("showtime_id"));
+                ticket.setTotalprice(rs.getInt("totalprice"));
+                ticket.setDate_book(rs.getString("date_book"));
+                ticket.setSeat(getSeatOrderBy_TicketId(ticket.getId()));
+                ticket.setCombo(getConcessionsOrderBy_TicketId(ticket.getId()));
+                tickets.add(ticket);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tickets;
+    }
+
+    public static void main(String[] args) {
+
+    }
+
+
 }

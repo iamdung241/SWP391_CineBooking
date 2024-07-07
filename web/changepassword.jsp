@@ -176,7 +176,7 @@
                                 <h4><i class="fa fa-user icon"></i>My Profile</h4>
                                 <div class="menu-nav">
                                     <a href="changepassword.jsp?userID=${sessionScope.user.account_id}" class="menu-nav-item user-info"><i class="fa fa-lock icon"></i>Change Password</a>
-                                    <a href="#" class="menu-nav-item buy-history"><i class="fa fa-history icon"></i>Order History</a>
+                                    <a href="OrderHistory.jsp?userID=${sessionScope.user.account_id}" class="menu-nav-item buy-history"><i class="fa fa-history icon"></i>Order History</a>
                                 </div>
                             </div>
                             <div class="col-sm-8 user-profile-info">
