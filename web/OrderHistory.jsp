@@ -1,7 +1,7 @@
 <%-- 
-    Document   : Home
-    Created on : May 19, 2024, 6:28:04 PM
-    Author     : DungTT
+    Document   : OrderHistory
+    Created on : Jul 7, 2024, 7:18:57 PM
+    Author     : Tran Anh Vu
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -181,32 +181,41 @@
                             </div>
                             <div class="col-sm-8 user-profile-info">
                                 <div class="user-profile-desc">
-                                    <h3 class="text-center"><i class="fa fa-info-circle icon"></i>My Information</h3>
-                                    <form id="myForm" action="customerController" method="get" class="edit-form" onsubmit="return validateForm()">
-                                        <input type="hidden" name="service" value="updateProfile" />
-                                        <input type="hidden" name="userID" value="${sessionScope.user.account_id}" />
-                                        <div class="form-group">
-                                            <label for="fullname">Full Name</label>
-                                            <input type="text" name="fullname" id="fullname" value="${account.fullname}" class="form-control" onblur="validateFullName()" />
-                                            <span class="error" id="fullnameError"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phone">Phone number</label>
-                                            <input type="text" name="phone" id="phone" value="${account.phone}" class="form-control" onblur="validatePhone()" />
-                                            <span class="error" id="phoneError"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="text" name="email" id="email" value="${account.email}" class="form-control" onblur="validateEmail()" />
-                                            <span class="error" id="emailError"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="username">Username</label>
-                                            <input type="text" name="username" id="username" value="${account.username}" class="form-control" onblur="validateUsername()" readonly/>
-                                            <span class="error" id="usernameError"></span>
-                                        </div>
-                                        <input type="submit" value="Update my profile" />
-                                    </form>
+                                    <h3 class="text-center"><i class="fa fa-info-circle icon"></i>Order History</h3>
+                                    <a class="container btn btn-primary mb-3" href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
+                                    <div class="container overflow-auto" style="max-height: 500px">
+                                        <c:forEach var="ticket" items="${tickets}">
+                                            <div class="card mb-5 border-danger">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Ticket Code: ${ticket.code}</h5>
+                                                    <p class="card-text"><strong>Movie:</strong> ${ticket.movieName}</p>
+                                                    <p class="card-text"><strong>Showtime:</strong> ${ticket.showtime.showtiming}:00</p>
+                                                    <p class="card-text"><strong>Room:</strong> ${ticket.showtime.room_name}</p>
+                                                    <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
+                                                    <p class="card-text"><strong>Total Price:</strong> ${ticket.totalprice} VND</p>
+                                                    <p class="card-text"><strong>Status:</strong> ${ticket.status}</p>
+                                                    <p class="card-text"><strong>Date Booked:</strong> ${ticket.date_book}</p>
+                                                    <p class="card-text"><strong>Seats:</strong>
+                                                        <c:forEach items="${ticket.seat}" var="s">
+                                                            ${s.seat_name}
+                                                        </c:forEach>
+                                                    </p>
+                                                    <c:if test="${ticket.combo != null}">
+                                                        <p class="card-text"><strong>Combos:</strong>
+                                                            <c:forEach items="${ticket.combo}" var="tc">
+                                                                ${tc.concessions_name}/SL: ${tc.quantity} <br>
+                                                            </c:forEach>
+                                                        </p>        
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+
+                                    </div>
+
+
+
+
                                     <c:if test="${not empty message}">
                                         <div class="alert alert-success">
                                             ${message}
@@ -220,67 +229,5 @@
             </div>
             <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
         </div>
-        <script>
-            function validateFullName() {
-                var fullname = document.getElementById("fullname").value.trim();
-                var fullnameError = document.getElementById("fullnameError");
-                var fullnameRegex = /^[\p{L}\s]{6,30}$/u;
-                if (!fullnameRegex.test(fullname) || fullname === "") {
-                    fullnameError.textContent = "Fullname must be 6-30 characters long, only contain letters and spaces.";
-                    return false;
-                }
-                fullnameError.textContent = "";
-                return true;
-            }
-
-            function validatePhone() {
-                var phone = document.getElementById("phone").value;
-                var phoneError = document.getElementById("phoneError");
-                var phoneRegex = /^(09|03|07|08)\d{8,9}$/;
-                if (!phoneRegex.test(phone)) {
-                    phoneError.textContent = "Valid phone number is required (must start with 09, 03, 07, or 08 and be 10-11 digits long).";
-                    return false;
-                }
-                phoneError.textContent = "";
-                return true;
-            }
-
-            function validateEmail() {
-                var email = document.getElementById("email").value;
-                var emailError = document.getElementById("emailError");
-                var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-                if (!emailRegex.test(email)) {
-                    emailError.textContent = "Valid email is required.";
-                    return false;
-                }
-                emailError.textContent = "";
-                return true;
-            }
-
-            function validateUsername() {
-                var username = document.getElementById("username").value;
-                var usernameError = document.getElementById("usernameError");
-                var usernameRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
-                if (!usernameRegex.test(username)) {
-                    usernameError.textContent = "Username must be 6-20 characters long, contain both letters and numbers, and not contain any spaces.";
-                    return false;
-                }
-                usernameError.textContent = "";
-                return true;
-            }
-
-            function validateForm() {
-                const isFullNameValid = validateFullName();
-                const isPhoneValid = validatePhone();
-                const isEmailValid = validateEmail();
-                const isUsernameValid = validateUsername();
-                return isFullNameValid && isPhoneValid && isEmailValid && isUsernameValid;
-            }
-
-            document.getElementById('fullname').addEventListener('blur', validateFullName);
-            document.getElementById('phone').addEventListener('blur', validatePhone);
-            document.getElementById('email').addEventListener('blur', validateEmail);
-            document.getElementById('username').addEventListener('blur', validateUsername);
-        </script>
     </body>
 </html>
