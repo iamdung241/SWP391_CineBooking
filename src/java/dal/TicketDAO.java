@@ -206,11 +206,12 @@ public class TicketDAO extends DBContext {
 
     public Showtiming getShowtimeByTicketID(int ticket_id) {
         String sql = "select * from Showtime s \n"
-                + "join Ticket_Detail td\n"
-                + "on td.showtime_id = s.showtime_id\n"
-                + "join Movie m\n"
-                + "on m.movie_id = s.movie_id\n"
-                + "where td.ticket_id = ?";
+                + "                join Ticket_Detail td\n"
+                + "                on td.showtime_id = s.showtime_id\n"
+                + "                join Movie m\n"
+                + "                on m.movie_id = s.movie_id\n"
+                + "				join Room r on r.room_id = s.room_id\n"
+                + "                where td.ticket_id = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, ticket_id);
@@ -222,6 +223,7 @@ public class TicketDAO extends DBContext {
                 showtime.setMovie_name(rs.getString(12));
                 showtime.setMovieImage(rs.getString(16));
                 showtime.setDate(rs.getString(5));
+                showtime.setRoom_name(rs.getString("room_name"));
                 return showtime;
             }
         } catch (SQLException e) {
@@ -248,7 +250,6 @@ public class TicketDAO extends DBContext {
             if (rs.next()) {
                 int Tid = rs.getInt(1);
                 Ticket tick = new Ticket();
-                MovieDAO movieDao = new MovieDAO();
                 tick.setId(rs.getInt(1));
                 tick.setCode(rs.getString(2));
                 tick.setAccountId(rs.getInt(3));
@@ -299,58 +300,50 @@ public class TicketDAO extends DBContext {
         return null;
     }
 
-//    public Ticket getTicketByCode(String code) {
-//        String sql = "select * from Ticket t join Showtime s on t.showtime_id = s.showtime_id where t.code = ?";
-//        try {
-//            stm = connection.prepareStatement(sql);
-//            stm.setString(1, code);
-//            rs = stm.executeQuery();
-//            while (rs.next()) {
-//                String codeTicket = rs.getString(2);
-//                String seat = rs.getString(5);
-//                int totalprice = rs.getInt(7);
-//                String combo = rs.getString(6);
-//                String payment = rs.getString(8);
-//                String status = rs.getString(9);
-//                String date_book = rs.getString(10);
-//                String showtime = rs.getString(12);
-//                Ticket ticket = new Ticket(code, seat, totalprice, combo, payment, status, date_book, showtime);
-//                return ticket;
-//            }
-//        } catch (SQLException e) {
-//            e.getMessage();
-//        }
-//        return null;
-//    }
     public List<Ticket> getTicketsByUserId(int userId) {
         List<Ticket> tickets = new ArrayList<>();
-        String sql = "SELECT * FROM [dbo].[Ticket] WHERE account_id = ?";
-        try {
-            stm = connection.prepareStatement(sql);
-            stm.setInt(1, userId);
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Ticket ticket = new Ticket();
-                ticket.setId(rs.getInt("ticket_id"));
-                ticket.setCode(rs.getString("code"));
-                ticket.setAccountId(rs.getInt("account_id"));
-                ticket.setStatus(rs.getString("status"));
-                ticket.setShowtimeId(rs.getInt("showtime_id"));
-                ticket.setTotalprice(rs.getInt("totalprice"));
-                ticket.setDate_book(rs.getString("date_book"));
-                ticket.setSeat(getSeatOrderBy_TicketId(ticket.getId()));
-                ticket.setCombo(getConcessionsOrderBy_TicketId(ticket.getId()));
-                tickets.add(ticket);
+        String sql = "SELECT t.ticket_id, t.code, t.account_id, t.status, td.showtime_id, td.totalprice, td.date_book "
+                + "FROM Ticket t "
+                + "JOIN Ticket_Detail td ON t.ticket_id = td.ticket_id "
+                + "WHERE t.account_id = ?";
+        try (PreparedStatement stms = connection.prepareStatement(sql)) {
+            stms.setInt(1, userId);
+            try (ResultSet rs1 = stms.executeQuery()) {
+                while (rs1.next()) {
+                    int Tid = rs1.getInt(1);
+                    Ticket tick = new Ticket();
+                    tick.setId(Tid);
+                    tick.setCode(rs1.getString(2));
+                    tick.setAccountId(rs1.getInt(3));
+                    tick.setStatus(rs1.getString(4));
+                    tick.setShowtimeId(rs1.getInt(5));
+                    tick.setTotalprice(rs1.getInt(6));
+                    tick.setDate_book(rs1.getString(7));
+                    tick.setSeat(getSeatOrderBy_TicketId(Tid));
+                    tick.setCombo(getConcessionsOrderBy_TicketId(Tid));
+                    Showtiming showtime = getShowtimeByTicketID(Tid);
+                    tick.setShowtime(showtime);
+                    tick.setMovieName(showtime.getMovie_name());
+                    tick.setMovieImage(showtime.getMovieImage());
+                    tickets.add(tick);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage(); // Or use a logger to log the exception
         }
         return tickets;
     }
 
     public static void main(String[] args) {
+        List<Ticket> list = new TicketDAO().getTicketsByUserId(4);
+        for (Ticket ticket : list) {
+            System.out.println(ticket.toString());
+        }
+        List<Seat> lists = new TicketDAO().getSeatOrderBy_TicketId(4);
+        for (Seat seat : lists) {
+            System.out.println(seat.toString());
+        }
 
     }
-
 
 }

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import model.Account;
 import model.Ticket;
@@ -34,6 +35,7 @@ public class OrderHistory extends HttpServlet {
         Account user = (Account) session.getAttribute("user");
         if (user != null) {
             List<Ticket> tickets = ticketDAO.getTicketsByUserId(user.getAccount_id());
+            Collections.reverse(tickets);
             request.setAttribute("tickets", tickets);
         }
         request.getRequestDispatcher("OrderHistory.jsp").forward(request, response);
