@@ -135,7 +135,7 @@ public class FilterServlet extends HttpServlet {
             request.setAttribute("selectedFilter", filter);
             request.setAttribute("keyword", keyword);
 
-            request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
+            request.getRequestDispatcher("../views/dashboard/manageconcessions.jsp").forward(request, response);
         }
     @Override
     public String getServletInfo() {

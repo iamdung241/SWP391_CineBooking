@@ -314,7 +314,8 @@ public class MovieDAO extends DBContext {
                 String postImg = rs.getString(7);
                 String trailer = rs.getString(8);
                 String description = rs.getString(9);
-                Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description);
+                String status = rs.getString(11);
+                Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status);
                 return movie;
             }
         } catch (Exception e) {

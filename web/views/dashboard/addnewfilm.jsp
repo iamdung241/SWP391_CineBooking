@@ -1,16 +1,15 @@
+<%-- 
+    Document   : addnewfilm
+    Created on : 6 thg 7, 2024, 03:23:03
+    Author     : tranh
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
-    <!-- Head -->
+<html>
     <head>
-        <!-- Page Meta Tags-->
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <meta name="keywords" content="">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
         <script>
             function validateAge() {
                 var age = document.getElementById("age").value.trim();
@@ -113,7 +112,7 @@
                 var fileInput = document.getElementById('fileInput');
                 var filePath = fileInput.value;
                 var fileErr = document.getElementById("fileErr");
-                // Các lo?i file ?nh h?p l?
+                // CÃ¡c lo?i file ?nh h?p l?
                 const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
                 if (!allowedExtensions.exec(filePath)) {
@@ -121,9 +120,9 @@
                     fileInput.value = '';
                     return false;
                 } else {
-                    // N?u là file ?nh, ki?m tra thêm kích th??c file
+                    // N?u lÃ  file ?nh, ki?m tra thÃªm kÃ­ch th??c file
                     if (fileInput.files && fileInput.files[0]) {
-                        var fileSize = fileInput.files[0].size / 1024 / 1024; // kích th??c file tính b?ng MB
+                        var fileSize = fileInput.files[0].size / 1024 / 1024; // kÃ­ch th??c file tÃ­nh b?ng MB
                         if (fileSize > 10) {
                             fileErr.textContent = "File size exceeds 10 MB.";
                             fileInput.value = '';
@@ -153,7 +152,7 @@
             }
         </script>
     </head>
-    <body class="">
+    <body>
         <jsp:include page="../dashboard/main.jsp"></jsp:include>
             <main id="main" class="container-fluid">
                 <section class="container-fluid">
@@ -162,7 +161,7 @@
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
                                     <h6 class="card-title m-0">Add Movie</h6>
-                                    <a class="btn btn-sm btn-primary" href="movie"><i class="align-bottom"></i>Back</a>
+                                    <a class="btn btn-sm btn-primary" href="movie"><i class="fas fa-arrow-left me-1"></i> Back</a>
                                 </div>
                                 <div class="container">
                                     <form action="movie?mode=add" method="post" enctype="multipart/form-data" id="add-form">
