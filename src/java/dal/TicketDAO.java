@@ -260,7 +260,7 @@ public class TicketDAO extends DBContext {
             stm.setString(1, code);
             rs = stm.executeQuery();
             while (rs.next()) {
-                
+
             }
         } catch (SQLException e) {
             e.getMessage();
@@ -291,10 +291,34 @@ public class TicketDAO extends DBContext {
 //        }
 //        return null;
 //    }
-    
+    public List<Ticket> getTicketsByUserId(int userId) {
+        List<Ticket> tickets = new ArrayList<>();
+        String sql = "SELECT * FROM [dbo].[Ticket] WHERE account_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Ticket ticket = new Ticket();
+                ticket.setId(rs.getInt("ticket_id"));
+                ticket.setCode(rs.getString("code"));
+                ticket.setAccountId(rs.getInt("account_id"));
+                ticket.setStatus(rs.getString("status"));
+                ticket.setShowtimeId(rs.getInt("showtime_id"));
+                ticket.setTotalprice(rs.getInt("totalprice"));
+                ticket.setDate_book(rs.getString("date_book"));
+                ticket.setSeat(getSeatOrderBy_TicketId(ticket.getId()));
+                ticket.setCombo(getConcessionsOrderBy_TicketId(ticket.getId()));
+                tickets.add(ticket);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tickets;
+    }
+
     public static void main(String[] args) {
-        
-                
+
     }
 
 }

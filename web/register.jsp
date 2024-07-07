@@ -163,7 +163,8 @@
             function validatePassword() {
                 var password = document.getElementById("password").value;
                 var passwordError = document.getElementById("passwordError");
-                var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#\$%\^&\*.,:;]{6,20}$/;;
+                var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#\$%\^&\*.,:;]{6,20}$/;
+                ;
 
                 if (!passwordRegex.test(password) || password.includes(' ') || password.trim() === "") {
                     passwordError.textContent = "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.";
@@ -212,12 +213,24 @@
                     <span id="phoneError" class="error-message">${phoneError}</span>
                 </div>
                 <div>
+                    <% 
+                        String emailGoogle = (String) request.getAttribute("emailGoogle");
+                        if (emailGoogle == null) {
+                    %>
                     <label for="email">Email:</label>
                     <input type="text" id="email" name="email" value="${param.email}" onblur="validateEmail()">
                     <span id="emailError" class="error-message">${emailError}</span>
                     <c:if test="${existedEmail ne null}">
                         <p style="color: red; font-size: 1.25rem; text-align: center">${existedEmail}</p>
                     </c:if>
+                    <%} else {%>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" value="<%= request.getAttribute("emailGoogle") %>" onblur="validateEmail()">
+                    <span id="emailError" class="error-message">${emailError}</span>
+                    <c:if test="${existedEmail ne null}">
+                        <p style="color: red; font-size: 1.25rem; text-align: center">${existedEmail}</p>
+                    </c:if>
+                    <%}%>
                 </div>
                 <div>
                     <label for="username">Username:</label>

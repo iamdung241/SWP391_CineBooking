@@ -28,7 +28,6 @@ public class ChangePasswordServlet extends HttpServlet {
         request.setAttribute("confirmPassword", confirmPassword);
         boolean isValid = true;
 
-        //Testuser1234@1
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByID(userID);
 
@@ -38,7 +37,7 @@ public class ChangePasswordServlet extends HttpServlet {
         if (!newPassword.matches(passwordPattern)) {
             request.setAttribute("errorNew", "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.");
             isValid = false;
-        } 
+        }
         if (!newPassword.equals(confirmPassword)) {
             request.setAttribute("errorConfirm", "Passwords do not match");
             isValid = false;
@@ -54,8 +53,9 @@ public class ChangePasswordServlet extends HttpServlet {
             request.setAttribute("oldPassword", null);
             request.setAttribute("newPassword", null);
             request.setAttribute("confirmPassword", null);
+            response.sendRedirect("login.jsp");
+        } else {
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         }
-        
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
 }
