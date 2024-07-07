@@ -167,8 +167,8 @@
         <div class="main clearfix position-relative">
             <div class="header main_1 clearfix">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-            </div>
-            <div class="main-content container">
+                </div>
+                <div class="main-content container">
                 <c:if test="${sessionScope.user != null}">
                     <div class="user-profile">
                         <div class="row justify-content-between user-profile-container">
@@ -176,27 +176,46 @@
                                 <h4><i class="fa fa-user icon"></i>My Profile</h4>
                                 <div class="menu-nav">
                                     <a href="changepassword.jsp?userID=${sessionScope.user.account_id}" class="menu-nav-item user-info"><i class="fa fa-lock icon"></i>Change Password</a>
-                                    <a href="OrderHistory.jsp?userID=${sessionScope.user.account_id}" class="menu-nav-item buy-history"><i class="fa fa-history icon"></i>Order History</a>
+                                    <a href="OrderHistory?userID=${sessionScope.user.account_id}" class="menu-nav-item buy-history"><i class="fa fa-history icon"></i>Order History</a>
                                 </div>
                             </div>
                             <div class="col-sm-8 user-profile-info">
                                 <div class="user-profile-desc">
                                     <h3 class="text-center"><i class="fa fa-info-circle icon"></i>Order History</h3>
+                                    <a class="container btn btn-primary mb-3" href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
+                                    <div class="container overflow-auto" style="max-height: 500px">
+                                        <c:forEach var="ticket" items="${tickets}">
+                                            <div class="card mb-5 border-danger">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Ticket Code: ${ticket.code}</h5>
+                                                    <p class="card-text"><strong>Movie:</strong> ${ticket.movieName}</p>
+                                                    <p class="card-text"><strong>Showtime:</strong> ${ticket.showtime.showtiming}:00</p>
+                                                    <p class="card-text"><strong>Room:</strong> ${ticket.showtime.room_name}</p>
+                                                    <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
+                                                    <p class="card-text"><strong>Total Price:</strong> ${ticket.totalprice} VND</p>
+                                                    <p class="card-text"><strong>Status:</strong> ${ticket.status}</p>
+                                                    <p class="card-text"><strong>Date Booked:</strong> ${ticket.date_book}</p>
+                                                    <p class="card-text"><strong>Seats:</strong>
+                                                        <c:forEach items="${ticket.seat}" var="s">
+                                                            ${s.seat_name}
+                                                        </c:forEach>
+                                                    </p>
+                                                    <c:if test="${ticket.combo != null}">
+                                                        <p class="card-text"><strong>Combos:</strong>
+                                                            <c:forEach items="${ticket.combo}" var="tc">
+                                                                ${tc.concessions_name}/SL: ${tc.quantity} <br>
+                                                            </c:forEach>
+                                                        </p>        
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
 
-                                    <c:forEach var="ticket" items="${tickets}">
-                                        <div class="ticket">
-                                            <p><strong>Code:</strong> ${ticket.code}</p>
-                                            <p><strong>Showtime ID:</strong> ${ticket.showtimeId}</p>
-                                            <p><strong>Total Price:</strong> ${ticket.totalprice}</p>
-                                            <p><strong>Status:</strong> ${ticket.status}</p>
-                                            <p><strong>Date Booked:</strong> ${ticket.date_book}</p>
-                                            <p><strong>Seats:</strong> ${ticket.getSeatToString(ticket.seat)}</p>
-                                            <p><strong>Combos:</strong> ${ticket.getComboToString(ticket.combo)}</p>
-                                        </div>
-                                    </c:forEach>
-                                    
-                                    <a href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
-                                    
+                                    </div>
+
+
+
+
                                     <c:if test="${not empty message}">
                                         <div class="alert alert-success">
                                             ${message}
