@@ -81,19 +81,23 @@ public class ShowtimingDAO extends DBContext {
     }
 
     public Showtiming getShowtimingByShowtimeID(int showtimeid) {
-        String sql = "select * from Showtime s, Room r where showtime_id = ?";
+        String sql = "select * from Showtime s\n"
+                + "join Room r on s.room_id = r.room_id\n"
+                + "join Movie m on m.movie_id = s.movie_id\n"
+                + "where s.showtime_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, showtimeid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                int showtimeID = rs.getInt(1);
-                String showtimeName = rs.getString(2);
-                int roomID = rs.getInt(3);
-                int movieID = rs.getInt(4);
-                String date = rs.getString(5);
-                String roomName = rs.getString(7);
-                Showtiming showtime = new Showtiming(showtimeID, showtimeName, roomID, date, movieID, roomName);
+                Showtiming showtime = new Showtiming();
+                showtime.setShowtime_id(rs.getInt(1));
+                showtime.setShowtiming(rs.getString(2));
+                showtime.setRoom_id(rs.getInt(3));
+                showtime.setRoom_name(rs.getString(7));
+                showtime.setMovie_id(rs.getInt(4));
+                showtime.setMovie_name(rs.getString(9));
+                showtime.setDate(rs.getString(5));
                 return showtime;
             }
         } catch (SQLException e) {
@@ -133,7 +137,7 @@ public class ShowtimingDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 Showtiming showtime = new Showtiming();
                 showtime.setShowtime_id(rs.getInt(1));
                 showtime.setShowtiming(rs.getString(2));
@@ -145,12 +149,12 @@ public class ShowtimingDAO extends DBContext {
                 showtime.setRoom_name(rs.getString(17));
                 listShowtime.add(showtime);
             }
-        } catch(SQLException e) {
-            
+        } catch (SQLException e) {
+
         }
         return listShowtime;
     }
-    
+
     public boolean checkShowtimeExists(String date, String showtime, int roomId) {
         boolean exists = false;
         String sql = "SELECT COUNT(*) FROM Showtime WHERE date = ? AND showtime = ? AND room_id = ?";
@@ -160,18 +164,18 @@ public class ShowtimingDAO extends DBContext {
             st.setString(2, showtime);
             st.setInt(3, roomId);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 if (rs.getInt(1) > 0) {
                     exists = true;
                 }
             }
         } catch (SQLException e) {
-            
+
         }
-        
+
         return exists;
     }
-    
+
     public void addShowtime(Showtiming showtime) {
         String sql = "INSERT INTO dbo.[Showtime] ([showtime], [room_id], [movie_id], [date]) VALUES (?, ?, ?, ?)";
         try {
@@ -181,16 +185,30 @@ public class ShowtimingDAO extends DBContext {
             st.setInt(3, showtime.getMovie_id());
             st.setString(4, showtime.getDate());
             st.executeUpdate();
-        } catch(SQLException e) {
-            
+        } catch (SQLException e) {
+            e.getMessage();
         }
     }
 
-    
-//    public static void main(String[] args) {
-//        Showtiming s = new Showtiming("10", 2, "2024-07-04", 6);
-//        new ShowtimingDAO().addShowtime(s);
-//        
-//    }
+    public void updateShowtime(Showtiming showtime) {
+        String sql = "update dbo.Showtime \n"
+                + "set showtime = ?, room_id = ?, date = ?\n"
+                + "where showtime_id = ? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, showtime.getShowtiming());
+            st.setInt(2, showtime.getRoom_id());
+            st.setString(3, showtime.getDate());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
+
+    public static void main(String[] args) {
+        ShowtimingDAO dao = new ShowtimingDAO();
+        System.out.println(dao.checkShowtimeExists("2024-07-04", "10", 2));
+
+    }
 
 }

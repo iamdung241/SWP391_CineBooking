@@ -44,7 +44,7 @@
                 font-weight: bold;
             }
             .bookTicket:hover {
-            color: #000;
+                color: #000;
             }
             .viewDetail{
                 color: #000;
@@ -55,7 +55,7 @@
                 border: solid 1px grey;
             }
             .viewDetail:hover {
-                background-color: red; 
+                background-color: red;
                 color: #000;
             }
         </style>
@@ -65,7 +65,7 @@
         <div class="main clearfix position-relative">
             <div class="main_1 clearfix position-absolute top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-            </div>
+                </div>
                 <div class="main_2 clearfix">
                     <section id="center" class="center_home">
                         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -118,77 +118,108 @@
             </div>
 
             <section id="spec" class="p_3">
-    <div class="container-xl">
-        <div class="row stream_1 text-center">
-            <div class="col-md-12">
-                <h1 class="mb-0 font_50" style="color: black">Film Hot</h1>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <form action="movieController" method="GET" class="input-group" id="searchForm">
-                        <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;border-color: red"
-                               value="${keyword != null ? keyword : ''}">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                        <input type="hidden" name="service" value="search" id="serviceInput">
-                        <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
-                            <option value="all">All</option>
-                            <option value="upcoming">Upcoming Film</option>
-                            <option value="nowshowing">Now Showing Film</option>
-                        </select>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <p class="error-message">${requestScope.resultNull}</p>
-        <div class="row mt-4">
-            <div class="col-md-3">
-                <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
-            </div>
-            <div class="col-md-9">
-                <div class="row spec_1">
-                    <c:forEach items="${listM}" var="m">
-                        
-                        <div class="col-md-3 mb-4">
-                            <div class="spec_1im clearfix position-relative">
-                                <div class="spec_1imi clearfix film">
-                                    <a href="moviedetail?ID=${m.getMovie_id()}">
-                                        <img width="240px" height="270px" src="${m.getPost_img()}" class="w-100" alt="abc">
-                                    </a>
+                <div  class="container-xl">
+                    <div style="padding-top: 20px" class="row stream_1 text-center">
+                        <div style="padding-bottom: 30px" class="col-md-12">
+                            <h1 class="mb-0 font_50" style="color: black; ">Top Movie This Month</h1>
+                        </div>
+                        <div class="row spec_1">
+                        <c:forEach items="${topMovie}" var="topM">
+                            <div class="col-3">
+                                <div class="spec_1im clearfix position-relative">
+                                    <div class="spec_1imi clearfix film">
+                                        <a href="moviedetail?ID=${topM.getMovie_id()}">
+                                            <img width="240px" height="270px" src="${topM.getPost_img()}" class="w-100" alt="abc">
+                                        </a>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="spec_1im1 clearfix">
+                                    <ul>
+                                        <li>
+                                            <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${topM.getMovie_id()}">
+                                                ${topM.getMovie_name()}
+                                            </a>
+                                        </li>
+                                        <li style="padding-top: 10px">
+                                            <a class="bookTicket" href="bookticket?movieID=${topM.getMovie_id()}">Book Tickets</a>
+                                            <a style="margin-left: 3px" class="viewDetail" href="moviedetail?ID=${topM.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <br/>
-                            <div class="spec_1im1 clearfix">
-                                <ul>
-                                    <li>
-                                        <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${m.getMovie_id()}">
-                                            ${m.getMovie_name()}
-                                        </a>
-                                    </li>
-                                    <li class="col_black">
-                                        Duration: ${m.getDuration()} minutes
-                                    </li>
-                                    <li class="col_black">
-                                        Age: ${m.getAge()}
-                                    </li>
-                                    <li class="col_black">
-                                        Category: ${m.getType_name()}
-                                    </li>
-                                    <li style="padding-top: 10px">
-                                        <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
-                                        <a style="margin-left: 3px" class="viewDetail" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
-                                    </li>
-                                </ul>
-                            </div>
+
+                        </c:forEach>
+                    </div>
+                    <div style="padding-top: 30px" class="col-md-12">
+                        <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
+                    </div>
+                </div>
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <form action="movieController" method="GET" class="input-group" id="searchForm">
+                                <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;border-color: red"
+                                       value="${keyword != null ? keyword : ''}">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                <input type="hidden" name="service" value="search" id="serviceInput">
+                                <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
+                                    <option value="all">All</option>
+                                    <option value="upcoming">Upcoming Film</option>
+                                    <option value="nowshowing">Now Showing Film</option>
+                                </select>
+                            </form>
                         </div>
-                                   
-                    </c:forEach>
+                    </div>
+                </div>
+                <p class="error-message">${requestScope.resultNull}</p>
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row spec_1">
+                            <c:forEach items="${listM}" var="m">
+
+                                <div class="col-md-3 mb-4">
+                                    <div class="spec_1im clearfix position-relative">
+                                        <div class="spec_1imi clearfix film">
+                                            <a href="moviedetail?ID=${m.getMovie_id()}">
+                                                <img width="240px" height="270px" src="${m.getPost_img()}" class="w-100" alt="abc">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="spec_1im1 clearfix">
+                                        <ul>
+                                            <li>
+                                                <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${m.getMovie_id()}">
+                                                    ${m.getMovie_name()}
+                                                </a>
+                                            </li>
+                                            <li class="col_black">
+                                                Duration: ${m.getDuration()} minutes
+                                            </li>
+                                            <li class="col_black">
+                                                Age: ${m.getAge()}
+                                            </li>
+                                            <li class="col_black">
+                                                Category: ${m.getType_name()}
+                                            </li>
+                                            <li style="padding-top: 10px">
+                                                <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
+                                                <a style="margin-left: 3px" class="viewDetail" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
         <script>

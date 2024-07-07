@@ -20,7 +20,8 @@ import model.Account;
  *
  * @author Tran Anh Vu
  */
-@WebServlet("/searchAccount")
+//@WebServlet("/searchAccount")
+@WebServlet(name="SearchAccount", urlPatterns={"/searchAccount"})
 public class SearchAccount extends HttpServlet {
    
     /** 
@@ -63,11 +64,11 @@ public class SearchAccount extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         Vector<Account> accounts = accountDAO.searchAccounts(searchQuery, roleFilter);
         if(searchQuery.isBlank() && roleFilter.isBlank()){
-            response.sendRedirect("views/admin/manageuser.jsp");
+            response.sendRedirect("views/dashboard/manageuser.jsp");
         }
         else {
             request.setAttribute("accounts", accounts);
-            request.getRequestDispatcher("views/admin/manageuser.jsp").forward(request, response);
+            request.getRequestDispatcher("views/dashboard/manageuser.jsp").forward(request, response);
         }
     } 
 

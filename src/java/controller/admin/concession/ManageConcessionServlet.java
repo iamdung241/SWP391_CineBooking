@@ -45,7 +45,7 @@ public class ManageConcessionServlet extends HttpServlet {
 
         session.setAttribute("listConcession", listConcession);
         request.setAttribute("pageControl", pageControl);
-        request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/dashboard/manageconcessions.jsp").forward(request, response);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ManageConcessionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../views/admin/manageconcession.jsp").forward(request, response);
+        request.getRequestDispatcher("../views/dashboard/manageconcessions.jsp").forward(request, response);
 
     }
 

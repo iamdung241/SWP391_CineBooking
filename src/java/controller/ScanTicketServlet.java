@@ -36,7 +36,7 @@ public class ScanTicketServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ScanTicketServlet</title>");            
+            out.println("<title>Servlet ScanTicketServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ScanTicketServlet at " + request.getContextPath() + "</h1>");
@@ -60,7 +60,27 @@ public class ScanTicketServlet extends HttpServlet {
         String code = request.getParameter("code");
         TicketDAO ticketDao = new TicketDAO();
         Ticket ticket = ticketDao.getTicket(code);
-        request.setAttribute("ticket", ticket);
+        if (ticket != null) {
+            java.util.Date now = new java.util.Date();
+            java.text.SimpleDateFormat sdfDate = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm");
+            String currentDate = sdfDate.format(now);
+            String currentTime = sdfTime.format(now);
+            String showtimeStr = ticket.getShowtime().getShowtiming();
+            String dateShowtime = ticket.getShowtime().getDate();
+            String showtimeWithMinutes = showtimeStr + ":00";
+            int showtimeInt = Integer.parseInt(showtimeStr);
+            int nextShowtime = showtimeInt + 1;
+            String nextShowtimeWithMinutes = nextShowtime + ":00";
+            //date showtime on ticket = current date
+            //staff can accept ticket equal or after 1h
+            boolean showAcceptButton = ticket.getStatus().equals("Nocheck")
+                    && dateShowtime.equals(currentDate)
+                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0);
+
+            request.setAttribute("ticket", ticket);
+            request.setAttribute("showAcceptButton", !showAcceptButton);
+        }
         request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
     }
 
@@ -80,13 +100,25 @@ public class ScanTicketServlet extends HttpServlet {
         Ticket ticket = ticketDao.getTicket(code);
 
         if (ticket != null && "Nocheck".equals(ticket.getStatus())) {
-            ticketDao.updateTicketStatus(code, "Checked");
-            request.setAttribute("message", "Accept ticket successfully");
+            java.util.Date now = new java.util.Date();
+            java.text.SimpleDateFormat sdfDate = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm");
+            String currentDate = sdfDate.format(now);
+            String currentTime = sdfTime.format(now);
+            String showtimeStr = ticket.getShowtime().getShowtiming();
+            String dateShowtime = ticket.getShowtime().getDate();
+            String showtimeWithMinutes = showtimeStr + ":00";
+            int showtimeInt = Integer.parseInt(showtimeStr);
+            int nextShowtime = showtimeInt + 1;
+            String nextShowtimeWithMinutes = nextShowtime + ":00";
+            if (dateShowtime.equals(currentDate)
+                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0)) {
+                ticketDao.updateTicketStatus(code, "Checked");
+                request.setAttribute("message", "Accept ticket successfully");
+            } else {
+                request.setAttribute("message", "Accepting ticket failed due to time constraints");
+            }
         }
-
-        ticket = ticketDao.getTicket(code);
-        request.setAttribute("ticket", ticket);
-        request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
     }
 
     /**

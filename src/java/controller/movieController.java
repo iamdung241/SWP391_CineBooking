@@ -61,10 +61,10 @@ public class movieController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String MANAGEMOVIE = "views/admin/managefilm.jsp";
-    private static final String MANAGEMOVIE_ADD = "views/admin/addNewFilm.jsp";
-    private static final String MANAGEMOVIE_UPDATE = "views/admin/updateFilm.jsp";
-    private static final String MANAGEMOVIE_DETAIL = "views/admin/MovieDetail.jsp";
+    private static final String MANAGEMOVIE = "views/dashboard/managefilm.jsp";
+    private static final String MANAGEMOVIE_ADD = "views/dashboard/addnewfilm.jsp";
+    private static final String MANAGEMOVIE_UPDATE = "views/dashboard/updatefilm.jsp";
+    private static final String MANAGEMOVIE_DETAIL = "views/dashboard/moviedetail.jsp";
     private static final String MANAGEMOVIE_PAGE = "movie";
     private static final String MODE = "mode";
     private static final String MOVIEID = "idMovie";

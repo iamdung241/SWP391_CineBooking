@@ -25,24 +25,25 @@ public class MovieDAO extends DBContext {
 
     PreparedStatement stm;
     ResultSet rs;
+
     public List<Movie> getMoviesPublishedBeforeToday() {
         String sql = "SELECT [movie_id]\n"
-                    + "      ,[movie_name]\n"
-                    + "      ,m.[type_id]\n"
-                    + ",tm.type_name\n"
-                    + "      ,[duration]\n"
-                    + "      ,[date_published]\n"
-                    + "      ,[post_img]\n"
-                    + "      ,[trailer]\n"
-                    + "      ,[decription]\n"
-                    + "      ,[movie_validateAge]\n"
-                    + "      ,[status]\n"
-                    + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where date_published < GETDATE()";
+                + "      ,[movie_name]\n"
+                + "      ,m.[type_id]\n"
+                + ",tm.type_name\n"
+                + "      ,[duration]\n"
+                + "      ,[date_published]\n"
+                + "      ,[post_img]\n"
+                + "      ,[trailer]\n"
+                + "      ,[decription]\n"
+                + "      ,[movie_validateAge]\n"
+                + "      ,[status]\n"
+                + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where date_published < GETDATE()";
         List<Movie> movies = new ArrayList<>();
 
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
-            try (ResultSet rs = stm.executeQuery()) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt(1);
                     String movieName = rs.getString(2);
@@ -55,7 +56,7 @@ public class MovieDAO extends DBContext {
                     String description = rs.getString(9);
                     String age = rs.getString(10);
                     String status = rs.getString(11);
-                    movies.add(new Movie(id, movieName, typeid,typeName, duration, datePublished, age, postImg, trailer, description, status));
+                    movies.add(new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status));
                 }
             }
         } catch (SQLException ex) {
@@ -72,20 +73,20 @@ public class MovieDAO extends DBContext {
      */
     public List<Movie> getMoviesPublishedAfterToday() {
         String sql = "SELECT [movie_id]\n"
-                    + "      ,[movie_name]\n"
-                    + "      ,m.[type_id]\n"
-                    + ",tm.type_name\n"
-                    + "      ,[duration]\n"
-                    + "      ,[date_published]\n"
-                    + "      ,[post_img]\n"
-                    + "      ,[trailer]\n"
-                    + "      ,[decription]\n"
-                    + "      ,[movie_validateAge]\n"
-                    + "      ,[status]\n"
-                    + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where date_published > GETDATE()";
+                + "      ,[movie_name]\n"
+                + "      ,m.[type_id]\n"
+                + ",tm.type_name\n"
+                + "      ,[duration]\n"
+                + "      ,[date_published]\n"
+                + "      ,[post_img]\n"
+                + "      ,[trailer]\n"
+                + "      ,[decription]\n"
+                + "      ,[movie_validateAge]\n"
+                + "      ,[status]\n"
+                + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where date_published > GETDATE()";
         List<Movie> movies = new ArrayList<>();
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
-            try (ResultSet rs = stm.executeQuery()) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt(1);
                     String movieName = rs.getString(2);
@@ -98,7 +99,7 @@ public class MovieDAO extends DBContext {
                     String description = rs.getString(9);
                     String age = rs.getString(10);
                     String status = rs.getString(11);
-                    movies.add(new Movie(id, movieName, typeid,typeName, duration, datePublished, age, postImg, trailer, description, status));
+                    movies.add(new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status));
                 }
             }
         } catch (SQLException ex) {
@@ -110,23 +111,23 @@ public class MovieDAO extends DBContext {
 
     public List<Movie> getMoviesByType(int type) {
         String sql = "SELECT [movie_id]\n"
-                    + "      ,[movie_name]\n"
-                    + "      ,m.[type_id]\n"
-                    + ",tm.type_name\n"
-                    + "      ,[duration]\n"
-                    + "      ,[date_published]\n"
-                    + "      ,[post_img]\n"
-                    + "      ,[trailer]\n"
-                    + "      ,[decription]\n"
-                    + "      ,[movie_validateAge]\n"
-                    + "      ,[status]\n"
-                    + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where m.type_id = ?";
+                + "      ,[movie_name]\n"
+                + "      ,m.[type_id]\n"
+                + ",tm.type_name\n"
+                + "      ,[duration]\n"
+                + "      ,[date_published]\n"
+                + "      ,[post_img]\n"
+                + "      ,[trailer]\n"
+                + "      ,[decription]\n"
+                + "      ,[movie_validateAge]\n"
+                + "      ,[status]\n"
+                + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where m.type_id = ?";
         List<Movie> movies = new ArrayList<>();
 
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setInt(1, type);
-            try (ResultSet rs = stm.executeQuery()) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
                     int movie_id = rs.getInt("movie_id");
@@ -144,7 +145,7 @@ public class MovieDAO extends DBContext {
                     //TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription,status));
+                    movies.add(new Movie(movie_id, movie_name, type_id, type_name, duration, date_published, age, post_img, trailer, decription, status));
                 }
             }
         } catch (SQLException ex) {
@@ -156,8 +157,8 @@ public class MovieDAO extends DBContext {
 
     public List<Movie> getAllMovies() {
         List<Movie> listMovie = new ArrayList<>();
-        String sql = "SELECT m.movie_id, m.movie_name, m.type_id, m.duration, m.date_published, m.post_img, m.trailer, m.decription, tm.type_name, movie_validateAge FROM Movie m, TypeMovie tm \n" +
-"                  WHERE m.type_id = tm.type_id";
+        String sql = "SELECT m.movie_id, m.movie_name, m.type_id, m.duration, m.date_published, m.post_img, m.trailer, m.decription, tm.type_name, movie_validateAge FROM Movie m, TypeMovie tm \n"
+                + "                  WHERE m.type_id = tm.type_id";
         try {
             Movie movie;
             PreparedStatement st = connection.prepareStatement(sql);
@@ -205,7 +206,7 @@ public class MovieDAO extends DBContext {
                 decription = rs.getString(8);
                 type_name = rs.getString(9);
                 String movie_validateAge = rs.getString(10);
-                movie = new Movie(movie_id, movie_name, type_name, duration, date_published, post_img, trailer, decription,  movie_validateAge);
+                movie = new Movie(movie_id, movie_name, type_name, duration, date_published, post_img, trailer, decription, movie_validateAge);
                 return movie;
             }
         } catch (SQLException e) {
@@ -252,15 +253,15 @@ public class MovieDAO extends DBContext {
         }
         return data;
     }
-    
+
     public List<Movie> getMoviesBySearch(String names) {
         String sql = "SELECT m.*, tm.type_name FROM Movie m, TypeMovie tm WHERE m.type_id = tm.type_id AND movie_name LIKE ?";
         List<Movie> movies = new ArrayList<>();
-        String b="%" + names + "%";
+        String b = "%" + names + "%";
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, b);
-            try (ResultSet rs = stm.executeQuery()) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
                     int movie_id = rs.getInt("movie_id");
@@ -313,7 +314,8 @@ public class MovieDAO extends DBContext {
                 String postImg = rs.getString(7);
                 String trailer = rs.getString(8);
                 String description = rs.getString(9);
-                Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description);
+                String status = rs.getString(11);
+                Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status);
                 return movie;
             }
         } catch (Exception e) {
@@ -321,7 +323,7 @@ public class MovieDAO extends DBContext {
         }
         return null;
     }
-    
+
     public List<Movie> getMovieByType(int typeId) {
         List<Movie> movies = new ArrayList<>();
         try {
@@ -352,7 +354,7 @@ public class MovieDAO extends DBContext {
                 String trailer = rs.getString(8);
                 String description = rs.getString(9);
                 String status = rs.getString(11);
-                Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished,age, postImg, trailer, description,status);
+                Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status);
                 movies.add(movie);
             }
         } catch (Exception e) {
@@ -476,27 +478,27 @@ public class MovieDAO extends DBContext {
 
     public List<Movie> getMoviesByKeywords(String names) {
         String sql = "SELECT [movie_id]\n"
-                    + "      ,[movie_name]\n"
-                    + "      ,m.[type_id]\n"
-                    + ",tm.type_name\n"
-                    + "      ,[duration]\n"
-                    + "      ,[date_published]\n"
-                    + "      ,[post_img]\n"
-                    + "      ,[trailer]\n"
-                    + "      ,[decription]\n"
-                    + "      ,[movie_validateAge]\n"
-                    + "      ,[status]\n"
-                    + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where movie_name LIKE ?";
+                + "      ,[movie_name]\n"
+                + "      ,m.[type_id]\n"
+                + ",tm.type_name\n"
+                + "      ,[duration]\n"
+                + "      ,[date_published]\n"
+                + "      ,[post_img]\n"
+                + "      ,[trailer]\n"
+                + "      ,[decription]\n"
+                + "      ,[movie_validateAge]\n"
+                + "      ,[status]\n"
+                + "  FROM [CineBooking].[dbo].[Movie] m join TypeMovie tm on m.type_id = tm.type_id where movie_name LIKE ?";
         List<Movie> movies = new ArrayList<>();
         String b = "%" + names + "%";
 
         // Use try-with-resources to ensure resources are closed properly
-        try (Connection conn = connection; PreparedStatement stm = conn.prepareStatement(sql)) {
+        try ( Connection conn = connection;  PreparedStatement stm = conn.prepareStatement(sql)) {
             stm.setString(1, b);
-            try (ResultSet rs = stm.executeQuery()) {
+            try ( ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     // Retrieve movie details from the result set
-                   int movie_id = rs.getInt("movie_id");
+                    int movie_id = rs.getInt("movie_id");
                     String movie_name = rs.getString("movie_name");
                     int type_id = rs.getInt("type_id");
                     String typeName = rs.getString(4);
@@ -510,7 +512,7 @@ public class MovieDAO extends DBContext {
                     //TypeMovie type_movie = new TypeMovie(type_id, type_name);
 
                     // Add movie to the list
-                    movies.add(new Movie(movie_id, movie_name, type_id,type_name, duration, date_published,age, post_img, trailer, decription));
+                    movies.add(new Movie(movie_id, movie_name, type_id, type_name, duration, date_published, age, post_img, trailer, decription));
                 }
             }
         } catch (SQLException ex) {
@@ -519,28 +521,56 @@ public class MovieDAO extends DBContext {
 
         return movies;
     }
-    
+
     public int getMovieIdByMovieName(String movieName) {
         int movieId = -1;
         String sql = "select movie_id from Movie where movie_name = ?";
-        try{
+        try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, movieName);
             rs = stm.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 movieId = rs.getInt(1);
             }
-        } catch(SQLException e) {
-            
+        } catch (SQLException e) {
+
         }
         return movieId;
     }
 
-    public static void main(String[] args) {
-        List<Movie> data = new MovieDAO().getMoviesPublishedAfterToday();
-        for (Movie movie : data) {
-            System.out.println(movie.toString());
-        }
+    public List<Movie> getTopMovieForMonth() {
+        List<Movie> listMovie = new ArrayList();
+        String sql = "select TOP(4) m.movie_id, m.movie_name, m.post_img, m.duration, m.movie_validateAge, tm.type_name, COUNT(td.ticket_id) as ticket_count from Movie m \n"
+                + "join Showtime s on m.movie_id = s.movie_id\n"
+                + "join TypeMovie tm on tm.type_id = m.type_id\n"
+                + "join Ticket_Detail td on s.showtime_id = td.showtime_id\n"
+                + "WHERE MONTH(td.date_book) = MONTH(GETDATE()) AND YEAR(td.date_book) = YEAR(GETDATE())\n"
+                + "GROUP BY m.movie_id, m.movie_name, m.post_img, m.duration, m.movie_validateAge, tm.type_name\n"
+                + "ORDER BY ticket_count DESC";
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Movie movie = new Movie();
+                movie.setMovie_id(rs.getInt(1));
+                movie.setMovie_name(rs.getString(2));
+                movie.setPost_img(rs.getString(3));
+                movie.setDuration(rs.getInt(4));
+                movie.setAge(rs.getString(5));
+                movie.setType_name(rs.getString(6));
+                listMovie.add(movie);
+            }
+        } catch (SQLException e) {
 
+        }
+        return listMovie;
+    }
+
+    public static void main(String[] args) {
+        MovieDAO mdao = new MovieDAO();
+        List<Movie> list = mdao.getTopMovieForMonth();
+        for (Movie movie : list) {
+            System.out.println(movie.getMovie_name());
+        }
     }
 }

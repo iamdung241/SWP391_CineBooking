@@ -80,7 +80,7 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("defaultStartDate", startDate.format(formatter));
         request.setAttribute("defaultEndDate", endDate.format(formatter));
 
-        request.getRequestDispatcher("views/admin/dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("views/dashboard/dashboard.jsp").forward(request, response);
     }
 
     @Override

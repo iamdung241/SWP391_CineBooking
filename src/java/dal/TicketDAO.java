@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Concession;
 import model.Seat;
+import model.Showtiming;
 import model.Ticket;
 
 /**
@@ -203,6 +204,32 @@ public class TicketDAO extends DBContext {
         return list;
     }
 
+    public Showtiming getShowtimeByTicketID(int ticket_id) {
+        String sql = "select * from Showtime s \n"
+                + "join Ticket_Detail td\n"
+                + "on td.showtime_id = s.showtime_id\n"
+                + "join Movie m\n"
+                + "on m.movie_id = s.movie_id\n"
+                + "where td.ticket_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, ticket_id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Showtiming showtime = new Showtiming();
+                showtime.setShowtime_id(rs.getInt(1));
+                showtime.setShowtiming(rs.getString(2));
+                showtime.setMovie_name(rs.getString(12));
+                showtime.setMovieImage(rs.getString(16));
+                showtime.setDate(rs.getString(5));
+                return showtime;
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
     public Ticket getTicket(String code) {
         String sql = "SELECT t.[ticket_id]\n"
                 + "      ,t.[code]\n"
@@ -221,6 +248,7 @@ public class TicketDAO extends DBContext {
             if (rs.next()) {
                 int Tid = rs.getInt(1);
                 Ticket tick = new Ticket();
+                MovieDAO movieDao = new MovieDAO();
                 tick.setId(rs.getInt(1));
                 tick.setCode(rs.getString(2));
                 tick.setAccountId(rs.getInt(3));
@@ -230,6 +258,9 @@ public class TicketDAO extends DBContext {
                 tick.setDate_book(rs.getString(7));
                 tick.setSeat(getSeatOrderBy_TicketId(Tid));
                 tick.setCombo(getConcessionsOrderBy_TicketId(Tid));
+                tick.setShowtime(getShowtimeByTicketID(Tid));
+                tick.setMovieName(getShowtimeByTicketID(Tid).getMovie_name());
+                tick.setMovieImage(getShowtimeByTicketID(Tid).getMovieImage());
                 return tick;
             }
         } catch (SQLException e) {
@@ -320,5 +351,6 @@ public class TicketDAO extends DBContext {
     public static void main(String[] args) {
 
     }
+
 
 }
