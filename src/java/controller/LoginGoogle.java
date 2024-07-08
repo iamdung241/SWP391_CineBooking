@@ -40,8 +40,8 @@ public class LoginGoogle extends HttpServlet {
         // Xử lý đăng nhập dựa trên kết quả xác thực
         if (account == null) {
             // Không tìm thấy tài khoản, chuyển hướng về trang login với thông báo lỗi
-            request.setAttribute("usernameOrPasswordWrong", "No account associated with this Google email!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.setAttribute("emailGoogle", googleAccount.getEmail());
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         } else {
             // Tạo session cho người dùng và chuyển hướng tới trang tương ứng
             HttpSession session = request.getSession();

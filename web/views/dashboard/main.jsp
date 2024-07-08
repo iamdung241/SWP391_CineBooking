@@ -18,6 +18,7 @@
             />
         <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <style>
             body {
                 display: flex;
@@ -73,6 +74,25 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" href="/CineBooking/filmrevenue">
+                        <i class="fas fa-chart-line"></i> Film Revenue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/CineBooking/concessionrevenue">
+                        <i class="fas fa-chart-line"></i> Concession Revenue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-chart-line"></i> Revenue
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/CineBooking/revenue/film">Film Revenue</a>
+                        <a class="dropdown-item" href="/CineBooking/revenue/concession">Concession Revenue</a>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/movie">
                         <i class="fas fa-video"></i> Manage Film
                     </a>
@@ -94,7 +114,7 @@
         </div>
 
         <!-- Bootstrap JS and dependencies -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>

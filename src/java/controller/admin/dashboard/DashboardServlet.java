@@ -4,6 +4,7 @@
  */
 package controller.admin.dashboard;
 
+import com.google.gson.Gson;
 import dal.DashboardDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,30 +54,38 @@ public class DashboardServlet extends HttpServlet {
 
         double totalRevenue = dao.getTotalRevenue(startDateParam, endDateParam);
         int totalOrders = dao.getTotalOrders(startDateParam, endDateParam);
-        double averageOrder = dao.getAverageOrder(startDateParam, endDateParam);
-        Map<String, Double> revenueByTypeMovie = dao.getRevenueByTypeMovie(startDateParam, endDateParam);
-        Map<String, Integer> orderStatistics = dao.getOrderStatistics(startDateParam, endDateParam);
+        double getAverageValueOrder = dao.getAverageValueOrder(startDateParam, endDateParam);
+        double averageOrder = dao.getAverageOrdersPerDay(startDateParam, endDateParam);
+        Map<String, Double> revenueByTypeMovie_Raw = dao.getRevenueByTypeMovie(startDateParam, endDateParam);
+        Map<String, Integer> orderStatistics_Raw = dao.getOrderStatistics(startDateParam, endDateParam);
+
+        Gson gson = new Gson();
+        String revenueByTypeMovie = gson.toJson(revenueByTypeMovie_Raw);
+        String orderStatistics = gson.toJson(orderStatistics_Raw);
 
         // Format the total revenue and average order
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
         String formattedTotalRevenue = currencyFormatter.format(totalRevenue).replace("₫", "VNĐ");
-        String formattedAverageOrder = currencyFormatter.format(averageOrder).replace("₫", "VNĐ");
-        
+        String formattedAverageValueOrder = currencyFormatter.format(getAverageValueOrder).replace("₫", "VNĐ");
+
         System.out.println("Total Revenue: " + formattedTotalRevenue);
         System.out.println("Total Orders: " + totalOrders);
-        System.out.println("Average Order: " + formattedAverageOrder);
+        System.out.println("Average Value Order: " + formattedAverageValueOrder);
+        System.out.println("Average Order: " + averageOrder);
         System.out.println("Revenue By Type Movie: " + revenueByTypeMovie);
         System.out.println("Order Statistics: " + orderStatistics);
-        
+
         request.setAttribute("totalRevenue", formattedTotalRevenue);
         request.setAttribute("totalOrders", totalOrders);
-        request.setAttribute("averageOrder", formattedAverageOrder);
+        request.setAttribute("averageValueOrder", formattedAverageValueOrder);
+        request.setAttribute("averageOrder", averageOrder);
+        request.setAttribute("revenueByTypeMovie_Raw", revenueByTypeMovie_Raw);
         request.setAttribute("revenueByTypeMovie", revenueByTypeMovie);
         request.setAttribute("orderStatistics", orderStatistics);
         request.setAttribute("startDate", startDateParam);
         request.setAttribute("endDate", endDateParam);
-        
+
         request.setAttribute("defaultStartDate", startDate.format(formatter));
         request.setAttribute("defaultEndDate", endDate.format(formatter));
 
