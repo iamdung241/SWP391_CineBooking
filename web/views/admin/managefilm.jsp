@@ -88,11 +88,11 @@
                                         <form class="d-flex" action="AdminSearchFilter">
                                             <input class="form-control" name ="searchAdmin" 
                                                    placeholder="Search" value="${key}">
-                                            <button class="btn btn-primary p-0" type="submit">Search</button>
-                                        </form>
-                                        <div class="">
-                                            <select class="form-select mx-2" onchange="location.href = 'AdminSearchFilter?ACT=filter&typeId=' + this.value">
-                                                <option ${typeSearch == 10 ? 'selected' : ''} value="10">All</option>
+                                        <button class="btn btn-primary p-0" type="submit">Search</button>
+                                    </form>
+                                    <div class="">
+                                        <select class="form-select mx-2" onchange="location.href = 'AdminSearchFilter?ACT=filter&typeId=' + this.value">
+                                            <option ${typeSearch == 10 ? 'selected' : ''} value="10">All</option>
                                             <c:forEach items="${listType}" var="t">
                                                 <option ${typeSearch == t.type_id ? 'selected' : ''} value="${t.type_id}">${t.type_name}</option>
                                             </c:forEach>   
@@ -125,10 +125,10 @@
                                                     <td class="text-center">${m.type_name}</td> 
                                                     <td class="text-center">${m.status}</td> 
                                                     <td class="text-center">
-                                                        <div class="d-flex p-6">
+                                                        <div class="d-flex p-6">                              
                                                             <a class="btn btn-sm btn-primary me-1" href="movie?mode=detail&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i>Detail</a>
                                                             <a class="btn btn-sm btn-success me-1" href="movie?mode=update&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Edit</a>
-                                                            <a class="btn btn-sm btn-danger" href="movie?mode=del&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Delete</a>
+                                                            <a class="btn btn-sm btn-danger" href="movie?mode=del&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Delete</a>                                                        
                                                         </div> 
                                                     </td>
                                                 </tr>
