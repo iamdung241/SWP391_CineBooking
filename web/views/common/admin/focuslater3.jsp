@@ -110,7 +110,8 @@
                                 </table>
                                 <a href="#" class="btn btn-outline-secondary btn-sm text-body me-0 ms-auto d-table mt-3 pb-2" role="button">See all &rarr;</a>
                             </div>
-                        </div>                </div>
+                        </div>                
+                        </div>
                     <!-- Top Products-->
 
                     <!-- Newsletter Stats-->
