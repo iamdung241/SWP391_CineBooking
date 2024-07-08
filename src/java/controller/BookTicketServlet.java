@@ -2,9 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
-
 
 import dal.MovieDAO;
 import dal.RoomDAO;
@@ -16,6 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Movie;
 import model.Room;
@@ -68,14 +69,28 @@ public class BookTicketServlet extends HttpServlet {
         MovieDAO movieDao = new MovieDAO();
         ShowtimingDAO showDao = new ShowtimingDAO();
         RoomDAO rdao = new RoomDAO();
-        List<Showtiming> listShowtime;
         String movieID = request.getParameter("movieID");
+        String selectedDate = request.getParameter("date");
+        if (selectedDate == null || selectedDate.isEmpty()) {
+            selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        }
         try {
             int idMovie = Integer.parseInt(movieID);
             Movie m = movieDao.getMovieById(idMovie);
-            request.setAttribute("m", m);
-            listShowtime = showDao.getShowtimeByMovieID(idMovie);
-            request.setAttribute("listShowtime", listShowtime);
+            if (m != null) {
+                List<Showtiming> filteredShowtimes = new ArrayList<>();
+                for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
+                    if (showtime.getDate().equals(selectedDate)) {
+                        filteredShowtimes.add(showtime);
+                    }
+                }
+                if(!filteredShowtimes.isEmpty()) {
+                    m.setListShowtime(filteredShowtimes);
+                }
+            }
+
+            request.setAttribute("movie", m);
+            request.setAttribute("selectedDate", selectedDate);
             String showtimeid = request.getParameter("showtimeID");
             if (showtimeid != null) {
                 int showtime_id = Integer.parseInt(showtimeid);
@@ -83,10 +98,11 @@ public class BookTicketServlet extends HttpServlet {
                 request.setAttribute("listRoom", listRoom);
                 request.setAttribute("selectedShowtimeId", showtimeid);
             }
-            request.getRequestDispatcher("/views/homepage/BookTicket.jsp").forward(request, response);
+
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
+        request.getRequestDispatcher("/views/homepage/BookTicket.jsp").forward(request, response);
     }
 
     /**
@@ -102,7 +118,6 @@ public class BookTicketServlet extends HttpServlet {
             throws ServletException, IOException {
         String roomId = request.getParameter("roomId");
         String showtimeId = request.getParameter("showtimeId");
-
         if (roomId != null && showtimeId != null) {
             response.sendRedirect("seat");
         }

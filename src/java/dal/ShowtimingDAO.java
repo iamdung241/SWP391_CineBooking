@@ -44,15 +44,16 @@ public class ShowtimingDAO extends DBContext {
             st.setInt(1, movieID);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                int showtime_id = rs.getInt(1);
-                String showtime = rs.getString(2);
-                int room_id = rs.getInt(3);
-                int movie_id = rs.getInt(4);
-                String date = rs.getString(5);
-                listShow.add(new Showtiming(showtime_id, showtime, room_id, date, movie_id));
+                Showtiming showtime = new Showtiming();
+                showtime.setShowtime_id(rs.getInt(1));
+                showtime.setShowtiming(rs.getString(2));
+                showtime.setDate(rs.getString(5));
+                showtime.setRoom_id(rs.getInt(3));
+                showtime.setMovie_id(rs.getInt(4));
+                listShow.add(showtime);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         return listShow;
     }
@@ -207,7 +208,10 @@ public class ShowtimingDAO extends DBContext {
 
     public static void main(String[] args) {
         ShowtimingDAO dao = new ShowtimingDAO();
-        System.out.println(dao.checkShowtimeExists("2024-07-04", "10", 2));
+        for (Showtiming showtiming : dao.getShowtimeByMovieID(1)) {
+            System.out.println(showtiming.getDate());
+        }
+        
 
     }
 
