@@ -102,6 +102,20 @@ public class BookTicketServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             e.getMessage();
         }
+        String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
+
+        // Lấy chuỗi truy vấn (query string)
+        String queryString = request.getQueryString(); // showtime=13&seats=V10,V15&price=180000
+
+        // Xây dựng phần URL cần lấy
+        StringBuilder Url = new StringBuilder();
+        Url.append(requestURI);
+        
+        if (queryString != null) {
+            Url.append("?").append(queryString);
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("urlbackBooking", Url);
         request.getRequestDispatcher("/views/homepage/BookTicket.jsp").forward(request, response);
     }
 
