@@ -28,7 +28,7 @@
                 margin-left: 20px;
             }
             .detail{
-                margin-top: 100px;
+                
                 margin-bottom: 30px;
             }
             .showRoom {
@@ -52,6 +52,34 @@
                 background-color: #000;
                 color: #fff;
             }
+            .boxes {
+                text-align: center;
+                padding-top: 30px;
+                display: flex;
+                flex-direction: row;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                margin-left: 30px;
+            }
+            
+            .box {
+                margin-top: 60px;
+                border: 1px solid black;
+                border-radius: 10px;
+                font-size: 19px;
+                margin-right: 20px;
+                text-align: center;
+                padding: 10px;
+            }
+            .date {
+               display: inline-block;
+           }
+           .date:hover {
+                color: red;
+            }
+            hr {
+                background-color: #000;
+            }
         </style>
     </head>
 
@@ -60,40 +88,45 @@
             <div class="main_1 clearfix position-absolute top-0 w-100 navbarDetail">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
-                <section id="exep" class="p_3 bg-light">
+                <div >
+                    <a class="boxes" id="dateContainer">
+                    </a>
+                    <hr style="background-color: #000;"/>
+                </div>
+
+                <section style="padding-top: 1px" id="exep" class="p_3 bg-light">
                     <div class="container-xl detail">
                         <div class="row exep1">
                             <div class="col-5">
                                 <div class="exep1l">
                                     <div class="grid clearfix">     
-                                        <img style="border-style: solid; border-width: 10px" height="450px" src="${m.getPost_img()}" class="w-100" alt="abc">
-                                    <span style="border-style: solid; background-color: black; color: #fff; padding: 11px"><i style="color:green; font-size: 28px" class='bx bx-error'></i>&nbsp${m.getAge()}</span>
+                                        <img style="border-style: solid; border-width: 10px" height="450px" src="${movie.getPost_img()}" class="w-100" alt="abc">
+                                    <span style="border-style: solid; background-color: black; color: #fff; padding: 11px"><i style="color:green; font-size: 28px" class='bx bx-error'></i>&nbsp${movie.getAge()}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-7">
                             <div class="exep1r">
-                                <a href="moviedetail?ID=${m.getMovie_id()}">
-                                    <p class="mb-0 nameDetail">${m.getMovie_name()}</p>         
+                                <a href="moviedetail?ID=${movie.getMovie_id()}">
+                                    <p class="mb-0 nameDetail">${movie.getMovie_name()}</p>         
                                 </a> 
                             </div>
                             <hr/>
                             <div>
-                                <p><i class='bx bxs-purchase-tag-alt' ></i>${m.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${m.getDuration()} minutes</p>
+                                <p><i class='bx bxs-purchase-tag-alt' ></i>${movie.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${movie.getDuration()} minutes</p>
                             </div>
                             <div style="margin-top: 40px">
-                                <c:forEach items="${listShowtime}" var="s"> 
-                                    <a class="showtime" href="?movieID=${m.getMovie_id()}&showtimeID=${s.getShowtime_id()}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
-
+                                <c:forEach items="${movie.getListShowtime()}" var="s"> 
+                                    <a class="showtime" href="?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
                                 </c:forEach>
                             </div>
                             <c:if test="${sessionScope.user != null}"> 
                                 <div id="room-selection" style="margin-top: 30px;">
                                     <c:forEach items="${listRoom}" var="room">                    
-                                        <c:forEach var="showtime" items="${listShowtime}">
-                                            <c:if test="${room.getRoom_id() == showtime.getRoom_id()}">
-                                                <div style="margin-top: 30px" id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
-                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${showtime.getShowtime_id()}">${room.getRoom_name()}</a>
+                                        <c:forEach var="s" items="${movie.getListShowtime()}">
+                                            <c:if test="${room.getRoom_id() == s.getRoom_id()}">
+                                                <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
+                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
                                                 </div>
                                             </c:if>
                                         </c:forEach>
@@ -102,16 +135,16 @@
                             </c:if>
                             <c:if test="${sessionScope.user == null}"> 
                                 <div id="room-selection" style="margin-top: 30px;">
-                                <c:forEach items="${listRoom}" var="room">                    
-                                    <c:forEach var="showtime" items="${listShowtime}">
-                                        <c:if test="${room.getRoom_id() == showtime.getRoom_id()}">
-                                            <div style="margin-top: 30px" id="rooms-showtime-${showtime.getShowtime_id()}" class="room-list">
-                                                <a class="showRoom" href="login.jsp?returnUrl=bookticket?movieID=${m.getMovie_id()}&showtimeID=${showtime.getShowtime_id()}">${room.getRoom_name()}</a>
-                                            </div>
-                                        </c:if>
+                                    <c:forEach items="${listRoom}" var="room">                    
+                                        <c:forEach var="s" items="${movie.getListShowtime()}">
+                                            <c:if test="${room.getRoom_id() == s.getRoom_id()}">
+                                                <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
+                                                    <a class="showRoom" href="login.jsp?returnUrl=bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
+                                                </div>
+                                            </c:if>
+                                        </c:forEach>
                                     </c:forEach>
-                                </c:forEach>
-                            </div>
+                                </div>
                             </c:if>
 
                             <input type="hidden" id="selectedShowtime" value="${selectedShowtimeId}">
@@ -140,6 +173,37 @@
                         console.log('Page loaded with selected showtime:', selectedShowtimeId); // Debugging line
                     }
                 };
+                //lấy ra 7 ngày tiếp theo tính từ ngày hiện 
+                function displayNextWeek() {
+                    var dateContainer = document.getElementById('dateContainer');
+                    var currentDate = new Date();
+                    var selectedDate = "${selectedDate}";
+
+                    for (var i = 0; i < 7; i++) {
+                        var date = new Date(currentDate.getTime() + i * 24 * 60 * 60 * 1000);
+                        var weekday = date.toLocaleDateString('en-US', {weekday: 'long'});
+                        var day = date.getDate().toString().padStart(2, '0');
+                        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                        var year = date.getFullYear();
+                        var formattedDate = day + '/' + month + '-' + weekday;
+                        var formattedDateForLink = year + "-" + month + "-" + day;
+
+                        var box = document.createElement('div');
+                        box.classList.add('box');
+
+                        var dateElement = document.createElement('a');
+                        dateElement.classList.add('date');
+                        dateElement.textContent = formattedDate;
+                        dateElement.href = 'bookticket?date=' + formattedDateForLink + '&movieID=${movie.getMovie_id()}';
+                        if (selectedDate === formattedDateForLink) {
+                            dateElement.style.color = 'red'; // Highlight the selected date
+                        }
+                        box.appendChild(dateElement);
+                        dateContainer.appendChild(box);
+                    }
+                }
+
+                displayNextWeek();
         </script>
     </body>
 </html>
