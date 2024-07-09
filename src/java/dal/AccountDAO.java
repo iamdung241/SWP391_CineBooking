@@ -514,4 +514,61 @@ public class AccountDAO extends DBContext {
             }
         }
     }
+
+    public Account getAccountByGoogleEmail(String email) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE email = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("account_id"));
+                account.setUsername(rs.getString("username"));
+                account.setRole_id(rs.getInt("role_id"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    public void insertUserFromGoogle(Account account) {
+        PreparedStatement stm = null;
+        String sql = "INSERT INTO [dbo].[Account] ([fullname], [phone], [email], [username], [password], [role_id]) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, account.getFullname());
+            stm.setString(2, account.getPhone());
+            stm.setString(3, account.getEmail());
+            stm.setString(4, account.getUsername());
+            stm.setString(5, ""); // Đặt mật khẩu trống cho tài khoản Google
+            stm.setInt(6, account.getRole_id());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

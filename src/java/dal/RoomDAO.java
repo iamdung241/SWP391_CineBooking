@@ -35,7 +35,13 @@ public class RoomDAO extends DBContext {
         return listRoom;
     }
 
-   
+    public static void main(String[] args) {
+        List<Room> list = new RoomDAO().getRoomsByShowtimeID(29);
+        for (Room room : list) {
+            System.out.println(room.getRoom_name());
+        }
+    }
+    
     public Room getRoomByID(int room_id) {
         String sql = "select * from Room where room_id = ?";
         Room room;

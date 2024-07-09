@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author Tran Anh Vu
- */
 public class GoogleAccount {
-    private String  id, email, name, first_name, given_name, family_name, picture;
+    private String id, email, name, first_name, given_name, family_name, picture;
     private boolean verified_email;
 
     public GoogleAccount(String id, String email, String name, String first_name, String given_name, String family_name, String picture, boolean verified_email) {
