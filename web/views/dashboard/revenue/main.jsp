@@ -74,23 +74,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/CineBooking/filmrevenue">
+                    <a class="nav-link active" href="/CineBooking/revenue/film">
                         <i class="fas fa-chart-line"></i> Film Revenue
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/CineBooking/concessionrevenue">
+                    <a class="nav-link active" href="/CineBooking/revenue/concession">
                         <i class="fas fa-chart-line"></i> Concession Revenue
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-chart-line"></i> Revenue
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/CineBooking/revenue/film">Film Revenue</a>
-                        <a class="dropdown-item" href="/CineBooking/revenue/concession">Concession Revenue</a>
-                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/movie">
