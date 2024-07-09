@@ -5,6 +5,8 @@
         <meta charset="UTF-8">
         <title>Login</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
         <style>
             body {
                 background-color: #f5f5f5;
@@ -112,6 +114,24 @@
                 text-decoration: none;
                 font-size: 14px;
             }
+            .password-container {
+                position: relative;
+                width: 100%;
+            }
+
+            .password-input {
+                width: calc(100% - 30px);
+                padding-right: 30px;
+            }
+
+            .toggle-password {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                cursor: pointer;
+                padding: 5px;
+            }
         </style>
     </head>
     <body>
@@ -123,9 +143,12 @@
                     <label for="username">Enter Username or Email or Phone:</label>
                     <input type="text" id="username" name="username" value="${param.username}" required>
                 </div>
-                <div>
-                    <label for="password">Enter Password:</label>
-                    <input type="password" id="password" name="password" value="${param.password}" required>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" class="password-input" required>
+                    <!-- Font Awesome eye icon -->
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </span>
                 </div>
 
                 <p class="error-message">${requestScope.usernameOrPasswordWrong}</p>
@@ -137,8 +160,24 @@
             </div><!--create-account-wrap-->
 
             <!-- New Elements -->
-            <button onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/CineBooking/logingoogle&response_type=code&client_id=43290596655-kh14rom6dtk8am9gtd3po2cuft9nd3pu.apps.googleusercontent.com&approval_prompt=force'" id="login-with-google">Login with Google</button>
+            <button onclick="location.href = 'https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/CineBooking/logingoogle&response_type=code&client_id=43290596655-kh14rom6dtk8am9gtd3po2cuft9nd3pu.apps.googleusercontent.com&approval_prompt=force'" id="login-with-google">Login with Google</button>
             <a href="forgotpassword.jsp" id="forgot-password-link">Forgot Password?</a>
         </div><!--login-form-wrap-->
+        <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById('password');
+                var toggleIcon = document.querySelector('.toggle-password');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            }
+
+        </script>
+
     </body>
 </html>

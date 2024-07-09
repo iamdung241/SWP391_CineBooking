@@ -3,6 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
         <title>CineBooking Register</title>
         <style>
             body {
@@ -109,6 +110,24 @@
             #login-with-google:hover {
                 background-color: #c23321;
             }
+            .password-container {
+                position: relative;
+                width: 100%;
+            }
+
+            .password-input {
+                width: calc(100% - 30px);
+                padding-right: 30px; 
+            }
+
+            .toggle-password {
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+                cursor: pointer;
+                padding: 5px;
+            }
         </style>
         <script>
             function validateFullname() {
@@ -196,6 +215,19 @@
                 var validConfirmPassword = validateConfirmPassword();
                 return validFullname && validPhone && validEmail && validUsername && validPassword && validConfirmPassword;
             }
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById('password');
+                var toggleIcon = document.querySelector('.toggle-password');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            }
+
         </script>
     </head>
     <body>
@@ -240,15 +272,21 @@
                         <p style="color: red; font-size: 1.25rem; text-align: center">${existedUsername}</p>
                     </c:if>
                 </div>
-                <div>
+                <div class="password-container">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" onblur="validatePassword()">
                     <span id="passwordError" class="error-message">${passwordError}</span>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </span>
                 </div>
-                <div>
+                <div class="password-container">
                     <label for="confirmPassword">Confirm Password:</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" onblur="validateConfirmPassword()">
                     <span id="confirmPasswordError" class="error-message">${confirmPasswordError}</span>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </span>
                 </div>
                 <p>
                     <input type="submit" id="register" value="Register">
