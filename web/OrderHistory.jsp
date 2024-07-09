@@ -182,7 +182,6 @@
                             <div class="col-sm-8 user-profile-info">
                                 <div class="user-profile-desc">
                                     <h3 class="text-center"><i class="fa fa-info-circle icon"></i>Order History</h3>
-                                    <a class="container btn btn-primary mb-3" href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
                                     <div class="container overflow-auto" style="max-height: 500px">
                                         <c:forEach var="ticket" items="${tickets}">
                                             <div class="card mb-5 border-danger">
@@ -210,12 +209,8 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
-
                                     </div>
-
-
-
-
+                                    <a class="container btn btn-primary mb-3" href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
                                     <c:if test="${not empty message}">
                                         <div class="alert alert-success">
                                             ${message}
