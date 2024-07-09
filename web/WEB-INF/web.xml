@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
-        <servlet-name>SeatsServlet</servlet-name>
-        <servlet-class>controller.SeatsServlet</servlet-class>
+        <servlet-name>SeatServlet</servlet-name>
+        <servlet-class>controller.SeatServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ShowtimingServlet</servlet-name>
@@ -81,19 +81,19 @@
         <servlet-class>controller.OrderHistory</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FilmRevenueServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.FilmRevenueServlet</servlet-class>
+        <servlet-name>RevenueFilmServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.RevenueFilmServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ConcessionRevenueServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.ConcessionRevenueServlet</servlet-class>
+        <servlet-name>RevenueConcessionServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.RevenueConcessionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SeatsServlet</servlet-name>
+        <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/seat</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -169,12 +169,12 @@
         <url-pattern>/OrderHistory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FilmRevenueServlet</servlet-name>
-        <url-pattern>/filmrevenue</url-pattern>
+        <servlet-name>RevenueFilmServlet</servlet-name>
+        <url-pattern>/revenue/film</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ConcessionRevenueServlet</servlet-name>
-        <url-pattern>/concessionrevenue</url-pattern>
+        <servlet-name>RevenueConcessionServlet</servlet-name>
+        <url-pattern>/revenue/concession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>

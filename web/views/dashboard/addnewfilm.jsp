@@ -153,7 +153,7 @@
         </script>
     </head>
     <body>
-        <jsp:include page="../dashboard/main.jsp"></jsp:include>
+        <jsp:include page="../common/admin/main.jsp"></jsp:include>
             <main id="main" class="container-fluid">
                 <section class="container-fluid">
                     <div class="row g-4 mb-4 mt-0">

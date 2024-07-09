@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller.admin.dashboard;
 
 import com.google.gson.Gson;
-import dal.DashboardDAO;
+import dal.RevenueDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,27 +16,27 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  *
  * @author Son
  */
-public class DashboardServlet extends HttpServlet {
-
+public class RevenueConcessionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         handleRequest(request, response);
-    }
+    } 
 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         handleRequest(request, response);
     }
-
+    
     private void handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String startDateParam = request.getParameter("startDate");
@@ -50,43 +51,47 @@ public class DashboardServlet extends HttpServlet {
             endDateParam = endDate.format(formatter);
         }
 
-        DashboardDAO dao = new DashboardDAO();
+        RevenueDAO revenueDAO = new RevenueDAO();
 
-        double totalRevenue = dao.getTotalRevenue(startDateParam, endDateParam);
-        int totalOrders = dao.getTotalOrders(startDateParam, endDateParam);
-        double getAverageValueOrder = dao.getAverageValueOrder(startDateParam, endDateParam);
-        Map<String, Double> revenueByTypeMovie_Raw = dao.getRevenueByTypeMovie(startDateParam, endDateParam);
-        Map<String, Integer> orderStatistics_Raw = dao.getOrderStatistics(startDateParam, endDateParam);
-
+        double totalRevenue = revenueDAO.getTotalConcessionRevenue(startDateParam, endDateParam);
+        double averageValue = revenueDAO.getAverageValueOfConcessionBook(startDateParam, endDateParam);
+        List<String[]> topConcessions = revenueDAO.getTop3Concessions(startDateParam, endDateParam);
+        List<String[]> concessionRevenueByDay = revenueDAO.getConcessionRevenueByDay(startDateParam, endDateParam);
+        
+        System.out.println("Total Revenue: " + totalRevenue);
+        System.out.println("Average Value: " + averageValue);
+        System.out.println("Top Concessions:");
+        for (String[] concession : topConcessions) {
+            System.out.println("Concession: " + concession[0] + ", Quantity: " + concession[1]);
+        }
+        System.out.println("Concession Revenue By Day:");
+        for (String[] revenue : concessionRevenueByDay) {
+            System.out.println("Date: " + revenue[0] + ", Revenue: " + revenue[1]);
+        }
+        
         Gson gson = new Gson();
-        String revenueByTypeMovie = gson.toJson(revenueByTypeMovie_Raw);
-        String orderStatistics = gson.toJson(orderStatistics_Raw);
+        String concessionRevenueByDayJson = gson.toJson(concessionRevenueByDay);
 
-        // Format the total revenue and average order
+        // Format the total revenue and average value
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
         String formattedTotalRevenue = currencyFormatter.format(totalRevenue).replace("₫", "VNĐ");
-        String formattedAverageValueOrder = currencyFormatter.format(getAverageValueOrder).replace("₫", "VNĐ");
+        String formattedAverageValue = currencyFormatter.format(averageValue).replace("₫", "VNĐ");
 
         System.out.println("Total Revenue: " + formattedTotalRevenue);
-        System.out.println("Total Orders: " + totalOrders);
-        System.out.println("Average Value Order: " + formattedAverageValueOrder);
-        System.out.println("Revenue By Type Movie: " + revenueByTypeMovie);
-        System.out.println("Order Statistics: " + orderStatistics);
+        System.out.println("Average Value: " + formattedAverageValue);
 
         request.setAttribute("totalRevenue", formattedTotalRevenue);
-        request.setAttribute("totalOrders", totalOrders);
-        request.setAttribute("averageValueOrder", formattedAverageValueOrder);
-        request.setAttribute("revenueByTypeMovie_Raw", revenueByTypeMovie_Raw);
-        request.setAttribute("revenueByTypeMovie", revenueByTypeMovie);
-        request.setAttribute("orderStatistics", orderStatistics);
+        request.setAttribute("averageValue", formattedAverageValue);
+        request.setAttribute("topConcessions", topConcessions);
+        request.setAttribute("concessionRevenueByDay", concessionRevenueByDayJson);
         request.setAttribute("startDate", startDateParam);
         request.setAttribute("endDate", endDateParam);
 
         request.setAttribute("defaultStartDate", startDate.format(formatter));
         request.setAttribute("defaultEndDate", endDate.format(formatter));
 
-        request.getRequestDispatcher("views/dashboard/revenue/dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/dashboard/revenue/concessionrevenue.jsp").forward(request, response);
     }
 
     @Override

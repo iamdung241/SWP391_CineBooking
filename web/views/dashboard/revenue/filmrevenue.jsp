@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,9 +30,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="../dashboard/main.jsp"></jsp:include>
+        <jsp:include page="../../common/admin/main.jsp"></jsp:include>
             <section class="container-fluid">
-                <form method="get" action="${pageContext.request.contextPath}/dashboard">
+                <form method="get" action="${pageContext.request.contextPath}/revenue/film">
                 <div class="row align-items-center g-4">
                     <div class="col-6 col-md-3">
                         <label for="startDate" class="form-label">Start Date</label>
@@ -46,7 +48,8 @@
                     </div>
                 </div>
             </form>
-
+            <br/>
+            <br/>
             <div class="row g-4">       
 
                 <!-- Total revenue-->
@@ -79,11 +82,11 @@
                     </div>                
                 </div>
             </div>
-
+            <br/>
             <div class="row mb-4 mt-3">
-                <jsp:include page="../revenue/filmchart.jsp"></jsp:include>
+                <jsp:include page="filmchart.jsp"></jsp:include>
             </div>
 
-            <section/>
+        </section>
     </body>
 </html>

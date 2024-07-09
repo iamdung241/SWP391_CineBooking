@@ -17,7 +17,7 @@
         </script>
     </head>
     <body>
-        <jsp:include page="../dashboard/main.jsp"></jsp:include>
+        <jsp:include page="../common/admin/main.jsp"></jsp:include>
             <section class="container-fluid">
                 <!-- Content-->
                 <div class="col-12">
@@ -26,11 +26,11 @@
                             <h6 class="card-title m-0">User List</h6>
                             <!-- Search by Username and Role -->
                             <form id="filterForm" class="d-flex" action="/CineBooking/searchAccount">
-                            <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Name" style="width: 200px;">
-                            <button class="btn px-2 btn-primary py-0" type="submit"><i class="fas fa-search"></i></button>
-                            <select name="role" class="form-control form-control-sm  mx-3" style="width: 150px;" onchange="submitForm()">
-                                <option value="">All Roles</option>
-                                <option value="1" <%= "1".equals(request.getParameter("role")) ? "selected" : "" %>>Admin</option>
+                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Name" style="width: 200px;">
+                                <button class="btn px-2 btn-primary py-0" type="submit"><i class="fas fa-search"></i></button>
+                                <select name="role" class="form-control form-control-sm  mx-3" style="width: 150px;" onchange="submitForm()">
+                                    <option value="">All Roles</option>
+                                    <option value="1" <%= "1".equals(request.getParameter("role")) ? "selected" : "" %>>Admin</option>
                                 <option value="2" <%= "2".equals(request.getParameter("role")) ? "selected" : "" %>>Staff</option>
                                 <option value="3" <%= "3".equals(request.getParameter("role")) ? "selected" : "" %>>Customer</option>
                             </select>
@@ -82,6 +82,7 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/userdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>
+                                            <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/OrderDetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Order</a>
                                         </td>
                                     </tr>
                                     <%
