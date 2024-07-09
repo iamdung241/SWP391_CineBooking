@@ -56,8 +56,8 @@
                     </div>
                     <!-- Average Order -->
                     <div class="text-center mt-4">
-                        <h6 class="card-title m-0">Average Order</h6>
-                        <p class="fs-2 fw-bold">${averageOrder}</p>
+                        <h6 class="card-title m-0">Average Value Order</h6>
+                        <p class="fs-2 fw-bold">${averageValueOrder}</p>
                     </div>
                     <!-- /Average Order -->
                 </div>

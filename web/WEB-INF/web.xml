@@ -82,12 +82,12 @@
         <servlet-class>controller.OrderHistory</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FilmRevenueServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.FilmRevenueServlet</servlet-class>
+        <servlet-name>RevenueFilmServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.RevenueFilmServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ConcessionRevenueServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.ConcessionRevenueServlet</servlet-class>
+        <servlet-name>RevenueConcessionServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.RevenueConcessionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -170,12 +170,12 @@
         <url-pattern>/OrderHistory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FilmRevenueServlet</servlet-name>
-        <url-pattern>/filmrevenue</url-pattern>
+        <servlet-name>RevenueFilmServlet</servlet-name>
+        <url-pattern>/revenue/film</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ConcessionRevenueServlet</servlet-name>
-        <url-pattern>/concessionrevenue</url-pattern>
+        <servlet-name>RevenueConcessionServlet</servlet-name>
+        <url-pattern>/revenue/concession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>
