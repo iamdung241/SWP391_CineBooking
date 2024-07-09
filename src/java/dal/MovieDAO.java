@@ -191,21 +191,21 @@ public class MovieDAO extends DBContext {
             Movie movie;
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, movie_id);
-            ResultSet rs = st.executeQuery();
+            ResultSet rss = st.executeQuery();
             String movie_name, type_name;
             String post_img, trailer, decription;
-            int id, type_id, duration;
+            int duration;
             String date_published;
-            while (rs.next()) {
-                id = rs.getInt(1);
-                movie_name = rs.getString(2);
-                duration = rs.getInt(4);
-                date_published = rs.getString(5);
-                post_img = rs.getString(6);
-                trailer = rs.getString(7);
-                decription = rs.getString(8);
-                type_name = rs.getString(9);
-                String movie_validateAge = rs.getString(10);
+            while (rss.next()) {
+                rss.getInt(1);
+                movie_name = rss.getString(2);
+                duration = rss.getInt(4);
+                date_published = rss.getString(5);
+                post_img = rss.getString(6);
+                trailer = rss.getString(7);
+                decription = rss.getString(8);
+                type_name = rss.getString(9);
+                String movie_validateAge = rss.getString(10);
                 movie = new Movie(movie_id, movie_name, type_name, duration, date_published, post_img, trailer, decription, movie_validateAge);
                 return movie;
             }
