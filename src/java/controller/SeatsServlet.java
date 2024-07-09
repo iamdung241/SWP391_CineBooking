@@ -27,7 +27,7 @@ import model.Showtiming;
  *
  * @author thanh
  */
-public class SeatServlet extends HttpServlet {
+public class SeatsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
