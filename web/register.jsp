@@ -96,15 +96,17 @@
 
             #login-with-google {
                 background-color: #dd4b39;
-                color: #fff;
-                padding: 12px 20px;
                 border: none;
+                color: white;
+                padding: 14px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
                 border-radius: 4px;
                 cursor: pointer;
-                font-size: 16px;
-                margin-top: 20px;
-                width: 100%;
                 transition: background-color 0.3s ease;
+                width: calc(100% - 24px);
             }
 
             #login-with-google:hover {
@@ -296,7 +298,7 @@
                         <a href="login.jsp">${registerSuccess}</a>
                     </p>
                 </c:if>
-                <button id="login-with-google">Sign up with Google</button>
+                <button onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/CineBooking/logingoogle&response_type=code&client_id=43290596655-kh14rom6dtk8am9gtd3po2cuft9nd3pu.apps.googleusercontent.com&approval_prompt=force'" type="button" id="login-with-google">Sign up with Google</button>
             </form>
             <div class="form-footer">
                 <p>Already have an account? <a href="login.jsp">Login Now</a></p>
