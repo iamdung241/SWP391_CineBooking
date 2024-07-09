@@ -55,7 +55,7 @@ public class RevenueConcessionServlet extends HttpServlet {
 
         double totalRevenue = revenueDAO.getTotalConcessionRevenue(startDateParam, endDateParam);
         double averageValue = revenueDAO.getAverageValueOfConcessionBook(startDateParam, endDateParam);
-        List<String[]> topConcessions = revenueDAO.getTop4Concessions(startDateParam, endDateParam);
+        List<String[]> topConcessions = revenueDAO.getTop3Concessions(startDateParam, endDateParam);
         List<String[]> concessionRevenueByDay = revenueDAO.getConcessionRevenueByDay(startDateParam, endDateParam);
         
         System.out.println("Total Revenue: " + totalRevenue);

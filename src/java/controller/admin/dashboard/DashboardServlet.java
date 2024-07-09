@@ -43,7 +43,7 @@ public class DashboardServlet extends HttpServlet {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate endDate = LocalDate.now();
-        LocalDate startDate = endDate.minusDays(7);
+        LocalDate startDate = endDate.minusDays(14);
 
         if (startDateParam == null || endDateParam == null) {
             startDateParam = startDate.format(formatter);

@@ -21,21 +21,16 @@
             }
 
             .top-product-list li {
-                padding: 10px;
-                border-bottom: 1px solid #ddd;
+                padding: 10px 0;
                 font-size: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
 
-            .top-product-list li:last-child {
-                border-bottom: none;
-            }
-
             .top-product-title {
                 font-weight: bold;
-                font-size: 18px;
+                font-size: 14px;
                 margin-bottom: 0;
             }
 
@@ -47,17 +42,19 @@
             .top-product-image {
                 width: 50px;
                 height: 50px;
-                object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+                object-fit: cover;
             }
 
             .top-product-row {
                 display: flex;
                 align-items: center;
+                padding: 10px 0;
             }
 
             .top-product-name {
                 flex: 1;
                 margin-left: 10px;
+                font-size: 14px;
             }
 
             .top-product-quantity {
@@ -65,58 +62,53 @@
                 text-align: right;
                 margin-left: 10px;
             }
-
         </style>
+
 
     </head>
     <body>
 
         <div class="row mb-4 mt-3">
-            <div class="col-12 col-lg-5">
-                <div class="card mb-4 h-100">
-                    <div class="card-header justify-content-between align-items-center d-flex">
-                        <h6 class="card-title m-0">Top Product</h6>
-                    </div>
-                    <div class="card-body">
-                        <table class="table m-0">
-                            <tbody>
+            <div class="row mb-4 mt-3">
+                <div class="col-12 col-lg-5">
+                    <div class="card mb-4 h-100">
+                        <div class="card-header justify-content-between align-items-center d-flex">
+                            <h6 class="card-title m-0">Top Product</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="top-product-list">
                                 <c:forEach var="concession" items="${topConcessions}">
-                                    <tr class="top-product-row">
-                                        <td class="ps-0" style="width: 60px;">
-                                <picture>
-                                    <img class="top-product-image rounded" src="${pageContext.request.contextPath}/${concession[2]}" alt="${concession[0]}">
-                                </picture>
-                                </td>
-                                <td class="top-product-name" style="width: calc(100% - 120px);">
-                                    <span class="top-product-title">${concession[0]}</span>
-                                </td>
-                                <td class="top-product-quantity" style="width: 60px;">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <span class="fw-bolder me-3">${concession[1]}</span>
-                                    </div>
-                                </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                                    <li class="top-product-row">
+                                        <img class="top-product-image rounded" src="${pageContext.request.contextPath}/${concession[2]}" alt="${concession[0]}">
+                                        <span class="top-product-name">
+                                            <span class="top-product-title">${concession[0]}</span>
+                                        </span>
+                                        <span class="top-product-quantity">
+                                            <div class="d-flex align-items-center justify-content-end">
+                                                <span class="fw-bolder">${concession[1]}</span>
+                                            </div>
+                                        </span>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
                     </div>
-                </div>                
-            </div>
-            <div class="col-12 col-lg-7">
-                <div class="card h-100">
-                    <div class="card-header justify-content-between align-items-center d-flex border-0 pb-0">
-                        <h6 class="card-title m-0 text-muted fs-xs text-uppercase fw-bolder tracking-wide">Revenue Orders</h6>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="card h-100">
+                        <div class="card-header justify-content-between align-items-center d-flex border-0 pb-0">
+                            <h6 class="card-title m-0 text-muted fs-xs text-uppercase fw-bolder tracking-wide">Revenue Orders</h6>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     </body>
 
     <script>

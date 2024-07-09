@@ -28,7 +28,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="main.jsp"></jsp:include>
+        <jsp:include page="../../common/admin/main.jsp"></jsp:include>
             <section class="container-fluid">
                 <form method="get" action="${pageContext.request.contextPath}/dashboard">
                 <div class="row align-items-center g-4">
