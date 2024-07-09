@@ -5,18 +5,17 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <!-- Favicon -->
-        <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/./assets/images/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/./assets/images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/./assets/images/favicon/favicon-16x16.png">
-        <link rel="mask-icon" href="${pageContext.request.contextPath}/./assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 
         <!-- Vendor CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
@@ -28,9 +27,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="../dashboard/main.jsp"></jsp:include>
+        <jsp:include page="main.jsp"></jsp:include>
             <section class="container-fluid">
-                <form method="get" action="${pageContext.request.contextPath}/dashboard">
+                <form method="get" action="${pageContext.request.contextPath}/revenue/concession">
                 <div class="row align-items-center g-4">
                     <div class="col-6 col-md-3">
                         <label for="startDate" class="form-label">Start Date</label>
@@ -46,6 +45,8 @@
                     </div>
                 </div>
             </form>
+                    <br/>
+                    <br/>
 
             <div class="row g-4">       
 
@@ -79,12 +80,13 @@
                     </div>                
                 </div>
             </div>
-
+                                <br/>
             <div class="row mb-4 mt-3">
-                <jsp:include page="../revenue/concessionchart.jsp"></jsp:include>
-            </div>
+                <jsp:include page="concessionchart.jsp"></jsp:include>
+                </div>
 
-            <section/>
+                
+        </section>
 
     </body>
 </html>
