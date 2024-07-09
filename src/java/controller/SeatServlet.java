@@ -103,6 +103,7 @@ public class SeatServlet extends HttpServlet {
         if (queryString != null) {
             Url.append("?").append(queryString);
         }
+        /// add url back of seat
         HttpSession session = request.getSession();
         session.setAttribute("urlbackSeat", Url);
         System.out.println(Url);
