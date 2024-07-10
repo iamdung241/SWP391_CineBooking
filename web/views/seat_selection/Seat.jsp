@@ -80,7 +80,7 @@
                                 <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span><h5></div>
                                             <hr/>
                                             <div style="text-align: center; padding-top: 20px">
-                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="/CineBooking/home"><i class='bx bx-left-arrow'></i> Back</a>
+                                                <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="${urlbackBooking}"><i class='bx bx-left-arrow'></i> Back</a>
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: red; color: white" id="payment-link" href="#" onclick="redirectWithParams()">Next<i class='bx bx-right-arrow'></i></a>
                                             </div>
                                             </div>

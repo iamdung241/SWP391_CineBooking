@@ -117,7 +117,7 @@
                             </div>
                             <div style="margin-top: 40px">
                                 <c:forEach items="${movie.getListShowtime()}" var="s"> 
-                                    <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
+                                    <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
                                 </c:forEach>
                             </div>
                             <c:if test="${sessionScope.user != null}"> 
@@ -126,7 +126,7 @@
                                         <c:forEach var="s" items="${movie.getListShowtime()}">
                                             <c:if test="${room.getRoom_id() == s.getRoom_id()}">
                                                 <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
-                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
+                                                    <a class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
                                                 </div>
                                             </c:if>
                                         </c:forEach>
