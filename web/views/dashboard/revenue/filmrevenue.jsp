@@ -30,7 +30,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="main.jsp"></jsp:include>
+        <jsp:include page="../../common/admin/main.jsp"></jsp:include>
             <section class="container-fluid">
                 <form method="get" action="${pageContext.request.contextPath}/revenue/film">
                 <div class="row align-items-center g-4">
@@ -48,7 +48,8 @@
                     </div>
                 </div>
             </form>
-
+            <br/>
+            <br/>
             <div class="row g-4">       
 
                 <!-- Total revenue-->
@@ -81,11 +82,11 @@
                     </div>                
                 </div>
             </div>
-
+            <br/>
             <div class="row mb-4 mt-3">
                 <jsp:include page="filmchart.jsp"></jsp:include>
             </div>
 
-            </section>
+        </section>
     </body>
 </html>

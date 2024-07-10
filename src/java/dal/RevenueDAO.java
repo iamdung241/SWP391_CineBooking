@@ -56,9 +56,9 @@ public class RevenueDAO extends DBContext {
         return averageValue;
     }
 
-    public List<String[]> getTop4Movies(String startDate, String endDate) {
+    public List<String[]> getTop3Movies(String startDate, String endDate) {
         List<String[]> topMovies = new ArrayList<>();
-        String sql = "SELECT TOP 4 m.movie_name, COUNT(td.id) as quantity, m.post_img "
+        String sql = "SELECT TOP 3 m.movie_name, COUNT(td.id) as quantity, m.post_img "
                 + "FROM Ticket_Detail td "
                 + "INNER JOIN Showtime st ON td.showtime_id = st.showtime_id "
                 + "INNER JOIN Movie m ON st.movie_id = m.movie_id "
@@ -125,7 +125,7 @@ public class RevenueDAO extends DBContext {
         System.out.println("Average Value of Movie Book from " + startDate + " to " + endDate + ": " + averageFilmValue);
 
         // Kiểm tra phương thức getTop4Movies
-        List<String[]> topMovies = revenueDAO.getTop4Movies(startDate, endDate);
+        List<String[]> topMovies = revenueDAO.getTop3Movies(startDate, endDate);
         System.out.println("Top 4 Movies from " + startDate + " to " + endDate + ":");
         for (String[] movie : topMovies) {
             System.out.println("Movie: " + movie[0] + ", Quantity: " + movie[1]);
@@ -147,7 +147,7 @@ public class RevenueDAO extends DBContext {
         System.out.println("Average Value of Concession Book from " + startDate + " to " + endDate + ": " + averageConcessionValue);
 
         // Kiểm tra phương thức getTop4Concessions
-        List<String[]> topConcessions = revenueDAO.getTop4Concessions(startDate, endDate);
+        List<String[]> topConcessions = revenueDAO.getTop3Concessions(startDate, endDate);
         System.out.println("Top 4 Concessions from " + startDate + " to " + endDate + ":");
         for (String[] concession : topConcessions) {
             System.out.println("Concession: " + concession[0] + ", Quantity: " + concession[1]);
@@ -205,9 +205,9 @@ public class RevenueDAO extends DBContext {
         return averageValue;
     }
 
-    public List<String[]> getTop4Concessions(String startDate, String endDate) {
+    public List<String[]> getTop3Concessions(String startDate, String endDate) {
         List<String[]> topConcessions = new ArrayList<>();
-        String sql = "SELECT TOP 4 c.concessions_name, SUM(co.quantity) as quantity, c.image "
+        String sql = "SELECT TOP 3 c.concessions_name, SUM(co.quantity) as quantity, c.image "
                 + "FROM Concessions_Order co "
                 + "INNER JOIN Concessions c ON co.concession_id = c.concessions_id "
                 + "INNER JOIN Ticket_Detail td ON co.ticket_id = td.id "
