@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    
+    <!-- Servlet Definitions -->
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.SeatServlet</servlet-class>
@@ -88,6 +90,64 @@
         <servlet-name>RevenueConcessionServlet</servlet-name>
         <servlet-class>controller.admin.dashboard.RevenueConcessionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieDetailServlet</servlet-name>
+        <servlet-class>controller.MovieDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieTrailerServlet</servlet-name>
+        <servlet-class>controller.MovieTrailerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConcessionServlet</servlet-name>
+        <servlet-class>controller.ConcessionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageConcessionServlet</servlet-name>
+        <servlet-class>controller.admin.concession.ManageConcessionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConcessionControlServlet</servlet-name>
+        <servlet-class>controller.admin.concession.ConcessionControlServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchConcession</servlet-name>
+        <servlet-class>controller.admin.concession.SearchConcession</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>controller.RegisterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogle</servlet-name>
+        <servlet-class>controller.LoginGoogle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>controller.LoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookTicketServlet</servlet-name>
+        <servlet-class>controller.BookTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearch_Filter</servlet-name>
+        <servlet-class>controller.AdminSearch_Filter</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScanTicketServlet</servlet-name>
+        <servlet-class>controller.ScanTicketServlet</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -176,53 +236,22 @@
         <servlet-name>RevenueConcessionServlet</servlet-name>
         <url-pattern>/revenue/concession</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout> 30 </session-timeout>
-    </session-config>
-    <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>controller.HomeServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>MovieDetailServlet</servlet-name>
-        <servlet-class>controller.MovieDetailServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>MovieDetailServlet</servlet-name>
         <url-pattern>/moviedetail</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>MovieTrailerServlet</servlet-name>
-        <servlet-class>controller.MovieTrailerServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>MovieTrailerServlet</servlet-name>
         <url-pattern>/movietrailer</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>ConcessionServlet</servlet-name>
-        <servlet-class>controller.ConcessionServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ConcessionServlet</servlet-name>
         <url-pattern>/concession</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>ManageConcessionServlet</servlet-name>
-        <servlet-class>controller.admin.concession.ManageConcessionServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ConcessionControlServlet</servlet-name>
-        <servlet-class>controller.admin.concession.ConcessionControlServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchConcession</servlet-name>
-        <servlet-class>controller.admin.concession.SearchConcession</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ManageConcessionServlet</servlet-name>
         <url-pattern>/admin/concession</url-pattern>
@@ -235,14 +264,6 @@
         <servlet-name>SearchConcession</servlet-name>
         <url-pattern>/admin/search</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>RegisterController</servlet-name>
-        <servlet-class>controller.RegisterController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LoginGoogle</servlet-name>
-        <servlet-class>controller.LoginGoogle</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LoginGoogle</servlet-name>
         <url-pattern>/logingoogle</url-pattern>
@@ -251,55 +272,159 @@
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.LoginController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>movieController</servlet-name>
-        <servlet-class>controller.movieController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>movieController</servlet-name>
-        <url-pattern>/movie</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.LogoutController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>BookTicketServlet</servlet-name>
-        <servlet-class>controller.BookTicketServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>BookTicketServlet</servlet-name>
         <url-pattern>/bookticket</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>AdminSearch_Filter</servlet-name>
-        <servlet-class>controller.AdminSearch_Filter</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>AdminSearch_Filter</servlet-name>
         <url-pattern>/AdminSearchFilter</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>ScanTicketServlet</servlet-name>
-        <servlet-class>controller.ScanTicketServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ScanTicketServlet</servlet-name>
         <url-pattern>/scanticket</url-pattern>
     </servlet-mapping>
+
+    <!-- Filter Definition -->
+    <filter>
+        <filter-name>RefererFilter</filter-name>
+        <filter-class>filter.RefererFilter</filter-class>
+    </filter>
+
+    <!-- Filter Mapping -->
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/dashboard</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/bookticket</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/seat</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/showtiming</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/admin/filter</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/movieController</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/customerController</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/ConcessionBooking</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/ConcessionBooking</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/comingsoon</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/paymentServlet</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/vnpayajax</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/paymentReturn</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/ShowTicket</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/showtimeControl</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/addNewShowtime</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/generateQR</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/OrderHistory</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/revenue/film</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/revenue/concession</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/moviedetail</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/movietrailer</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/concession</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/admin/concession</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/admin/control</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/admin/search</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/AdminSearchFilter</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/scanticket</url-pattern>
+    </filter-mapping>
+
+    <!-- Session Configuration -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- Welcome File List -->
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+
 </web-app>
