@@ -188,6 +188,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">Ticket Code: ${ticket.code}</h5>
                                                     <p class="card-text"><strong>Movie:</strong> ${ticket.movieName}</p>
+                                                    <p class="card-text"><img style="border-style: solid; border-width: 10px"  height="450px" src="${ticket.movieImage}" class="w-100" alt="abc"></p>
                                                     <p class="card-text"><strong>Showtime:</strong> ${ticket.showtime.showtiming}:00</p>
                                                     <p class="card-text"><strong>Room:</strong> ${ticket.showtime.room_name}</p>
                                                     <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
