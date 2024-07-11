@@ -148,6 +148,12 @@
         <servlet-name>ScanTicketServlet</servlet-name>
         <servlet-class>controller.ScanTicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>controller.AddUser</servlet-class>
+    </servlet>
+
+
     <!-- Servlet Mappings -->
     <servlet>
         <servlet-name>HotFilmController</servlet-name>
@@ -305,6 +311,11 @@
         <servlet-name>ScanTicketServlet</servlet-name>
         <url-pattern>/scanticket</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/views/dashboard/adduser</url-pattern>
+    </servlet-mapping>
+
     <!-- Filter Definition -->
     <filter>
         <filter-name>RefererFilter</filter-name>
@@ -353,18 +364,6 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>RefererFilter</filter-name>
-        <url-pattern>/paymentServlet</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
-        <url-pattern>/vnpayajax</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
-        <url-pattern>/paymentReturn</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
         <url-pattern>/ShowTicket</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -377,10 +376,6 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>RefererFilter</filter-name>
-        <url-pattern>/generateQR</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
         <url-pattern>/OrderHistory</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -390,18 +385,6 @@
     <filter-mapping>
         <filter-name>RefererFilter</filter-name>
         <url-pattern>/revenue/concession</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
-        <url-pattern>/moviedetail</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
-        <url-pattern>/movietrailer</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
-        <url-pattern>/concession</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>RefererFilter</filter-name>
@@ -427,6 +410,7 @@
         <filter-name>RefererFilter</filter-name>
         <url-pattern>/scanticket</url-pattern>
     </filter-mapping>
+
     <!-- Session Configuration -->
     <servlet-mapping>
         <servlet-name>HotFilmController</servlet-name>
@@ -439,8 +423,10 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+    
     <!-- Welcome File List -->
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+    
 </web-app>

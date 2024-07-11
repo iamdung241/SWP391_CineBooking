@@ -152,8 +152,6 @@
                                 <!-- Submit button for the form -->
                                 <div>
                                     <button type="submit" class="btn btn-primary">Add</button>
-                                    <!-- Hidden input to specify the service action -->
-                                    <input type="hidden" name="service" value="add">
                                 </div>
                             </form>
 

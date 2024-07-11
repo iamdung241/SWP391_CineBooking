@@ -4,12 +4,14 @@
     Author     : tranh
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Add Staff</title>
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
@@ -114,8 +116,6 @@
                             <!-- Submit button for the form -->
                             <div class="container-fluid d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Add</button>
-                                <!-- Hidden input to specify the service action -->
-                                <input class="form-control" type="hidden" name="service" value="add">
                             </div>
                         </form>
 

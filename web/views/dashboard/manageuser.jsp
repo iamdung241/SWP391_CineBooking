@@ -36,7 +36,7 @@
                             </select>
                         </form>
                         <!-- Add User -->
-                        <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                    <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" style="max-height: 530px">
