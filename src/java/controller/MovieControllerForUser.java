@@ -73,6 +73,9 @@ public class MovieControllerForUser extends HttpServlet {
             }
         }
         // Set the attributes
+        MovieDAO mdao = new MovieDAO();
+        List<Movie> topMovie = mdao.getTopMovieForMonth();
+        req.setAttribute("topMovie", topMovie);
         req.setAttribute("keyword", keyword);
         req.setAttribute("typeList", typeList);
         req.setAttribute("listM", listM.isEmpty() ? null : listM);
