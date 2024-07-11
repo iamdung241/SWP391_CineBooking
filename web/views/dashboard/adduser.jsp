@@ -25,7 +25,7 @@
                         <form class="mt-4" action="adduser" method="post">
                             <table class="table">
                                 <tr>
-                                    <td><label class="form-label">Username: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Username: </label></td>
                                     <td>
                                         <% 
                                             String errorUsername = (String) request.getAttribute("errorUsername");
@@ -39,7 +39,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Password: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Password: </label></td>
                                     <td>
                                         <input class="form-control" type="password" name="password" placeholder="Password" required>
                                         <% 
@@ -51,7 +51,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Re-enter Password: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Re-enter Password: </label></td>
                                     <td>
                                         <input class="form-control" type="password" name="repassword" placeholder="Re-enter Password" required>
                                         <% 
@@ -63,7 +63,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Fullname: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Fullname: </label></td>
                                     <td>
                                         <% 
                                             String errorFullname = (String) request.getAttribute("errorFullname");
@@ -77,7 +77,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Email: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Email: </label></td>
                                     <td>
                                         <% 
                                             String errorEmail = (String) request.getAttribute("errorEmail");
@@ -91,7 +91,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Phone: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Phone: </label></td>
                                     <td>
                                         <% 
                                             String errorPhone = (String) request.getAttribute("errorPhone");

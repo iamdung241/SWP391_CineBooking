@@ -77,7 +77,7 @@
                                                 <td>${m.date_published}</td>
                                                 <td>${m.age}</td> 
                                                 <td>${m.type_name}</td> 
-                                                <td>${m.status eq 'on' ? '<p style="color: green">Eneble</p>' : '<p style="color: red">Disable</p>'}</td>
+                                                <td>${m.status eq 'on' ? '<p style="color: green">Enable</p>' : '<p style="color: red">Disable</p>'}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
                                                         <a class="btn text-primary" href="movie?mode=detail&idMovie=${m.movie_id}"><i class="fas fa-info-circle"></i> Detail</a>

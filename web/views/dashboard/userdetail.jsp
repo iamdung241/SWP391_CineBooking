@@ -40,23 +40,23 @@
                             <% if (account != null) { %>
                             <table class="table">
                                 <tr>
-                                    <td><label>Account ID: </label></td>
+                                    <td style="font-weight: bolder"><label>Account ID: </label></td>
                                     <td><%= account.getAccount_id() %></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Fullname: </label></td>
+                                    <td style="font-weight: bolder"><label>Fullname: </label></td>
                                     <td><%= account.getFullname() %></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Phone: </label></td>
+                                    <td style="font-weight: bolder"><label>Phone: </label></td>
                                     <td><%= account.getPhone() %></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Email: </label></td>
+                                    <td style="font-weight: bolder"><label>Email: </label></td>
                                     <td><%= account.getEmail() %></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Username: </label></td>
+                                    <td style="font-weight: bolder"><label>Username: </label></td>
                                     <td><%= account.getUsername() %></td>
                                 </tr>
                                 <tr>
