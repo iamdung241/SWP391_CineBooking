@@ -31,12 +31,12 @@ public class RefererFilter implements Filter {
 
         String referer = httpRequest.getHeader("Referer");
 
-        // Kiểm tra nếu referer là null hoặc không đến từ chính ứng dụng
-        if (referer == null || !referer.startsWith(httpRequest.getScheme() + "://" + httpRequest.getServerName())) {
-            // Chặn truy cập và chuyển hướng đến trang lỗi
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/error.jsp");
-            return;
-        }
+         //Kiểm tra nếu referer là null hoặc không đến từ chính ứng dụng
+//        if (referer == null || !referer.startsWith(httpRequest.getScheme() + "://" + httpRequest.getServerName())) {
+//            // Chặn truy cập và chuyển hướng đến trang lỗi
+//            httpResponse.sendRedirect(httpRequest.getContextPath() + "/error.jsp");
+//            return;
+//        }
 
         // Chuyển yêu cầu tiếp tục trong chuỗi lọc
         chain.doFilter(request, response);

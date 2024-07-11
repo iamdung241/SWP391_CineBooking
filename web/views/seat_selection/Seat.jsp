@@ -77,7 +77,7 @@
                                 <div><h4><i class='bx bx-movie-play'></i><span style="color: green"> ${movie.getMovie_name()} </span></h4></div> 
                                 <div><span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span><input type="hidden" id="ghe"></span></div>
                                 <div><span style="font-weight: bold; font-size: 19px">Quality: &nbsp<span style="color: green" id="selected-seat-count"></span> </span></div>
-                                <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span><h5></div>
+                                <div><h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span>VNĐ<h5></div>
                                             <hr/>
                                             <div style="text-align: center; padding-top: 20px">
                                                 <a style="border-style: solid; border-radius: 10px; text-align: center; padding: 15px; background-color: black; color: white" href="${urlbackBooking}"><i class='bx bx-left-arrow'></i> Back</a>
