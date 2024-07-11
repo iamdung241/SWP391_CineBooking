@@ -127,7 +127,7 @@
                                                     <td class="text-center">
                                                         <div class="d-flex p-6">                              
                                                             <a class="btn btn-sm btn-primary me-1" href="movie?mode=detail&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i>Detail</a>
-                                                            <a class="btn btn-sm btn-success me-1" href="movie?mode=update&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Edit</a>
+                                                            <a class="btn btn-sm btn-success me-1" href="movie?mode=update&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Edit</a>                                                   
                                                             <a class="btn btn-sm btn-danger" href="movie?mode=del&idMovie=${m.movie_id}" style="color: white"><i class="align-bottom"></i> Delete</a>                                                        
                                                         </div> 
                                                     </td>

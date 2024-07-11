@@ -37,7 +37,7 @@ public class ShowtimingDAO extends DBContext {
     }
 
     public List<Showtiming> getShowtimeByMovieID(int movieID) {
-        String sql = "select * from Showtime where movie_id = ?";
+        String sql = "select * from Showtime s join Movie m on m.movie_id = s.movie_id where m.movie_id = ?";
         List<Showtiming> listShow = new ArrayList();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -57,6 +57,7 @@ public class ShowtimingDAO extends DBContext {
         }
         return listShow;
     }
+   
 
     public List<Movie> getMovieWithShowtime() {
         String sql = "select * from Movie m\n"
