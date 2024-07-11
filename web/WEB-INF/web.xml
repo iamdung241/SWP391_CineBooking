@@ -88,6 +88,10 @@
         <servlet-name>ConcessionRevenueServlet</servlet-name>
         <servlet-class>controller.admin.dashboard.ConcessionRevenueServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TopMovieServlet</servlet-name>
+        <servlet-class>controller.TopMovieServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>ConcessionRevenueServlet</servlet-name>
         <url-pattern>/concessionrevenue</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopMovieServlet</servlet-name>
+        <url-pattern>/topMovie</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout> 30 </session-timeout>

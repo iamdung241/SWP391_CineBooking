@@ -28,7 +28,7 @@
                 margin-left: 20px;
             }
             .detail{
-                
+
                 margin-bottom: 30px;
             }
             .showRoom {
@@ -61,7 +61,7 @@
                 font-weight: bold;
                 margin-left: 30px;
             }
-            
+
             .box {
                 margin-top: 60px;
                 border: 1px solid black;
@@ -72,9 +72,9 @@
                 padding: 10px;
             }
             .date {
-               display: inline-block;
-           }
-           .date:hover {
+                display: inline-block;
+            }
+            .date:hover {
                 color: red;
             }
             hr {
@@ -117,18 +117,16 @@
                             </div>
                             <div style="margin-top: 40px">
                                 <c:forEach items="${movie.getListShowtime()}" var="s"> 
-                                    <a class="showtime" href="?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
+                                    <a class="showtime" href="?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
                                 </c:forEach>
                             </div>
                             <c:if test="${sessionScope.user != null}"> 
                                 <div id="room-selection" style="margin-top: 30px;">
                                     <c:forEach items="${listRoom}" var="room">                    
-                                        <c:forEach var="s" items="${movie.getListShowtime()}">
-                                            <c:if test="${room.getRoom_id() == s.getRoom_id()}">
-                                                <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
-                                                    <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
-                                                </div>
-                                            </c:if>
+                                        <c:forEach var="s" items="${listShowtime}">
+                                            <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
+                                                <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
+                                            </div>
                                         </c:forEach>
                                     </c:forEach>
                                 </div>
@@ -136,12 +134,10 @@
                             <c:if test="${sessionScope.user == null}"> 
                                 <div id="room-selection" style="margin-top: 30px;">
                                     <c:forEach items="${listRoom}" var="room">                    
-                                        <c:forEach var="s" items="${movie.getListShowtime()}">
-                                            <c:if test="${room.getRoom_id() == s.getRoom_id()}">
-                                                <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
-                                                    <a class="showRoom" href="login.jsp?returnUrl=bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
-                                                </div>
-                                            </c:if>
+                                        <c:forEach var="s" items="${listShowtime}">
+                                            <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
+                                                <a class="showRoom" href="login.jsp?returnUrl=bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
+                                            </div>
                                         </c:forEach>
                                     </c:forEach>
                                 </div>
@@ -162,7 +158,7 @@
                     roomElements.forEach(function (roomElement) {
                         roomElement.style.display = 'block';
                     });
-                    console.log('Showing rooms for showtime:', showtimeId); // Debugging line
+                    
                 }
 
                 // Show the rooms when the page loads if a showtime is already selected
@@ -187,7 +183,6 @@
                         var year = date.getFullYear();
                         var formattedDate = day + '/' + month + '-' + weekday;
                         var formattedDateForLink = year + "-" + month + "-" + day;
-
                         var box = document.createElement('div');
                         box.classList.add('box');
 
@@ -200,7 +195,9 @@
                         }
                         box.appendChild(dateElement);
                         dateContainer.appendChild(box);
+
                     }
+
                 }
 
                 displayNextWeek();

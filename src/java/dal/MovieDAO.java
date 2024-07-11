@@ -207,6 +207,7 @@ public class MovieDAO extends DBContext {
                 type_name = rs.getString(9);
                 String movie_validateAge = rs.getString(10);
                 movie = new Movie(movie_id, movie_name, type_name, duration, date_published, post_img, trailer, decription, movie_validateAge);
+
                 return movie;
             }
         } catch (SQLException e) {

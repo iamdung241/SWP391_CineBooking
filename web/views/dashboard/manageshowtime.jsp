@@ -20,7 +20,6 @@
                         <div class="card mb-4 h-100">
                             <div class="card-header justify-content-between align-items-center d-flex">
                                 <h6 class="card-title m-0">List Showtime</h6>
-                                <a class="btn btn-sm btn-primary" href="addNewShowtime"><i class="ri-add-circle-line align-bottom"></i> Add Showtime</a>
                             </div>
                             <c:if test="${not empty successMessage}">
                                 <div class="alert alert-success" role="alert">

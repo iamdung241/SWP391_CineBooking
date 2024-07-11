@@ -44,26 +44,6 @@
                 }
             }
 
-            var movieList = [];
-            <c:forEach var="movie" items="${listMovie}">
-            movieList.push("${movie.getMovie_name()}".trim());
-            </c:forEach>
-            console.log(movieList);
-            function validateMovie() {
-                var movieInput = document.getElementById("movie").value.trim();
-                var movieErr = document.getElementById("movieErr");
-                var isValid = false;
-                isValid = movieList.some(function (movie) {
-                    return movie.toLowerCase() === movieInput.toLowerCase();
-                });
-                if (!isValid) {
-                    movieErr.textContent = "You must enter a correct movie name that is currently showing.";
-                } else {
-                    movieErr.textContent = "";
-                }
-                return isValid;
-            }
-
             function validateRoom() {
                 var dropdown = document.querySelector('select[name="room"]');
                 const roomErr = document.getElementById("roomErr");
@@ -101,6 +81,12 @@
                                             <td><input type="text" class="form-control" readonly=""/></td>
                                         </tr>
                                         <tr>
+                                            <td>Movie name</td>
+                                            <td>
+                                                <input type="text" id="movie" name="movie" class="form-control" readonly="" value="${movie.getMovie_name()}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Showtime</td>
                                             <td>
                                                 <input type="text" id="showtime" name="showtime" class="form-control" required onblur="validateShowtime()"/>
@@ -114,13 +100,7 @@
                                                 <span class="text-danger" id="dateErr"></span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Movie name</td>
-                                            <td>
-                                                <input type="text" id="movie" name="movie" class="form-control" required onblur="validateMovie()"/>
-                                                <span class="text-danger" id="movieErr"></span>
-                                            </td>
-                                        </tr>
+                                        
                                         <tr>
                                             <td>Room</td>
                                             <td>

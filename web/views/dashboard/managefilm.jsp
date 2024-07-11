@@ -82,6 +82,7 @@
                                                     <div class="d-flex justify-content-center">
                                                         <a class="btn text-primary" href="movie?mode=detail&idMovie=${m.movie_id}"><i class="fas fa-info-circle"></i> Detail</a>
                                                         <a class="btn text-success" href="movie?mode=update&idMovie=${m.movie_id}"><i class="fas fa-edit"></i> Edit</a>
+                                                        <a class="btn text-warning" href="addNewShowtime?idMovie=${m.movie_id}"><i class="fa-solid fa-clock"></i> Showtime</a>
                                                         <a class="btn text-danger" onclick="return confirmDelete()" href="movie?mode=del&idMovie=${m.movie_id}"><i class="fas fa-trash-alt"></i> Delete</a>
                                                     </div> 
                                                 </td>
