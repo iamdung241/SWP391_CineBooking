@@ -89,10 +89,6 @@
         <servlet-class>controller.admin.dashboard.ConcessionRevenueServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TopMovieServlet</servlet-name>
-        <servlet-class>controller.TopMovieServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
@@ -148,8 +144,6 @@
         <servlet-name>ScanTicketServlet</servlet-name>
         <servlet-class>controller.ScanTicketServlet</servlet-class>
     </servlet>
-
-    <!-- Servlet Mappings -->
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -238,10 +232,10 @@
         <servlet-name>ConcessionRevenueServlet</servlet-name>
         <url-pattern>/concessionrevenue</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TopMovieServlet</servlet-name>
-        <url-pattern>/topMovie</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>controller.HomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -297,6 +291,14 @@
     <servlet-mapping>
         <servlet-name>ScanTicketServlet</servlet-name>
         <url-pattern>/scanticket</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>movieController</servlet-name>
+        <servlet-class>controller.movieController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>movieController</servlet-name>
+        <url-pattern>/movie</url-pattern>
     </servlet-mapping>
 
     <!-- Filter Definition -->
