@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    
-    <!-- Servlet Definitions -->
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.SeatServlet</servlet-class>
@@ -83,12 +81,16 @@
         <servlet-class>controller.OrderHistory</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RevenueFilmServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.RevenueFilmServlet</servlet-class>
+        <servlet-name>FilmRevenueServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.FilmRevenueServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RevenueConcessionServlet</servlet-name>
-        <servlet-class>controller.admin.dashboard.RevenueConcessionServlet</servlet-class>
+        <servlet-name>ConcessionRevenueServlet</servlet-name>
+        <servlet-class>controller.admin.dashboard.ConcessionRevenueServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopMovieServlet</servlet-name>
+        <servlet-class>controller.TopMovieServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
@@ -229,12 +231,16 @@
         <url-pattern>/OrderHistory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RevenueFilmServlet</servlet-name>
-        <url-pattern>/revenue/film</url-pattern>
+        <servlet-name>FilmRevenueServlet</servlet-name>
+        <url-pattern>/filmrevenue</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RevenueConcessionServlet</servlet-name>
-        <url-pattern>/revenue/concession</url-pattern>
+        <servlet-name>ConcessionRevenueServlet</servlet-name>
+        <url-pattern>/concessionrevenue</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopMovieServlet</servlet-name>
+        <url-pattern>/topMovie</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
