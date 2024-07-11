@@ -3,7 +3,7 @@
     Created on : May 20, 2024, 9:01:05 AM
     Author     : thanh
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,27 +19,30 @@
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-    <style>
-        .dropdown-menu {
-            background-color: #fff;
-            border-radius: 10px;    
-        }
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+        <style>
+            .dropdown-menu {
+                background-color: #fff;
+                border-radius: 10px;
+            }
 
-        .dropdown-item {
-            color: #000;
-            font-weight: bold;
-            font-size: 18px;
-        }
+            .dropdown-item {
+                color: #000;
+                font-weight: bold;
+                font-size: 18px;
+            }
 
-        .dropdown-item:hover {
-            color: #fff;
-        }
-        .navbar-logo {
-                height: 60px; 
+            .dropdown-item:hover {
+                color: #fff;
+            }
+            .navbar-logo {
+                height: 60px;
                 width: 170px;
-        }
-    </style>
+            }
+        </style>
     </head>
     <body>
         <section id="header">
@@ -83,12 +86,22 @@
                                     <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
                                 </c:if>
                                 <c:if test="${sessionScope.user != null}">
-                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="logout"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Logout </a>
+                                    <div class="nav-item dropdown">
+                                        <a style="color: #fff; font-size: 15px" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1"></i>
+                                            Welcome ${sessionScope.user.fullname} !
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" href="/CineBooking/OrderHistory">Order History</a></li>
+                                            <li><a class="dropdown-item" href="logout">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </c:if>
 
-                                </c:if>  
+
                             </li>
                             <li>
-                                
+
                             </li>
                         </ul>
                     </div>

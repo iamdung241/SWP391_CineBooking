@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    
-    <!-- Servlet Definitions -->
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.SeatServlet</servlet-class>
@@ -91,6 +89,10 @@
         <servlet-class>controller.admin.dashboard.RevenueConcessionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>TopMovieServlet</servlet-name>
+        <servlet-class>controller.TopMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
@@ -151,7 +153,16 @@
         <servlet-class>controller.AddUser</servlet-class>
     </servlet>
 
+
     <!-- Servlet Mappings -->
+    <servlet>
+        <servlet-name>HotFilmController</servlet-name>
+        <servlet-class>controller.HotFilmController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>movieController</servlet-name>
+        <servlet-class>controller.movieController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -205,6 +216,14 @@
         <url-pattern>/paymentReturn</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>RevenueFilmServlet</servlet-name>
+        <url-pattern>/revenue/film</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RevenueConcessionServlet</servlet-name>
+        <url-pattern>/revenue/concession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ForgotPasswordServlet</servlet-name>
         <url-pattern>/forgot</url-pattern>
     </servlet-mapping>
@@ -233,12 +252,8 @@
         <url-pattern>/OrderHistory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RevenueFilmServlet</servlet-name>
-        <url-pattern>/revenue/film</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RevenueConcessionServlet</servlet-name>
-        <url-pattern>/revenue/concession</url-pattern>
+        <servlet-name>TopMovieServlet</servlet-name>
+        <url-pattern>/topMovie</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -306,7 +321,6 @@
         <filter-name>RefererFilter</filter-name>
         <filter-class>filter.RefererFilter</filter-class>
     </filter>
-
     <!-- Filter Mapping -->
     <filter-mapping>
         <filter-name>RefererFilter</filter-name>
@@ -396,15 +410,23 @@
         <filter-name>RefererFilter</filter-name>
         <url-pattern>/scanticket</url-pattern>
     </filter-mapping>
-    
+
     <!-- Session Configuration -->
+    <servlet-mapping>
+        <servlet-name>HotFilmController</servlet-name>
+        <url-pattern>/hotfilm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>movieController</servlet-name>
+        <url-pattern>/movie</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-
+    
     <!-- Welcome File List -->
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
-
+    
 </web-app>

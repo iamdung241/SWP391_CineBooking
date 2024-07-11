@@ -1,12 +1,5 @@
-<%-- 
-    Document   : Home
-    Created on : May 19, 2024, 6:28:04 PM
-    Author     : thanh
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,21 +14,38 @@
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
         <script src="js/bootstrap.bundle.min.js"></script>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
         <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Arial', sans-serif;
+            }
+
             .bookTicket {
                 color: #fff;
                 background-color: red;
                 font-size: 17px;
                 border-radius: 7px;
                 padding: 6px;
+                text-decoration: none;
             }
+
+            .bookTicket:hover {
+                color: #000;
+            }
+
             #nameMovie {
                 font-size: 20px;
                 font-weight: bold;
+                color: #000;
+                text-decoration: none;
             }
-            .film{
+
+            .film {
                 border: 8px solid #000;
             }
+
             .error-message {
                 color: red;
                 margin-top: 10px;
@@ -43,124 +53,241 @@
                 font-size: 30px;
                 font-weight: bold;
             }
-            .bookTicket:hover {
-                color: #000;
-            }
-            .viewDetail{
+
+            .viewDetail {
                 color: #000;
                 background-color: #fff;
                 font-size: 17px;
                 border-radius: 5px;
                 padding: 6px;
                 border: solid 1px grey;
+                text-decoration: none;
             }
+
             .viewDetail:hover {
                 background-color: red;
                 color: #000;
             }
+
+            .main_1 {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                width: 100%;
+            }
+
+            .main_2 {
+                margin-top: 100px; /* Adjust based on the height of the header */
+                width: 100%;
+            }
+
+            .container-xl {
+                max-width: 1140px;
+                margin: 0 auto;
+            }
+
+            .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .spec_1im {
+                padding: 10px;
+                background: #f8f9fa;
+                border: 1px solid #dee2e6;
+                border-radius: 5px;
+            }
+
+            .spec_1im1 ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .spec_1im1 li {
+                margin-bottom: 5px;
+            }
+
+            .spec_1im1 li a {
+                text-decoration: none;
+            }
+
+            .spec_1im1 li a:hover {
+                text-decoration: underline;
+            }
+             body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f8f9fa;
+                padding-top: 50px; /* Adjust according to your navbar height */
+            }
+            .filmContainer {
+                position: relative; /* Ensure relative positioning */
+            }
+            .filmItem {
+                margin-bottom: 30px;
+                background-color: #ffffff;
+                border: 1px solid #dee2e6;
+                border-radius: 5px;
+                padding: 20px;
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+                display: none; /* Hide all film items initially */
+            }
+            .filmItem.active {
+                display: block; /* Display only the active film item */
+            }
+            .filmImage {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border: 8px solid #000;
+                border-radius: 10px; /* Rounded corners for the film image */
+                margin-bottom: 20px;
+            }
+            .movieTitle {
+                font-size: 30px; /* Adjusted font size */
+                font-weight: bolder; /* Adjusted font weight */
+                color: #000000;
+                margin-left: 10px; /* Align to the left */
+            }
+            .movieInfo {
+                color: #333333;
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            .movieActions {
+                margin-top: 20px;
+                text-align: center;
+            }
+            .movieActions a {
+                text-decoration: none;
+                color: #ffffff;
+                padding: 10px 20px;
+                margin-right: 10px;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+            .movieActions .watchTrailer {
+                background-color: #dc3545; /* Bootstrap danger color */
+            }
+            .movieActions .bookTicket {
+                background-color: #007bff; /* Bootstrap primary color */
+            }
+            #nextButton {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                padding: 10px;
+                background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+                color: #ffffff;
+                border: none;
+                border-radius: 50%;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 1000; /* Ensure button appears above other content */
+            }
+            #nextButton:hover {
+                background-color: rgba(0,0,0,0.7); /* Darker shade on hover */
+            }
+            #prevButton {
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+                padding: 10px;
+                background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+                color: #ffffff;
+                border: none;
+                border-radius: 50%;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 1000; /* Ensure button appears above other content */
+            }
+            #prevButton:hover {
+                background-color: rgba(0,0,0,0.7); /* Darker shade on hover */
+            }
+            .mb-4 {
+                margin-top: 2px; /* Adjust margin top for the header */
+            }
         </style>
     </head>
     <body>
-
         <div class="main clearfix position-relative">
-            <div class="main_1 clearfix position-absolute top-0 w-100">
+            <div class="main_1 clearfix">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
-                <div class="main_2 clearfix">
-                    <section id="center" class="center_home">
-                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button  style="background-color: #fff" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-                                <button style="background-color: #fff" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-                                <button style="background-color: #fff" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="img/poster1.jpg" class="d-block w-100" alt="..." width="1217px" height="609px">
-                                    <div class="carousel-caption d-md-block">
-                                        <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
-                                        <h1 class="font_80 mt-4">Olympus Has<br/> Fallen</h1>
-                                        <p class="mt-4">Secret Service agent Mike Banning is trapped inside the White House after a terrorist attack and works with the national security agency to rescue the President from kidnappers.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=2" id="embeddedLink"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
+                
+                <div style="margin-top: 20px" class="container-fluid">
+                    <div class="text-center mb-4">
+                        <!-- Stylish and decorative font -->
+                        <h1 style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Hot Films This Month</h1>
+                    </div>
+                <div class="filmContainer">
+                    
+                    <c:forEach items="${topMovie}" var="topMovie" varStatus="loop">
+                        <div class="filmItem ${loop.index == 0 ? 'active' : ''}">
+                            <section id="exep" class="p-3 bg-light">
+                                <div class="container-xl detail">
+                                    <div class="row exep1">
+                                        <div class="col-3">
+                                            <div class="exep1l">
+                                                <div class="grid clearfix">
+                                                    <img style="border-style: solid; border-width: 10px" src="${topMovie.getPost_img()}" class="filmImage" alt="Movie Poster">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="exep1r">
+                                                <p class="mb-0 movieTitle">${topMovie.getMovie_name()}</p>                                       
+                                            </div>
+                                            <hr style="background-color: #000"/>
+                                            <div>
+                                                <ul>
+                                                    <li>
+                                                        <strong>Duration:</strong> ${topMovie.getDuration()} minutes
+                                                    </li>
+                                                    <li>
+                                                        <strong>Date published:</strong> ${topMovie.getDate_published()}
+                                                    </li>
+                                                    <li>
+                                                        <strong>Category:</strong> ${topMovie.getType_name()}
+                                                    </li>
+                                                    <li>
+                                                        <strong>Description:</strong> ${topMovie.getDecription()}
+                                                    </li>
+                                                    <hr style="background-color: #000"/>
+                                                    <li>
+                                                        <a class="bookTicket" href="movietrailer?trailer=${topMovie.trailer}&ID=${topMovie.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a>
+                                                        <a class="bookTicket" href="bookticket?movieID=${topMovie.getMovie_id()}">Book Tickets</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="img/poster2.jpg" class="d-block w-100" alt="..." width="1217px" height="609px">
-                                    <div class="carousel-caption d-md-block">
-                                        <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
-                                        <h1 class="font_80 mt-4">5 Centimeters <br/> per Second</h1>
-                                        <p class="mt-4">Takaki tells the story of his life as cruel winters, cold technology, and finally, adult obligations and responsibility converge to test the delicate petals of love.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=8"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="img/poster3.jpg" class="d-block w-100" alt="..." width="1217px" height="609px">
-                                    <div class="carousel-caption d-md-block">
-                                        <h5 class="text-white-50 release ps-2 fs-6">NEW RELEASES</h5>
-                                        <h1 class="font_80 mt-4">Spaceman</h1>
-                                        <h1><br/></h1>
-                                        <p class="mt-4">Half a year into his solo mission on the edge of the solar system, an astronaut concerned with the state of his life back on Earth is helped by an ancient creature he discovers in the bowels of his ship.</p>
-                                        <h5 class="mb-0 mt-4 text-uppercase"><a class="button" href="moviedetail?ID=17"><i class="fa fa-youtube-play me-1"></i> View Detail</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                            </section>
                         </div>
-                    </section>
+                    </c:forEach>
+                    <button id="prevButton">&lt;</button>
+                    <button id="nextButton">&gt;</button>
                 </div>
             </div>
+            
 
             <section id="spec" class="p_3">
-                <div  class="container-xl">
-                    <div style="padding-top: 20px" class="row stream_1 text-center">
-                        <div style="padding-bottom: 30px" class="col-md-12">
-                            <h1 class="mb-0 font_50" style="color: black; ">Top Movie This Month</h1>
-                        </div>
-                        <div class="row spec_1">
-                        <c:forEach items="${topMovie}" var="topM">
-                            <div class="col-3">
-                                <div class="spec_1im clearfix position-relative">
-                                    <div class="spec_1imi clearfix film">
-                                        <a href="moviedetail?ID=${topM.getMovie_id()}">
-                                            <img width="240px" height="270px" src="${topM.getPost_img()}" class="w-100" alt="abc">
-                                        </a>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="spec_1im1 clearfix">
-                                    <ul>
-                                        <li>
-                                            <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${topM.getMovie_id()}">
-                                                ${topM.getMovie_name()}
-                                            </a>
-                                        </li>
-                                        <li style="padding-top: 10px">
-                                            <a class="bookTicket" href="bookticket?movieID=${topM.getMovie_id()}">Book Tickets</a>
-                                            <a style="margin-left: 3px" class="viewDetail" href="moviedetail?ID=${topM.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </c:forEach>
+                <div class="container-xl">
+                    <div class="text-center" style="padding-top: 2px">
+                        <h1 class="mb-0 font_50" style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Now Showing</h1>
                     </div>
-                    <div style="padding-top: 30px" class="col-md-12">
-                        <h1 class="mb-0 font_50" style="color: black">Now Showing</h1>
-                    </div>
-                </div>
-                <div class="container mt-5">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <form action="movieController" method="GET" class="input-group" id="searchForm">
-                                <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px;border-color: red"
-                                       value="${keyword != null ? keyword : ''}">
+                    <div class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <form action="movieController" method="GET" class="input-group" id="searchForm">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px; border-color: red"
+                                           value="${keyword != null ? keyword : ''}">
                                 <button class="btn btn-outline-secondary" type="submit">Search</button>
                                 <input type="hidden" name="service" value="search" id="serviceInput">
                                 <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
@@ -174,13 +301,12 @@
                 </div>
                 <p class="error-message">${requestScope.resultNull}</p>
                 <div class="row mt-4">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             <div class="row spec_1">
                             <c:forEach items="${listM}" var="m">
-
                                 <div class="col-md-3 mb-4">
                                     <div class="spec_1im clearfix position-relative">
                                         <div class="spec_1imi clearfix film">
@@ -193,27 +319,26 @@
                                     <div class="spec_1im1 clearfix">
                                         <ul>
                                             <li>
-                                                <a style="color: #000" id="nameMovie" class="text-white" href="moviedetail?ID=${m.getMovie_id()}">
+                                                <a id="nameMovie" href="moviedetail?ID=${m.getMovie_id()}">
                                                     ${m.getMovie_name()}
                                                 </a>
                                             </li>
                                             <li class="col_black">
-                                                Duration: ${m.getDuration()} minutes
+                                                <strong>Duration:</strong> ${m.getDuration()} minutes
                                             </li>
                                             <li class="col_black">
-                                                Age: ${m.getAge()}
+                                                <strong>Age:</strong> ${m.getAge()}
                                             </li>
                                             <li class="col_black">
-                                                Category: ${m.getType_name()}
+                                                <strong>Category:</strong> ${m.getType_name()}
                                             </li>
                                             <li style="padding-top: 10px">
-                                                <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
-                                                <a style="margin-left: 3px" class="viewDetail" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
+                                                <a style="text-decoration: none" class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
+                                                <a class="viewDetail" style="margin-left: 3px" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-
                             </c:forEach>
                         </div>
                     </div>
@@ -222,6 +347,7 @@
         </section>
 
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
+
         <script>
             window.onscroll = function () {
                 myFunction();
@@ -245,7 +371,6 @@
                 document.getElementById('searchForm').submit();
             });
 
-
             // Function to set the selected option in the dropdown
             function setSelectedOption() {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -258,8 +383,28 @@
 
             // Call the function to set the selected option when the page loads
             window.onload = setSelectedOption;
+            const filmItems = document.querySelectorAll('.filmItem');
+                const nextButton = document.getElementById('nextButton');
+                const prevButton = document.getElementById('prevButton');
+                let currentIndex = 0;
+
+                function showFilm(index) {
+                    filmItems[currentIndex].classList.remove('active');
+                    currentIndex = index;
+                    filmItems[currentIndex].classList.add('active');
+                }
+
+                nextButton.addEventListener('click', () => {
+                    showFilm((currentIndex + 1) % filmItems.length);
+                });
+
+                prevButton.addEventListener('click', () => {
+                    showFilm((currentIndex - 1 + filmItems.length) % filmItems.length);
+                });
+
+                setInterval(() => {
+                    showFilm((currentIndex + 1) % filmItems.length);
+                }, 7500);
         </script>
     </body>
-
 </html>
-

@@ -168,14 +168,14 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tr>
-                                                    <td>Name</td>
+                                                    <td style="font-weight: bolder">Name</td>
                                                     <td>
                                                         <input type="text" id="name" name="name" class="form-control" required onblur="validateName()" />
                                                         <span class="text-danger" id="nameErr"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Type</td>
+                                                    <td style="font-weight: bolder">Type</td>
                                                     <td>
                                                         <select name="type" id="type" class="form-control text-center" onblur="validateSelection()">
                                                             <option value="all">Choose the type of film</option>
@@ -187,42 +187,42 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Age</td>
+                                                <td style="font-weight: bolder">Age</td>
                                                 <td>
                                                     <input name="age" id="age" type="text" class="form-control" required onblur="validateAge()" />
                                                     <span class="text-danger" id="AgeErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Duration</td>
+                                                <td style="font-weight: bolder">Duration</td>
                                                 <td>
                                                     <input type="text" id="duration" name="duration" class="form-control" required onblur="validateduration()" />
                                                     <span class="text-danger" id="durationErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Date</td>
+                                                <td style="font-weight: bolder">Date Published</td>
                                                 <td>
                                                     <input type="date" id="date" name="date" class="form-control" required onblur="validDate()" />
                                                     <span class="text-danger" id="dateErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Trailer</td>
+                                                <td style="font-weight: bolder">Trailer</td>
                                                 <td>
                                                     <input type="text" name="trailer" id="trailer" class="form-control" required onblur="validateTrailer()" />
                                                     <span class="text-danger" id="trailerErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Description</td>
+                                                <td style="font-weight: bolder">Description</td>
                                                 <td>
                                                     <textarea type="text" name="description" id="des" rows="5" class="form-control" required onblur="validateDes()"></textarea>
                                                     <span class="text-danger" id="desErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Image</td>
+                                                <td style="font-weight: bolder">Image</td>
                                                 <td>
                                                     <input id="fileInput" type="file" name="file" class="form-control" required onblur="validateImageFile()" />
                                                     <span class="text-danger" id="fileErr"></span>

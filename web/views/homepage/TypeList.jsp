@@ -1,9 +1,3 @@
-<%-- 
-    Document   : TypeList
-    Created on : Jun 3, 2024, 3:39:50 PM
-    Author     : Admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -18,6 +12,8 @@
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                 background-color: #f8f9fa; /* Background color */
+                margin: 0; /* Remove default margin */
+                width: 100%; /* Ensure card spans full width */
             }
 
             .card-title {
@@ -28,7 +24,7 @@
             }
 
             .list-group {
-                padding-left: 0; /* Loại bỏ padding mặc định của list */
+                padding-left: 0; /* Remove default padding */
             }
 
             .list-group-item {
@@ -38,34 +34,33 @@
                 padding: 10px 20px;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
-                text-decoration: none; /* Loại bỏ gạch chân */
-                color: #000; /* Màu chữ */
+                text-decoration: none; /* Remove underline */
+                color: #000; /* Text color */
             }
 
             .list-group-item:hover {
                 background-color: red; /* Hover background color */
-                color: #fff;
+                color: #fff; /* Hover text color */
             }
         </style>
     </head>
     <body>
 
         <!-- Filter by type -->
-        <div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Filter by Type</h5>
-                    <ul class="list-group" id="typeList">
-                        <c:forEach items="${typeList}" var="t">
-                            <a href="movieController?service=filter_type&type_id=${t.type_id}" 
-                               class="list-group-item type-item" data-type-id="${t.type_id}">
-                                ${t.type_name}
-                            </a>
-                        </c:forEach>
-                    </ul>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Filter by Type</h5>
+                <ul class="list-group" id="typeList">
+                    <c:forEach items="${typeList}" var="t">
+                        <a style="text-decoration: none" href="movieController?service=filter_type&type_id=${t.type_id}" 
+                           class="list-group-item type-item" data-type-id="${t.type_id}">
+                            ${t.type_name}
+                        </a>
+                    </c:forEach>
+                </ul>
             </div>
         </div>
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 // Get the type items and current selected type ID from URL
@@ -94,4 +89,3 @@
 
     </body>
 </html>
-

@@ -175,14 +175,14 @@
                                             <td><input name="id" type="hidden" class="form-control" readonly="" value="${m.movie_id}"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Name</td>
+                                            <td><strong>Name</strong></td>
                                             <td>
                                                 <input type="text" id="name" name="name" class="form-control" value="${m.movie_name}" required onblur="validateName()" />
                                                 <span class="text-danger" id="nameErr"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Type</td>
+                                            <td><strong>Type</strong></td>
                                             <td>
                                                 <select name="type" id="type" class="form-control text-center" onblur="validateSelection()">
                                                     <option value="all">Choose the type of film</option>
@@ -194,49 +194,49 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Age</td>
+                                            <td><strong>Age</strong></td>
                                             <td>
                                                 <input name="age" id="age" type="text" class="form-control" value="${m.age}" required onblur="validateAge()" />
                                                 <span class="text-danger" id="AgeErr"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Duration</td>
+                                            <td><strong>Duration</strong></td>
                                             <td>
                                                 <input type="text" id="duration" name="duration" class="form-control" value="${m.duration}" required onblur="validateduration()" />
                                                 <span class="text-danger" id="durationErr"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Date</td>
+                                            <td><strong>Date</br>Published</strong></td>
                                             <td>
                                                 <input type="date" id="date" name="date" class="form-control" value="${m.date_published}" required onblur="validDate()" />
                                                 <span class="text-danger" id="dateErr"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Trailer</td>
+                                            <td><strong>Trailer</strong></td>
                                             <td>
                                                 <input type="text" name="trailer" id="trailer" class="form-control" value="${m.trailer}" required onblur="validateTrailer()" />
                                                 <span class="text-danger" id="trailerErr"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Descripton</td>
+                                            <td><strong>Description</strong></td>
                                             <td>
                                                 <textarea rows="7" name="description" type="text" class="form-control" required>${m.decription}</textarea>
                                                 <span class="text-danger" id="desErr"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Image</td>
+                                            <td><strong>Image</strong></td>
                                             <td>
                                                 <img src="${m.post_img}" style="width: 400px;height: 400px" alt="alt"/>
                                                 <input type="hidden" value="${m.post_img}" name="img">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Image</td>
+                                            <td><strong>Alternative</br>Image</strong></td>
                                             <td>
                                                 <input id="fileInput" type="file" name="file" class="form-control"/>
                                                 <span class="text-danger" id="fileErr"></span>
