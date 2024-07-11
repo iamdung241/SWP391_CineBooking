@@ -148,8 +148,11 @@
         <servlet-name>ScanTicketServlet</servlet-name>
         <servlet-class>controller.ScanTicketServlet</servlet-class>
     </servlet>
-
     <!-- Servlet Mappings -->
+    <servlet>
+        <servlet-name>HotFilmController</servlet-name>
+        <servlet-class>controller.HotFilmController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -298,13 +301,11 @@
         <servlet-name>ScanTicketServlet</servlet-name>
         <url-pattern>/scanticket</url-pattern>
     </servlet-mapping>
-
     <!-- Filter Definition -->
     <filter>
         <filter-name>RefererFilter</filter-name>
         <filter-class>filter.RefererFilter</filter-class>
     </filter>
-
     <!-- Filter Mapping -->
     <filter-mapping>
         <filter-name>RefererFilter</filter-name>
@@ -422,15 +423,16 @@
         <filter-name>RefererFilter</filter-name>
         <url-pattern>/scanticket</url-pattern>
     </filter-mapping>
-
     <!-- Session Configuration -->
+    <servlet-mapping>
+        <servlet-name>HotFilmController</servlet-name>
+        <url-pattern>/hotfilm</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-
     <!-- Welcome File List -->
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
-
 </web-app>
