@@ -78,7 +78,8 @@
                 color: red;
             }
             hr {
-                background-color: #000;
+                background-color: black;
+                color: black;
             }
         </style>
     </head>
@@ -88,12 +89,11 @@
             <div class="main_1 clearfix position-absolute top-0 w-100 navbarDetail">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
-                <div >
+                <div class="d-flex justify-content-center mb-3">
                     <a class="boxes" id="dateContainer">
                     </a>
-                    <hr style="background-color: #000;"/>
                 </div>
-
+                <hr style="color: black;background-color: black">
                 <section style="padding-top: 1px" id="exep" class="p_3 bg-light">
                     <div class="container-xl detail">
                         <div class="row exep1">
@@ -117,7 +117,7 @@
                             </div>
                             <div style="margin-top: 40px">
                                 <c:forEach items="${movie.getListShowtime()}" var="s"> 
-                                    <a class="showtime" href="?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
+                                    <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
                                 </c:forEach>
                             </div>
                             <c:if test="${sessionScope.user != null}"> 

@@ -32,7 +32,7 @@
         </script>
     </head>
     <body>
-        <jsp:include page="main.jsp"></jsp:include>
+        <jsp:include page="../common/admin/main.jsp"></jsp:include>
             <section class="container-fluid">
                 <div class="row g-4 mb-4 mt-0">
                     <div class="col-12">

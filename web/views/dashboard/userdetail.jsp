@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="../dashboard/main.jsp"></jsp:include>
+        <jsp:include page="../common/admin/main.jsp"></jsp:include>
         <section class="container-fluid">
             <!-- Content-->
             <div class="col-12">
