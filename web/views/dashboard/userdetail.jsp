@@ -60,7 +60,7 @@
                                     <td><%= account.getUsername() %></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Role: </label></td>
+                                    <td style="font-weight: bolder"><label>Role: </label></td>
                                     <td>
                                         <%
                                             // Determine the role name based on the role ID
