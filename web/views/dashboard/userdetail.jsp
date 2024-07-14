@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : userdetail
     Created on : 6 thg 7, 2024, 03:51:47
     Author     : tranh
@@ -60,7 +60,7 @@
                                     <td><%= account.getUsername() %></td>
                                 </tr>
                                 <tr>
-                                    <td><label>Role: </label></td>
+                                    <td style="font-weight: bolder"><label>Role: </label></td>
                                     <td>
                                         <%
                                             // Determine the role name based on the role ID

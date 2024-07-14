@@ -207,6 +207,8 @@
                                                             </c:forEach>
                                                         </p>        
                                                     </c:if>
+                                                    <p><strong>QR:</strong></p>
+                                                    <img src="generateQR?text=${ticket.code}" style="width: 200px; height: 200px;" class="d-block mx-auto"/>
                                                 </div>
                                             </div>
                                         </c:forEach>
