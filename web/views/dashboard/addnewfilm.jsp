@@ -1,60 +1,11 @@
-<%-- 
-    Document   : addnewfilm
-    Created on : 6 thg 7, 2024, 03:23:03
-    Author     : tranh
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Add Movie</title>
         <script>
-            function validateAge() {
-                var age = document.getElementById("age").value.trim();
-                var AgeErr = document.getElementById("AgeErr");
-                const regex = /^(?:[4-9]|1[0-8])\+$/;
-                if (!regex.test(age) || age === "") {
-                    AgeErr.textContent = "Please enter from 3 - 18 example '18+' ";
-                    return false;
-                } else {
-                    AgeErr.textContent = "";
-                    return true;
-                }
-            }
-
-            function validateName() {
-                var name = document.getElementById("name").value.trim();
-                var nameErr = document.getElementById("nameErr");
-                const regex = /^(?! )[A-Za-z0-9&]+(?: [A-Za-z0-9&]+)*$/;
-                if (!regex.test(name)) {
-                    nameErr.textContent = "Invalid format!";
-                    return false;
-                } else {
-                    if (name.length >= 2 && name.length <= 100) {
-                        nameErr.textContent = "";
-                        return true;
-                    } else {
-                        nameErr.textContent = "Name must have 2-100 characters!";
-                        return false;
-                    }
-                }
-            }
-
-            function validateduration() {
-                var duration = document.getElementById("duration").value;
-                var durationErr = document.getElementById("durationErr");
-                const regex = /^(?:1[0-9]|[2-9][0-9]|1[0-6][0-9])$/;
-                if (!regex.test(duration)) {
-                    durationErr.textContent = "Please enter a number 10-170 example 100";
-                    return false;
-                } else {
-                    durationErr.textContent = "";
-                    return true;
-                }
-            }
-
             function validateTrailer() {
                 var trailer = document.getElementById("trailer").value;
                 var trailerErr = document.getElementById("trailerErr");
@@ -232,7 +183,7 @@
                                     </div>
                                 </form>
                                 <div class="container-fluid d-flex justify-content-end">
-                                    <button class="btn btn-success" onclick="checkForm()">Add</button>
+                                    <button class="btn btn-success" id="submit" onclick="checkForm()">Add</button>
                                 </div>
                             </div>
                         </div>
