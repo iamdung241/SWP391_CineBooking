@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Movie</title>
+        <title>Add New Film</title>
         <script>
             function validateAge(age) {
                 var AgeErr = document.getElementById("AgeErr");
