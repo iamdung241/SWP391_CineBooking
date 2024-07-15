@@ -49,7 +49,7 @@
                                             <div>
                                                 <img src="${c.image}" style="width: 50px;height: 50px"/>
                                                 <h5 class="mb-1">${c.concessions_name}</h5>
-                                                <p class="mb-1">${c.price}</p>
+                                                <p class="mb-1">${c.price} VNĐ</p> 
                                             </div>
                                             <div class="quantity-buttons">
                                                 <button class="btn btn-outline-secondary minus-btn" onclick="updateQuantity('${c.concessions_name}', ${c.price}, -1, ${c.concessions_id})"><i class="fas fa-minus"></i></button>
@@ -76,7 +76,7 @@
                                 <ul id="orderSummary" class="list-group mb-3 order">
                                     <!-- Order items will be dynamically added here -->
                                 </ul>
-                                <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span></h5>
+                                <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span> VNĐ</h5>
                                 <button id="backButton" class="btn btn-secondary" onclick="location.href='${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
                                 <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
                         </div>

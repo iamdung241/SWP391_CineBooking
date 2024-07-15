@@ -201,6 +201,7 @@ public class ShowtimingDAO extends DBContext {
             st.setString(1, showtime.getShowtiming());
             st.setInt(2, showtime.getRoom_id());
             st.setString(3, showtime.getDate());
+            st.setInt(4, showtime.getShowtime_id());
             st.executeUpdate();
         } catch (SQLException e) {
             e.getMessage();

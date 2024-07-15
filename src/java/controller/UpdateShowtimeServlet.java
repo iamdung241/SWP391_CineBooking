@@ -89,12 +89,14 @@ public class UpdateShowtimeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String roomID = request.getParameter("room");
+        String ID = request.getParameter("id");
         String showtime = request.getParameter("showtime");
         String date = request.getParameter("date");
         Showtiming showtiming = new Showtiming();
         ShowtimingDAO showDao = new ShowtimingDAO();
         try {
             int roomId = Integer.parseInt(roomID);
+            showtiming.setShowtime_id(Integer.parseInt(ID));
             showtiming.setRoom_id(roomId);
             showtiming.setShowtiming(showtime);
             showtiming.setDate(date);

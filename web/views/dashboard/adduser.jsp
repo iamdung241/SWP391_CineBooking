@@ -4,12 +4,14 @@
     Author     : tranh
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Add Staff</title>
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
@@ -25,7 +27,7 @@
                         <form class="mt-4" action="adduser" method="post">
                             <table class="table">
                                 <tr>
-                                    <td><label class="form-label">Username: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Username: </label></td>
                                     <td>
                                         <% 
                                             String errorUsername = (String) request.getAttribute("errorUsername");
@@ -39,7 +41,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Password: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Password: </label></td>
                                     <td>
                                         <input class="form-control" type="password" name="password" placeholder="Password" required>
                                         <% 
@@ -51,7 +53,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Re-enter Password: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Re-enter Password: </label></td>
                                     <td>
                                         <input class="form-control" type="password" name="repassword" placeholder="Re-enter Password" required>
                                         <% 
@@ -63,7 +65,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Fullname: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Fullname: </label></td>
                                     <td>
                                         <% 
                                             String errorFullname = (String) request.getAttribute("errorFullname");
@@ -77,7 +79,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Email: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Email: </label></td>
                                     <td>
                                         <% 
                                             String errorEmail = (String) request.getAttribute("errorEmail");
@@ -91,7 +93,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label class="form-label">Phone: </label></td>
+                                    <td style="font-weight: bolder"><label class="form-label">Phone: </label></td>
                                     <td>
                                         <% 
                                             String errorPhone = (String) request.getAttribute("errorPhone");
@@ -114,8 +116,6 @@
                             <!-- Submit button for the form -->
                             <div class="container-fluid d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Add</button>
-                                <!-- Hidden input to specify the service action -->
-                                <input class="form-control" type="hidden" name="service" value="add">
                             </div>
                         </form>
 
