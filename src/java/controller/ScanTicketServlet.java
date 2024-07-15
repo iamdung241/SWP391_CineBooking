@@ -68,15 +68,18 @@ public class ScanTicketServlet extends HttpServlet {
             String currentTime = sdfTime.format(now);
             String showtimeStr = ticket.getShowtime().getShowtiming();
             String dateShowtime = ticket.getShowtime().getDate();
-            String showtimeWithMinutes = showtimeStr + ":00";
+//            String showtimeWithMinutes = showtimeStr + ":00";
+            
             int showtimeInt = Integer.parseInt(showtimeStr);
+            int beforeShowtime = showtimeInt - 1;
+            String beforeShowtimeWithMinutes = beforeShowtime + ":00";
             int nextShowtime = showtimeInt + 1;
             String nextShowtimeWithMinutes = nextShowtime + ":00";
             //date showtime on ticket = current date
             //staff can accept ticket equal or after 1h
             boolean showAcceptButton = ticket.getStatus().equals("Nocheck")
                     && dateShowtime.equals(currentDate)
-                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0);
+                    && (currentTime.compareTo(beforeShowtimeWithMinutes) > 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0);
 
             request.setAttribute("ticket", ticket);
             request.setAttribute("showAcceptButton", !showAcceptButton);

@@ -100,9 +100,7 @@ public class UpdateShowtimeServlet extends HttpServlet {
             showtiming.setDate(date);
             showDao.updateShowtime(showtiming);
             request.setAttribute("successMessage", "Edit showtime successfully");
-            List<Showtiming> listShowtime = showDao.getListShowtiming();
-            request.setAttribute("listShowtime", listShowtime);
-            request.getRequestDispatcher("/views/dashboard/manageshowtime.jsp").forward(request, response);
+            response.sendRedirect("showtimeControl");
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "Update showtime fail");
             request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);

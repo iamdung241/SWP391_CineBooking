@@ -195,7 +195,7 @@ public class ShowtimingDAO extends DBContext {
     public void updateShowtime(Showtiming showtime) {
         String sql = "update dbo.Showtime \n"
                 + "set showtime = ?, room_id = ?, date = ?\n"
-                + "where showtime_id = ? ";
+                + "where showtime_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, showtime.getShowtiming());
@@ -206,14 +206,13 @@ public class ShowtimingDAO extends DBContext {
             e.getMessage();
         }
     }
-
+    
     public static void main(String[] args) {
-        ShowtimingDAO dao = new ShowtimingDAO();
-        for (Showtiming showtiming : dao.getShowtimeByMovieID(1)) {
-            System.out.println(showtiming.getDate());
-        }
+        Showtiming s = new Showtiming("22", 3, "2024-07-16", 7);
+        (new ShowtimingDAO()).updateShowtime(s);
+        System.out.println(s.getShowtiming());
         
-
     }
+
 
 }
