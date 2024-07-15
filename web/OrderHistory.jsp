@@ -188,6 +188,7 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">Ticket Code: ${ticket.code}</h5>
                                                     <p class="card-text"><strong>Movie:</strong> ${ticket.movieName}</p>
+                                                    <p><img style="border-style: solid; border-width: 10px"  height="350px" src="${ticket.movieImage}" alt="abc"></p>
                                                     <p class="card-text"><strong>Showtime:</strong> ${ticket.showtime.showtiming}:00</p>
                                                     <p class="card-text"><strong>Room:</strong> ${ticket.showtime.room_name}</p>
                                                     <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
@@ -206,6 +207,8 @@
                                                             </c:forEach>
                                                         </p>        
                                                     </c:if>
+                                                    <p><strong>QR:</strong></p>
+                                                    <img src="generateQR?text=${ticket.code}" style="width: 200px; height: 200px;" class="d-block mx-auto"/>
                                                 </div>
                                             </div>
                                         </c:forEach>

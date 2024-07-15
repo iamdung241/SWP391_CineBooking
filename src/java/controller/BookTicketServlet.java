@@ -74,11 +74,11 @@ public class BookTicketServlet extends HttpServlet {
         if (selectedDate == null || selectedDate.isEmpty()) {
             selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }
+        List<Showtiming> filteredShowtimes = new ArrayList<>();
         try {
             int idMovie = Integer.parseInt(movieID);
             Movie m = movieDao.getMovieById(idMovie);
             if (m != null) {
-                List<Showtiming> filteredShowtimes = new ArrayList<>();
                 for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
                     if (showtime.getDate().equals(selectedDate)) {
                         filteredShowtimes.add(showtime);
@@ -88,8 +88,8 @@ public class BookTicketServlet extends HttpServlet {
                     m.setListShowtime(filteredShowtimes);
                 }
             }
-
             request.setAttribute("movie", m);
+            request.setAttribute("listShowtime", filteredShowtimes);
             request.setAttribute("selectedDate", selectedDate);
             String showtimeid = request.getParameter("showtimeID");
             if (showtimeid != null) {

@@ -25,6 +25,20 @@ public class Movie {
     public Movie() {
     }
 
+    public Movie(int movie_id, String movie_name, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription, List<Showtiming> listShowtime) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.age = age;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.listShowtime = listShowtime;
+    }
+
+    
     public Movie(int movie_id, String movie_name, String type_name, int duration,String date_published,  String post_img, String trailer, String decription, String age) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;

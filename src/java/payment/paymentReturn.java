@@ -117,7 +117,7 @@ public class paymentReturn extends HttpServlet {
                 session.setAttribute("ticketCode", newTicket.getCode());
                 Mail m = new Mail();
                 Ticket ti = new TicketDAO().getTicket(code);
-                boolean mail = m.sendEmail("huytqhe170798@fpt.edu.vn", ti);
+                boolean mail = m.sendEmail(user.getEmail(), ti);
                 if(mail){
                     request.setAttribute("mail", "Send mail sucess!");
                 }else{
