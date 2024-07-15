@@ -6,12 +6,52 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Movie</title>
         <script>
-            function validateTrailer() {
-                var trailer = document.getElementById("trailer").value;
+            function validateAge(age) {
+                var AgeErr = document.getElementById("AgeErr");
+                const regex = /^(?:[4-9]|1[0-8])\+$/;
+                if (!regex.test(age) || age === "") {
+                    AgeErr.textContent = "Please enter from 4 - 18 example '18+' ";
+                    return false;
+                } else {
+                    AgeErr.textContent = "";
+                    return true;
+                }
+            }
+
+            function validateName(name) {
+                var nameErr = document.getElementById("nameErr");
+                const regex = /^[^\s][A-Za-z0-9&]*(?: [A-Za-z0-9&]+)*$/;
+                if (!regex.test(name) || name === "") {
+                    nameErr.textContent = name === "" ? "" : "Invalid format!";
+                    return false;
+                } else {
+                    if (name.length >= 2 && name.length <= 100) {
+                        nameErr.textContent = "";
+                        return true;
+                    } else {
+                        nameErr.textContent = "Name must have 2-100 characters!";
+                        return false;
+                    }
+                }
+            }
+
+            function validateDuration(duration) {
+                var durationErr = document.getElementById("durationErr");
+                const regex = /^(?:1[0-9]|[2-9][0-9]|1[0-6][0-9])$/;
+                if (!regex.test(duration) || duration === "") {
+                    durationErr.textContent = duration === "" ? "" : "Please enter a number 10-170 example 100";
+                    return false;
+                } else {
+                    durationErr.textContent = "";
+                    return true;
+                }
+            }
+
+            function validateTrailer(trailer) {
                 var trailerErr = document.getElementById("trailerErr");
                 const regex = /^[^\s]+\S*(\s*)$/;
-                if (!regex.test(trailer)) {
-                    trailerErr.textContent = "Enter true format, example https://www.youtube.com/embed/ar-IaAx7s8k";
+                if (!regex.test(trailer) || trailer === "") {
+                    trailerErr.textContent = trailer === "" ? "" : "Enter true format, example https://www.youtube.com/embed/ar-IaAx7s8k";
                     return false;
                 } else {
                     trailerErr.textContent = "";
@@ -19,13 +59,11 @@
                 }
             }
 
-            function validateDes() {
-                var des = document.getElementById("des").value;
+            function validateDes(des) {
                 var desErr = document.getElementById("desErr");
                 const regex = /^(?! )(?!.* {2})([a-zA-Z0-9&,.\s]+ ?)+$/;
-
-                if (!regex.test(des)) {
-                    desErr.textContent = "Enter true format, do not have space first";
+                if (!regex.test(des) || des === "") {
+                    desErr.textContent = des === "" ? "" : "Enter true format, do not have space first";
                     return false;
                 } else {
                     desErr.textContent = "";
@@ -33,21 +71,19 @@
                 }
             }
 
-            function validateSelection() {
-                var dropdown = document.querySelector('select[name="type"]');
+            function validateSelection(dropdown) {
                 var typeErr = document.getElementById("typeErr");
-                if (dropdown.value === "all") {
+                if (dropdown === "all") {
                     typeErr.textContent = "Please choose the type of film.";
-                    return false; // Prevent form submission
+                    return false;
                 }
                 typeErr.textContent = "";
-                return true; // Allow form submission
+                return true;
             }
 
-            function validDate() {
-                var cur = document.getElementById("date").value;
-                var curDate = new Date(cur);
+            function validDate(date) {
                 var dateErr = document.getElementById("dateErr");
+                var curDate = new Date(date);
                 const minDate = new Date('1927-01-01');
                 const maxDate = new Date('2030-12-30');
                 if (curDate >= minDate && curDate <= maxDate) {
@@ -59,21 +95,17 @@
                 }
             }
 
-            function validateImageFile() {
-                var fileInput = document.getElementById('fileInput');
+            function validateImageFile(fileInput) {
                 var filePath = fileInput.value;
                 var fileErr = document.getElementById("fileErr");
-                // Các lo?i file ?nh h?p l?
                 const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-
                 if (!allowedExtensions.exec(filePath)) {
                     fileErr.textContent = "Please upload a file with extensions .jpeg/.jpg/.png only.";
                     fileInput.value = '';
                     return false;
                 } else {
-                    // N?u là file ?nh, ki?m tra thêm kích th??c file
                     if (fileInput.files && fileInput.files[0]) {
-                        var fileSize = fileInput.files[0].size / 1024 / 1024; // kích th??c file tính b?ng MB
+                        var fileSize = fileInput.files[0].size / 1024 / 1024;
                         if (fileSize > 10) {
                             fileErr.textContent = "File size exceeds 10 MB.";
                             fileInput.value = '';
@@ -86,14 +118,14 @@
             }
 
             function checkForm() {
-                var checkType = validateSelection();
-                var name = validateName();
-                var age = validateAge();
-                var duration = validateduration();
-                var trailer = validateTrailer();
-                var des = validateDes();
-                var date = validDate();
-                var image = validateImageFile();
+                var checkType = validateSelection(document.getElementById('type').value);
+                var name = validateName(document.getElementById('name').value);
+                var age = validateAge(document.getElementById('age').value);
+                var duration = validateDuration(document.getElementById('duration').value);
+                var trailer = validateTrailer(document.getElementById('trailer').value);
+                var des = validateDes(document.getElementById('des').value);
+                var date = validDate(document.getElementById('date').value);
+                var image = validateImageFile(document.getElementById('fileInput'));
 
                 if (name && age && duration && trailer && des && checkType && date && image) {
                     document.getElementById('add-form').submit();
@@ -119,16 +151,16 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tr>
-                                                    <td style="font-weight: bolder">Name</td>
+                                                    <td>Name</td>
                                                     <td>
-                                                        <input type="text" id="name" name="name" class="form-control" required onblur="validateName()" />
+                                                        <input type="text" id="name" name="name" class="form-control" required oninput="validateName(this.value)" />
                                                         <span class="text-danger" id="nameErr"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="font-weight: bolder">Type</td>
+                                                    <td>Type</td>
                                                     <td>
-                                                        <select name="type" id="type" class="form-control text-center" onblur="validateSelection()">
+                                                        <select name="type" id="type" class="form-control text-center" onchange="validateSelection(this.value)">
                                                             <option value="all">Choose the type of film</option>
                                                         <c:forEach items="${typeMovie}" var="tm">
                                                             <option value="${tm.type_id}">${tm.type_name}</option>
@@ -138,44 +170,44 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bolder">Age</td>
+                                                <td>Age</td>
                                                 <td>
-                                                    <input name="age" id="age" type="text" class="form-control" required onblur="validateAge()" />
+                                                    <input name="age" id="age" type="text" class="form-control" required oninput="validateAge(this.value)" />
                                                     <span class="text-danger" id="AgeErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bolder">Duration</td>
+                                                <td>Duration</td>
                                                 <td>
-                                                    <input type="text" id="duration" name="duration" class="form-control" required onblur="validateduration()" />
+                                                    <input type="text" id="duration" name="duration" class="form-control" required oninput="validateDuration(this.value)" />
                                                     <span class="text-danger" id="durationErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bolder">Date Published</td>
+                                                <td>Date</td>
                                                 <td>
-                                                    <input type="date" id="date" name="date" class="form-control" required onblur="validDate()" />
+                                                    <input type="date" id="date" name="date" class="form-control" required oninput="validDate(this.value)" />
                                                     <span class="text-danger" id="dateErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bolder">Trailer</td>
+                                                <td>Trailer</td>
                                                 <td>
-                                                    <input type="text" name="trailer" id="trailer" class="form-control" required onblur="validateTrailer()" />
+                                                    <input type="text" name="trailer" id="trailer" class="form-control" required oninput="validateTrailer(this.value)" />
                                                     <span class="text-danger" id="trailerErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bolder">Description</td>
+                                                <td>Description</td>
                                                 <td>
-                                                    <textarea type="text" name="description" id="des" rows="5" class="form-control" required onblur="validateDes()"></textarea>
+                                                    <textarea type="text" name="description" id="des" rows="5" class="form-control" required oninput="validateDes(this.value)"></textarea>
                                                     <span class="text-danger" id="desErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight: bolder">Image</td>
+                                                <td>Image</td>
                                                 <td>
-                                                    <input id="fileInput" type="file" name="file" class="form-control" required onblur="validateImageFile()" />
+                                                    <input id="fileInput" type="file" name="file" class="form-control" required oninput="validateImageFile(this)" />
                                                     <span class="text-danger" id="fileErr"></span>
                                                 </td>
                                             </tr>
