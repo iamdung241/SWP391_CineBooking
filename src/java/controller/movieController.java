@@ -118,7 +118,8 @@ public class movieController extends HttpServlet {
     private static final String DESCRIPTION = "description";
     private static final String IMG = "img";
     private static final String AGE = "age";
-    private static final String UPLOAD_DIR = "E:\\CineBooking_SWP391_G3\\SWP391_CineBooking\\web\\img\\FilmPoster";
+//    private static final String UPLOAD_DIR = "E:\\CineBooking_SWP391_G3\\SWP391_CineBooking\\web\\img\\FilmPoster";
+    private static final String UPLOAD_DIR = "C:\\Users\\thanh\\Documents\\CinemaBookingTicket\\SWP391_CineBooking\\web\\img\\FilmPoster";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
