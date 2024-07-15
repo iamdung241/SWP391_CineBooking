@@ -79,30 +79,33 @@
                                             <div class="col-7">
                                                 <ul>
                                                     <li>
-                                                        <span>Movie:</span>&nbsp&nbsp ${ticket.getMovieName()}
+                                                        <span>Movie:</span> ${ticket.getMovieName()}
                                                     </li>
                                                     <li>
-                                                        <span>Showtime:</span>&nbsp&nbsp ${ticket.getShowtime().getShowtiming()}
+                                                        <span>Date:</span> ${ticket.getShowtime().getShowtiming()}:00
                                                     </li>
                                                     <li>
-                                                        <span>Seat:</span>&nbsp&nbsp 
+                                                        <span>Showtime:</span> ${ticket.getShowtime().getShowtiming()}:00
+                                                    </li>
+                                                    <li>
+                                                        <span>Seat:</span>
                                                         <c:forEach items="${ticket.seat}" var="ts">
                                                             ${ts.seat_name}
                                                         </c:forEach>
                                                     </li>
                                                     <li>
                                                         <c:if test="${not empty ticket.combo}">
-                                                            <span>Combo:</span>&nbsp;&nbsp;<br>
+                                                            <span>Combo:</span><br>
                                                             <c:forEach items="${ticket.combo}" var="tc">
                                                                 ${tc.concessions_name} - <span style="font-weight: bold">Quantity :</span> ${tc.quantity} <br>
                                                             </c:forEach>
                                                         </c:if>
                                                     </li>
                                                     <li>
-                                                        <span>Date:</span>&nbsp&nbsp ${ticket.getDate_book()}
+                                                        <span>Date Booked:</span> ${ticket.getDate_book()}
                                                     </li>
                                                     <li>
-                                                        <span>Total price:</span>&nbsp&nbsp ${ticket.getTotalprice()}
+                                                        <span>Total price:</span> ${ticket.getTotalprice()} VNĐ
                                                     </li>
                                                     <hr style="background-color: #000"/>
                                                     <li>
