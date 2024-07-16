@@ -79,7 +79,7 @@ public class ScanTicketServlet extends HttpServlet {
             //staff can accept ticket equal or after 1h
             boolean showAcceptButton = ticket.getStatus().equals("Nocheck")
                     && dateShowtime.equals(currentDate)
-                    && (currentTime.compareTo(beforeShowtimeWithMinutes) > 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0);
+                    && ((currentTime.compareTo(beforeShowtimeWithMinutes) > 0 || currentTime.compareTo(nextShowtimeWithMinutes) < 0));
 
             request.setAttribute("ticket", ticket);
             request.setAttribute("showAcceptButton", !showAcceptButton);
@@ -112,10 +112,12 @@ public class ScanTicketServlet extends HttpServlet {
             String dateShowtime = ticket.getShowtime().getDate();
             String showtimeWithMinutes = showtimeStr + ":00";
             int showtimeInt = Integer.parseInt(showtimeStr);
+            int beforeShowtime = showtimeInt - 2;
+            String beforeShowtimeWithMinutes = beforeShowtime + ":00";
             int nextShowtime = showtimeInt + 1;
             String nextShowtimeWithMinutes = nextShowtime + ":00";
             if (dateShowtime.equals(currentDate)
-                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0)) {
+                    && ((currentTime.compareTo(beforeShowtimeWithMinutes) > 0 || currentTime.compareTo(nextShowtimeWithMinutes) < 0))) {
                 ticketDao.updateTicketStatus(code, "Checked");
                 request.setAttribute("message", "Accept ticket successfully");
             } else {
