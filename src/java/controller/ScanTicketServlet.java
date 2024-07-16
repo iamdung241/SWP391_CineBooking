@@ -31,7 +31,7 @@ public class ScanTicketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -69,7 +69,6 @@ public class ScanTicketServlet extends HttpServlet {
             String showtimeStr = ticket.getShowtime().getShowtiming();
             String dateShowtime = ticket.getShowtime().getDate();
 //            String showtimeWithMinutes = showtimeStr + ":00";
-            
             int showtimeInt = Integer.parseInt(showtimeStr);
             int beforeShowtime = showtimeInt - 1;
             String beforeShowtimeWithMinutes = beforeShowtime + ":00";
@@ -112,7 +111,11 @@ public class ScanTicketServlet extends HttpServlet {
             String dateShowtime = ticket.getShowtime().getDate();
             String showtimeWithMinutes = showtimeStr + ":00";
             int showtimeInt = Integer.parseInt(showtimeStr);
+<<<<<<< HEAD
+            int beforeShowtime = showtimeInt - 1;
+=======
             int beforeShowtime = showtimeInt - 2;
+>>>>>>> 23fdf069067c7be5785fad62c04041cd2887e5ec
             String beforeShowtimeWithMinutes = beforeShowtime + ":00";
             int nextShowtime = showtimeInt + 1;
             String nextShowtimeWithMinutes = nextShowtime + ":00";
@@ -123,7 +126,9 @@ public class ScanTicketServlet extends HttpServlet {
             } else {
                 request.setAttribute("message", "Accepting ticket failed due to time constraints");
             }
+            request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
         }
+        
     }
 
     /**
