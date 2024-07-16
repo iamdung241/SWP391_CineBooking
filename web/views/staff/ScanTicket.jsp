@@ -110,12 +110,13 @@
                                                     <hr style="background-color: #000"/>
                                                     <li>
                                                         <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                            <c:if test="${showAcceptButton}">
-                                                                <form action="scanticket" method="post">
-                                                                    <input type="hidden" name="code" value="${ticket.getCode()}" />
-                                                                    <button type="submit" class="bookTicket">Accept</button>
-                                                                </form>
-                                                            </c:if>
+
+                                                                <c:if test="${showAcceptButton}">
+                                                                    <form action="scanticket" method="post">
+                                                                        <input type="hidden" name="code" value="${ticket.getCode()}" />
+                                                                        <button type="submit" class="bookTicket">Accept</button>
+                                                                    </form>
+                                                                </c:if>
                                                         </c:if>
 
                                                     </li>
