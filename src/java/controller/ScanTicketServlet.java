@@ -111,11 +111,7 @@ public class ScanTicketServlet extends HttpServlet {
             String dateShowtime = ticket.getShowtime().getDate();
             String showtimeWithMinutes = showtimeStr + ":00";
             int showtimeInt = Integer.parseInt(showtimeStr);
-<<<<<<< HEAD
-            int beforeShowtime = showtimeInt - 1;
-=======
             int beforeShowtime = showtimeInt - 2;
->>>>>>> 23fdf069067c7be5785fad62c04041cd2887e5ec
             String beforeShowtimeWithMinutes = beforeShowtime + ":00";
             int nextShowtime = showtimeInt + 1;
             String nextShowtimeWithMinutes = nextShowtime + ":00";
