@@ -1,3 +1,8 @@
+<%-- 
+    Document   : ScanTicket
+    Created on : Jun 20, 2024, 6:58:15 PM
+    Author     : DungTT
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
