@@ -69,12 +69,12 @@
                 <div class="col-12 col-sm-3 col-xxl-4">
                     <div class="card h-100">
                         <div class="card-header justify-content-between align-items-center d-flex border-0 pb-0">
-                            <h6 class="card-title m-0 text-muted fs-xs text-uppercase fw-bolder tracking-wide">Total Order</h6>
+                            <h6 class="card-title m-0 text-muted fs-xs text-uppercase fw-bolder tracking-wide">Average Value Order</h6>
                         </div>
                         <div class="card-body">
                             <div class="row gx-4 mb-3 mb-md-1">
                                 <div class="col-12 col-md-6">
-                                    <p class="fs-3 fw-bold d-flex align-items-center">${totalOrders}</p>
+                                    <p class="fs-3 fw-bold d-flex align-items-center">${averageValueOrder}</p>
                                 </div>
                             </div>
                         </div>
