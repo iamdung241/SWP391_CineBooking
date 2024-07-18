@@ -10,7 +10,7 @@
                 var AgeErr = document.getElementById("AgeErr");
                 const regex = /^(?:[4-9]|1[0-8])\+$/;
                 if (!regex.test(age) || age === "") {
-                    AgeErr.textContent = "Please enter from 4 - 18 example '18+' ";
+                    AgeErr.textContent = age === "" ? "" : "Please enter from 4 - 18 example '18+' ";
                     return false;
                 } else {
                     AgeErr.textContent = "";
