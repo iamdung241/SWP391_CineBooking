@@ -49,7 +49,7 @@
 
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive" style="max-height: 530px">
+                            <div class="table-responsive" style="max-height: 700px">
                                 <table class="table table-bordered table-hover overflow-scroll">
                                     <thead class="thead-dark">
                                         <tr>
