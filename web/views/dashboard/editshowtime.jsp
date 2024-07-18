@@ -97,7 +97,6 @@
                                                 <input name="date" id="date" type="date" class="form-control" required value="${s.getDate()}" onblur="validateDate()"/>
                                                 <span class="text-danger" id="dateErr"></span>
                                             </td>
-
                                         </tr>
                                     </table>
                                 </div>

@@ -3,13 +3,11 @@ package controller;
 import dal.AccountDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Account;
 
-@WebServlet(name = "AddUser", urlPatterns = {"/views/admin/adduser"})
 public class AddUser extends HttpServlet {
 
     @Override
@@ -86,6 +84,6 @@ public class AddUser extends HttpServlet {
             request.setAttribute("phone", null);
             request.setAttribute("email", null);
         }
-        request.getRequestDispatcher("/views/admin/addUser.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/dashboard/adduser.jsp").forward(request, response);
     }
 }

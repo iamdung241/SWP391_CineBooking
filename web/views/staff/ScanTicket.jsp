@@ -1,3 +1,8 @@
+<%-- 
+    Document   : ScanTicket
+    Created on : Jun 20, 2024, 6:58:15 PM
+    Author     : DungTT
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -66,7 +71,7 @@
                                         <c:when test="${ticket != null}">
                                             <div class="exep1r">
                                                 <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>  
+                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>
                                                     </c:if>
                                                     <c:if test="${ticket.getStatus() == 'Checked'}">
                                                     <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>  
@@ -79,44 +84,44 @@
                                             <div class="col-7">
                                                 <ul>
                                                     <li>
-                                                        <span>Movie:</span>&nbsp&nbsp ${ticket.getMovieName()}
+                                                        <span>Movie:</span> ${ticket.getMovieName()}
                                                     </li>
                                                     <li>
-                                                        <span>Showtime:</span>&nbsp&nbsp ${ticket.getShowtime().getShowtiming()}
+                                                        <span>Date:</span> ${ticket.getShowtime().getDate()}
                                                     </li>
                                                     <li>
-                                                        <span>Seat:</span>&nbsp&nbsp 
+                                                        <span>Showtime:</span> ${ticket.getShowtime().getShowtiming()}:00
+                                                    </li>
+                                                    <li>
+                                                        <span>Seat:</span>
                                                         <c:forEach items="${ticket.seat}" var="ts">
                                                             ${ts.seat_name}
                                                         </c:forEach>
                                                     </li>
                                                     <li>
                                                         <c:if test="${not empty ticket.combo}">
-                                                            <span>Combo:</span>&nbsp;&nbsp;<br>
+                                                            <span>Combo:</span><br>
                                                             <c:forEach items="${ticket.combo}" var="tc">
                                                                 ${tc.concessions_name} - <span style="font-weight: bold">Quantity :</span> ${tc.quantity} <br>
                                                             </c:forEach>
                                                         </c:if>
                                                     </li>
                                                     <li>
-                                                        <span>Date:</span>&nbsp&nbsp ${ticket.getDate_book()}
+                                                        <span>Date Booked:</span> ${ticket.getDate_book()}
                                                     </li>
                                                     <li>
-                                                        <span>Total price:</span>&nbsp&nbsp ${ticket.getTotalprice()}
+                                                        <span>Total price:</span> ${ticket.getTotalprice()} VNĐ
                                                     </li>
                                                     <hr style="background-color: #000"/>
                                                     <li>
                                                         <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                            <c:choose>
-                                                                <c:when test="${showAcceptButton}">
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <form action="scanticket" method="post">
-                                                                        <input type="hidden" name="code" value="${ticket.getCode()}" />
-                                                                        <button type="submit" class="bookTicket">Accept</button>
-                                                                    </form>
-                                                                </c:otherwise>
-                                                            </c:choose>
+
+                                                            <c:if test="${showAcceptButton}">
+                                                                <form action="scanticket" method="post">
+                                                                    <input type="hidden" name="code" value="${ticket.getCode()}" />
+                                                                    <button type="submit" class="bookTicket">Accept</button>
+                                                                </form>
+                                                            </c:if>
                                                         </c:if>
 
                                                     </li>

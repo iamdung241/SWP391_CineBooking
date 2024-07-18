@@ -1,3 +1,8 @@
+<%-- 
+    Document   : register
+    Created on : May 5, 2024, 7:58:15 PM
+    Author     : DungTT
+--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">

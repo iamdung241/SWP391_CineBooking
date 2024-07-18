@@ -71,7 +71,7 @@ public class BookTicketServlet extends HttpServlet {
         RoomDAO rdao = new RoomDAO();
         String movieID = request.getParameter("movieID");
         String selectedDate = request.getParameter("date");
-        if (selectedDate == null || selectedDate.isEmpty()) {
+        if (selectedDate == null) {
             selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }
         List<Showtiming> filteredShowtimes = new ArrayList<>();

@@ -79,70 +79,6 @@
                 color: black;
             }
 
-            .edit-form label {
-                font-weight: bold;
-                margin-top: 10px;
-                font-size: 1.1em;
-                color: black;
-            }
-
-            .edit-form input[type="text"],
-            .edit-form input[type="email"],
-            .edit-form input[type="password"] {
-                margin-bottom: 15px;
-                padding: 12px;
-                border: 1px solid #555;
-                border-radius: 8px;
-                width: 100%;
-                font-size: 1em;
-                color: black;
-                transition: border-color 0.3s;
-            }
-
-            .edit-form input[type="text"]:focus,
-            .edit-form input[type="email"]:focus,
-            .edit-form input[type="password"]:focus {
-                border-color: #007bff;
-            }
-
-            .edit-form input[type="submit"] {
-                margin-top: 20px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                padding: 12px 20px;
-                border-radius: 8px;
-                cursor: pointer;
-                font-size: 1.1em;
-                transition: background-color 0.3s, transform 0.2s;
-            }
-
-            .edit-form input[type="submit"]:hover {
-                background-color: #0056b3;
-                transform: scale(1.05);
-            }
-
-            .error {
-                color: #ff6666;
-                font-size: 0.9em;
-                margin-top: 5px;
-                margin-bottom: 10px;
-                display: block;
-            }
-
-            .alert {
-                margin-top: 20px;
-                padding: 15px;
-                background-color: #444;
-                color: #d4edda;
-                border: 1px solid #c3e6cb;
-                border-radius: 5px;
-            }
-
-            .container {
-                max-width: 1200px;
-            }
-
             .icon {
                 font-size: 1.5em;
                 margin-right: 10px;
@@ -152,7 +88,6 @@
             .header {
                 background-image: linear-gradient(to right, #000, #333);
                 color: white;
-
                 box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             }
 
@@ -161,14 +96,52 @@
                 font-size: 2.5em;
                 text-align: center;
             }
+
+            .card-title {
+                color: #007bff;
+                font-weight: bold;
+            }
+
+            .card-text strong {
+                color: #007bff;
+            }
+
+            .container {
+                max-width: 1200px;
+            }
+
+            .details-row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .details-col {
+                flex: 1;
+                min-width: 200px;
+                margin: 10px 0;
+            }
+
+            .qr-poster {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 20px;
+            }
+
+            .qr-poster img {
+                max-width: 100%;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
         </style>
     </head>
     <body>
         <div class="main clearfix position-relative">
             <div class="header main_1 clearfix">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
-                <div class="main-content container">
+            </div>
+            <div class="main-content container">
                 <c:if test="${sessionScope.user != null}">
                     <div class="user-profile">
                         <div class="row justify-content-between user-profile-container">
@@ -187,36 +160,49 @@
                                             <div class="card mb-5 border-danger">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Ticket Code: ${ticket.code}</h5>
-                                                    <p class="card-text"><strong>Movie:</strong> ${ticket.movieName}</p>
-                                                    <p class="card-text"><img style="border-style: solid; border-width: 10px"  height="450px" src="${ticket.movieImage}" class="w-100" alt="abc"></p>
-                                                    <p class="card-text"><strong>Showtime:</strong> ${ticket.showtime.showtiming}:00</p>
-                                                    <p class="card-text"><strong>Room:</strong> ${ticket.showtime.room_name}</p>
-                                                    <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
-                                                    <p class="card-text"><strong>Total Price:</strong> ${ticket.totalprice} VND</p>
-                                                    <p class="card-text"><strong>Status:</strong> ${ticket.status}</p>
-                                                    <p class="card-text"><strong>Date Booked:</strong> ${ticket.date_book}</p>
-                                                    <p class="card-text"><strong>Seats:</strong>
-                                                        <c:forEach items="${ticket.seat}" var="s">
-                                                            ${s.seat_name}
-                                                        </c:forEach>
-                                                    </p>
-                                                    <c:if test="${ticket.combo != null}">
-                                                        <p class="card-text"><strong>Combos:</strong>
-                                                            <c:forEach items="${ticket.combo}" var="tc">
-                                                                ${tc.concessions_name}/SL: ${tc.quantity} <br>
-                                                            </c:forEach>
-                                                        </p>        
-                                                    </c:if>
+                                                    <div class="qr-poster">
+                                                        <div class="col-md-6">
+                                                            <img style="border-style: solid; border-width: 10px" height="350px" src="${ticket.movieImage}" alt="abc">
+                                                        </div>
+                                                        <div class="col-md-6 text-center">
+                                                            <p><strong>QR Code</strong></p>
+                                                            <img src="generateQR?text=${ticket.code}" style="width: 200px; height: 200px;" class="img-fluid"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="details-row">
+                                                        <div class="details-col">
+                                                            <p class="card-text"><strong>Movie:</strong> ${ticket.movieName}</p>
+                                                            <p class="card-text"><strong>Showtime:</strong> ${ticket.showtime.showtiming}:00</p>
+                                                        </div>
+                                                        <div class="details-col">
+                                                            <p class="card-text"><strong>Room:</strong> ${ticket.showtime.room_name}</p>
+                                                            <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
+                                                        </div>
+                                                        <div class="details-col">
+                                                            <p class="card-text"><strong>Total Price:</strong> ${ticket.totalprice} VND</p>
+                                                            <p class="card-text"><strong>Status:</strong> ${ticket.status}</p>
+                                                        </div>
+                                                        <div class="details-col">
+                                                            <p class="card-text"><strong>Date Booked:</strong> ${ticket.date_book}</p>
+                                                            <p class="card-text"><strong>Seats:</strong>
+                                                                <c:forEach items="${ticket.seat}" var="s">
+                                                                    ${s.seat_name}
+                                                                </c:forEach>
+                                                            </p>
+                                                            <c:if test="${ticket.combo != null}">
+                                                                <p class="card-text"><strong>Combos:</strong>
+                                                                    <c:forEach items="${ticket.combo}" var="tc">
+                                                                        ${tc.concessions_name}/SL: ${tc.quantity} <br>
+                                                                    </c:forEach>
+                                                                </p>        
+                                                            </c:if>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </c:forEach>
                                     </div>
                                     <a class="container btn btn-primary mb-3" href="customerController?userID=<%= request.getParameter("userID")%>" id="back">Back</a>
-                                    <c:if test="${not empty message}">
-                                        <div class="alert alert-success">
-                                            ${message}
-                                        </div>
-                                    </c:if>
                                 </div>
                             </div>
                         </div>

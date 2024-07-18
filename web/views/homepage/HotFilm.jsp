@@ -116,7 +116,7 @@
                         <!-- Stylish and decorative font -->
                         <h1 style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Hot Films This Month</h1>
                     </div>
-                    <c:forEach items="${topMovie}" var="m" varStatus="loop">
+                    <c:forEach items="${topMovie}" var="topMovie" varStatus="loop">
                         <div class="filmItem ${loop.index == 0 ? 'active' : ''}">
                             <section id="exep" class="p-3 bg-light">
                                 <div class="container-xl detail">
@@ -124,33 +124,33 @@
                                         <div class="col-3">
                                             <div class="exep1l">
                                                 <div class="grid clearfix">
-                                                    <img style="border-style: solid; border-width: 10px" src="${m.getPost_img()}" class="filmImage" alt="Movie Poster">
+                                                    <img style="border-style: solid; border-width: 10px" src="${topMovie.getPost_img()}" class="filmImage" alt="Movie Poster">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-9">
                                             <div class="exep1r">
-                                                <p class="mb-0 movieTitle">${m.getMovie_name()}</p>                                       
+                                                <p class="mb-0 movieTitle">${topMovie.getMovie_name()}</p>                                       
                                             </div>
                                             <hr style="background-color: #000"/>
                                             <div>
                                                 <ul>
                                                     <li>
-                                                        <strong>Duration:</strong> ${m.getDuration()} minutes
+                                                        <strong>Duration:</strong> ${topMovie.getDuration()} minutes
                                                     </li>
                                                     <li>
-                                                        <strong>Date published:</strong> ${m.getDate_published()}
+                                                        <strong>Date published:</strong> ${topMovie.getDate_published()}
                                                     </li>
                                                     <li>
-                                                        <strong>Category:</strong> ${m.getType_name()}
+                                                        <strong>Category:</strong> ${topMovie.getType_name()}
                                                     </li>
                                                     <li>
-                                                        <strong>Description:</strong> ${m.getDecription()}
+                                                        <strong>Description:</strong> ${topMovie.getDecription()}
                                                     </li>
                                                     <hr style="background-color: #000"/>
                                                     <li>
-                                                        <a class="bookTicket" href="movietrailer?trailer=${m.trailer}&ID=${m.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a>
-                                                        <a class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
+                                                        <a class="bookTicket" href="movietrailer?trailer=${topMovie.trailer}&ID=${topMovie.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a>
+                                                        <a class="bookTicket" href="bookticket?movieID=${topMovie.getMovie_id()}">Book Tickets</a>
                                                     </li>
                                                 </ul>
                                             </div>

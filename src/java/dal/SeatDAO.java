@@ -7,6 +7,8 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -120,13 +122,12 @@ public class SeatDAO extends DBContext {
 //        }
 //        return s;
 //    }
-    
     public List<Seat> getSeatCustomer(int showtime, List<Seat> seats) {
         Set<Integer> seatIds = new HashSet<>();
-        String sql = "SELECT so.seat_id " +
-                     "FROM Ticket_Detail td " +
-                     "JOIN Seat_Order so ON td.ticket_id = so.ticket_id " +
-                     "WHERE td.showtime_id = ?";
+        String sql = "SELECT so.seat_id "
+                + "FROM Ticket_Detail td "
+                + "JOIN Seat_Order so ON td.ticket_id = so.ticket_id "
+                + "WHERE td.showtime_id = ?";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, showtime);
@@ -146,6 +147,77 @@ public class SeatDAO extends DBContext {
         }
 
         return seats;
+    }
+
+    public void Add_Revered(List<Seat> s, int show) {
+        for (Seat seat : s) {
+            addSeatReserved(seat.getSeat_id(), show);
+        }
+    }
+    
+    public void UpdateReserved(List<Seat> s, int show){
+        for (Seat seat : s) {
+            UpdateStatus_Reserved(seat.getSeat_id(), show);
+        }
+    }
+
+    public void UpdateStatus_Reserved(int seatId, int show) {
+        String sql = "UPDATE [dbo].[Seat_Reserved]\n"
+                + "   SET [status] = 'on'\n"
+                + " WHERE seat_id = ? and showtime_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, seatId);
+            st.setInt(2, show);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void addSeatReserved(int seatId, int show) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        // Định dạng ngày và giờ theo mẫu mong muốn
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // Chuyển ngày và giờ hiện tại thành chuỗi đã định dạng
+        String formattedDateTime = currentDateTime.format(formatter);
+        String sql = "INSERT INTO [dbo].[Seat_Reserved]\n"
+                + "           ([seat_id]\n"
+                + "           ,[showtime_id]\n"
+                + "           ,[date]\n"
+                + "           ,[status])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, seatId);
+            st.setInt(2, show);
+            st.setString(3, formattedDateTime);
+            st.setString(4, "off");
+            st.executeQuery();
+        } catch (SQLException e) {
+        }
+    }
+
+    public List<Seat> getSeatReserved(List<Seat> s, int show) {
+        Set<Integer> seatId = new HashSet<>();
+        String sql = "SELECT * FROM Seat_Reserved WHERE CAST(date AS DATE) = CAST(GETDATE() AS DATE) and status = 'off' and showtime_id = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, show);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                seatId.add(rs.getInt(2));
+            }
+        } catch (SQLException e) {
+        }
+
+        for (Seat seat : s) {
+            if (seatId.contains(seat.getSeat_id())) {
+                seat.setStatus("Reserved");
+            }
+        }
+
+        return s;
     }
 
 }

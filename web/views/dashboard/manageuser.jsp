@@ -36,10 +36,13 @@
                             </select>
                         </form>
                         <!-- Add User -->
-                        <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                        <div>
+                            <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                            <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/addExcel.jsp"><i class="ri-add-circle-line align-bottom"></i> Add By Excel</a>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="max-height: 530px">
+                        <div class="table-responsive" style="max-height: 720px">
                             <table class="table m-0 table-striped overflow-auto" border="1">
                                 <thead class="thead-dark">
                                     <tr>

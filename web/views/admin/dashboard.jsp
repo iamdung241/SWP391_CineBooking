@@ -46,7 +46,7 @@
         </noscript>
 
         <!-- Page Title -->
-        <title>Apollo | Bootstrap 5 HTML Admin Dashboard</title>
+        <title>Dashboard</title>
 
     </head>
     <body class="">

@@ -1,9 +1,8 @@
 <%-- 
     Document   : QRCode
-    Created on : Jun 27, 2024, 3:24:32 PM
-    Author     : Admin
+    Created on : Jun 20, 2024, 5:58:15 PM
+    Author     : DungTT
 --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>

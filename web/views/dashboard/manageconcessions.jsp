@@ -50,7 +50,7 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive" style="max-height: 530px">
+                            <div class="table-responsive" style="max-height: 700px">
                                 <table class="table table-hover align-middle text-center overflow-auto">
                                     <thead class="thead-dark">
                                         <tr>

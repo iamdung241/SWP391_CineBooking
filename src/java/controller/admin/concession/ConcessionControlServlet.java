@@ -83,8 +83,8 @@ public class ConcessionControlServlet extends HttpServlet {
             float price = Float.parseFloat(request.getParameter("price"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-            String img = "/CineBooking/img/ConcessionImage/";
-            File fileSaveDir = new File(CommonConst.UPLOAD_DIR);
+            String img = "img/ConcessionImage/";
+            File fileSaveDir = new File(CommonConst.UPLOAD_DIRS);
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdirs();
             }
@@ -96,7 +96,7 @@ public class ConcessionControlServlet extends HttpServlet {
                 img += fileName;
                 // Đảm bảo fileName không null
                 if (fileName != null && !fileName.isEmpty()) {
-                    part.write(CommonConst.UPLOAD_DIR + File.separator + fileName);
+                    part.write(CommonConst.UPLOAD_DIRS + File.separator + fileName);
                 }
             }
 
@@ -152,8 +152,8 @@ public class ConcessionControlServlet extends HttpServlet {
             
             String img = request.getParameter("currentImage");
             System.out.println(img);
-            String imgDir = "/CineBooking/img/ConcessionImage/";
-            File fileSaveDir = new File(CommonConst.UPLOAD_DIR);
+            String imgDir = "img/ConcessionImage/";
+            File fileSaveDir = new File(CommonConst.UPLOAD_DIRS);
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdirs();
             }
@@ -165,7 +165,7 @@ public class ConcessionControlServlet extends HttpServlet {
                 imgDir = imgDir + fileName;
                 // Đảm bảo fileName không null
                 if (fileName != null && !fileName.isEmpty()) {
-                    part.write(CommonConst.UPLOAD_DIR + File.separator + fileName);
+                    part.write(CommonConst.UPLOAD_DIRS + File.separator + fileName);
                 }
                 concession.setImage(imgDir);
             } else {
