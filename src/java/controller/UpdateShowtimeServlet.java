@@ -95,14 +95,20 @@ public class UpdateShowtimeServlet extends HttpServlet {
         Showtiming showtiming = new Showtiming();
         ShowtimingDAO showDao = new ShowtimingDAO();
         try {
-            int roomId = Integer.parseInt(roomID);
-            showtiming.setShowtime_id(Integer.parseInt(ID));
-            showtiming.setRoom_id(roomId);
-            showtiming.setShowtiming(showtime);
-            showtiming.setDate(date);
-            showDao.updateShowtime(showtiming);
-            request.setAttribute("successMessage", "Edit showtime successfully");
-            response.sendRedirect("showtimeControl");
+            boolean isShowtime = showDao.checkShowtimeExists(date, showtime, Integer.parseInt(roomID));
+            if (!isShowtime) {
+                showtiming.setShowtime_id(Integer.parseInt(ID));
+                showtiming.setRoom_id(Integer.parseInt(roomID));
+                showtiming.setShowtiming(showtime);
+                showtiming.setDate(date);
+                showDao.updateShowtime(showtiming);
+                request.setAttribute("successMessage", "Edit showtime successfully");
+                response.sendRedirect("showtimeControl");
+            } else {
+                request.setAttribute("errorMessage", "Update showtime fail");
+            request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
+            }
+
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "Update showtime fail");
             request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
