@@ -158,22 +158,22 @@
                                 <span style="font-size: 21px; font-weight: bold; color: green">PlayShow Cinema</span>
                                 <br/>
                                 <div>
-                                    <span style="padding-right: 90px; font-size: 18px"><span style="font-weight: bold">Room: &nbsp</span><span style="color: green">${room.getRoom_name()}</span></span><br>
-                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming:&nbsp </span><span style="color: green"> ${showtime.getShowtiming()}:00</span></span><br>
-                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date:&nbsp<span style="color: green"> ${showtime.date}</span> </span></span>
+                                    <span style="padding-right: 90px; font-size: 18px"><span style="font-weight: bold">Room: </span><span style="color: green">${room.getRoom_name()}</span></span><br>
+                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold">Showtiming: </span><span style="color: green"> ${showtime.getShowtiming()}:00</span></span><br>
+                                    <span style="padding-right: 70px; font-size: 18px"><span style="font-weight: bold"> Date:<span style="color: green"> ${showtime.date}</span> </span></span>
                                 </div>
                                 <hr/>
                                 <div>
                                     <h4><i class='bx bx-movie-play'></i><span style="color: green"> ${movie.getMovie_name()} </span></h4>
                                 </div> 
                                 <div>
-                                    <span style="font-weight: bold; font-size: 19px">Selected Seats: &nbsp<span style="color: green" id="selected-seats"></span><input type="hidden" id="ghe"></span>
+                                    <span style="font-weight: bold; font-size: 19px">Selected Seats: <span style="color: green" id="selected-seats"></span><input type="hidden" id="ghe"></span>
                                 </div>
                                 <div>
-                                    <span style="font-weight: bold; font-size: 19px">Quantity: &nbsp<span style="color: green" id="selected-seat-count"></span></span>
+                                    <span style="font-weight: bold; font-size: 19px">Quantity: <span style="color: green" id="selected-seat-count"></span></span>
                                 </div>
                                 <div>
-                                    <h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span></h5>
+                                    <h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span>VNĐ</h5> 
                                 </div>
                                 <hr/>
                                 <div style="text-align: center; padding-top: 20px">

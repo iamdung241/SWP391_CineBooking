@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="max-height: 650px">
+                        <div class="table-responsive" style="max-height: 720px">
                             <table class="table m-0 table-striped overflow-auto" border="1">
                                 <thead class="thead-dark">
                                     <tr>
