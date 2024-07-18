@@ -111,7 +111,7 @@
                 <section class="container-fluid">
 
                     <!-- Page Title-->
-                    <!-- / Page Title-->
+                    <title>Manage Showtime</title>
 
                     <!-- Middle Row Widgets-->
                     <div class="row g-4 mb-4 mt-0">

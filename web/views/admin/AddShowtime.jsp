@@ -33,7 +33,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-        <title></title>
+        <title>Manage Showtime</title>
         <!-- Fix for custom scrollbar if JS is disabled-->
         <noscript>
         <style>

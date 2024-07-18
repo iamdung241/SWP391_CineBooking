@@ -25,7 +25,7 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
         
-        <title>JSP Page</title>
+        <title>Dashboard</title>
     </head>
     <body>
         <jsp:include page="../../common/admin/main.jsp"></jsp:include>

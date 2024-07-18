@@ -1,3 +1,8 @@
+<%-- 
+    Document   : ScanTicket
+    Created on : Jun 20, 2024, 6:58:15 PM
+    Author     : DungTT
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -66,7 +71,7 @@
                                         <c:when test="${ticket != null}">
                                             <div class="exep1r">
                                                 <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>  
+                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>
                                                     </c:if>
                                                     <c:if test="${ticket.getStatus() == 'Checked'}">
                                                     <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>  
@@ -110,12 +115,13 @@
                                                     <hr style="background-color: #000"/>
                                                     <li>
                                                         <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                                <c:if test="${showAcceptButton}">
-                                                                    <form action="scanticket" method="post">
-                                                                        <input type="hidden" name="code" value="${ticket.getCode()}" />
-                                                                        <button type="submit" class="bookTicket">Accept</button>
-                                                                    </form>
-                                                                </c:if>
+
+                                                            <c:if test="${showAcceptButton}">
+                                                                <form action="scanticket" method="post">
+                                                                    <input type="hidden" name="code" value="${ticket.getCode()}" />
+                                                                    <button type="submit" class="bookTicket">Accept</button>
+                                                                </form>
+                                                            </c:if>
                                                         </c:if>
 
                                                     </li>
