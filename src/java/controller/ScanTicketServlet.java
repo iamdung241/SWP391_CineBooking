@@ -76,7 +76,7 @@ public class ScanTicketServlet extends HttpServlet {
             //staff can accept ticket equal or after 1h
             boolean showAcceptButton = ticket.getStatus().equals("Nocheck")
                     && dateShowtime.equals(currentDate)
-                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0);
+                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 || currentTime.compareTo(nextShowtimeWithMinutes) < 0);
 
             request.setAttribute("ticket", ticket);
             request.setAttribute("showAcceptButton", !showAcceptButton);
