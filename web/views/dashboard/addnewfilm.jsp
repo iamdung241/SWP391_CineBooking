@@ -49,7 +49,7 @@
 
             function validateTrailer(trailer) {
                 var trailerErr = document.getElementById("trailerErr");
-                const regex = /^[^\s]+\S*(\s*)$/;
+                const regex = /^(https?:\/\/[^\s/$.?#].[^\s]*)$/;
                 if (!regex.test(trailer) || trailer === "") {
                     trailerErr.textContent = trailer === "" ? "" : "Enter true format, example https://www.youtube.com/embed/ar-IaAx7s8k";
                     return false;
