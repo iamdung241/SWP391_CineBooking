@@ -65,8 +65,7 @@
                 if (!regex.test(des) || des === "") {
                     desErr.textContent = des === "" ? "" : "Enter true format, do not have space first";
                     return false;
-                } else {
-                    desErr.textContent = "";
+                } else {desErr.textContent = "";
                     return true;
                 }
             }
@@ -129,8 +128,7 @@
 
                 if (name && age && duration && trailer && des && checkType && date && image) {
                     document.getElementById('add-form').submit();
-                } else {
-                    window.alert("Validation failed. Please check the form fields and try again.");
+                } else {window.alert("Validation failed. Please check the form fields and try again.");
                 }
             }
         </script>
@@ -171,8 +169,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Age</td>
-                                                <td>
-                                                    <input name="age" id="age" type="text" class="form-control" required oninput="validateAge(this.value)" />
+                                                <td><input name="age" id="age" type="text" class="form-control" required oninput="validateAge(this.value)" />
                                                     <span class="text-danger" id="AgeErr"></span>
                                                 </td>
                                             </tr>
@@ -209,8 +206,7 @@
                                                 <td>
                                                     <input id="fileInput" type="file" name="file" class="form-control" required oninput="validateImageFile(this)" />
                                                     <span class="text-danger" id="fileErr"></span>
-                                                </td>
-                                            </tr>
+                                                </td></tr>
                                         </table>
                                     </div>
                                 </form>

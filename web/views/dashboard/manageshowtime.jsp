@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Manage Showtime</title>
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
@@ -21,13 +21,19 @@
                             <div class="card-header justify-content-between align-items-center d-flex">
                                 <h6 class="card-title m-0">List Showtime</h6>
                             </div>
+                            <div class="d-flex align-items-center">
+                                    <form class="d-flex me-2" action="adminSearchFilmShowtime">
+                                        <input class="form-control me-2" name="searchAdmin" placeholder="Search" value="${key}">
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
                             <c:if test="${not empty successMessage}">
                                 <div class="alert alert-success" role="alert">
                                     ${successMessage}
                                 </div>
                             </c:if>
                             <div class="card-body">
-                                <div class="table-responsive" style="max-height: 530px">
+                                <div class="table-responsive" style="max-height: 700px">
                                     <table class="table table-bordered table-hover align-middle overflow-auto">
                                         <thead class="thead-dark">
                                             <tr>

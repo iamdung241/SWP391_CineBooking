@@ -31,7 +31,7 @@ public class ScanTicketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -68,18 +68,19 @@ public class ScanTicketServlet extends HttpServlet {
             String currentTime = sdfTime.format(now);
             String showtimeStr = ticket.getShowtime().getShowtiming();
             String dateShowtime = ticket.getShowtime().getDate();
-            String showtimeWithMinutes = showtimeStr + ":00";
+//            String showtimeWithMinutes = showtimeStr + ":00";
             int showtimeInt = Integer.parseInt(showtimeStr);
+            int beforeShowtime = showtimeInt - 2;
+            String beforeShowtimeWithMinutes = beforeShowtime + ":00";
             int nextShowtime = showtimeInt + 1;
             String nextShowtimeWithMinutes = nextShowtime + ":00";
             //date showtime on ticket = current date
             //staff can accept ticket equal or after 1h
             boolean showAcceptButton = ticket.getStatus().equals("Nocheck")
                     && dateShowtime.equals(currentDate)
-                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 || currentTime.compareTo(nextShowtimeWithMinutes) < 0);
-
+                    && (currentTime.compareTo(beforeShowtimeWithMinutes) >= 0 || currentTime.compareTo(nextShowtimeWithMinutes) < 0);
             request.setAttribute("ticket", ticket);
-            request.setAttribute("showAcceptButton", !showAcceptButton);
+            request.setAttribute("showAcceptButton", showAcceptButton);
         }
         request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
     }
@@ -109,16 +110,22 @@ public class ScanTicketServlet extends HttpServlet {
             String dateShowtime = ticket.getShowtime().getDate();
             String showtimeWithMinutes = showtimeStr + ":00";
             int showtimeInt = Integer.parseInt(showtimeStr);
+            int beforeShowtime = showtimeInt - 1;
+            String beforeShowtimeWithMinutes = beforeShowtime + ":00";
             int nextShowtime = showtimeInt + 1;
             String nextShowtimeWithMinutes = nextShowtime + ":00";
             if (dateShowtime.equals(currentDate)
-                    && (currentTime.compareTo(showtimeWithMinutes) >= 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0)) {
+                    && (currentTime.compareTo(beforeShowtimeWithMinutes) > 0 && currentTime.compareTo(nextShowtimeWithMinutes) < 0)) {
                 ticketDao.updateTicketStatus(code, "Checked");
                 request.setAttribute("message", "Accept ticket successfully");
             } else {
                 request.setAttribute("message", "Accepting ticket failed due to time constraints");
             }
-        }
+        } 
+        Ticket t1 = ticketDao.getTicket(code);
+        request.setAttribute("ticket", t1);
+        request.getRequestDispatcher("/views/staff/ScanTicket.jsp").forward(request, response);
+        
     }
 
     /**

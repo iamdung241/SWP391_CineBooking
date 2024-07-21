@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
     <filter-mapping>
         <filter-name>StaffFilter</filter-name>
         <url-pattern>/scanticket</url-pattern>
@@ -238,6 +237,18 @@
         <servlet-name>movieController</servlet-name>
         <servlet-class>controller.movieController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddExcel</servlet-name>
+        <servlet-class>controller.AddExcel</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckExistenceServlet</servlet-name>
+        <servlet-class>controller.CheckExistenceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchFilmShowtime</servlet-name>
+        <servlet-class>controller.AdminSearchFilmShowtime</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -407,6 +418,18 @@
     <servlet-mapping>
         <servlet-name>movieController</servlet-name>
         <url-pattern>/movie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddExcel</servlet-name>
+        <url-pattern>/views/dashboard/addexcel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckExistenceServlet</servlet-name>
+        <url-pattern>/views/dashboard/checkExistence</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchFilmShowtime</servlet-name>
+        <url-pattern>/adminSearchFilmShowtime</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

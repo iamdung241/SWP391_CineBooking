@@ -4,25 +4,22 @@
  */
 package controller;
 
-import dal.RoomDAO;
-import dal.ShowtimingDAO;
+import dal.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Room;
-import model.Showtiming;
+import model.Movie;
+import model.TypeMovie;
 
 /**
  *
- * @author thanh
+ * @author tranh
  */
-@WebServlet(name = "UpdateShowtimeServlet", urlPatterns = {"/updateShowtime"})
-public class UpdateShowtimeServlet extends HttpServlet {
+public class AdminSearchFilmShowtime extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,15 +33,15 @@ public class UpdateShowtimeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateShowtimeServlet</title>");
+            out.println("<title>Servlet AdminSearch_Filter</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateShowtimeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminSearch_Filter at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,22 +56,35 @@ public class UpdateShowtimeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String KEY_SEARCH = "searchAdmin";
+    private static final String TYPE_SEARCH = "typeId";
+    private static final String ACT = "ACT";
+    private static final String MANAGEMOVIE_ADMIN = "views/dashboard/manageshowtime.jsp";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RoomDAO roomDao = new RoomDAO();
-        List<Room> listRoom = roomDao.getAllRooms();
-        request.setAttribute("listRoom", listRoom);
-        ShowtimingDAO showDao = new ShowtimingDAO();
-        String showtimeID = request.getParameter("showtimeID");
-        try {
-            int showtime_id = Integer.parseInt(showtimeID);
-            Showtiming showtime = showDao.getShowtimingByShowtimeID(showtime_id);
-            request.setAttribute("showtimeUpdate", showtime);
-        } catch (NumberFormatException e) {
-            e.getMessage();
+        if (request.getParameter(ACT) != null && request.getParameter(ACT).equals("filter")) {
+            int type = Integer.parseInt(request.getParameter(TYPE_SEARCH));
+            request.setAttribute("typeSearch", type);
+            if (type == 10) {
+                List<Movie> listShowtime = new MovieDAO().getMovie();
+                request.setAttribute("listMovie", listShowtime);
+            } else {
+                List<Movie> listShowtime = new MovieDAO().getMovieByType(type);
+                request.setAttribute("listMovie", listShowtime);
+            }
         }
-        request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
+        if (request.getParameter(KEY_SEARCH) != null) {
+            String search = request.getParameter(KEY_SEARCH);
+            request.setAttribute("key", search);
+            List<Movie> searchList = new MovieDAO().getMoviesBySearch(search);
+            request.setAttribute("listMovie", searchList);
+        }
+        List<TypeMovie> typelist = new MovieDAO().getTypeMovie();
+        request.setAttribute("listType", typelist);
+        request.getRequestDispatcher(MANAGEMOVIE_ADMIN).forward(request, response);
+
     }
 
     /**
@@ -88,31 +98,7 @@ public class UpdateShowtimeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String roomID = request.getParameter("room");
-        String ID = request.getParameter("id");
-        String showtime = request.getParameter("showtime");
-        String date = request.getParameter("date");
-        Showtiming showtiming = new Showtiming();
-        ShowtimingDAO showDao = new ShowtimingDAO();
-        try {
-            boolean isShowtime = showDao.checkShowtimeExists(date, showtime, Integer.parseInt(roomID));
-            if (!isShowtime) {
-                showtiming.setShowtime_id(Integer.parseInt(ID));
-                showtiming.setRoom_id(Integer.parseInt(roomID));
-                showtiming.setShowtiming(showtime);
-                showtiming.setDate(date);
-                showDao.updateShowtime(showtiming);
-                request.setAttribute("successMessage", "Edit showtime successfully");
-                response.sendRedirect("showtimeControl");
-            } else {
-                request.setAttribute("errorMessage", "Update showtime fail");
-            request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
-            }
-
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Update showtime fail");
-            request.getRequestDispatcher("/views/dashboard/editshowtime.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -39,11 +39,12 @@
                 text-decoration: none;
                 padding: 10px;
                 display: block;
-                transition: background-color 0.3s;
+                transition: background-color 0.3s, color 0.3s;
             }
 
-            .sidebar a:hover {
+            .sidebar a:hover, .sidebar a.active {
                 background-color: #495057;
+                color: #ffc107;
             }
 
             .content {
@@ -65,21 +66,23 @@
     <body>
         <div class="sidebar">
             <h3 class="text-center text-logo">
+                <a class="nav-link active" href="/CineBooking/home">
                 <i class="fas fa-film"></i> Admin Dashboard
+                </a>
             </h3>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/CineBooking/dashboard">
+                    <a class="nav-link" href="/CineBooking/dashboard">
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/CineBooking/revenue/film">
+                    <a class="nav-link" href="/CineBooking/revenue/film">
                         <i class="fas fa-chart-line"></i> Film Revenue
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/CineBooking/revenue/concession">
+                    <a class="nav-link" href="/CineBooking/revenue/concession">
                         <i class="fas fa-chart-line"></i> Concession Revenue
                     </a>
                 </li>
@@ -89,16 +92,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp"><i class="fas fa-users"></i> Users </a>
+                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
+                        <i class="fas fa-users"></i> Manage Users
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/admin/concession">
-                        <i class="fas fa-concierge-bell"></i> Concessions
+                        <i class="fas fa-concierge-bell"></i> Manage Concessions
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/showtimeControl">
-                        <i class="fa-solid fa-clock"></i> Showtime
+                        <i class="fa-solid fa-clock"></i> Manage Showtime
                     </a>
                 </li>
             </ul>
@@ -108,6 +113,28 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Function to set active link based on current URL
+                function setActiveLink() {
+                    var currentPath = window.location.pathname;
+                    $('.nav-link').each(function() {
+                        if (this.pathname === currentPath) {
+                            $('.nav-link').removeClass('active');
+                            $(this).addClass('active');
+                        }
+                    });
+                }
+
+                // Set active link on page load
+                setActiveLink();
+
+                // Set active link on click
+                $('.nav-link').on('click', function() {
+                    $('.nav-link').removeClass('active');
+                    $(this).addClass('active');
+                });
+            });
+        </script>
     </body>
 </html>
-

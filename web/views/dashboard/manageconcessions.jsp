@@ -50,7 +50,7 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive" style="max-height: 530px">
+                            <div class="table-responsive" style="max-height: 700px">
                                 <table class="table table-hover align-middle text-center overflow-auto">
                                     <thead class="thead-dark">
                                         <tr>
@@ -69,10 +69,10 @@
                                                     <span class="fw-bold">${c.concessions_id}</span>
                                                 </td>
                                                 <td name="image">
-                                                    <img src="../${c.image}" class="img-thumbnail" width="100" height="100"/>
+                                                    <img src="${c.image}" class="img-thumbnail" width="100" height="100"/>
                                                 </td>
                                                 <td name="name">${c.concessions_name}</td>
-                                                <td name="price">${c.price}</td>
+                                                <td name="price">${c.price} VNĐ</td>
                                                 <td name="quantity">${c.quantity}</td>
                                                 <td class="d-flex justify-content-center">
                                                     <form>

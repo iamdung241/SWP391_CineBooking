@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dal.ConcessionDAO;
 import dal.MovieDAO;
 import dal.RoomDAO;
 import dal.SeatDAO;
