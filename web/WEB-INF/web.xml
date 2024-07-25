@@ -18,10 +18,6 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/showtiming</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
         <url-pattern>/admin/filter</url-pattern>
     </filter-mapping>
     <filter-mapping>

@@ -117,33 +117,25 @@
                             </div>
                             <div style="margin-top: 40px">
                                 <c:forEach items="${movie.getListShowtime()}" var="s"> 
-                                    <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}" onclick="showRooms(${s.getShowtime_id()})"> ${s.getShowtiming()} : 00</a>
+                                    <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}"> ${s.getShowtiming()} : 00</a>
+                                    <c:if test="${selectedShowtimeId != null && selectedShowtimeId == s.getShowtime_id()}">
+                                        <c:forEach items="${listRoom}" var="r">
+                                            <div style="margin: 40px ">
+                                                <c:if test="${sessionScope.user == null}">
+                                                    <a class="showRoom" href="login.jsp?returnUrl=showtiming"> Room: ${r.getRoom_name()}</a>
+                                                </c:if>
+                                                <c:if test="${sessionScope.user != null}">
+                                                    <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${m.getMovie_id()}&showtimeID=${s.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
+                                                </c:if>
+                                            </div>
+                                        </c:forEach>
+                                    </c:if>
+                                    
                                 </c:forEach>
                             </div>
-                            <c:if test="${sessionScope.user != null}"> 
-                                <div id="room-selection" style="margin-top: 30px;">
-                                    <c:forEach items="${listRoom}" var="room">                    
-                                        <c:forEach var="s" items="${listShowtime}">
-                                            <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
-                                                <a  class="showRoom" href="seat?roomID=${room.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
-                                            </div>
-                                        </c:forEach>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.user == null}"> 
-                                <div id="room-selection" style="margin-top: 30px;">
-                                    <c:forEach items="${listRoom}" var="room">                    
-                                        <c:forEach var="s" items="${listShowtime}">
-                                            <div style="margin-top: 30px" id="rooms-showtime-${s.getShowtime_id()}" class="room-list">
-                                                <a class="showRoom" href="login.jsp?returnUrl=bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}">${room.getRoom_name()}</a>
-                                            </div>
-                                        </c:forEach>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
 
-                            <input type="hidden" id="selectedShowtime" value="${selectedShowtimeId}">
+
+                            <!--<input type="hidden" id="selectedShowtime" value="${selectedShowtimeId}">-->
                         </div>
                     </div>
                 </div>
@@ -158,7 +150,7 @@
                     roomElements.forEach(function (roomElement) {
                         roomElement.style.display = 'block';
                     });
-                    
+
                 }
 
                 // Show the rooms when the page loads if a showtime is already selected

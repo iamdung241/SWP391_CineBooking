@@ -64,6 +64,7 @@ public class ShowtimingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         ShowtimingDAO sdao = new ShowtimingDAO();
         RoomDAO rdao = new RoomDAO();
         List<Movie> listMovie = sdao.getMovieWithShowtime();
@@ -71,11 +72,17 @@ public class ShowtimingServlet extends HttpServlet {
         if (selectedDate == null || selectedDate.isEmpty()) {
             selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }
+        java.util.Date now = new java.util.Date();
+        java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm");
+        String currentTime = sdfTime.format(now);
         List<Movie> filteredMovies = new ArrayList<>();
         for (Movie movie : listMovie) {
             List<Showtiming> filteredShowtimes = new ArrayList<>();
             for (Showtiming showtime : movie.getListShowtime()) {
-                if (showtime.getDate().equals(selectedDate)) {
+                int showtimeInt = Integer.parseInt(showtime.getShowtiming());
+                int nextShowtime = showtimeInt + 1;
+                String nextShowtimeWithMinutes = nextShowtime + ":00";
+                if (showtime.getDate().equals(selectedDate) && currentTime.compareTo(nextShowtimeWithMinutes) < 0) {
                     filteredShowtimes.add(showtime);
                 }
             }
