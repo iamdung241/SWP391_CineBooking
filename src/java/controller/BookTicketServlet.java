@@ -76,15 +76,21 @@ public class BookTicketServlet extends HttpServlet {
         }
         List<Showtiming> filteredShowtimes = new ArrayList<>();
         try {
+            java.util.Date now = new java.util.Date();
+            java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm");
+            String currentTime = sdfTime.format(now);
             int idMovie = Integer.parseInt(movieID);
             Movie m = movieDao.getMovieById(idMovie);
             if (m != null) {
                 for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
-                    if (showtime.getDate().equals(selectedDate)) {
+                    int showtimeInt = Integer.parseInt(showtime.getShowtiming());
+                    int nextShowtime = showtimeInt + 1;
+                    String nextShowtimeWithMinutes = nextShowtime + ":00";
+                    if (showtime.getDate().equals(selectedDate)  && currentTime.compareTo(nextShowtimeWithMinutes) < 0) {
                         filteredShowtimes.add(showtime);
                     }
                 }
-                if(!filteredShowtimes.isEmpty()) {
+                if (!filteredShowtimes.isEmpty()) {
                     m.setListShowtime(filteredShowtimes);
                 }
             }
@@ -110,7 +116,7 @@ public class BookTicketServlet extends HttpServlet {
         // Xây dựng phần URL cần lấy
         StringBuilder Url = new StringBuilder();
         Url.append(requestURI);
-        
+
         if (queryString != null) {
             Url.append("?").append(queryString);
         }
