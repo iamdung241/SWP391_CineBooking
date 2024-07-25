@@ -98,6 +98,14 @@
                     <div class="card h-100">
                         <div class="card-header justify-content-between align-items-center d-flex border-0 pb-0">
                             <h6 class="card-title m-0 text-muted fs-xs text-uppercase fw-bolder tracking-wide">Revenue Orders</h6>
+                            <div>
+                                <label for="filter">Filter by:</label>
+                                <select id="filter" onchange="updateChart()">
+                                    <option value="day">Day</option>
+                                    <option value="week">Week</option>
+                                    <option value="month">Month</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="card-body">
                             <canvas id="revenueChart"></canvas>
@@ -112,42 +120,95 @@
     </body>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var ctx = document.getElementById('revenueChart').getContext('2d');
-            var revenueData = JSON.parse('${concessionRevenueByDay}');
-            var labels = revenueData.map(item => item[0]);
-            var data = revenueData.map(item => parseFloat(item[1]));
+    document.addEventListener("DOMContentLoaded", function () {
+        function groupDataByUnit(data, unit) {
+            const result = {};
+            data.forEach(item => {
+                const date = new Date(item[0]);
+                const value = parseFloat(item[1]);
+                let key;
+                if (unit === 'week') {
+                    const startOfWeek = new Date(date.setDate(date.getDate() - date.getDay()));
+                    key = startOfWeek.toISOString().slice(0, 10);
+                } else if (unit === 'month') {
+                    key = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0');
+                } else {
+                    key = item[0];
+                }
+                if (!result[key]) {
+                    result[key] = 0;
+                }
+                result[key] += value;
+            });
+            return Object.entries(result);
+        }
 
-            var maxDataValue = Math.max(...data);
-            var paddedMaxValue = maxDataValue * 1.2;
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var revenueData = JSON.parse('${concessionRevenueByDay}');
+        var labels = revenueData.map(item => item[0]);
+        var data = revenueData.map(item => parseFloat(item[1]));
 
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                            label: 'Revenue',
-                            data: data,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                },
-                options: {
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                unit: 'day'
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            max: paddedMaxValue
+        var maxDataValue = Math.max(...data);
+        var paddedMaxValue = maxDataValue * 1.2;
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Revenue',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
                         }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: paddedMaxValue
                     }
                 }
-            });
+            }
         });
-    </script>
+
+        window.updateChart = function() {
+            var filter = document.getElementById("filter").value;
+            var dateUnit;
+
+            switch (filter) {
+                case 'week':
+                    dateUnit = 'week';
+                    break;
+                case 'month':
+                    dateUnit = 'month';
+                    break;
+                default:
+                    dateUnit = 'day';
+            }
+
+            var groupedData = groupDataByUnit(revenueData, dateUnit);
+            var newLabels = groupedData.map(item => item[0]);
+            var newData = groupedData.map(item => item[1]);
+
+            chart.data.labels = newLabels;
+            chart.data.datasets[0].data = newData;
+            // Tính toán lại max giá trị cho trục y
+            var maxNewDataValue = Math.max(...newData);
+            var paddedNewMaxValue = maxNewDataValue * 1.2;
+
+            chart.options.scales.x.time.unit = dateUnit;
+            chart.options.scales.y.max = paddedNewMaxValue;
+            chart.update();
+        }
+    });
+</script>x`
+
 </html>
