@@ -26,7 +26,7 @@
                             <div class="mt-4">
                                 <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>
                                 <c:if test="${rs eq 'Thành công'}">
-                                    <a href="/CineBooking/ShowTicket" class="btn btn-secondary">Show Ticket Now</a>
+                                    <a href="/CineBooking/ShowTicket" class="btn btn-secondary">Show Ticket</a>
                                 </c:if>
                             </div>
                         </div>
