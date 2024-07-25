@@ -64,6 +64,7 @@ public class ShowtimingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         ShowtimingDAO sdao = new ShowtimingDAO();
         RoomDAO rdao = new RoomDAO();
         List<Movie> listMovie = sdao.getMovieWithShowtime();
