@@ -76,17 +76,11 @@ public class BookTicketServlet extends HttpServlet {
         }
         List<Showtiming> filteredShowtimes = new ArrayList<>();
         try {
-            java.util.Date now = new java.util.Date();
-            java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm");
-            String currentTime = sdfTime.format(now);
             int idMovie = Integer.parseInt(movieID);
             Movie m = movieDao.getMovieById(idMovie);
             if (m != null) {
                 for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
-                    int showtimeInt = Integer.parseInt(showtime.getShowtiming());
-                    int nextShowtime = showtimeInt + 1;
-                    String nextShowtimeWithMinutes = nextShowtime + ":00";
-                    if (showtime.getDate().equals(selectedDate)  && currentTime.compareTo(nextShowtimeWithMinutes) < 0) {
+                    if (showtime.getDate().equals(selectedDate)) {
                         filteredShowtimes.add(showtime);
                     }
                 }
