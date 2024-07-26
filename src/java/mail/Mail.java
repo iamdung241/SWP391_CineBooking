@@ -36,8 +36,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Mail {
 
-    static final String from = "huythpt194@gmail.com";
-    static final String password = "wfkvmtqelytzvftz";
+    static final String from = "cinebookingvietnam@gmail.com";
+    static final String password = "cwdhltxsoqohilws";
 
     public static boolean sendEmail(String to, Ticket tick) {
         Account user = new AccountDAO().getAccountByID(tick.getAccountId());

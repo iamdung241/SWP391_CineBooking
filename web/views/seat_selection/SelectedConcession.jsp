@@ -4,7 +4,9 @@
     Author     : HuyTQ
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
@@ -50,8 +52,11 @@
                                             <div>
                                                 <img src="${c.image}" style="width: 50px;height: 50px"/>
                                                 <h5 class="mb-1">${c.concessions_name}</h5>
+
                                                 <p class="mb-1"><fmt:formatNumber value="${c.price}" type="number" groupingUsed="true" /> VNĐ</p> 
+
                                             </div>
+
                                             <div class="quantity-buttons">
                                                 <button class="btn btn-outline-secondary minus-btn" onclick="updateQuantity('${c.concessions_name}', ${c.price}, -1, ${c.concessions_id})"><i class="fas fa-minus"></i></button>
                                                 <span class="quantity" id="quantity-${c.concessions_name}">0</span>
@@ -77,7 +82,9 @@
                             <ul id="orderSummary" class="list-group mb-3 order">
                                 <!-- Order items will be dynamically added here -->
                             </ul>
+
                             <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span> VNĐ</h5>
+
                             <button id="backButton" class="btn btn-secondary" onclick="location.href = '${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
                             <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
                         </div>
@@ -102,16 +109,20 @@
                     // Prepare the query string
                     let queryString = orderData.map(item => 'name=' + item.name + "-" + item.quantity).join('&');
                     const show = "${show.showtime_id}";
+
                     const totalPrice = document.getElementById("totalPrice").innerText.replace(/\D/g, ''); // remove non-digit characters
+
                     const seat = "${seat}";
                     const url = "paymentServlet?" + "showtime=" + show + "&total=" + totalPrice + "&seat=" + seat + "&" + queryString;
                     window.location.href = url;
                 }
 
+
                 let totalPrice = parseInt('${totalprice}');
                 const initialTotalPrice = parseInt('${totalprice}');
                 const orderSummary = document.getElementById('orderSummary');
                 const totalPriceElement = document.getElementById('totalPrice');
+
 
                 function updateQuantity(name, price, change, id) {
                     const quantityElement = document.getElementById('quantity-' + name);
@@ -123,9 +134,11 @@
 
                     // Update total price
                     totalPrice += price * change;
+
                     if (totalPrice < initialTotalPrice)
                         totalPrice = initialTotalPrice;
                     totalPriceElement.innerText = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(totalPrice);
+
 
                     // Update order summary
                     let item = document.getElementById(id);
@@ -138,7 +151,7 @@
                             item.id = id;
                             item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
                             item.innerText = name;
-                            item.innerHTML += `<span class="badge badge-primary badge-pill">1</span>`;
+                            item.innerHTML += `<span class="badge badge-primary badge-pill">${quantity}</span>`;
                             orderSummary.appendChild(item);
                         } else {
                             item.querySelector('.badge').innerText = quantity;

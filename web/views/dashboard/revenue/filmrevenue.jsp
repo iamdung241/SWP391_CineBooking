@@ -26,11 +26,109 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
         <title>Film Revenue</title>
+        <style>
+            body {
+                display: flex;
+                min-height: 100vh;
+                background-color: #f8f9fa;
+            }
+
+            .sidebar {
+                min-width: 250px;
+                max-width: 250px;
+                background-color: #343a40;
+                color: #fff;
+                padding-top: 20px;
+            }
+
+            .sidebar a {
+                color: #fff;
+                text-decoration: none;
+                padding: 10px;
+                display: block;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .sidebar a:hover, .sidebar a.active {
+                background-color: #495057;
+                color: #ffc107;
+            }
+
+            .content {
+                flex: 1;
+                padding: 20px;
+                background-color: #ffffff;
+            }
+
+            .admin {
+                background-color: cadetblue;
+            }
+
+            .text-logo {
+                color: #ffc107;
+            }
+        </style>
     </head>
     <body>
-        <jsp:include page="../../common/admin/main.jsp"></jsp:include>
+        <div class="sidebar">
+            <h3 class="text-center text-logo">
+                <a class="nav-link active" href="../dashboard">
+                    <i class="fas fa-film"></i> Admin Dashboard
+                </a>
+            </h3>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/dashboard">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/revenue/film">
+                        <i class="fas fa-chart-line"></i> Film Revenue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/revenue/concession">
+                        <i class="fas fa-chart-line"></i> Concession Revenue
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/movie">
+                        <i class="fas fa-video"></i> Manage Film
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
+                        <i class="fas fa-users"></i> Manage Users
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/admin/concession">
+                        <i class="fas fa-concierge-bell"></i> Manage Concessions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/showtimeControl">
+                        <i class="fa-solid fa-clock"></i> Manage Showtime
+                    </a>
+                </li>
+            </ul>
+        </div>
             <section class="container-fluid">
                 <form method="get" action="${pageContext.request.contextPath}/revenue/film">
                 <div class="row align-items-center g-4">
@@ -89,4 +187,27 @@
 
         </section>
     </body>
+    <script>
+        $(document).ready(function () {
+            // Function to set active link based on current URL
+            function setActiveLink() {
+                var currentPath = window.location.pathname;
+                $('.nav-link').each(function () {
+                    if (this.pathname === currentPath) {
+                        $('.nav-link').removeClass('active');
+                        $(this).addClass('active');
+                    }
+                });
+            }
+
+            // Set active link on page load
+            setActiveLink();
+
+            // Set active link on click
+            $('.nav-link').on('click', function () {
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
 </html>

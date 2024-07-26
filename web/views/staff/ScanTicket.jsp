@@ -9,6 +9,17 @@
         <title>QR Code Scanner</title>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <script src="js/html5-qrcode.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet" >
+        <link href="css/font-awesome.min.css" rel="stylesheet" >
+        <link href="css/global.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
         <style>
             .detail {
                 margin-top: 100px;
@@ -40,13 +51,56 @@
             .bookTicket:hover {
                 color: #000; /* Text color on hover */
             }
+            .dropdown-menu {
+                background-color: #fff;
+                border-radius: 10px;
+            }
+
+            .dropdown-item {
+                color: #000;
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .dropdown-item:hover {
+                color: #fff;
+            }
+            .navbar-logo {
+                height: 60px;
+                width: 170px;
+            }
         </style>
     </head>
     <body>
         <div class="main clearfix position-relative">
-            <div class="main_1 clearfix position-absolute top-0 w-100 navbarDetail">
-                <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-            </div>
+            <section id="header">
+                <nav style="background-color: #000 ; padding-top: 5px; padding-bottom: 5px" class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+                    <div class="container-xl">
+                        <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="#"><img class="navbar-logo" src="/CineBooking/img/movieLogo.PNG"/></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                            <ul class="navbar-nav mb-0 ms-auto">
+                                <li class="nav-item">
+                                    <c:if test="${sessionScope.user == null}">
+                                        <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.user != null}">
+                                        <a style="color: #fff; font-size: 15px" class="nav-link" href="logout"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Logout </a>
+                                    </c:if>
+
+
+                                </li>
+                                <li>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </section>
             <section id="exep" class="p_3 bg-light">
                 <div class="container-xl detail">
                     <div class="row exep1">
@@ -58,19 +112,19 @@
                                 <button type="submit" class="bookTicket">Search Code</button>
                             </form>
                             <jsp:include page="QRCode.jsp"></jsp:include>
-                        </div>
-                        <div class="col-7">
-                            <div class="ticketDetail row">
+                            </div>
+                            <div class="col-7">
+                                <div class="ticketDetail row">
                                 <c:if test="${param.code != null}">
                                     <c:choose>
                                         <c:when test="${ticket != null}">
                                             <div class="exep1r">
                                                 <c:if test="${ticket.getStatus() == 'Nocheck'}">
-                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>
-                                                </c:if>
-                                                <c:if test="${ticket.getStatus() == 'Checked'}">
+                                                    <p class="mb-0 nameDetail">Code: <span style="color: red; font-size: 30px">${ticket.getCode()}</span> / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>
+                                                    </c:if>
+                                                    <c:if test="${ticket.getStatus() == 'Checked'}">
                                                     <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>
-                                                </c:if>
+                                                    </c:if>
                                             </div>
                                             <hr style="background-color: #000"/>
                                             <div class="col-4">
@@ -122,12 +176,15 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <p>Ticket not found</p>
+                                            <p style="font-family: Arial, sans-serif; font-size: 24px; color: #D8000C; background-color: #FFBABA; padding: 20px; border: 1px solid #D8000C; border-radius: 10px; width: fit-content; margin: 20px auto; text-align: center; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);">
+                                                Ticket not found
+                                            </p>
+
                                         </c:otherwise>
                                     </c:choose>
                                 </c:if>
                                 <c:if test="${message != null}">
-                                    <p>${message}</p>
+                                    <p style="font-weight: bolder; color: red; font-weight: 30px; align-items: center">${message}</p>
                                 </c:if>
                             </div>
                         </div>
@@ -146,7 +203,7 @@
                 // Handle scan error if needed
             }
 
-            var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+            var html5QrcodeScanner = new Html5QrcodeScanner("reader", {fps: 10, qrbox: 250});
             html5QrcodeScanner.render(onScanSuccess, onScanError);
         </script>
     </body>

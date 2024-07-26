@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class BookTicketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -81,7 +82,15 @@ public class BookTicketServlet extends HttpServlet {
             if (m != null) {
                 for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
                     if (showtime.getDate().equals(selectedDate)) {
-                        filteredShowtimes.add(showtime);
+
+                        String showtimeDateTimeStr = showtime.getDate() + " " + showtime.getShowtiming() + ":00";
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        Date showtimeDateTime = sdf.parse(showtimeDateTimeStr);
+                        Date oneHourBeforeNow = new Date(System.currentTimeMillis() - 3600000);
+                        if (showtimeDateTime.compareTo(oneHourBeforeNow) > 0) {
+                            filteredShowtimes.add(showtime);
+                        }
+
                     }
                 }
                 if (!filteredShowtimes.isEmpty()) {
@@ -101,6 +110,8 @@ public class BookTicketServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
             e.getMessage();
+        } catch (ParseException ex) {
+            ex.getMessage();
         }
         String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
 
