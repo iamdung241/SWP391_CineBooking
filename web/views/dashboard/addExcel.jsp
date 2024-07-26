@@ -54,7 +54,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tablebody">
-
                                 </tbody>
                             </table> 
                         </div>
@@ -75,20 +74,28 @@
                 tablebody.innerHTML = ''; // Clear the table body
 
                 await readXlsxFile(input.files[0]).then((rows) => {
-                    
                     if (rows[0].length !== 5 || rows[0][0] !== 'Fullname' || rows[0][1] !== 'Phone' || rows[0][2] !== 'Email' || rows[0][3] !== 'Username' || rows[0][4] !== 'Password') {
-                        errorMessage.textContent = 'Excel file wrong format. The file must only have 5 columns and each column must have header as this format: Fullname, Phone, Email, Username, Password (except action). Please fix and upload again.';
+                        errorMessage.textContent = 'Excel file wrong format. The file must only have 5 columns and each column must have header as this format: Fullname, Phone, Email, Username, Password. Please fix and upload again.';
                         input.value = '';
                         return;
                     }
                     
+                    let hasErrors = false; // Flag to track errors
+                    
                     rows.forEach((cell, index) => {
                         if (index > 0) { // Skip the header row
-                            loadTable(cell[0], cell[1], cell[2], cell[3], cell[4]);
+                            const rowHasErrors = loadTable(cell[0], cell[1], cell[2], cell[3], cell[4]);
+                            if (rowHasErrors) {
+                                hasErrors = true;
+                            }
                         }
                     });
 
-                    tableContainer.style.display = 'block'; // Show the table if the upload is successful
+                    if (hasErrors) {
+                        errorMessage.textContent = 'There are errors in the uploaded data. Please correct them before proceeding.';
+                    }
+
+                    tableContainer.style.display = 'block'; // Always show the table if the file format is correct
                 }).catch((error) => {
                     errorMessage.textContent = 'Error reading Excel file: ' + error.message;
                 });
@@ -97,12 +104,14 @@
             function loadTable(fullname, phone, email, username, password) {
                 let tablebody = document.getElementById('tablebody');
                 let tr = document.createElement('tr');
+                let rowHasErrors = false; // Flag to track errors in this row
 
                 let tdFullname = document.createElement('td');
                 tdFullname.innerHTML = fullname;
                 if (!fullname || !/^(?!\s*$)[a-zA-Z\s]{8,30}$/.test(fullname)) {
                     tdFullname.className = 'fullname text-danger';
                     tdFullname.title = 'Fullname must be 8-30 characters long, only contain letters and spaces, and cannot be all spaces or null';
+                    rowHasErrors = true;
                 } else {
                     tdFullname.className = 'fullname';
                 }
@@ -112,6 +121,7 @@
                 if (!phone || !/^\d{10,15}$/.test(phone)) {
                     tdPhone.className = 'phone text-danger';
                     tdPhone.title = 'Phone must be a string of 10-15 digits and cannot be null';
+                    rowHasErrors = true;
                 } else {
                     tdPhone.className = 'phone';
                 }
@@ -121,6 +131,7 @@
                 if (!email || !/^[^\s]+@(gmail\.com|fpt\.edu\.vn)$/.test(email)) {
                     tdEmail.className = 'email text-danger';
                     tdEmail.title = 'Email must be in the format of "example@gmail.com" or "example@fpt.edu.vn" with no spaces and cannot be null';
+                    rowHasErrors = true;
                 } else {
                     tdEmail.className = 'email';
                 }
@@ -130,6 +141,7 @@
                 if (!username || !/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/.test(username)) {
                     tdUsername.className = 'username text-danger';
                     tdUsername.title = 'Username must be 8-20 characters long, contain both letters and numbers, and not contain any spaces or null';
+                    rowHasErrors = true;
                 } else {
                     tdUsername.className = 'username';
                 }
@@ -139,6 +151,7 @@
                 if (!password || !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/.test(password)) {
                     tdPassword.className = 'password text-danger';
                     tdPassword.title = 'Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces or null';
+                    rowHasErrors = true;
                 } else {
                     tdPassword.className = 'password';
                 }
@@ -171,6 +184,8 @@
 
                 // Check existence in database
                 checkExistence(tr, username, phone, email, tdFullname, tdPhone, tdEmail, tdUsername);
+                
+                return rowHasErrors; // Return whether this row has errors
             }
 
             function checkExistence(row, username, phone, email, fullnameTd, phoneTd, emailTd, usernameTd) {
