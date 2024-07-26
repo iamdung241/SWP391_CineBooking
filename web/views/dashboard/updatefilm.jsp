@@ -109,31 +109,31 @@
                 }
             }
 
-            function validateImageFile() {
-                var fileInput = document.getElementById('fileInput');
-                var filePath = fileInput.value;
-                var fileErr = document.getElementById("fileErr");
-                // Các lo?i file ?nh h?p l?
-                const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-
-                if (!allowedExtensions.exec(filePath)) {
-                    fileErr.textContent = "Please upload a file with extensions .jpeg/.jpg/.png only.";
-                    fileInput.value = '';
-                    return false;
-                } else {
-                    // N?u là file ?nh, ki?m tra thêm kích th??c file
-                    if (fileInput.files && fileInput.files[0]) {
-                        var fileSize = fileInput.files[0].size / 1024 / 1024; // kích th??c file tính b?ng MB
-                        if (fileSize > 10) {
-                            fileErr.textContent = "File size exceeds 10 MB.";
-                            fileInput.value = '';
-                            return false;
-                        }
-                    }
-                    fileErr.textContent = "";
-                    return true;
-                }
-            }
+//            function validateImageFile() {
+//                var fileInput = document.getElementById('fileInput');
+//                var filePath = fileInput.value;
+//                var fileErr = document.getElementById("fileErr");
+//                // Các lo?i file ?nh h?p l?
+//                const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+//
+//                if (!allowedExtensions.exec(filePath)) {
+//                    fileErr.textContent = "Please upload a file with extensions .jpeg/.jpg/.png only.";
+//                    fileInput.value = '';
+//                    return false;
+//                } else {
+//                    // N?u là file ?nh, ki?m tra thêm kích th??c file
+//                    if (fileInput.files && fileInput.files[0]) {
+//                        var fileSize = fileInput.files[0].size / 1024 / 1024; // kích th??c file tính b?ng MB
+//                        if (fileSize > 10) {
+//                            fileErr.textContent = "File size exceeds 10 MB.";
+//                            fileInput.value = '';
+//                            return false;
+//                        }
+//                    }
+//                    fileErr.textContent = "";
+//                    return true;
+//                }
+//            }
 
             function checkForm() {
                 var checkType = validateSelection();
@@ -143,9 +143,7 @@
                 var trailer = validateTrailer();
                 var des = validateDes();
                 var date = validDate();
-                var image = validateImageFile();
-
-                if (name && age && duration && trailer && des && checkType && date && image) {
+                if (name && age && duration && trailer && des && checkType && date) {
                     document.getElementById('add-form').submit();
                 } else {
                     window.alert("Validation failed. Please check the form fields and try again.");
