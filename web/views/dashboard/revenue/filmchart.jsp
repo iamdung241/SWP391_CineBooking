@@ -52,7 +52,7 @@
                     <div class="card-body">
                         <c:forEach var="movie" items="${topMovies}">
                             <div class="top-movie-row">
-                                <img class="top-movie-image" src="${pageContext.request.contextPath}/${movie[2]}" alt="${movie[0]}">
+                                <img class="top-movie-image" src="../${pageContext.request.contextPath}/${movie[2]}" alt="${movie[0]}">
                                 <div class="top-movie-title">${movie[0]}</div>
                                 <div class="top-movie-quantity">${movie[1]}</div>
                             </div>

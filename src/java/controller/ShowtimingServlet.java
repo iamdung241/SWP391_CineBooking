@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,7 +78,17 @@ public class ShowtimingServlet extends HttpServlet {
             List<Showtiming> filteredShowtimes = new ArrayList<>();
             for (Showtiming showtime : movie.getListShowtime()) {
                 if (showtime.getDate().equals(selectedDate)) {
-                    filteredShowtimes.add(showtime);
+                    try {
+                        String showtimeDateTimeStr = showtime.getDate() + " " + showtime.getShowtiming() + ":00"; 
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        Date showtimeDateTime = sdf.parse(showtimeDateTimeStr);
+                        Date oneHourBeforeNow = new Date(System.currentTimeMillis() - 3600000);
+                        if (showtimeDateTime.compareTo(oneHourBeforeNow) > 0) {
+                            filteredShowtimes.add(showtime);
+                        }
+                    } catch (ParseException ex) {
+                        ex.getMessage();
+                    }
                 }
             }
             if (!filteredShowtimes.isEmpty()) {
