@@ -35,7 +35,7 @@
         <script type="text/javascript">
             var ws;
             function connect() {
-                ws = new WebSocket("ws://localhost:8080/CineBooking/seatStatus");
+                ws = new WebSocket("ws://localhost:̣̣̣̣̣̣̣̣9999̣̣̣̣̣̣/CineBooking/seatStatus");
                 ws.onmessage = function (event) {
                     var message = event.data;
                     // Handle seat status update
