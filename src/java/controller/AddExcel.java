@@ -28,6 +28,7 @@ public class AddExcel extends HttpServlet {
         String email = data.get("email").getAsString();
         String username = data.get("username").getAsString();
         String password = data.get("password").getAsString();
+        String hashPass = new AccountDAO().md5(password);
 
         AccountDAO accountDAO = new AccountDAO();
         Account account = new Account();
@@ -35,7 +36,7 @@ public class AddExcel extends HttpServlet {
         account.setPhone(phone);
         account.setEmail(email);
         account.setUsername(username);
-        account.setPassword(password);
+        account.setPassword(hashPass);
         account.setRole_id(2); // Assuming role_id for staff is 2
 
         try {

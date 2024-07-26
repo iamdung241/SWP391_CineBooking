@@ -15,6 +15,7 @@ public class AddUser extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String hashPass = new AccountDAO().md5(password);
         String rePassword = request.getParameter("repassword");
         String fullname = request.getParameter("fullname");
         String phone = request.getParameter("phone");
@@ -24,7 +25,7 @@ public class AddUser extends HttpServlet {
 
         Account account = new Account();
         account.setUsername(username);
-        account.setPassword(password);
+        account.setPassword(hashPass);
         account.setFullname(fullname);
         account.setPhone(phone);
         account.setEmail(email);
