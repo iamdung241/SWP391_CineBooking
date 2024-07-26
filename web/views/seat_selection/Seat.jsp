@@ -1,11 +1,6 @@
-<%-- 
-    Document   : Seat
-    Created on : May 28, 2024, 2:18:03 PM
-    Author     : thanh
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -95,7 +90,7 @@
                     document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
                     document.getElementById("ghe").value = selectedSeats.join(",");
                     document.getElementById("selected-seat-count").textContent = selectedSeats.length;
-                    document.getElementById("total-price").textContent = totalPrice;
+                    document.getElementById("total-price").textContent = new Intl.NumberFormat().format(totalPrice);
                 }
             }
 
@@ -125,19 +120,16 @@
         <div class="main clearfix position-relative">
             <div style="background-color: black" class="main_1 clearfix position-absolute top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
-                <div style="padding-top: 120px" class="container">   
-                    <h1 style="color: red" class="text-center">
-                        Seat Booking 
-                    </h1>
-                    <div style="padding-top: 20px" class="row">
-                        <div class="col-6">
-                            <div style="text-align: center">
-                                <div>
-                                    <img style="weight: 100px; height: 60px" src="/CineBooking/img/screen.JPG" alt="imageSrc">
-                                </div>
-
-                                <div style="margin-top: 20px" class="row cinema-seats">
+            </div>
+            <div style="padding-top: 120px" class="container">   
+                <h1 style="color: red" class="text-center">Seat Booking</h1>
+                <div style="padding-top: 20px" class="row">
+                    <div class="col-6">
+                        <div style="text-align: center">
+                            <div>
+                                <img style="weight: 100px; height: 60px" src="/CineBooking/img/screen.JPG" alt="imageSrc">
+                            </div>
+                            <div style="margin-top: 20px" class="row cinema-seats">
                                 <c:forEach items="${listSeat}" var="s">
                                     <div style="margin-left: 18px" class="col-2 my-2">          
                                         <div id="${s.seat_name}" onclick="toggleSeat('${s.seat_name}')" class="text-center seat ${s.getStatus().equals('Booked') ? 'booked' : ''}" style="border: 1px solid; border-radius: 5px; ${s.getStatus().equals('Booked') ? 'background-color: red' : ''}" >
@@ -173,7 +165,7 @@
                                     <span style="font-weight: bold; font-size: 19px">Quantity: <span style="color: green" id="selected-seat-count"></span></span>
                                 </div>
                                 <div>
-                                    <h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span>VNĐ</h5> 
+                                    <h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"><fmt:formatNumber value="${totalPrice}" type="currency" currencySymbol="VNĐ"/></span>VNĐ</h5> 
                                 </div>
                                 <hr/>
                                 <div style="text-align: center; padding-top: 20px">
