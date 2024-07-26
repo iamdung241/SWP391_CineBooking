@@ -84,7 +84,7 @@ public class BookTicketServlet extends HttpServlet {
                         filteredShowtimes.add(showtime);
                     }
                 }
-                if(!filteredShowtimes.isEmpty()) {
+                if (!filteredShowtimes.isEmpty()) {
                     m.setListShowtime(filteredShowtimes);
                 }
             }
@@ -110,7 +110,7 @@ public class BookTicketServlet extends HttpServlet {
         // Xây dựng phần URL cần lấy
         StringBuilder Url = new StringBuilder();
         Url.append(requestURI);
-        
+
         if (queryString != null) {
             Url.append("?").append(queryString);
         }

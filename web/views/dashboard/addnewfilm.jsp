@@ -10,7 +10,7 @@
                 var AgeErr = document.getElementById("AgeErr");
                 const regex = /^(?:[4-9]|1[0-8])\+$/;
                 if (!regex.test(age) || age === "") {
-                    AgeErr.textContent = "Please enter from 4 - 18 example '18+' ";
+                    AgeErr.textContent = age === "" ? "" : "Please enter from 4 - 18 example '18+' ";
                     return false;
                 } else {
                     AgeErr.textContent = "";
@@ -49,7 +49,7 @@
 
             function validateTrailer(trailer) {
                 var trailerErr = document.getElementById("trailerErr");
-                const regex = /^[^\s]+\S*(\s*)$/;
+                const regex = /^(https?:\/\/[^\s/$.?#].[^\s]*)$/;
                 if (!regex.test(trailer) || trailer === "") {
                     trailerErr.textContent = trailer === "" ? "" : "Enter true format, example https://www.youtube.com/embed/ar-IaAx7s8k";
                     return false;

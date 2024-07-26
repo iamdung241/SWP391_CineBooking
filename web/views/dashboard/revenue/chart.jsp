@@ -48,6 +48,14 @@
             <div class="card mb-4 h-100">
                 <div class="card-header justify-content-between align-items-center d-flex">
                     <h6 class="card-title m-0">Revenue Orders</h6>
+                    <div>
+                        <label for="filter">Filter by:</label>
+                        <select id="filter" onchange="updateChart()">
+                            <option value="day">Day</option>
+                            <option value="week">Week</option>
+                            <option value="month">Month</option>
+                        </select>
+                    </div>
                     <i style='font-size:24px' class='fas'>&#xf201;</i>
                 </div>
                 <div class="card-body">
@@ -56,8 +64,8 @@
                     </div>
                     <!-- Average Order -->
                     <div class="text-center mt-4">
-                        <h6 class="card-title m-0">Average Value Order</h6>
-                        <p class="fs-2 fw-bold">${averageValueOrder}</p>
+                        <h6 class="card-title m-0">Total Order</h6>
+                        <p class="fs-2 fw-bold">${totalOrders}</p>
                     </div>
                     <!-- /Average Order -->
                 </div>
@@ -67,94 +75,148 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
         <script>
-        // Parse JSON data
-        var revenueByTypeMovie = JSON.parse('${revenueByTypeMovie}');
-        var orderStatistics = JSON.parse('${orderStatistics}');
-
-        // Biểu Đồ Tròn cho Doanh Thu theo Loại Phim
-        var ctxDoughnut = document.getElementById('chartDoughnut').getContext('2d');
-        var revenueData = Object.values(revenueByTypeMovie);
-        var labelsData = Object.keys(revenueByTypeMovie);
-        var chartDoughnut = new Chart(ctxDoughnut, {
-            type: 'doughnut',
-            data: {
-                labels: labelsData,
-                datasets: [{
-                    label: 'Doanh Thu',
-                    data: revenueData,
-                    backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#36a2eb', '#ff6384']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                var total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                var value = context.raw;
-                                var percentage = ((value / total) * 100).toFixed(2) + '%';
-                                return context.label + ': ' + value + ' (' + percentage + ')';
-                            }
-                        }
-                    }
-                }
+    function groupDataByUnit(data, unit) {
+        const result = {};
+        for (const [date, value] of Object.entries(data)) {
+            const d = new Date(date);
+            let key;
+            if (unit === 'week') {
+                const startOfWeek = new Date(d.setDate(d.getDate() - d.getDay()));
+                key = startOfWeek.toISOString().slice(0, 10);
+            } else if (unit === 'month') {
+                key = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2, '0');
+            } else {
+                key = date;
             }
-        });
-
-        // Biểu Đồ Đường cho Thống Kê Đơn Hàng
-        var ctxLine = document.getElementById('chartLine').getContext('2d');
-        var orderData = Object.values(orderStatistics);
-        var dateLabels = Object.keys(orderStatistics);
-        var chartLine = new Chart(ctxLine, {
-            type: 'line',
-            data: {
-                labels: dateLabels,
-                datasets: [{
-                    label: 'Đơn Hàng',
-                    data: orderData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointStyle: 'circle'
-                }]
-            },
-            options: {
-                responsive: true,
-                layout: {
-            padding: {
-                top: 40 
+            if (!result[key]) {
+                result[key] = 0;
             }
+            result[key] += value;
+        }
+        return result;
+    }
+
+    function updateChart() {
+        var filter = document.getElementById("filter").value;
+        var dateUnit;
+        
+        switch(filter) {
+            case 'week':
+                dateUnit = 'week';
+                break;
+            case 'month':
+                dateUnit = 'month';
+                break;
+            default:
+                dateUnit = 'day';
+        }
+
+        var groupedData = groupDataByUnit(orderStatistics, dateUnit);
+        var newOrderData = Object.values(groupedData);
+        var newDateLabels = Object.keys(groupedData);
+
+        chartLine.data.labels = newDateLabels;
+        chartLine.data.datasets[0].data = newOrderData;
+        var maxNewOrderDataValue = Math.max(...newOrderData);
+        var paddedNewMaxOrderValue = maxNewOrderDataValue * 1.2;
+        chartLine.options.scales.x.time.unit = dateUnit;
+        chartLine.options.scales.y.suggestedMax = paddedNewMaxOrderValue;
+        chartLine.update();
+    }
+
+    var revenueByTypeMovie = JSON.parse('${revenueByTypeMovie}');
+    var orderStatistics = JSON.parse('${orderStatistics}');
+
+    var ctxDoughnut = document.getElementById('chartDoughnut').getContext('2d');
+    var revenueData = Object.values(revenueByTypeMovie);
+    var labelsData = Object.keys(revenueByTypeMovie);
+    var chartDoughnut = new Chart(ctxDoughnut, {
+        type: 'doughnut',
+        data: {
+            labels: labelsData,
+            datasets: [{
+                label: 'Doanh Thu',
+                data: revenueData,
+                backgroundColor: [
+                    '#FFA500', 
+                    '#0000FF', 
+                    '#800080', 
+                    '#008000', 
+                    '#FFC0CB', 
+                    '#FF0000'  
+                ]
+            }]
         },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1 // Đặt khoảng cách giữa các giá trị trên trục Y
-                        },
-                        suggestedMax: Math.max(...orderData) + 2
-                    },
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return 'Ngày: ' + context.label + ', Đơn Hàng: ' + context.raw;
-                            }
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            var total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            var value = context.raw;
+                            var percentage = ((value / total) * 100).toFixed(2) + '%';
+                            return context.label + ': ' + value + ' (' + percentage + ')';
                         }
                     }
                 }
             }
-        });
-    </script>
+        }
+    });
+
+    var ctxLine = document.getElementById('chartLine').getContext('2d');
+    var orderData = Object.values(orderStatistics);
+    var dateLabels = Object.keys(orderStatistics);
+    var chartLine = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: dateLabels,
+            datasets: [{
+                label: 'Đơn Hàng',
+                data: orderData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: false,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointStyle: 'circle'
+            }]
+        },
+        options: {
+            responsive: true,
+            layout: {
+                padding: {
+                    top: 40 
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1 
+                    },
+                    suggestedMax: Math.max(...orderData) + 2
+                },
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'day'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return 'Ngày: ' + context.label + ', Đơn Hàng: ' + context.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
     </body>
 </html>
