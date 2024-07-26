@@ -12,6 +12,121 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Staff</title>
+        <style>
+            .password-container {
+                display: flex;
+                align-items: center;
+            }
+            .toggle-password {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+            .error-message {
+                display: block;
+                color: red;
+                font-size: smaller;
+            }
+        </style>
+        <script>
+            function validateUsername() {
+                let username = document.forms["addUserForm"]["username"].value;
+                let usernamePattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
+                if (!username.match(usernamePattern)) {
+                    document.getElementById("errorUsername").textContent = "Username must be 8-20 characters long, contain both letters and numbers, and not contain any spaces";
+                    return false;
+                } else {
+                    document.getElementById("errorUsername").textContent = "";
+                    return true;
+                }
+            }
+
+            function validatePassword() {
+                let password = document.forms["addUserForm"]["password"].value;
+                let passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
+                if (!password.match(passwordPattern)) {
+                    document.getElementById("errorPassword").textContent = "Password must be 6-20 characters long, contain letters and numbers, and cannot contain spaces or be all spaces.";
+                    return false;
+                } else {
+                    document.getElementById("errorPassword").textContent = "";
+                    return true;
+                }
+            }
+
+            function validateRePassword() {
+                let password = document.forms["addUserForm"]["password"].value;
+                let rePassword = document.forms["addUserForm"]["repassword"].value;
+                if (password !== rePassword) {
+                    document.getElementById("errorRePassword").textContent = "Passwords do not match";
+                    return false;
+                } else {
+                    document.getElementById("errorRePassword").textContent = "";
+                    return true;
+                }
+            }
+
+            function validateFullname() {
+                let fullname = document.forms["addUserForm"]["fullname"].value;
+                let fullnamePattern = /^(?!\s*$)[a-zA-Z\s]{8,30}$/;
+                if (!fullname.match(fullnamePattern)) {
+                    document.getElementById("errorFullname").textContent = "Fullname must be 8-30 characters long, only contain letters and spaces, and cannot be all spaces";
+                    return false;
+                } else {
+                    document.getElementById("errorFullname").textContent = "";
+                    return true;
+                }
+            }
+
+            function validatePhone() {
+                let phone = document.forms["addUserForm"]["phone"].value;
+                let phonePattern = /^\d{10,15}$/;
+                if (!phone.match(phonePattern)) {
+                    document.getElementById("errorPhone").textContent = "Phone must be a string of 10-15 digits";
+                    return false;
+                } else {
+                    document.getElementById("errorPhone").textContent = "";
+                    return true;
+                }
+            }
+
+            function validateEmail() {
+                let email = document.forms["addUserForm"]["email"].value;
+                let emailPattern = /^[^\s]+@(gmail\.com|fpt\.edu\.vn)$/;
+                if (!email.match(emailPattern)) {
+                    document.getElementById("errorEmail").textContent = "Email must be in the format of 'example@gmail.com' or 'example@fpt.edu.vn' with no spaces";
+                    return false;
+                } else {
+                    document.getElementById("errorEmail").textContent = "";
+                    return true;
+                }
+            }
+
+            function validateForm() {
+                let isValid = true;
+
+                if (!validateUsername()) isValid = false;
+                if (!validatePassword()) isValid = false;
+                if (!validateRePassword()) isValid = false;
+                if (!validateFullname()) isValid = false;
+                if (!validatePhone()) isValid = false;
+                if (!validateEmail()) isValid = false;
+
+                return isValid;
+            }
+
+            function togglePasswordVisibility(id) {
+                let passwordField = document.getElementById(id);
+                let toggleIcon = document.getElementById(id + "-toggle");
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleIcon.classList.remove("fa-eye");
+                    toggleIcon.classList.add("fa-eye-slash");
+                } else {
+                    passwordField.type = "password";
+                    toggleIcon.classList.remove("fa-eye-slash");
+                    toggleIcon.classList.add("fa-eye");
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
@@ -24,101 +139,63 @@
                             <h6 class="card-title m-0">Add Staff</h6>
                             <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="fas fa-arrow-left me-1"></i> Back</a>
                         </div>
-                        <form class="mt-4" action="adduser" method="post">
+                        <form name="addUserForm" class="mt-4" action="adduser" method="post" onsubmit="return validateForm()">
                             <table class="table">
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Username: </label></td>
                                     <td>
-                                        <% 
-                                            String errorUsername = (String) request.getAttribute("errorUsername");
-                                            if (errorUsername != null) {
-                                        %>
-                                        <input class="form-control" type="text" name="username" placeholder="Username" required>
-                                        <p style="color: red; font-size: smaller;"><%= errorUsername %></p>
-                                        <% } else { %>
-                                        <input class="form-control" type="text" name="username" placeholder="Username" value="<%= request.getAttribute("username") != null ? request.getAttribute("username") : "" %>" required>
-                                        <% } %>
+                                        <input class="form-control" type="text" name="username" placeholder="Username" onblur="validateUsername()" required>
+                                        <p id="errorUsername" class="error-message"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Password: </label></td>
                                     <td>
-                                        <input class="form-control" type="password" name="password" placeholder="Password" required>
-                                        <% 
-                                            String errorPassword = (String) request.getAttribute("errorPassword");
-                                            if (errorPassword != null) {
-                                        %>
-                                        <p style="color: red; font-size: smaller;"><%= errorPassword %></p>
-                                        <% } %>
+                                        <div class="password-container">
+                                            <input id="password" class="form-control" type="password" name="password" placeholder="Password" onblur="validatePassword()" required>
+                                            <i id="password-toggle" class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('password')"></i>
+                                        </div>
+                                        <p id="errorPassword" class="error-message"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Re-enter Password: </label></td>
                                     <td>
-                                        <input class="form-control" type="password" name="repassword" placeholder="Re-enter Password" required>
-                                        <% 
-                                            String errorRePassword = (String) request.getAttribute("errorRePassword");
-                                            if (errorRePassword != null) {
-                                        %>
-                                        <p style="color: red; font-size: smaller;"><%= errorRePassword %></p>
-                                        <% } %>
+                                        <div class="password-container">
+                                            <input id="repassword" class="form-control" type="password" name="repassword" placeholder="Re-enter Password" onblur="validateRePassword()" required>
+                                            <i id="repassword-toggle" class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('repassword')"></i>
+                                        </div>
+                                        <p id="errorRePassword" class="error-message"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Fullname: </label></td>
                                     <td>
-                                        <% 
-                                            String errorFullname = (String) request.getAttribute("errorFullname");
-                                            if (errorFullname != null) {
-                                        %>
-                                        <input class="form-control" type="text" name="fullname" placeholder="Fullname" required>
-                                        <p style="color: red; font-size: smaller;"><%= errorFullname %></p>
-                                        <% } else { %>
-                                        <input class="form-control" type="text" name="fullname" placeholder="Fullname" value="<%= request.getAttribute("fullname") != null ? request.getAttribute("fullname") : "" %>" required>
-                                        <% } %>
+                                        <input class="form-control" type="text" name="fullname" placeholder="Fullname" onblur="validateFullname()" required>
+                                        <p id="errorFullname" class="error-message"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Email: </label></td>
                                     <td>
-                                        <% 
-                                            String errorEmail = (String) request.getAttribute("errorEmail");
-                                            if (errorEmail != null) {
-                                        %>
-                                        <input class="form-control" type="text" name="email" placeholder="Email" required>
-                                        <p style="color: red; font-size: smaller;"><%= errorEmail %></p>
-                                        <% } else { %>
-                                        <input class="form-control" type="text" name="email" placeholder="Email" value="<%= request.getAttribute("email") != null ? request.getAttribute("email") : "" %>" required>
-                                        <% } %>
+                                        <input class="form-control" type="text" name="email" placeholder="Email" onblur="validateEmail()" required>
+                                        <p id="errorEmail" class="error-message"></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Phone: </label></td>
                                     <td>
-                                        <% 
-                                            String errorPhone = (String) request.getAttribute("errorPhone");
-                                            if (errorPhone != null) {
-                                        %>
-                                        <input class="form-control" type="text" name="phone" placeholder="Phone" required>
-                                        <p style="color: red; font-size: smaller;"><%= errorPhone %></p>
-                                        <% } else { %>
-                                        <input class="form-control" type="text" name="phone" placeholder="Phone" value="<%= request.getAttribute("phone") != null ? request.getAttribute("phone") : "" %>" required>
-                                        <% } %>
+                                        <input class="form-control" type="text" name="phone" placeholder="Phone" onblur="validatePhone()" required>
+                                        <p id="errorPhone" class="error-message"></p>
                                     </td>
                                 </tr>
                             </table>
-                            <% 
-                                String successMessage = (String) request.getAttribute("successMessage");
-                                    if (successMessage != null) {
-                            %>
-                            <p style="color: green; font-size: smaller;"><%= successMessage %></p>
-                            <% } %>                
+                            <p id="successMessage" style="color: green; font-size: smaller;"><%= request.getAttribute("successMessage") != null ? request.getAttribute("successMessage") : "" %></p>
                             <!-- Submit button for the form -->
                             <div class="container-fluid d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>
                         </form>
-
                     </div>
                 </div>  
             </div>

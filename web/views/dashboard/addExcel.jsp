@@ -20,6 +20,10 @@
             .db-error {
                 background-color: #ffeeaa;
             }
+            .error-message {
+                color: red;
+                margin-bottom: 10px;
+            }
         </style>
     </head>
     <body>
@@ -36,7 +40,8 @@
                         <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="fas fa-arrow-left me-1"></i> Back</a>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="max-height: 550px">
+                        <div id="errorMessage" class="error-message"></div>
+                        <div id="tableContainer" class="table-responsive" style="max-height: 550px; display: none;">
                             <table class="table m-0 table-striped overflow-auto" border="1">
                                 <thead class="thead-dark">
                                     <tr>
@@ -62,10 +67,17 @@
         <script>
             async function addExcel() {
                 let input = document.getElementById('fileExcel');
+                let errorMessage = document.getElementById('errorMessage');
+                let tableContainer = document.getElementById('tableContainer');
+                let tablebody = document.getElementById('tablebody');
+
+                errorMessage.textContent = ''; // Clear any previous error message
+                tablebody.innerHTML = ''; // Clear the table body
+
                 await readXlsxFile(input.files[0]).then((rows) => {
                     
                     if (rows[0].length !== 5 || rows[0][0] !== 'Fullname' || rows[0][1] !== 'Phone' || rows[0][2] !== 'Email' || rows[0][3] !== 'Username' || rows[0][4] !== 'Password') {
-                        alert('Excel file wrong format. The file must only have 5 columns and each column must have the same header as the table (except action) Please fix and upload again.');
+                        errorMessage.textContent = 'Excel file wrong format. The file must only have 5 columns and each column must have header as this format: Fullname, Phone, Email, Username, Password (except action). Please fix and upload again.';
                         input.value = '';
                         return;
                     }
@@ -75,8 +87,10 @@
                             loadTable(cell[0], cell[1], cell[2], cell[3], cell[4]);
                         }
                     });
+
+                    tableContainer.style.display = 'block'; // Show the table if the upload is successful
                 }).catch((error) => {
-                    alert('Error reading Excel file:');
+                    errorMessage.textContent = 'Error reading Excel file: ' + error.message;
                 });
             }
 
@@ -237,6 +251,5 @@
             }
 
         </script>
-
     </body>
 </html>
