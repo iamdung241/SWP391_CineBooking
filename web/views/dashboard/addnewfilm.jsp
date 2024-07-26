@@ -141,7 +141,7 @@
                         <div class="col-12">
                             <div class="card mb-4 h-100">
                                 <div class="card-header justify-content-between align-items-center d-flex">
-                                    <h6 class="card-title m-0">Add Movie</h6>
+                                    <h6 style="font-weight: bolder" class="card-title m-0">Add Movie</h6>
                                     <a class="btn btn-sm btn-primary" href="movie"><i class="fas fa-arrow-left me-1"></i> Back</a>
                                 </div>
                                 <div class="container">
@@ -149,14 +149,14 @@
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <tr>
-                                                    <td>Name</td>
+                                                    <td style="font-weight: bolder">Name</td>
                                                     <td>
                                                         <input type="text" id="name" name="name" class="form-control" required oninput="validateName(this.value)" />
                                                         <span class="text-danger" id="nameErr"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Type</td>
+                                                    <td style="font-weight: bolder">Type</td>
                                                     <td>
                                                         <select name="type" id="type" class="form-control text-center" onchange="validateSelection(this.value)">
                                                             <option value="all">Choose the type of film</option>
@@ -168,41 +168,41 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Age</td>
+                                                <td style="font-weight: bolder">Age</td>
                                                 <td><input name="age" id="age" type="text" class="form-control" required oninput="validateAge(this.value)" />
                                                     <span class="text-danger" id="AgeErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Duration</td>
+                                                <td style="font-weight: bolder">Duration</td>
                                                 <td>
                                                     <input type="text" id="duration" name="duration" class="form-control" required oninput="validateDuration(this.value)" />
                                                     <span class="text-danger" id="durationErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Date</td>
+                                                <td style="font-weight: bolder">Date</td>
                                                 <td>
                                                     <input type="date" id="date" name="date" class="form-control" required oninput="validDate(this.value)" />
                                                     <span class="text-danger" id="dateErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Trailer</td>
+                                                <td style="font-weight: bolder">Trailer</td>
                                                 <td>
                                                     <input type="text" name="trailer" id="trailer" class="form-control" required oninput="validateTrailer(this.value)" />
                                                     <span class="text-danger" id="trailerErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Description</td>
+                                                <td style="font-weight: bolder">Description</td>
                                                 <td>
                                                     <textarea type="text" name="description" id="des" rows="5" class="form-control" required oninput="validateDes(this.value)"></textarea>
                                                     <span class="text-danger" id="desErr"></span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Image</td>
+                                                <td style="font-weight: bolder">Image</td>
                                                 <td>
                                                     <input id="fileInput" type="file" name="file" class="form-control" required oninput="validateImageFile(this)" />
                                                     <span class="text-danger" id="fileErr"></span>

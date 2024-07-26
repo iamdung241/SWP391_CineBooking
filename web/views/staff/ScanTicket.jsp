@@ -1,11 +1,7 @@
-<%-- 
-    Document   : ScanTicket
-    Created on : Jun 20, 2024, 6:58:15 PM
-    Author     : DungTT
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,32 +46,31 @@
         <div class="main clearfix position-relative">
             <div class="main_1 clearfix position-absolute top-0 w-100 navbarDetail">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
-                <section id="exep" class="p_3 bg-light">
-                    <div class="container-xl detail">
-                        <div class="row exep1">
-                            <div class="col-4">
-                                <form id="scanForm" action="scanticket" method="get">
-                                    <label for="code">Enter Ticket Code:</label>
-                                    <br/>
-                                    <input type="text" id="code" name="code" required />
-                                    <button type="submit" class="bookTicket">Search Code</button>
-                                </form>
+            </div>
+            <section id="exep" class="p_3 bg-light">
+                <div class="container-xl detail">
+                    <div class="row exep1">
+                        <div class="col-4">
+                            <form id="scanForm" action="scanticket" method="get">
+                                <label for="code">Enter Ticket Code:</label>
+                                <br/>
+                                <input type="text" id="code" name="code" required />
+                                <button type="submit" class="bookTicket">Search Code</button>
+                            </form>
                             <jsp:include page="QRCode.jsp"></jsp:include>
-                            </div>
-
-                            <div class="col-7">
-                                <div class="ticketDetail row">
+                        </div>
+                        <div class="col-7">
+                            <div class="ticketDetail row">
                                 <c:if test="${param.code != null}">
                                     <c:choose>
                                         <c:when test="${ticket != null}">
                                             <div class="exep1r">
                                                 <c:if test="${ticket.getStatus() == 'Nocheck'}">
                                                     <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>
-                                                    </c:if>
-                                                    <c:if test="${ticket.getStatus() == 'Checked'}">
-                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>  
-                                                    </c:if>                                     
+                                                </c:if>
+                                                <c:if test="${ticket.getStatus() == 'Checked'}">
+                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>
+                                                </c:if>
                                             </div>
                                             <hr style="background-color: #000"/>
                                             <div class="col-4">
@@ -110,12 +105,11 @@
                                                         <span>Date Booked:</span> ${ticket.getDate_book()}
                                                     </li>
                                                     <li>
-                                                        <span>Total price:</span> ${ticket.getTotalprice()} VNĐ
+                                                        <span>Total price:</span> <fmt:formatNumber value="${ticket.totalprice}" type="number" groupingUsed="true"/> VNĐ
                                                     </li>
                                                     <hr style="background-color: #000"/>
                                                     <li>
                                                         <c:if test="${ticket.getStatus() == 'Nocheck'}">
-
                                                             <c:if test="${showAcceptButton}">
                                                                 <form action="scanticket" method="post">
                                                                     <input type="hidden" name="code" value="${ticket.getCode()}" />
@@ -123,7 +117,6 @@
                                                                 </form>
                                                             </c:if>
                                                         </c:if>
-
                                                     </li>
                                                 </ul>
                                             </div>
@@ -142,10 +135,7 @@
                 </div>
             </section>
         </div>
-
-
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
-
         <script type="text/javascript">
             function onScanSuccess(qrCodeMessage) {
                 document.getElementById('code').value = qrCodeMessage;
@@ -156,7 +146,7 @@
                 // Handle scan error if needed
             }
 
-            var html5QrcodeScanner = new Html5QrcodeScanner("reader", {fps: 10, qrbox: 250});
+            var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
             html5QrcodeScanner.render(onScanSuccess, onScanError);
         </script>
     </body>
