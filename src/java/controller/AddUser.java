@@ -24,6 +24,7 @@ public class AddUser extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
 
         Account account = new Account();
+        request.setAttribute("successMessage", "Add Staff Successfully");
         account.setUsername(username);
         account.setPassword(hashPass);
         account.setFullname(fullname);

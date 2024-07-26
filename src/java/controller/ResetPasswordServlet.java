@@ -47,7 +47,7 @@ public class ResetPasswordServlet extends HttpServlet {
         
         if (isValid) {
             accountDAO.updatePasswordByEmail(account.getEmail(), newPassword);
-            request.setAttribute("successMessage", "Change password successfully");
+            request.setAttribute("successMessage", "Change password successfully! Click here to login.");
             request.setAttribute("newPassword", null);
             request.setAttribute("confirmPassword", null);
             request.getRequestDispatcher("resetpassword.jsp").forward(request, response);
