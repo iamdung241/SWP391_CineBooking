@@ -76,7 +76,7 @@ public class paymentServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("showtime", showtime);
         session.setAttribute("seat", seat);
-        session.setAttribute("price", totalprice);
+        session.setAttribute("price", totalprice.replace("₫", "").replace(".", "").trim());
         session.setAttribute("combo", combo);
         req.getRequestDispatcher("pay/vnpay_pay.jsp").forward(req, resp);
     } 

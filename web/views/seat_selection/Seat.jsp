@@ -35,7 +35,7 @@
         <script type="text/javascript">
             var ws;
             function connect() {
-                ws = new WebSocket("ws://localhost:9999/CineBooking/seatStatus");
+                ws = new WebSocket("ws://localhost:8080/CineBooking/seatStatus");
                 ws.onmessage = function (event) {
                     var message = event.data;
                     // Handle seat status update
@@ -92,10 +92,13 @@
                                 return total + price;
                             }, 0);
 
+                    // Format the total price
+                    const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice);
+
                     document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
                     document.getElementById("ghe").value = selectedSeats.join(",");
                     document.getElementById("selected-seat-count").textContent = selectedSeats.length;
-                    document.getElementById("total-price").textContent = totalPrice;
+                    document.getElementById("total-price").textContent = formattedTotalPrice;
                 }
             }
 
@@ -113,7 +116,7 @@
                     const totalPrice = document.getElementById("total-price").textContent;
                     const showtimeId = "${showtime.showtime_id}";
 
-                    const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats + "&price=" + totalPrice;
+                    const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats + "&price=" + encodeURIComponent(totalPrice);
                     window.location.href = url;
                 } else {
                     window.alert("Please choose seat first!");
@@ -173,7 +176,7 @@
                                     <span style="font-weight: bold; font-size: 19px">Quantity: <span style="color: green" id="selected-seat-count"></span></span>
                                 </div>
                                 <div>
-                                    <h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span>VNĐ</h5> 
+                                    <h5><i class='bx bx-money-withdraw'></i> Total price: <span id="total-price" style="color: green"></span></h5> 
                                 </div>
                                 <hr/>
                                 <div style="text-align: center; padding-top: 20px">

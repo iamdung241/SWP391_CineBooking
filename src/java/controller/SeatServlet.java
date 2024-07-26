@@ -85,6 +85,7 @@ public class SeatServlet extends HttpServlet {
             Movie movie = moviedao.getMovieByID(movieid);
             request.setAttribute("movie", movie);
             Showtiming showtime = showdao.getShowtimingByShowtimeID(showtimeid);
+            System.out.println(showtime.toString());
             request.setAttribute("showtime", showtime);
         } catch (NumberFormatException e) {
             e.getMessage();
