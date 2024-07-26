@@ -69,7 +69,7 @@
                                                     <span class="fw-bold">${c.concessions_id}</span>
                                                 </td>
                                                 <td name="image">
-                                                    <img src="${c.image}" class="img-thumbnail" width="100" height="100"/>
+                                                    <img src="../${c.image}" class="img-thumbnail" width="100" height="100"/>
                                                 </td>
                                                 <td name="name">${c.concessions_name}</td>
                                                 <td name="price">${c.price} VNĐ</td>

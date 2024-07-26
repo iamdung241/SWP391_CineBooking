@@ -148,7 +148,7 @@ public class SeatDAO extends DBContext {
 
         return seats;
     }
-
+    
     public void Add_Revered(List<Seat> s, int show) {
         for (Seat seat : s) {
             addSeatReserved(seat.getSeat_id(), show);

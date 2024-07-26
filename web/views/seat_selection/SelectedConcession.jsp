@@ -4,6 +4,7 @@
     Author     : HuyTQ
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
@@ -49,7 +50,7 @@
                                             <div>
                                                 <img src="${c.image}" style="width: 50px;height: 50px"/>
                                                 <h5 class="mb-1">${c.concessions_name}</h5>
-                                                <p class="mb-1">${c.price} VNĐ</p> 
+                                                <p class="mb-1"><fmt:formatNumber value="${c.price}" type="number" groupingUsed="true" /> VNĐ</p> 
                                             </div>
                                             <div class="quantity-buttons">
                                                 <button class="btn btn-outline-secondary minus-btn" onclick="updateQuantity('${c.concessions_name}', ${c.price}, -1, ${c.concessions_id})"><i class="fas fa-minus"></i></button>
@@ -68,17 +69,17 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                                <h4 class="card-title">Order</h4>
-                                <h5>Movie: ${movie.movie_name}</h5>
-                                <h5>Date: ${show.date} | ${show.showtiming}:00</h5>
-                                <h5>Room: ${room.room_name}</h5>
-                                <h5>Seat: <span style="color: green">${seat}</span></h5>
-                                <ul id="orderSummary" class="list-group mb-3 order">
-                                    <!-- Order items will be dynamically added here -->
-                                </ul>
-                                <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span> VNĐ</h5>
-                                <button id="backButton" class="btn btn-secondary" onclick="location.href='${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
-                                <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
+                            <h4 class="card-title">Order</h4>
+                            <h5>Movie: ${movie.movie_name}</h5>
+                            <h5>Date: ${show.date} | ${show.showtiming}:00</h5>
+                            <h5>Room: ${room.room_name}</h5>
+                            <h5>Seat: <span style="color: green">${seat}</span></h5>
+                            <ul id="orderSummary" class="list-group mb-3 order">
+                                <!-- Order items will be dynamically added here -->
+                            </ul>
+                            <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span> VNĐ</h5>
+                            <button id="backButton" class="btn btn-secondary" onclick="location.href = '${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
                         </div>
                     </div>
                 </div>
@@ -88,7 +89,6 @@
             <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>   
             </div>
             <script>
-                
                 function pay() {
                     let orderSummary = document.getElementById('orderSummary');
                     let items = orderSummary.querySelectorAll('li');
@@ -100,18 +100,20 @@
                         orderData.push({name: name, quantity: quantity});
                     });
                     // Prepare the query string
-                    let queryString = orderData.map(item => 'name=' + item.name+"-"+ item.quantity).join('&');
+                    let queryString = orderData.map(item => 'name=' + item.name + "-" + item.quantity).join('&');
                     const show = "${show.showtime_id}";
-                    const totalPrice = document.getElementById("totalPrice").innerHTML;
+                    const totalPrice = document.getElementById("totalPrice").innerText.replace(/\D/g, ''); // remove non-digit characters
                     const seat = "${seat}";
                     const url = "paymentServlet?" + "showtime=" + show + "&total=" + totalPrice + "&seat=" + seat + "&" + queryString;
                     window.location.href = url;
                 }
-                let totalPrice = parseFloat('${totalprice}');
-                const totalPriceE = parseFloat('${totalprice}');
+
+                let totalPrice = parseInt('${totalprice}');
+                const initialTotalPrice = parseInt('${totalprice}');
                 const orderSummary = document.getElementById('orderSummary');
                 const totalPriceElement = document.getElementById('totalPrice');
-                function updateQuantity(name, price, change,id) {
+
+                function updateQuantity(name, price, change, id) {
                     const quantityElement = document.getElementById('quantity-' + name);
                     let quantity = parseInt(quantityElement.innerText);
                     quantity += change;
@@ -121,9 +123,9 @@
 
                     // Update total price
                     totalPrice += price * change;
-                    if (totalPrice <= totalPriceE)
-                        totalPrice = totalPriceE;
-                    totalPriceElement.innerText = totalPrice;
+                    if (totalPrice < initialTotalPrice)
+                        totalPrice = initialTotalPrice;
+                    totalPriceElement.innerText = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(totalPrice);
 
                     // Update order summary
                     let item = document.getElementById(id);

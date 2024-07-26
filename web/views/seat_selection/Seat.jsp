@@ -30,7 +30,7 @@
         <script type="text/javascript">
             var ws;
             function connect() {
-                ws = new WebSocket("ws://localhost:9999/CineBooking/seatStatus");
+                ws = new WebSocket("ws://localhost:̣̣̣̣̣̣̣̣9999̣̣̣̣̣̣/CineBooking/seatStatus");
                 ws.onmessage = function (event) {
                     var message = event.data;
                     // Handle seat status update
@@ -87,6 +87,9 @@
                                 return total + price;
                             }, 0);
 
+                    // Format the total price
+                    const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice);
+
                     document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
                     document.getElementById("ghe").value = selectedSeats.join(",");
                     document.getElementById("selected-seat-count").textContent = selectedSeats.length;
@@ -108,7 +111,7 @@
                     const totalPrice = document.getElementById("total-price").textContent;
                     const showtimeId = "${showtime.showtime_id}";
 
-                    const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats + "&price=" + totalPrice;
+                    const url = "ConcessionBooking?showtime=" + showtimeId + "&seats=" + selectedSeats + "&price=" + encodeURIComponent(totalPrice);
                     window.location.href = url;
                 } else {
                     window.alert("Please choose seat first!");

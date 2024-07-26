@@ -70,6 +70,7 @@ public class ConcessionBooking extends HttpServlet {
         String showtime = request.getParameter(SHOWTIME);
         String seat = request.getParameter(SEAT);
         String price = request.getParameter(PRICE);
+        System.out.println("gia : " + price);
         Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.parseInt(showtime));
         Movie movie = new MovieDAO().getMovieByID(show.getMovie_id());
         Room room = new RoomDAO().getRoomByID(show.getRoom_id());
@@ -79,7 +80,7 @@ public class ConcessionBooking extends HttpServlet {
         request.setAttribute("room", room);
         request.setAttribute("seat", seat);
         request.setAttribute("show", show);
-        request.setAttribute("totalprice", price);
+        request.setAttribute("totalprice", price.replace("₫", "").replace(".", "").trim());
         
         String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
 
