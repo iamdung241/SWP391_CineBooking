@@ -123,7 +123,7 @@
                                                     <p class="mb-0 nameDetail">Code: <span style="color: red; font-size: 30px">${ticket.getCode()}</span> / Status: <span style="color: red; font-size: 30px;">${ticket.getStatus()}</span></p>
                                                     </c:if>
                                                     <c:if test="${ticket.getStatus() == 'Checked'}">
-                                                    <p class="mb-0 nameDetail">Code: ${ticket.getCode()} / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>
+                                                    <p class="mb-0 nameDetail">Code: <span style="color: red; font-size: 30px">${ticket.getCode()}</span> / Status: <span style="color: green; font-size: 30px">${ticket.getStatus()}</span></p>
                                                     </c:if>
                                             </div>
                                             <hr style="background-color: #000"/>

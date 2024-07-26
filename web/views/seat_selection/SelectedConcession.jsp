@@ -151,7 +151,7 @@
                             item.id = id;
                             item.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
                             item.innerText = name;
-                            item.innerHTML += `<span class="badge badge-primary badge-pill">${quantity}</span>`;
+                            item.innerHTML += `<span class="badge badge-primary badge-pill">1</span>`;
                             orderSummary.appendChild(item);
                         } else {
                             item.querySelector('.badge').innerText = quantity;
