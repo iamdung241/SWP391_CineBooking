@@ -38,7 +38,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         } else {
 
             String resetLink = generateResetLink(account);
-            sendEmail(email, "Reset", resetLink);
+            sendEmail(email, "Reset Your Account's Password", resetLink);
             request.setAttribute("successMessage", "Link has been sent to your email.");
 
         }
@@ -55,7 +55,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         return "http://localhost:9999/CineBooking/resetpassword?" + "&email=" + account.getEmail();
     }
 
-    public static boolean sendEmail(String to, String tieuDe, String noiDung) {
+    public static boolean sendEmail(String to, String subject, String resetLink) {
         // Properties : khai báo các thuộc tính
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
@@ -67,7 +67,6 @@ public class ForgotPasswordServlet extends HttpServlet {
         Authenticator auth = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                // TODO Auto-generated method stub
                 return new PasswordAuthentication(FROM_EMAIL, EMAIL_PASSWORD);
             }
         };
@@ -89,20 +88,36 @@ public class ForgotPasswordServlet extends HttpServlet {
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
 
             // Tiêu đề email
-            msg.setSubject(tieuDe);
+            msg.setSubject(subject);
 
-            // Quy định email nhận phản hồi
-            // msg.setReplyTo(InternetAddress.parse(from, false))
             // Nội dung
-            msg.setContent("Reset Link: " + noiDung, "text/HTML; charset=UTF-8");
+            String htmlContent = "<html><body>"
+                               + "<table align='center' cellpadding='0' cellspacing='0' width='600' style='border: 1px solid #cccccc;'>"
+                               + "<tr>"
+                               + "<td align='center' bgcolor='#70bbd9' style='padding: 40px 0 30px 0;'>"
+                               + "<h1>Password Reset Request</h1>"
+                               + "</td>"
+                               + "</tr>"
+                               + "<tr>"
+                               + "<td bgcolor='#ffffff' style='padding: 40px 30px 40px 30px;'>"
+                               + "<p>Dear user,</p>"
+                               + "<p>We received a request to reset your password. Please click the link below to reset your password:</p>"
+                               + "<p style='text-align: center;'><a href='" + resetLink + "' style='background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; font-size: 16px;'>Reset Password</a></p>"
+                               + "<p>If you did not request a password reset, please ignore this email.</p>"
+                               + "<p>Thank you,</p>"
+                               + "<p>CineBooking Team</p>"
+                               + "</td>"
+                               + "</tr>"
+                               + "</table>"
+                               + "</body></html>";
 
+            msg.setContent(htmlContent, "text/HTML; charset=UTF-8");
 
-            
             // Gửi email
             Transport.send(msg);
             System.out.println("Gửi email thành công");
             return true;
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             System.out.println("Gặp lỗi trong quá trình gửi email");
             e.printStackTrace();
             return false;
