@@ -27,8 +27,8 @@ public class AccountDAO extends DBContext {
         try {
             // Mã hóa mật khẩu bằng MD5
 
-         //String hashedPassword = md5(inputPassword);
-            String hashedPassword = inputPassword;
+            String hashedPassword = md5(inputPassword);
+            //String hashedPassword = inputPassword;
             stm = connection.prepareStatement(sql);
             stm.setString(1, input);
             stm.setString(2, input);
