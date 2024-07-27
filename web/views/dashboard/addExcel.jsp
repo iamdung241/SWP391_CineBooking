@@ -194,17 +194,25 @@
                     type: 'POST',
                     data: {username: username, phone: phone, email: email},
                     success: function (data) {
+                        let hasDbErrors = false;
                         if (!fullnameTd.classList.contains('text-danger') && data.usernameExists) {
                             usernameTd.classList.add('db-error');
                             usernameTd.title = 'Username already exists';
+                            hasDbErrors = true;
                         }
                         if (!phoneTd.classList.contains('text-danger') && data.phoneExists) {
                             phoneTd.classList.add('db-error');
                             phoneTd.title = 'Phone number already exists';
+                            hasDbErrors = true;
                         }
                         if (!emailTd.classList.contains('text-danger') && data.emailExists) {
                             emailTd.classList.add('db-error');
                             emailTd.title = 'Email already exists';
+                            hasDbErrors = true;
+                        }
+
+                        if (hasDbErrors) {
+                            document.getElementById('errorMessage').textContent = 'There are errors in the uploaded data. Please correct them before proceeding.';
                         }
 
                         row.dataset.valid = !data.usernameExists && !data.phoneExists && !data.emailExists;
@@ -264,7 +272,6 @@
                     }
                 });
             }
-
         </script>
     </body>
 </html>
