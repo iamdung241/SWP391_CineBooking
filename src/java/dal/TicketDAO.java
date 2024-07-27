@@ -222,6 +222,7 @@ public class TicketDAO extends DBContext {
                 showtime.setShowtiming(rs.getString(2));
                 showtime.setMovie_name(rs.getString(12));
                 showtime.setMovieImage(rs.getString(16));
+                showtime.setMovieAge(rs.getString(19));
                 showtime.setDate(rs.getString(5));
                 showtime.setRoom_name(rs.getString("room_name"));
                 return showtime;
@@ -262,6 +263,7 @@ public class TicketDAO extends DBContext {
                 tick.setShowtime(getShowtimeByTicketID(Tid));
                 tick.setMovieName(getShowtimeByTicketID(Tid).getMovie_name());
                 tick.setMovieImage(getShowtimeByTicketID(Tid).getMovieImage());
+                tick.setMovieAge(getShowtimeByTicketID(Tid).getMovieAge());
                 return tick;
             }
         } catch (SQLException e) {

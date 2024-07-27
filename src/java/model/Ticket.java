@@ -11,6 +11,7 @@ import java.util.List;
  * @author tranh
  */
 public class Ticket {
+
     private int id;
     private String code;
     private int accountId;
@@ -23,6 +24,7 @@ public class Ticket {
     private Showtiming showtime;
     private String movieName;
     private String movieImage;
+    private String movieAge;
 
     public Ticket() {
     }
@@ -48,6 +50,14 @@ public class Ticket {
         this.combo = combo;
         this.status = status;
         this.date_book = date_book;
+    }
+
+    public String getMovieAge() {
+        return movieAge;
+    }
+
+    public void setMovieAge(String movieAge) {
+        this.movieAge = movieAge;
     }
 
     public int getId() {
@@ -85,11 +95,11 @@ public class Ticket {
     public List<Seat> getSeat() {
         return seat;
     }
-    
-    public String getSeatToString(List<Seat> s){
+
+    public String getSeatToString(List<Seat> s) {
         String a = "";
         for (Seat s1 : s) {
-            a+= s1.getSeat_name()+" ";
+            a += s1.getSeat_name() + " ";
         }
         return a;
     }
@@ -109,8 +119,8 @@ public class Ticket {
     public List<Concession> getCombo() {
         return combo;
     }
-    
-    public String getComboToString(List<Concession> c){
+
+    public String getComboToString(List<Concession> c) {
         String a = "";
         for (Concession c1 : c) {
             a += c1.getConcessions_name() + "-Sl:" + c1.getQuantity() + " ";
@@ -161,12 +171,10 @@ public class Ticket {
     public void setMovieImage(String movieImage) {
         this.movieImage = movieImage;
     }
-    
-    
+
     @Override
     public String toString() {
         return "Ticket{" + "id=" + id + ", code=" + code + ", accountId=" + accountId + ", showtimeId=" + showtimeId + ", seat=" + seat + ", totalprice=" + totalprice + ", combo=" + combo + ", status=" + status + ", date_book=" + date_book + '}';
     }
 
-    
 }
