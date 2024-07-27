@@ -18,6 +18,7 @@ public class Showtiming {
     private String room_name;
     private String movie_name;
     private String movieImage;
+    private String movieAge;
     
 
     public Showtiming(int showtime_id, String showtiming, int room_id, String date, int movie_id) {
@@ -54,6 +55,13 @@ public class Showtiming {
     public Showtiming() {
     }
 
+    public String getMovieAge() {
+        return movieAge;
+    }
+
+    public void setMovieAge(String movieAge) {
+        this.movieAge = movieAge;
+    }
 
     public int getShowtime_id() {
         return showtime_id;

@@ -142,6 +142,9 @@
                                                         <span>Showtime:</span> ${ticket.getShowtime().getShowtiming()}:00
                                                     </li>
                                                     <li>
+                                                        <span>Age:</span> ${ticket.getShowtime().getMovieAge()}
+                                                    </li>
+                                                    <li>
                                                         <span>Seat:</span>
                                                         <c:forEach items="${ticket.seat}" var="ts">
                                                             ${ts.seat_name}

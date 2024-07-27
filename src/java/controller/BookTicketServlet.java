@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Movie;
 import model.Room;
 import model.Showtiming;
@@ -82,7 +84,6 @@ public class BookTicketServlet extends HttpServlet {
             if (m != null) {
                 for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
                     if (showtime.getDate().equals(selectedDate)) {
-
                         String showtimeDateTimeStr = showtime.getDate() + " " + showtime.getShowtiming() + ":00";
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         Date showtimeDateTime = sdf.parse(showtimeDateTimeStr);
@@ -90,7 +91,6 @@ public class BookTicketServlet extends HttpServlet {
                         if (showtimeDateTime.compareTo(oneHourBeforeNow) > 0) {
                             filteredShowtimes.add(showtime);
                         }
-
                     }
                 }
                 if (!filteredShowtimes.isEmpty()) {
@@ -111,7 +111,7 @@ public class BookTicketServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             e.getMessage();
         } catch (ParseException ex) {
-            ex.getMessage();
+           ex.getMessage();
         }
         String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
 
