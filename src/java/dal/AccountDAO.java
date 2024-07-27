@@ -26,6 +26,7 @@ public class AccountDAO extends DBContext {
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
             // Mã hóa mật khẩu bằng MD5
+
             String hashedPassword = md5(inputPassword);
             stm = connection.prepareStatement(sql);
             stm.setString(1, input);
