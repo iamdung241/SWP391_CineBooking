@@ -5,7 +5,8 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -179,7 +180,9 @@
                                                             <p class="card-text"><strong>Date:</strong> ${ticket.showtime.date}</p>
                                                         </div>
                                                         <div class="details-col">
-                                                            <p class="card-text"><strong>Total Price:</strong> ${ticket.totalprice} VND</p>
+                                                            <p class="card-text"><strong>Total Price:</strong> 
+                                                                <fmt:formatNumber value="${ticket.totalprice}" type="currency" currencySymbol="VND"/>
+                                                            </p>
                                                             <p class="card-text"><strong>Status:</strong> ${ticket.status}</p>
                                                         </div>
                                                         <div class="details-col">

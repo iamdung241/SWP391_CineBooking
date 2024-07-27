@@ -66,7 +66,7 @@
     <body>
         <div class="sidebar">
             <h3 class="text-center text-logo">
-                <a class="nav-link active" href="/CineBooking/home">
+                <a class="nav-link active" href="/CineBooking/dashboard">
                 <i class="fas fa-film"></i> Admin Dashboard
                 </a>
             </h3>

@@ -43,7 +43,7 @@ public class BookTicketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -84,7 +84,7 @@ public class BookTicketServlet extends HttpServlet {
             if (m != null) {
                 for (Showtiming showtime : showDao.getShowtimeByMovieID(idMovie)) {
                     if (showtime.getDate().equals(selectedDate)) {
-                        String showtimeDateTimeStr = showtime.getDate() + " " + showtime.getShowtiming() + ":00"; 
+                        String showtimeDateTimeStr = showtime.getDate() + " " + showtime.getShowtiming() + ":00";
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         Date showtimeDateTime = sdf.parse(showtimeDateTimeStr);
                         Date oneHourBeforeNow = new Date(System.currentTimeMillis() - 3600000);
