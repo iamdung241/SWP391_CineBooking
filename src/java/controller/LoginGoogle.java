@@ -11,13 +11,16 @@ import model.Account;
 import model.GoogleAccount;
 
 public class LoginGoogle extends HttpServlet {
-   
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String code = request.getParameter("code");
         String error = request.getParameter("error");
         
+        HttpSession session = request.getSession();
+        String returnUrl = request.getParameter("state");
+
         if (error != null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
@@ -42,21 +45,24 @@ public class LoginGoogle extends HttpServlet {
             account = accountDAO.getAccountByGoogleEmail(googleAccount.getEmail());
         }
         
-        HttpSession session = request.getSession();
         session.setAttribute("user", account);
 
-        switch (account.getRole_id()) {
-            case 3:
-                response.sendRedirect("home");
-                break;
-            case 1:
-                response.sendRedirect("dashboard");
-                break;
-            case 2:
-                response.sendRedirect("scanticket");
-                break;
-            default:
-                break;
+        if (returnUrl != null && !returnUrl.isEmpty()) {
+            response.sendRedirect(returnUrl);
+        } else {
+            switch (account.getRole_id()) {
+                case 3:
+                    response.sendRedirect("home");
+                    break;
+                case 1:
+                    response.sendRedirect("dashboard");
+                    break;
+                case 2:
+                    response.sendRedirect("scanticket");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

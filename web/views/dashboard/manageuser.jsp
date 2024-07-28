@@ -59,11 +59,12 @@
                                         String roleFilter = request.getParameter("role");
                                         Vector<Account> list;
                                         AccountDAO ad = new AccountDAO();
-                                            
+            
                                         list = ad.searchAccounts(searchQuery, roleFilter);
-                                            
+            
                                         if (list != null) {
-                                            for (Account a : list) {
+                                            for (int i = list.size() - 1; i >= 0; i--) {
+                                                Account a = list.get(i);
                                     %>
                                     <tr>
                                         <td><%= a.getAccount_id() %></td>
