@@ -26,7 +26,6 @@ public class AccountDAO extends DBContext {
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
             // Mã hóa mật khẩu bằng MD5
-
             //String hashedPassword = md5(inputPassword);
             String hashedPassword = inputPassword;
             stm = connection.prepareStatement(sql);
@@ -44,6 +43,7 @@ public class AccountDAO extends DBContext {
                 u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
                 u.setRole_id(rs.getInt("role_id"));
+                u.setTheaterID(rs.getInt("theaterID"));
 
                 System.out.println(u);
                 return u;
@@ -86,8 +86,9 @@ public class AccountDAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                int theaterID = rs.getInt("theaterID");
 
-                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id, theaterID);
                 account.add(u);
             }
             return account;
@@ -144,9 +145,10 @@ public class AccountDAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                int theaterID = rs.getInt("theaterID");
 
                 // Create an Account object and return it
-                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id, theaterID);
                 return u;
             }
         } catch (SQLException ex) {
@@ -257,7 +259,8 @@ public class AccountDAO extends DBContext {
                 String usernameDB = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
-                Account u = new Account(account_id, fullname, phone, email, usernameDB, password, role_id);
+                int theaterID = rs.getInt("theaterID");
+                Account u = new Account(account_id, fullname, phone, email, usernameDB, password, role_id, theaterID);
                 accounts.add(u);
             }
         } catch (SQLException ex) {
@@ -357,9 +360,10 @@ public class AccountDAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                int theaterID = rs.getInt("theaterID");
 
                 // Create an Account object and return it
-                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id, theaterID);
                 return u;
             }
         } catch (SQLException ex) {
