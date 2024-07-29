@@ -138,9 +138,21 @@ public class Movie {
     }
 
 
-   
-
-    public Movie(int movie_id) {
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription, String status, List<Showtiming> listShowtime) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.age = age;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.status = status;
+        this.listShowtime = listShowtime;
+    }
+public Movie(int movie_id) {
         this.movie_id = movie_id;
     }
     

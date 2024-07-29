@@ -113,9 +113,10 @@
                             </div>
                             <hr/>
                             <div>
-                                <p><i class='bx bxs-purchase-tag-alt' ></i>${movie.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${movie.getDuration()} minutes</p>
+                                <p><i class='bx bxs-purchase-tag-alt' ></i>${movie.getType_name()}&nbsp&nbsp  &nbsp <i class='bx bxs-time' ></i> ${movie.getDuration()} minutes</p>
                             </div>
                             <div style="margin-top: 40px">
+                                
                                 <c:forEach items="${movie.getListShowtime()}" var="s"> 
                                     <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}"> ${s.getShowtiming()} : 00</a>
                                     <c:if test="${selectedShowtimeId != null && selectedShowtimeId == s.getShowtime_id()}">
@@ -129,9 +130,10 @@
                                                 </c:if>
                                             </div>
                                         </c:forEach>
-                                    </c:if>
-                                    
+                                    </c:if> 
                                 </c:forEach>
+                                    
+                                    
                             </div>
 
 

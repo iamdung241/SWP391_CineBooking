@@ -1,5 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <filter-mapping>
+        <filter-name>StaffFilter</filter-name>
+        <url-pattern>/scanticket</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/dashboard</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/movie</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/views/dashboard/manageuser.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/filter</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/showtimeControl</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/addNewShowtime</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/showtimeControl</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/updateShowtime</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/revenue/film</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/revenue/concession</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/concession</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/control</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/search</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/AdminSearchFilter</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/searchAccount</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/views/dashboard/userdetail.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.SeatServlet</servlet-class>
@@ -178,12 +250,8 @@
         <servlet-class>controller.theater.TheaterController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchAccountStaff</servlet-name>
-        <servlet-class>controller.SearchAccountStaff</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchAccountAdmin</servlet-name>
-        <servlet-class>controller.SearchAccountAdmin</servlet-class>
+        <servlet-name>LoginStaffController</servlet-name>
+        <servlet-class>controller.LoginStaffController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -337,6 +405,16 @@
         <servlet-name>AddUser</servlet-name>
         <url-pattern>/views/dashboard/adduser</url-pattern>
     </servlet-mapping>
+    <!-- Filter Definition -->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filter.AdminFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>StaffFilter</filter-name>
+        <filter-class>filter.StaffFilter</filter-class>
+    </filter>
+    <!-- Session Configuration -->
     <servlet-mapping>
         <servlet-name>HotFilmController</servlet-name>
         <url-pattern>/hotfilm</url-pattern>
@@ -362,103 +440,9 @@
         <url-pattern>/theater</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchAccountAdmin</servlet-name>
-        <url-pattern>/searchAccountAdmin</url-pattern>
+        <servlet-name>LoginStaffController</servlet-name>
+        <url-pattern>/loginStaff</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchAccountStaff</servlet-name>
-        <url-pattern>/searchAccountStaff</url-pattern>
-    </servlet-mapping>
-    <!-- Filter Definition -->
-    <filter>
-        <filter-name>AdminFilter</filter-name>
-        <filter-class>filter.AdminFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>ManagerFilter</filter-name>
-        <filter-class>filter.ManagerFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>TicketCheckedFilter</filter-name>
-        <filter-class>filter.TicketCheckedFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>TicketSellerFilter</filter-name>
-        <filter-class>filter.TicketSellerFilter</filter-class>
-    </filter>
-    <!--    <filter-mapping>
-        <filter-name>TicketCheckedFilter</filter-name>
-        <url-pattern>/scanticket</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/dashboard</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/movie</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/views/dashboard/manageuser.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/admin/filter</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/showtimeControl</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/addNewShowtime</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/showtimeControl</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/updateShowtime</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/revenue/film</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/revenue/concession</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/admin/concession</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/admin/control</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/admin/search</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/AdminSearchFilter</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/searchAccount</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/views/dashboard/userdetail.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
-    </filter-mapping>-->
-    <!-- Session Configuration -->
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

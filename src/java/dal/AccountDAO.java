@@ -55,6 +55,41 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    public Account loginStaff(String input, String inputPassword, int theaterID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ? AND theaterID=?";
+        try {
+            // Mã hóa mật khẩu bằng MD5
+            String hashedPassword = inputPassword; 
+
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, input);
+            stm.setString(2, input);
+            stm.setString(3, input);
+            stm.setString(4, hashedPassword);
+            stm.setInt(5, theaterID); 
+
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Account u = new Account();
+                u.setAccount_id(rs.getInt("account_id"));
+                u.setFullname(rs.getString("fullname"));
+                u.setPhone(rs.getString("phone"));
+                u.setEmail(rs.getString("email"));
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setRole_id(rs.getInt("role_id"));
+                u.setTheaterID(rs.getInt("theaterID"));
+                return u;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     // Hàm để mã hóa mật khẩu bằng MD5
     public String md5(String input) {
         try {

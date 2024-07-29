@@ -10,6 +10,7 @@ import model.Theater;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.Movie;
 
 /**
  *
@@ -37,11 +38,33 @@ public class TheaterDAO extends DBContext{
 
         return listType;
     }
+    PreparedStatement stm;
+    ResultSet rs;
+    public Theater getTheaterByTheaterID(int idTheater) {
+        try {
+            String sql = "select id, name from Theater where id = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, idTheater);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                Theater theater = new Theater(id, name);
+                
+                return theater;
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
      public static void main(String[] args) {
         TheaterDAO tdao = new TheaterDAO();
-        List<Theater> list = tdao.getAllTheater();
-        for (Theater t : list) {
+        Theater t = tdao.getTheaterByTheaterID(1);
+        
             System.out.println(t.getName());
-        }
+        
     }
+
+    
 }

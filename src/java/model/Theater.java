@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author Admin
@@ -35,5 +37,6 @@ public class Theater {
     public void setName(String name) {
         this.name = name;
     }
+
     
 }

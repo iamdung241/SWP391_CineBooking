@@ -37,7 +37,9 @@ public class ShowtimingDAO extends DBContext {
     }
 
     public List<Showtiming> getShowtimeByMovieID(int movieID) {
-        String sql = "select * from Showtime s join Movie m on m.movie_id = s.movie_id where m.movie_id = ?";
+        String sql = "select * from Showtime s join Movie m on m.movie_id = s.movie_id \n"
+                + "join Room r on s.room_id = r.room_id\n"
+                + "where m.movie_id = ?";
         List<Showtiming> listShow = new ArrayList();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -50,6 +52,7 @@ public class ShowtimingDAO extends DBContext {
                 showtime.setDate(rs.getString(5));
                 showtime.setRoom_id(rs.getInt(3));
                 showtime.setMovie_id(rs.getInt(4));
+                showtime.setRoom_name(rs.getString(18));
                 listShow.add(showtime);
             }
         } catch (SQLException e) {
@@ -57,7 +60,6 @@ public class ShowtimingDAO extends DBContext {
         }
         return listShow;
     }
-   
 
     public List<Movie> getMovieWithShowtime() {
         String sql = "select * from Movie m\n"
@@ -207,13 +209,12 @@ public class ShowtimingDAO extends DBContext {
             e.getMessage();
         }
     }
-    
+
     public static void main(String[] args) {
         Showtiming s = new Showtiming("22", 3, "2024-07-16", 7);
         (new ShowtimingDAO()).updateShowtime(s);
         System.out.println(s.getShowtiming());
-        
-    }
 
+    }
 
 }
