@@ -109,8 +109,9 @@ public class AccountDAO extends DBContext {
                 + "           ,[username]\n"
                 + "           ,[password]\n"
                 + "           ,[role_id])\n"
+                + "           ,[theaterID])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?)";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, account.getFullname());
@@ -120,6 +121,7 @@ public class AccountDAO extends DBContext {
             // Mã hóa mật khẩu bằng MD5
             stm.setString(5, md5(account.getPassword()));
             stm.setInt(6, account.getRole_id());
+            stm.setInt(7, account.getTheaterID());
             stm.executeUpdate();
 
         } catch (SQLException ex) {
@@ -553,7 +555,7 @@ public class AccountDAO extends DBContext {
 
     public void insertUserFromGoogle(Account account) {
         PreparedStatement stm = null;
-        String sql = "INSERT INTO [dbo].[Account] ([fullname], [phone], [email], [username], [password], [role_id]) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO [dbo].[Account] ([fullname], [phone], [email], [username], [password], [role_id], [theaterID]) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, account.getFullname());
@@ -562,6 +564,7 @@ public class AccountDAO extends DBContext {
             stm.setString(4, account.getUsername());
             stm.setString(5, ""); // Đặt mật khẩu trống cho tài khoản Google
             stm.setInt(6, account.getRole_id());
+            stm.setInt(7, account.getTheaterID());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
