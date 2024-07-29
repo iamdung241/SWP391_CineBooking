@@ -44,7 +44,7 @@
                                         <c:forEach items="${listShowtime}" var="showtime">
                                             <tr>
                                                 <td>
-                                                    <img src="${showtime.getMovieImage()}" class="img-thumbnail" width="130" height="130"/>
+                                                    <img src="../${showtime.getMovieImage()}" class="img-thumbnail" width="130" height="130"/>
                                                 </td>
                                                 <td>${showtime.getMovie_name()}</td>
                                                 <td>${showtime.getRoom_name()}</td>
