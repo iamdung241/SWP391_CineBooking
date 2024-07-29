@@ -596,9 +596,9 @@ public class MovieDAO extends DBContext {
     
     public static void main(String[] args) {
         MovieDAO mdao = new MovieDAO();
-        List<Movie> list = mdao.getTopMovieForMonth();
+        List<Movie> list = mdao.getMoviesPublishedBeforeToday();
         for (Movie movie : list) {
-            System.out.println(movie.getDecription());
+            System.out.println(movie.getMovie_name());
         }
     }
 }
