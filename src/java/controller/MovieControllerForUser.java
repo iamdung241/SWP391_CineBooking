@@ -6,6 +6,7 @@ package controller;
 
 import dal.DBContext;
 import dal.MovieDAO;
+import dal.TheaterDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import model.TypeMovie;
 import dal.TypeMovieDAO;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import model.Theater;
 
 /**
  *
@@ -30,6 +32,8 @@ public class MovieControllerForUser extends HttpServlet {
         String keyword = req.getParameter("keyword");
         String dateFilter = req.getParameter("dateFilter");
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType();
+        TheaterDAO tdao = new TheaterDAO();
+        List<Theater> listTheater = tdao.getAllTheater();
         List<Movie> listM = new ArrayList<>();
 
         if (service != null) {
@@ -78,6 +82,7 @@ public class MovieControllerForUser extends HttpServlet {
         req.setAttribute("topMovie", topMovie);
         req.setAttribute("keyword", keyword);
         req.setAttribute("typeList", typeList);
+        req.setAttribute("listTheater", listTheater);
         req.setAttribute("listM", listM.isEmpty() ? null : listM);
         req.getRequestDispatcher("/views/homepage/Home.jsp").forward(req, resp);
     }

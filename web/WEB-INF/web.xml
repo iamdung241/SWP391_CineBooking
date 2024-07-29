@@ -174,6 +174,10 @@
         <servlet-name>AdminSearchFilmShowtime</servlet-name>
         <servlet-class>controller.AdminSearchFilmShowtime</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TheaterController</servlet-name>
+        <servlet-class>controller.theater.TheaterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -346,6 +350,7 @@
         <servlet-name>AdminSearchFilmShowtime</servlet-name>
         <url-pattern>/adminSearchFilmShowtime</url-pattern>
     </servlet-mapping>
+
     <!-- Filter Definition -->
     <filter>
         <filter-name>AdminFilter</filter-name>
@@ -437,6 +442,10 @@
         <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Session Configuration -->
+    <servlet-mapping>
+        <servlet-name>TheaterController</servlet-name>
+        <url-pattern>/theater</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

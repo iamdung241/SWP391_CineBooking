@@ -141,7 +141,7 @@
     </head>
     <body>
         <div id="login-form-wrap">
-            <h2>CineBooking Login</h2>
+            <h2>CineBooking Login for Staff</h2>
             <form id="login-form" action="login" method="POST">
                 <input type="hidden" name="returnUrl" value="${param.returnUrl}">
                 <div>
@@ -166,7 +166,7 @@
             </div><!--create-account-wrap-->
 
             <!-- New Elements -->
-            <button onclick="handleGoogleLogin()" id="login-with-google">Login with Google</button>
+            <button onclick="location.href = 'https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/CineBooking/logingoogle&response_type=code&client_id=43290596655-kh14rom6dtk8am9gtd3po2cuft9nd3pu.apps.googleusercontent.com&approval_prompt=force'" id="login-with-google">Login with Google</button>
             <a href="forgotpassword.jsp" id="forgot-password-link">Forgot Password?</a>
         </div><!--login-form-wrap-->
         <script>
@@ -183,14 +183,7 @@
                 }
             }
 
-            function handleGoogleLogin() {
-                var returnUrl = document.getElementsByName('returnUrl')[0].value;
-                var redirectUrl = 'https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/CineBooking/logingoogle&response_type=code&client_id=43290596655-kh14rom6dtk8am9gtd3po2cuft9nd3pu.apps.googleusercontent.com&approval_prompt=force';
-                if (returnUrl) {
-                    redirectUrl += '&state=' + encodeURIComponent(returnUrl);
-                }
-                window.location.href = redirectUrl;
-            }
         </script>
+
     </body>
 </html>

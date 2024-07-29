@@ -108,7 +108,7 @@ public class ScanTicketServlet extends HttpServlet {
             String currentTime = sdfTime.format(now);
             String showtimeStr = ticket.getShowtime().getShowtiming();
             String dateShowtime = ticket.getShowtime().getDate();
-            String showtimeWithMinutes = showtimeStr + ":00";
+            //String showtimeWithMinutes = showtimeStr + ":00";
             int showtimeInt = Integer.parseInt(showtimeStr);
             int beforeShowtime = showtimeInt - 2;
             String beforeShowtimeWithMinutes = beforeShowtime + ":00";

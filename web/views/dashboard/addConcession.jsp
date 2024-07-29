@@ -44,8 +44,8 @@
                                 <span class="input-group-text">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="file" onchange="displayImage(this)">
-                                <label class="custom-file-label" >Choose file</label>
+                                <input type="file" class="custom-file-input" id="image" name="file" accept=".jpg, .jpeg, .png" onchange="displayImage(this)">
+                                <label class="custom-file-label" >Choose file (jpg, jpeg or png)</label>
                             </div>
                         </div>
                         <img id="previewImage" src="#" alt="Preview"
@@ -98,15 +98,23 @@
         }
     }
     function displayImage(input) {
-        var previewImage = document.getElementById("previewImage");
-        console.log(previewImage);
-        var file = input.files[0];
+    var previewImage = document.getElementById("previewImage");
+    var file = input.files[0];
+    var fileError = document.getElementById("fileError");
+    fileError.innerHTML = '';
+    var validExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+
+    if (file && validExtensions.includes(file.type)) {
         var reader = new FileReader();
         reader.onload = function (e) {
             previewImage.src = e.target.result;
             previewImage.style.display = "block";
         }
-        console.log(previewImage.src);
         reader.readAsDataURL(file);
+    } else {
+        previewImage.style.display = "none";
+        fileError.innerHTML = 'Only image files of type jpg, jpeg, or png are allowed';
+        fileError.style.color = 'red';
     }
+}
 </script>
