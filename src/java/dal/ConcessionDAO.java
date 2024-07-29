@@ -54,7 +54,7 @@ public class ConcessionDAO extends DBContext {
     public List<Concession> getAllConcessionsAdmin(int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String sql = "  SELECT * FROM Concessions\n"
-                + "  ORDER BY[concessions_id]\n"
+                + "  ORDER BY[concessions_id] DESC\n"
                 + "  OFFSET ? ROWS\n"
                 + "  FETCH NEXT ? ROWS ONLY";
         try {

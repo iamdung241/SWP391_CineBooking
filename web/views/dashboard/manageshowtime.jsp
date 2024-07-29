@@ -21,12 +21,7 @@
                             <div class="card-header justify-content-between align-items-center d-flex">
                                 <h6 class="card-title m-0">List Showtime</h6>
                             </div>
-                            <div class="d-flex align-items-center">
-                                    <form class="d-flex me-2" action="adminSearchFilmShowtime">
-                                        <input class="form-control me-2" name="searchAdmin" placeholder="Search" value="${key}">
-                                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
+                            
                             <c:if test="${not empty successMessage}">
                                 <div class="alert alert-success" role="alert">
                                     ${successMessage}

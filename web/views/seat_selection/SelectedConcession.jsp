@@ -87,6 +87,11 @@
 
                             <button id="backButton" class="btn btn-secondary" onclick="location.href = '${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
                             <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
+                            <h5 style="color: red; font-style: italic;">
+                                After clicking the "Pay" button, you have 6 minutes to pay for this ticket. 
+                                After that, if the transaction is unsuccessful, the ticket will be canceled.
+                            </h5>
+
                         </div>
                     </div>
                 </div>

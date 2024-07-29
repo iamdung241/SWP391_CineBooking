@@ -187,7 +187,7 @@
                                     </c:choose>
                                 </c:if>
                                 <c:if test="${message != null}">
-                                    <p style="font-weight: bolder; color: red; font-weight: 30px; align-items: center">${message}</p>
+                                    <p style="font-weight: bolder; color: green; font-weight: 30px; align-items: center">${message}</p>
                                 </c:if>
                             </div>
                         </div>

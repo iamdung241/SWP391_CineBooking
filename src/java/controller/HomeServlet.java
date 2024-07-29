@@ -5,6 +5,7 @@ package controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import dal.MovieDAO;
+import dal.TheaterDAO;
 import dal.TypeMovieDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import model.Movie;
+import model.Theater;
 import model.TypeMovie;
 
 /**
@@ -62,11 +64,17 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MovieDAO mdao = new MovieDAO();
+         MovieDAO mdao = new MovieDAO();
         List<Movie> topMovie = mdao.getTopMovieForMonth();
         request.setAttribute("topMovie", topMovie);
+        
         List<Movie> listM = mdao.getMoviesPublishedBeforeToday();
         request.setAttribute("listM", listM);
+        
+        TheaterDAO tdao = new TheaterDAO();
+        List<Theater> listTheater = tdao.getAllTheater();
+        request.setAttribute("listTheater", listTheater);
+        
         List<TypeMovie> typeList = (new TypeMovieDAO()).getAllType();
         request.setAttribute("typeList", typeList);
         request.getRequestDispatcher("/views/homepage/Home.jsp").forward(request, response);
