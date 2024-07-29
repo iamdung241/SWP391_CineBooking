@@ -116,7 +116,7 @@
             .spec_1im1 li a:hover {
                 text-decoration: underline;
             }
-             body {
+            body {
                 font-family: 'Arial', sans-serif;
                 background-color: #f8f9fa;
                 padding-top: 50px; /* Adjust according to your navbar height */
@@ -219,14 +219,14 @@
             <div class="main_1 clearfix">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
-                
+
                 <div style="margin-top: 20px" class="container-fluid">
                     <div class="text-center mb-4">
                         <!-- Stylish and decorative font -->
                         <h1 style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Hot Films This Month</h1>
                     </div>
-                <div class="filmContainer">
-                    
+                    <div class="filmContainer">
+
                     <c:forEach items="${topMovie}" var="topMovie" varStatus="loop">
                         <div class="filmItem ${loop.index == 0 ? 'active' : ''}">
                             <section id="exep" class="p-3 bg-light">
@@ -275,115 +275,116 @@
                     <button id="nextButton">&gt;</button>
                 </div>
             </div>
-            
 
+ <jsp:include page="/views/homepage/TheaterList.jsp"></jsp:include>
             <section id="spec" class="p_3">
                 <div class="container-xl">
                     <div class="text-center" style="padding-top: 2px">
                         <h1 class="mb-0 font_50" style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Now Showing</h1>
-                    </div>
+                    </div>   
+                   
                     <div class="container mt-5">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <form action="movieController" method="GET" class="input-group" id="searchForm">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px; border-color: red"
                                            value="${keyword != null ? keyword : ''}">
-                                <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                <input type="hidden" name="service" value="search" id="serviceInput">
-                                <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
-                                    <option value="all">All</option>
-                                    <option value="upcoming">Upcoming Film</option>
-                                    <option value="nowshowing">Now Showing Film</option>
-                                </select>
-                            </form>
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                                    <input type="hidden" name="service" value="search" id="serviceInput">
+                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
+                                        <option value="all">All</option>
+                                        <option value="upcoming">Upcoming Film</option>
+                                        <option value="nowshowing">Now Showing Film</option>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <p class="error-message">${requestScope.resultNull}</p>
-                <div class="row mt-4">
-                    <div class="col-md-2">
-                        <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="row spec_1">
-                            <c:forEach items="${listM}" var="m">
-                                <div class="col-md-3 mb-4">
-                                    <div class="spec_1im clearfix position-relative">
-                                        <div class="spec_1imi clearfix film">
-                                            <a href="moviedetail?ID=${m.getMovie_id()}">
-                                                <img width="240px" height="270px" src="${m.getPost_img()}" class="w-100" alt="abc">
-                                            </a>
+                    <p class="error-message">${requestScope.resultNull}</p>
+                    <div class="row mt-4">
+                        <div class="col-md-2">
+                            <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row spec_1">
+                                <c:forEach items="${listM}" var="m">
+                                    <div class="col-md-3 mb-4">
+                                        <div class="spec_1im clearfix position-relative">
+                                            <div class="spec_1imi clearfix film">
+                                                <a href="moviedetail?ID=${m.getMovie_id()}">
+                                                    <img width="240px" height="270px" src="${m.getPost_img()}" class="w-100" alt="abc">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="spec_1im1 clearfix">
+                                            <ul>
+                                                <li>
+                                                    <a id="nameMovie" href="moviedetail?ID=${m.getMovie_id()}">
+                                                        ${m.getMovie_name()}
+                                                    </a>
+                                                </li>
+                                                <li class="col_black">
+                                                    <strong>Duration:</strong> ${m.getDuration()} minutes
+                                                </li>
+                                                <li class="col_black">
+                                                    <strong>Age:</strong> ${m.getAge()}
+                                                </li>
+                                                <li class="col_black">
+                                                    <strong>Category:</strong> ${m.getType_name()}
+                                                </li>
+                                                <li style="padding-top: 10px">
+                                                    <a style="text-decoration: none" class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
+                                                    <a class="viewDetail" style="margin-left: 3px" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <br/>
-                                    <div class="spec_1im1 clearfix">
-                                        <ul>
-                                            <li>
-                                                <a id="nameMovie" href="moviedetail?ID=${m.getMovie_id()}">
-                                                    ${m.getMovie_name()}
-                                                </a>
-                                            </li>
-                                            <li class="col_black">
-                                                <strong>Duration:</strong> ${m.getDuration()} minutes
-                                            </li>
-                                            <li class="col_black">
-                                                <strong>Age:</strong> ${m.getAge()}
-                                            </li>
-                                            <li class="col_black">
-                                                <strong>Category:</strong> ${m.getType_name()}
-                                            </li>
-                                            <li style="padding-top: 10px">
-                                                <a style="text-decoration: none" class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
-                                                <a class="viewDetail" style="margin-left: 3px" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                                </c:forEach>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
+            <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
 
-        <script>
-            window.onscroll = function () {
-                myFunction();
-            };
+            <script>
+                window.onscroll = function () {
+                    myFunction();
+                };
 
-            var navbar_sticky = document.getElementById("navbar_sticky");
-            var sticky = navbar_sticky.offsetTop;
-            var navbar_height = document.querySelector('.navbar').offsetHeight;
+                var navbar_sticky = document.getElementById("navbar_sticky");
+                var sticky = navbar_sticky.offsetTop;
+                var navbar_height = document.querySelector('.navbar').offsetHeight;
 
-            function myFunction() {
-                if (window.pageYOffset >= sticky + navbar_height) {
-                    navbar_sticky.classList.add("sticky");
-                    document.body.style.paddingTop = navbar_height + 'px';
-                } else {
-                    navbar_sticky.classList.remove("sticky");
-                    document.body.style.paddingTop = '0';
+                function myFunction() {
+                    if (window.pageYOffset >= sticky + navbar_height) {
+                        navbar_sticky.classList.add("sticky");
+                        document.body.style.paddingTop = navbar_height + 'px';
+                    } else {
+                        navbar_sticky.classList.remove("sticky");
+                        document.body.style.paddingTop = '0';
+                    }
                 }
-            }
-            document.getElementById('dateSelect').addEventListener('change', function () {
-                document.getElementById('serviceInput').value = 'filter';
-                document.getElementById('searchForm').submit();
-            });
+                document.getElementById('dateSelect').addEventListener('change', function () {
+                    document.getElementById('serviceInput').value = 'filter';
+                    document.getElementById('searchForm').submit();
+                });
 
-            // Function to set the selected option in the dropdown
-            function setSelectedOption() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const dateFilter = urlParams.get('dateFilter');
-                if (dateFilter) {
-                    const selectElement = document.getElementById('dateSelect');
-                    selectElement.value = dateFilter;
+                // Function to set the selected option in the dropdown
+                function setSelectedOption() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const dateFilter = urlParams.get('dateFilter');
+                    if (dateFilter) {
+                        const selectElement = document.getElementById('dateSelect');
+                        selectElement.value = dateFilter;
+                    }
                 }
-            }
 
-            // Call the function to set the selected option when the page loads
-            window.onload = setSelectedOption;
-            const filmItems = document.querySelectorAll('.filmItem');
+                // Call the function to set the selected option when the page loads
+                window.onload = setSelectedOption;
+                const filmItems = document.querySelectorAll('.filmItem');
                 const nextButton = document.getElementById('nextButton');
                 const prevButton = document.getElementById('prevButton');
                 let currentIndex = 0;
@@ -405,6 +406,6 @@
                 setInterval(() => {
                     showFilm((currentIndex + 1) % filmItems.length);
                 }, 7500);
-        </script>
+            </script>
     </body>
 </html>

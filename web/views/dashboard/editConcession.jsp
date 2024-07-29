@@ -48,9 +48,8 @@
                                 <span class="input-group-text">Upload</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="imageEdit" name="image"
-                                       onchange="displayImage2(this)">
-                                <label class="custom-file-label">Choose file to update</label>
+                                <input type="file" class="custom-file-input" id="imageEdit" name="image" accept=".jpg, .jpeg, .png" onchange="displayImage2(this)">
+                                <label class="custom-file-label">Choose file (jpg, jpeg or png) to update</label>
                             </div>
                         </div>
                         <img id="previewImage2" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Preview"
@@ -107,15 +106,25 @@
         }
     }
     function displayImage2(input) {
-        var previewImage = document.getElementById("previewImage2");
-        var file = input.files[0];
+    var previewImage = document.getElementById("previewImage2");
+    var file = input.files[0];
+    var fileError = document.getElementById("fileEditError");
+    fileError.innerHTML = '';
+    var validExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+
+    if (file && validExtensions.includes(file.type)) {
         var reader = new FileReader();
         reader.onload = function (e) {
             previewImage.src = e.target.result;
             previewImage.style.display = "block";
         }
         reader.readAsDataURL(file);
+    } else {
+        previewImage.style.display = "none";
+        fileError.innerHTML = 'Only image files of type jpg, jpeg, or png are allowed';
+        fileError.style.color = 'red';
     }
+}
     <!-- function editConcessionModal(id, name, description, author, price, quantity, image, categoryId) { -->
     function editConcessionModal(button) {
         let id = $(button).closest('tr').find('td[name="id"]').text().trim();

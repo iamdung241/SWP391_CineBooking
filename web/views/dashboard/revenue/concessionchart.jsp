@@ -79,7 +79,7 @@
                             <ul class="top-product-list">
                                 <c:forEach var="concession" items="${topConcessions}">
                                     <li class="top-product-row">
-                                        <img class="top-product-image rounded" src="../${pageContext.request.contextPath}/${concession[2]}" alt="${concession[0]}">
+                                        <img class="top-product-image rounded" src="../${concession[2]}" alt="${concession[0]}">
                                         <span class="top-product-name">
                                             <span class="top-product-title">${concession[0]}</span>
                                         </span>
