@@ -12,12 +12,12 @@ public class Account {
 
     private int account_id;
     private String fullname, phone, email, username, password;
-    private int role_id;
+    private int role_id,theaterID;
 
     public Account() {
     }
 
-    public Account(int account_id, String fullname, String phone, String email, String username, String password, int role_id) {
+    public Account(int account_id, String fullname, String phone, String email, String username, String password, int role_id, int theaterID) {
         this.account_id = account_id;
         this.fullname = fullname;
         this.phone = phone;
@@ -25,16 +25,20 @@ public class Account {
         this.username = username;
         this.password = password;
         this.role_id = role_id;
+        this.theaterID = theaterID;
     }
 
-    public Account(String fullname, String phone, String email, String username, String password, int role_id) {
+    public Account(String fullname, String phone, String email, String username, String password, int role_id, int theaterID) {
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role_id = role_id;
+        this.theaterID = theaterID;
     }
+    
+    
 
     public int getAccount_id() {
         return account_id;
@@ -92,4 +96,11 @@ public class Account {
         this.role_id = role_id;
     }
 
+    public int getTheaterID() {
+        return theaterID;
+    }
+
+    public void setTheaterID(int theaterID) {
+        this.theaterID = theaterID;
+    }
 }
