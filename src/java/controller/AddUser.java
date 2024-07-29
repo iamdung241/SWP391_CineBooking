@@ -15,24 +15,25 @@ public class AddUser extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String rePassword = request.getParameter("repassword");
+        int role = Integer.parseInt(request.getParameter("role"));
         String fullname = request.getParameter("fullname");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
+        int theaterID = Integer.parseInt(request.getParameter("theaterID"));
 
         AccountDAO accountDAO = new AccountDAO();
 
-        Account account = new Account();
-        request.setAttribute("successMessage", "Add Staff Successfully");
+        Account account = new Account();    
         account.setUsername(username);
         account.setPassword(password);
         account.setFullname(fullname);
         account.setPhone(phone);
         account.setEmail(email);
-        account.setRole_id(2);
+        account.setRole_id(role);
+        account.setTheaterID(theaterID);
 
         accountDAO.insertUser(account);
-
+        request.setAttribute("successMessage", "Add Staff Successfully");
         request.getRequestDispatcher("/views/dashboard/adduser.jsp").forward(request, response);
     }
 }

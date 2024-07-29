@@ -4,7 +4,6 @@
  */
 package filter;
 
-import java.io.IOException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -14,13 +13,13 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import model.Account;
-
 /**
  *
  * @author Tran Anh Vu
  */
-public class StaffFilter implements Filter {
+public class TicketSellerFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,7 +34,7 @@ public class StaffFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
         Account user = (session != null) ? (Account) session.getAttribute("user") : null;
 
-        if (user == null || user.getRole_id() != 2) {
+        if (user == null || user.getRole_id() != 5) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/error.jsp");
             return;
         }

@@ -37,7 +37,7 @@
                             <input type="file" class="form-control" accept=".xlsx" id="fileExcel" style="display: inline-block; width: auto; margin-right: 10px;" />
                             <button type="button" class="btn btn-primary" onclick="addExcel()">Upload</button>
                         </div>
-                        <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="fas fa-arrow-left me-1"></i> Back</a>
+                        <a class="btn btn-sm btn-primary" href="managestaff.jsp"><i class="fas fa-arrow-left me-1"></i> Back</a>
                     </div>
                     <div class="card-body">
                         <div id="errorMessage" class="error-message"></div>
@@ -50,6 +50,7 @@
                                         <th>Email</th>
                                         <th>Username</th>
                                         <th>Password</th>
+                                        <th>Role</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -74,8 +75,8 @@
                 tablebody.innerHTML = ''; // Clear the table body
 
                 await readXlsxFile(input.files[0]).then((rows) => {
-                    if (rows[0].length !== 5 || rows[0][0] !== 'Fullname' || rows[0][1] !== 'Phone' || rows[0][2] !== 'Email' || rows[0][3] !== 'Username' || rows[0][4] !== 'Password') {
-                        errorMessage.textContent = 'Excel file wrong format. The file must only have 5 columns and each column must have header as this format: Fullname, Phone, Email, Username, Password. Please fix and upload again.';
+                    if (rows[0].length !== 6 || rows[0][0] !== 'Fullname' || rows[0][1] !== 'Phone' || rows[0][2] !== 'Email' || rows[0][3] !== 'Username' || rows[0][4] !== 'Password' || rows[0][5] !== 'Role') {
+                        errorMessage.textContent = 'Excel file wrong format. The file must only have 6 columns and each column must have header as this format: Fullname, Phone, Email, Username, Password, Role. Please fix and upload again.';
                         input.value = '';
                         return;
                     }
@@ -84,7 +85,7 @@
                     
                     rows.forEach((cell, index) => {
                         if (index > 0) { // Skip the header row
-                            const rowHasErrors = loadTable(cell[0], cell[1], cell[2], cell[3], cell[4]);
+                            const rowHasErrors = loadTable(cell[0], cell[1], cell[2], cell[3], cell[4], cell[5]);
                             if (rowHasErrors) {
                                 hasErrors = true;
                             }
@@ -101,7 +102,7 @@
                 });
             }
 
-            function loadTable(fullname, phone, email, username, password) {
+            function loadTable(fullname, phone, email, username, password, role) {
                 let tablebody = document.getElementById('tablebody');
                 let tr = document.createElement('tr');
                 let rowHasErrors = false; // Flag to track errors in this row
@@ -156,6 +157,16 @@
                     tdPassword.className = 'password';
                 }
 
+                let tdRole = document.createElement('td');
+                tdRole.innerHTML = role;
+                if (!role || !/^(Ticket_Checked|Ticket_Seller)$/.test(role)) {
+                    tdRole.className = 'role text-danger';
+                    tdRole.title = 'Role must be either "Ticket_Checked" or "Ticket_Seller"';
+                    rowHasErrors = true;
+                } else {
+                    tdRole.className = 'role';
+                }
+
                 let tdAction = document.createElement('td');
                 let deleteBtn = document.createElement('button');
                 deleteBtn.addEventListener('click', function () {
@@ -179,16 +190,17 @@
                 tr.appendChild(tdEmail);
                 tr.appendChild(tdUsername);
                 tr.appendChild(tdPassword);
+                tr.appendChild(tdRole);
                 tr.appendChild(tdAction);
                 tablebody.appendChild(tr);
 
                 // Check existence in database
-                checkExistence(tr, username, phone, email, tdFullname, tdPhone, tdEmail, tdUsername);
+                checkExistence(tr, username, phone, email, tdFullname, tdPhone, tdEmail, tdUsername, tdRole);
                 
                 return rowHasErrors; // Return whether this row has errors
             }
 
-            function checkExistence(row, username, phone, email, fullnameTd, phoneTd, emailTd, usernameTd) {
+            function checkExistence(row, username, phone, email, fullnameTd, phoneTd, emailTd, usernameTd, roleTd) {
                 $.ajax({
                     url: 'checkExistence',
                     type: 'POST',
@@ -245,6 +257,7 @@
                 let email = tds[2].innerText;
                 let username = tds[3].innerText;
                 let password = tds[4].innerText;
+                let role = tds[5].innerText;
 
                 $.ajax({
                     url: 'addexcel',
@@ -255,7 +268,8 @@
                         phone: phone,
                         email: email,
                         username: username,
-                        password: password
+                        password: password,
+                        role: role
                     }),
                     success: function (data) {
                         console.log(data);

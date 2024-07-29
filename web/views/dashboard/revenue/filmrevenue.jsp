@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +27,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/theme.bundle.css" />
-        
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/./assets/css/libs.bundle.css" />
@@ -85,9 +86,15 @@
         </style>
     </head>
     <body>
+        <%
+            Account as = (Account) session.getAttribute("user");
+            int theaterID = as.getTheaterID();
+            int roleID = as.getRole_id();
+            if(roleID == 1){
+        %>
         <div class="sidebar">
             <h3 class="text-center text-logo">
-                <a class="nav-link active" href="../dashboard">
+                <a class="nav-link active" href="/CineBooking/dashboard">
                     <i class="fas fa-film"></i> Admin Dashboard
                 </a>
             </h3>
@@ -108,13 +115,33 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
+                        <i class="fas fa-users"></i> Manage Users
+                    </a>
+                </li>
+                <li　class="nav-item">
+                    <a class="dropdown-item" href="/CineBooking/logout">
+                        <i class="fas fa-users"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <%} else if(roleID == 2){%>
+        <div class="sidebar">
+            <h3 class="text-center text-logo">
+                <a class="nav-link active" href="/CineBooking/movie">
+                    <i class="fas fa-film"></i> Manager
+                </a>
+            </h3>
+            <ul class="nav flex-column">
+                <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/movie">
                         <i class="fas fa-video"></i> Manage Film
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
-                        <i class="fas fa-users"></i> Manage Users
+                        <i class="fas fa-users"></i> Manage Staffs
                     </a>
                 </li>
                 <li class="nav-item">
@@ -127,10 +154,16 @@
                         <i class="fa-solid fa-clock"></i> Manage Showtime
                     </a>
                 </li>
+                <li　class="nav-item">
+                    <a class="dropdown-item" href="/CineBooking/logout">
+                        <i class="fas fa-users"></i> Logout
+                    </a>
+                </li>
             </ul>
         </div>
-            <section class="container-fluid">
-                <form method="get" action="${pageContext.request.contextPath}/revenue/film">
+        <%}%>
+        <section class="container-fluid">
+            <form method="get" action="${pageContext.request.contextPath}/revenue/film">
                 <div class="row align-items-center g-4">
                     <div class="col-6 col-md-3">
                         <label for="startDate" class="form-label">Start Date</label>

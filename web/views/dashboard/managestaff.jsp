@@ -25,23 +25,21 @@
                         <div class="card-header justify-content-between align-items-center d-flex">
                             <h6 class="card-title m-0">User List</h6>
                             <!-- Search by Username and Role -->
-                            <form id="filterForm" class="d-flex" action="/CineBooking/searchAccountAdmin">
+                            <form id="filterForm" class="d-flex" action="/CineBooking/searchAccountStaff">
                                 <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Name" style="width: 200px;">
                                 <button class="btn px-2 btn-primary py-0" type="submit"><i class="fas fa-search"></i></button>
                                 <select name="role" class="form-control form-control-sm mx-3" style="width: 150px;" onchange="submitForm()">
                                     <option value="">All Roles</option>
-                                    <option value="1" <%= "1".equals(request.getParameter("role")) ? "selected" : "" %>>Admin</option>
                                     <option value="2" <%= "2".equals(request.getParameter("role")) ? "selected" : "" %>>Manager</option>
                                     <option value="3" <%= "3".equals(request.getParameter("role")) ? "selected" : "" %>>Ticket_Checked</option>
-                                    <option value="4" <%= "4".equals(request.getParameter("role")) ? "selected" : "" %>>Customer</option>
                                     <option value="5" <%= "5".equals(request.getParameter("role")) ? "selected" : "" %>>Ticket_Seller</option>
                                 </select>
-                                <select name="theater" class="form-control form-control-sm mx-3" style="width: 150px;" onchange="submitForm()">
-                                    <option value="">All Theaters</option>
-                                    <option value="1" <%= "1".equals(request.getParameter("theater")) ? "selected" : "" %>>Lotte</option>
-                                    <option value="2" <%= "2".equals(request.getParameter("theater")) ? "selected" : "" %>>CGV</option>
-                                </select>
                         </form>
+                        <!-- Add User -->
+                        <div>
+                            <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/adduser.jsp"><i class="ri-add-circle-line align-bottom"></i> Add Staff</a>
+                            <a class="btn btn-sm btn-success" href="/CineBooking/views/dashboard/addExcel.jsp"><i class="ri-add-circle-line align-bottom"></i> Add By Excel</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" style="max-height: 720px">
@@ -52,7 +50,6 @@
                                         <th>Fullname</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Theater</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -60,9 +57,11 @@
                                     <%
                                         String searchQuery = request.getParameter("query");
                                         String roleFilter = request.getParameter("role");
-                                        String theaterFilter = request.getParameter("theater");
+                                        String theaterFilter = request.getParameter("");
                                         Vector<Account> list;
                                         AccountDAO ad = new AccountDAO();
+                                        Account as = (Account) session.getAttribute("user");
+                                        int theaterID = as.getTheaterID();
             
                                         list = ad.searchAccounts(searchQuery, roleFilter, theaterFilter);
             
@@ -70,7 +69,8 @@
 
                                             for (int i = list.size() - 1; i >= 0; i--) {
                                                 Account a = list.get(i);
-
+                                                if(a.getTheaterID() == theaterID){
+                                                    if(a.getRole_id() == 2 || a.getRole_id() == 3 || a.getRole_id() == 5){
                                     %>
                                     <tr>
                                         <td><%= a.getAccount_id() %></td>
@@ -95,27 +95,14 @@
                                             <%= roleName %>
                                         </td>
                                         <td>
-                                            <% 
-                                                int theaterId = a.getTheaterID();
-                                                String theaterName = "";
-                                                if (theaterId == 1) {
-                                                    theaterName = "Lotte";
-                                                } else if (theaterId == 2) {
-                                                    theaterName = "CGV";
-                                                } 
-                                            %>
-                                            <%= theaterName %>
-                                        </td>
-                                        <td>
                                             <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/userdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>
-                                            <% if (roleId == 4) {%>
-                                            <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/OrderDetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Order</a>
-                                            <%}%>
                                         </td>
                                     </tr>
                                     <%
+                                                    }
+                                                }
                                             }
-                                        }
+                                        }   
                                     %>
                                 </tbody>
                             </table>
