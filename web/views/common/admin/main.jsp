@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,10 +65,17 @@
     </head>
 
     <body>
+        <%
+            Account as = (Account) session.getAttribute("user");
+            int theaterID = as.getTheaterID();
+            int roleID = as.getRole_id();
+            if(roleID == 1){
+        %>
+
         <div class="sidebar">
             <h3 class="text-center text-logo">
                 <a class="nav-link active" href="/CineBooking/dashboard">
-                <i class="fas fa-film"></i> Admin Dashboard
+                    <i class="fas fa-film"></i> Admin Dashboard
                 </a>
             </h3>
             <ul class="nav flex-column">
@@ -87,13 +95,33 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
+                        <i class="fas fa-users"></i> Manage Users
+                    </a>
+                </li>
+                <li　class="nav-item">
+                    <a class="dropdown-item" href="/CineBooking/logout">
+                        <i class="fas fa-users"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <%} else if(roleID == 2){%>
+        <div class="sidebar">
+            <h3 class="text-center text-logo">
+                <a class="nav-link active" href="/CineBooking/movie">
+                    <i class="fas fa-film"></i> Manager
+                </a>
+            </h3>
+            <ul class="nav flex-column">
+                <li class="nav-item">
                     <a class="nav-link" href="/CineBooking/movie">
                         <i class="fas fa-video"></i> Manage Film
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
-                        <i class="fas fa-users"></i> Manage Users
+                    <a class="nav-link" href="/CineBooking/views/dashboard/managestaff.jsp">
+                        <i class="fas fa-users"></i> Manage Staffs
                     </a>
                 </li>
                 <li class="nav-item">
@@ -106,19 +134,25 @@
                         <i class="fa-solid fa-clock"></i> Manage Showtime
                     </a>
                 </li>
+                <li　class="nav-item">
+                    <a class="dropdown-item" href="/CineBooking/logout">
+                        <i class="fas fa-users"></i> Logout
+                    </a>
+                </li>
             </ul>
         </div>
+        <%}%>
 
         <!-- Bootstrap JS and dependencies -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 // Function to set active link based on current URL
                 function setActiveLink() {
                     var currentPath = window.location.pathname;
-                    $('.nav-link').each(function() {
+                    $('.nav-link').each(function () {
                         if (this.pathname === currentPath) {
                             $('.nav-link').removeClass('active');
                             $(this).addClass('active');
@@ -130,7 +164,7 @@
                 setActiveLink();
 
                 // Set active link on click
-                $('.nav-link').on('click', function() {
+                $('.nav-link').on('click', function () {
                     $('.nav-link').removeClass('active');
                     $(this).addClass('active');
                 });

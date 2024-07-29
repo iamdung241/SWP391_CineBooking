@@ -26,7 +26,6 @@ public class AccountDAO extends DBContext {
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ?";
         try {
             // Mã hóa mật khẩu bằng MD5
-
             //String hashedPassword = md5(inputPassword);
             String hashedPassword = inputPassword;
             stm = connection.prepareStatement(sql);
@@ -44,6 +43,7 @@ public class AccountDAO extends DBContext {
                 u.setUsername(rs.getString("username"));
                 u.setPassword(rs.getString("password"));
                 u.setRole_id(rs.getInt("role_id"));
+                u.setTheaterID(rs.getInt("theaterID"));
 
                 System.out.println(u);
                 return u;
@@ -121,8 +121,9 @@ public class AccountDAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                int theaterID = rs.getInt("theaterID");
 
-                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id, theaterID);
                 account.add(u);
             }
             return account;
@@ -142,9 +143,10 @@ public class AccountDAO extends DBContext {
                 + "           ,[email]\n"
                 + "           ,[username]\n"
                 + "           ,[password]\n"
-                + "           ,[role_id])\n"
+                + "           ,[role_id]\n"
+                + "           ,[theaterID])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?)";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, account.getFullname());
@@ -154,7 +156,8 @@ public class AccountDAO extends DBContext {
             // Mã hóa mật khẩu bằng MD5
             stm.setString(5, md5(account.getPassword()));
             stm.setInt(6, account.getRole_id());
-            stm.executeUpdate();
+            stm.setInt(7, account.getTheaterID());
+            stm.executeQuery();
 
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -179,9 +182,10 @@ public class AccountDAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                int theaterID = rs.getInt("theaterID");
 
                 // Create an Account object and return it
-                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id, theaterID);
                 return u;
             }
         } catch (SQLException ex) {
@@ -259,7 +263,7 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public Vector<Account> searchAccounts(String name, String roleFilter) {
+    public Vector<Account> searchAccounts(String name, String roleFilter, String theaterFilter) {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<Account> accounts = new Vector<>();
@@ -270,6 +274,9 @@ public class AccountDAO extends DBContext {
         }
         if (roleFilter != null && !roleFilter.isEmpty()) {
             sql.append(" AND role_id = ?");
+        }
+        if (theaterFilter != null && !theaterFilter.isEmpty()) {
+            sql.append(" AND theaterID = ?");
         }
 
         try {
@@ -282,6 +289,9 @@ public class AccountDAO extends DBContext {
             if (roleFilter != null && !roleFilter.isEmpty()) {
                 stm.setInt(paramIndex++, Integer.parseInt(roleFilter));
             }
+            if (theaterFilter != null && !theaterFilter.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(theaterFilter));
+            }
 
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -292,7 +302,8 @@ public class AccountDAO extends DBContext {
                 String usernameDB = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
-                Account u = new Account(account_id, fullname, phone, email, usernameDB, password, role_id);
+                int theaterID = rs.getInt("theaterID");
+                Account u = new Account(account_id, fullname, phone, email, usernameDB, password, role_id, theaterID);
                 accounts.add(u);
             }
         } catch (SQLException ex) {
@@ -392,9 +403,10 @@ public class AccountDAO extends DBContext {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 int role_id = rs.getInt("role_id");
+                int theaterID = rs.getInt("theaterID");
 
                 // Create an Account object and return it
-                Account u = new Account(account_id, fullname, phone, email, username, password, role_id);
+                Account u = new Account(account_id, fullname, phone, email, username, password, role_id, theaterID);
                 return u;
             }
         } catch (SQLException ex) {
@@ -584,7 +596,7 @@ public class AccountDAO extends DBContext {
 
     public void insertUserFromGoogle(Account account) {
         PreparedStatement stm = null;
-        String sql = "INSERT INTO [dbo].[Account] ([fullname], [phone], [email], [username], [password], [role_id]) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO [dbo].[Account] ([fullname], [phone], [email], [username], [password], [role_id], [theaterID]) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, account.getFullname());
@@ -593,6 +605,7 @@ public class AccountDAO extends DBContext {
             stm.setString(4, account.getUsername());
             stm.setString(5, ""); // Đặt mật khẩu trống cho tài khoản Google
             stm.setInt(6, account.getRole_id());
+            stm.setInt(7, account.getTheaterID());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);

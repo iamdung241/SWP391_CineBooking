@@ -44,7 +44,7 @@ public class RegisterController extends HttpServlet {
 
         // Proceed with registration if validation passes
         AccountDAO dao = new AccountDAO();
-        Account newUser = new Account(fullname, phone, email, username, password, 3);
+        Account newUser = new Account(fullname, phone, email, username, password, 4, 1);
         dao.insertUser(newUser);
 
         // Set success message and forward to register.jsp

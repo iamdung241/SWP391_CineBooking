@@ -51,14 +51,20 @@ public class LoginGoogle extends HttpServlet {
             response.sendRedirect(returnUrl);
         } else {
             switch (account.getRole_id()) {
-                case 3:
+                case 4:
                     response.sendRedirect("home");
                     break;
                 case 1:
                     response.sendRedirect("dashboard");
                     break;
-                case 2:
+                case 3:
                     response.sendRedirect("scanticket");
+                    break;
+                case 5:
+                    response.sendRedirect("sellticket");
+                    break;
+                case 2:
+                    response.sendRedirect("/CineBooking/movie");
                     break;
                 default:
                     break;
