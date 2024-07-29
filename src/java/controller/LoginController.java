@@ -45,14 +45,8 @@ public class LoginController extends HttpServlet {
             if (returnUrl != null && !returnUrl.isEmpty()) {
                 resp.sendRedirect(returnUrl);
             } else if (user.getRole_id() == 4) {
-                // Customer role
                 resp.sendRedirect("home");
-            } else if (user.getRole_id() == 1) {
-                // Admin role
-                resp.sendRedirect("dashboard");
-            } else if(user.getRole_id() == 2) {
-                resp.sendRedirect("scanticket");
             }
-        }    
+        }
     }
 }

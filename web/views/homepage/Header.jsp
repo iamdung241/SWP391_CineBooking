@@ -68,7 +68,7 @@
                                 <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/concession">Concession</a>
                             </li>
                             <li class="nav-item">
-                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/showtiming">Theater</a>
+                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/theater">Theater</a>
                             </li>
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">
