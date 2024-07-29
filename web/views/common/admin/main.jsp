@@ -66,9 +66,9 @@
 
     <body>
         <%
-            Account a = (Account) session.getAttribute("user");
-            int theaterID = a.getTheaterID();
-            int roleID = a.getRole_id();
+            Account as = (Account) session.getAttribute("user");
+            int theaterID = as.getTheaterID();
+            int roleID = as.getRole_id();
             if(roleID == 1){
         %>
 
@@ -120,7 +120,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/CineBooking/views/dashboard/manageuser.jsp">
+                    <a class="nav-link" href="/CineBooking/views/dashboard/managestaff.jsp">
                         <i class="fas fa-users"></i> Manage Staffs
                     </a>
                 </li>

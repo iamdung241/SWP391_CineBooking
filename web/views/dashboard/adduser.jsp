@@ -63,6 +63,18 @@
                     return true;
                 }
             }
+            
+            function validateSelection() {
+                let role = document.forms["addUserForm"]["role"].value;
+                let typeErr = document.getElementById("errorRole");
+                if (role === "") {
+                    typeErr.textContent = "Please choose a staff position.";
+                    return false;
+                } else {
+                    typeErr.textContent = "";
+                    return true;
+                }
+            }
 
             function validateFullname() {
                 let fullname = document.forms["addUserForm"]["fullname"].value;
@@ -109,6 +121,7 @@
                 if (!validateFullname()) isValid = false;
                 if (!validatePhone()) isValid = false;
                 if (!validateEmail()) isValid = false;
+                if (!validateSelection()) isValid = false;
 
                 return isValid;
             }
@@ -137,10 +150,15 @@
                     <div class="card-body">
                         <div class="card-header justify-content-between align-items-center d-flex">
                             <h6 class="card-title m-0">Add Staff</h6>
-                            <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="fas fa-arrow-left me-1"></i> Back</a>
+                            <a class="btn btn-sm btn-primary" href="managestaff.jsp"><i class="fas fa-arrow-left me-1"></i> Back</a>
                         </div>
                         <form name="addUserForm" class="mt-4" action="adduser" method="post" onsubmit="return validateForm()">
                             <table class="table">
+                                <%
+                                    Account as = (Account) session.getAttribute("user");
+                                    int theaterID = as.getTheaterID();
+                                %>
+                                <input type="hidden" name="theaterID" value=<%= theaterID %>>
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Username: </label></td>
                                     <td>
@@ -168,6 +186,18 @@
                                         <p id="errorRePassword" class="error-message"></p>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="font-weight: bolder"><label class="form-label">Position: </label></td>
+                                    <td>
+                                        <select id="role" name="role" class="form-control text-center" style="width: auto;" onchange="validateSelection()">
+                                            <option value="">Choose Staff's Position</option>
+                                            <option value="3">Ticket_Checked</option>
+                                            <option value="5">Ticket_Seller</option>
+                                        </select>
+                                        <p id="errorRole" class="error-message"></p>
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <td style="font-weight: bolder"><label class="form-label">Fullname: </label></td>
                                     <td>
