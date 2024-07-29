@@ -108,7 +108,7 @@ public class AccountDAO extends DBContext {
                 + "           ,[email]\n"
                 + "           ,[username]\n"
                 + "           ,[password]\n"
-                + "           ,[role_id])\n"
+                + "           ,[role_id]\n"
                 + "           ,[theaterID])\n"
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?,?)";
@@ -122,7 +122,7 @@ public class AccountDAO extends DBContext {
             stm.setString(5, md5(account.getPassword()));
             stm.setInt(6, account.getRole_id());
             stm.setInt(7, account.getTheaterID());
-            stm.executeUpdate();
+            stm.executeQuery();
 
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,7 +228,7 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public Vector<Account> searchAccounts(String name, String roleFilter) {
+    public Vector<Account> searchAccounts(String name, String roleFilter, String theaterFilter) {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<Account> accounts = new Vector<>();
@@ -240,6 +240,9 @@ public class AccountDAO extends DBContext {
         if (roleFilter != null && !roleFilter.isEmpty()) {
             sql.append(" AND role_id = ?");
         }
+        if (theaterFilter != null && !theaterFilter.isEmpty()) {
+            sql.append(" AND theaterID = ?");
+        }
 
         try {
             stm = connection.prepareStatement(sql.toString());
@@ -250,6 +253,9 @@ public class AccountDAO extends DBContext {
             }
             if (roleFilter != null && !roleFilter.isEmpty()) {
                 stm.setInt(paramIndex++, Integer.parseInt(roleFilter));
+            }
+            if (theaterFilter != null && !theaterFilter.isEmpty()) {
+                stm.setInt(paramIndex++, Integer.parseInt(theaterFilter));
             }
 
             rs = stm.executeQuery();

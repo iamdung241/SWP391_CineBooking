@@ -1,7 +1,7 @@
-    <%-- 
-    Document   : userdetail
-    Created on : 6 thg 7, 2024, 03:51:47
-    Author     : tranh
+<%-- 
+Document   : userdetail
+Created on : 6 thg 7, 2024, 03:51:47
+Author     : tranh
 --%>
 <%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,16 +13,16 @@
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
-        <section class="container-fluid">
-            <!-- Content-->
-            <div class="col-12">
-                <div class="card mb-4 h-100">
-                    <div class="card-body">
-                        <div class="card-header justify-content-between align-items-center d-flex">
-                            <h6 class="card-title m-0">User Detail</h6>
-                            <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="align-bottom"></i>Back</a>
-                        </div>
-                        <div class="container">
+            <section class="container-fluid">
+                <!-- Content-->
+                <div class="col-12">
+                    <div class="card mb-4 h-100">
+                        <div class="card-body">
+                            <div class="card-header justify-content-between align-items-center d-flex">
+                                <h6 class="card-title m-0">User Detail</h6>
+                                <a class="btn btn-sm btn-primary" href="manageuser.jsp"><i class="align-bottom"></i>Back</a>
+                            </div>
+                            <div class="container">
 
                             <%
                                 // Retrieve the account ID from the request parameter
@@ -63,23 +63,40 @@
                                     <td style="font-weight: bolder"><label>Role: </label></td>
                                     <td>
                                         <%
-                                            // Determine the role name based on the role ID
-                                            int roleId = account.getRole_id();
-                                            String roleName = "";
-                                            if (roleId == 2) {
-                                                roleName = "Staff";
-                                            } else if (roleId == 3) {
-                                                roleName = "Customer";
-                                            } else if (roleId == 1) {
-                                                roleName = "Admin";
-                                            }
+                                                int roleId = account.getRole_id();
+                                                String roleName = "";
+                                                if (roleId == 1) {
+                                                    roleName = "Admin";
+                                                } else if (roleId == 2) {
+                                                    roleName = "Manager";
+                                                } else if (roleId == 3) {
+                                                    roleName = "Ticket_Checked";
+                                                } else if (roleId == 4) {
+                                                    roleName = "Customer";
+                                                } else if (roleId == 5) {
+                                                    roleName = "Ticket_Seller";
+                                                }
                                         %>
-                                        <%%>
-                                        <!-- Display role name if the role is Admin -->
                                         <%= roleName %>
-                                        <%%>
                                     </td>
                                 </tr>
+                                <% if (roleId == 2 || roleId == 3 || roleId == 5) { %>
+                                <tr>
+                                    <td style="font-weight: bolder"><label>Theater: </label></td>
+                                    <td>
+                                        <% 
+                                                int theaterId = account.getTheaterID();
+                                                String theaterName = "";
+                                                if (theaterId == 1) {
+                                                    theaterName = "Lotte";
+                                                } else if (theaterId == 2) {
+                                                    theaterName = "CGV";
+                                                } 
+                                        %>
+                                        <%= theaterName %>
+                                    </td>
+                                </tr>
+                                <%}%>
                             </table>
                             <%}%>      
 

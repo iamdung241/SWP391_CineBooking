@@ -87,12 +87,11 @@
     </head>
     <body>
         <%
-            Account a = (Account) session.getAttribute("user");
-            int theaterID = a.getTheaterID();
-            int roleID = a.getRole_id();
+            Account as = (Account) session.getAttribute("user");
+            int theaterID = as.getTheaterID();
+            int roleID = as.getRole_id();
             if(roleID == 1){
         %>
-
         <div class="sidebar">
             <h3 class="text-center text-logo">
                 <a class="nav-link active" href="/CineBooking/dashboard">

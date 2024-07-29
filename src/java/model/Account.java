@@ -37,9 +37,12 @@ public class Account {
         this.role_id = role_id;
         this.theaterID = theaterID;
     }
-    
-    
 
+    @Override
+    public String toString() {
+        return "Account{" + "account_id=" + account_id + ", fullname=" + fullname + ", phone=" + phone + ", email=" + email + ", username=" + username + ", password=" + password + ", role_id=" + role_id + ", theaterID=" + theaterID + '}';
+    }
+    
     public int getAccount_id() {
         return account_id;
     }
