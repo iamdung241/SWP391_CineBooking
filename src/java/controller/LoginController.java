@@ -44,8 +44,26 @@ public class LoginController extends HttpServlet {
             session.setAttribute("user", user);
             if (returnUrl != null && !returnUrl.isEmpty()) {
                 resp.sendRedirect(returnUrl);
-            } else if (user.getRole_id() == 4) {
-                resp.sendRedirect("home");
+            } else {
+                switch (user.getRole_id()) {
+                    case 4:
+                        resp.sendRedirect("home");
+                        break;
+                    case 1:
+                        resp.sendRedirect("dashboard");
+                        break;
+                    case 3:
+                        resp.sendRedirect("scanticket");
+                        break;
+                    case 5:
+                        resp.sendRedirect("sellticket");
+                        break;
+                    case 2:
+                        resp.sendRedirect("/CineBooking/movie");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

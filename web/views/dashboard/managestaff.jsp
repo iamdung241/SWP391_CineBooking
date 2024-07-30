@@ -95,7 +95,7 @@
                                             <%= roleName %>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/userdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>
+                                            <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/staffdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>
                                         </td>
                                     </tr>
                                     <%
