@@ -87,23 +87,6 @@ Author     : tranh
                                         <% } %>
                                     </td>
                                 </tr>
-                                <% if (roleId == 2 || roleId == 3 || roleId == 5) { %>
-                                <tr>
-                                    <td style="font-weight: bolder"><label>Theater: </label></td>
-                                    <td>
-                                        <% 
-                                                int theaterId = account.getTheaterID();
-                                                String theaterName = "";
-                                                if (theaterId == 1) {
-                                                    theaterName = "Lotte";
-                                                } else if (theaterId == 2) {
-                                                    theaterName = "CGV";
-                                                } 
-                                        %>
-                                        <%= theaterName %>
-                                    </td>
-                                </tr>
-                                <%}%>
                             </table>
                             <%}%>      
 
