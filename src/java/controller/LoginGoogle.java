@@ -61,7 +61,7 @@ public class LoginGoogle extends HttpServlet {
                     response.sendRedirect("scanticket");
                     break;
                 case 5:
-                    response.sendRedirect("sellticket");
+                    response.sendRedirect("ticketSeller");
                     break;
                 case 2:
                     response.sendRedirect("/CineBooking/movie");

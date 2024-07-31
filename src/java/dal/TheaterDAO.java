@@ -10,6 +10,10 @@ import model.Theater;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Account;
 import model.Movie;
 import model.Showtiming;
 
@@ -110,6 +114,75 @@ public class TheaterDAO extends DBContext {
         }
 
         return theaterList;
+
+    public Vector<Theater> getAllTheaters() {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Vector<Theater> theaters = new Vector<>();
+
+        try {
+            String sql = "SELECT * FROM Theater";
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                Theater theater = new Theater(id, name);
+                theaters.add(theater);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return theaters;
+    }
+
+    public Vector<Theater> searchTheatersByManagerName(String managerName) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Vector<Theater> theaters = new Vector<>();
+
+        try {
+            String sql = "SELECT t.* FROM Theater t "
+                    + "JOIN Account a ON t.id = a.theaterID "
+                    + "WHERE a.fullname LIKE ? AND a.role_id = 2";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, "%" + managerName + "%");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                Theater theater = new Theater(id, name);
+                theaters.add(theater);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return theaters;
+
     }
 
     public static void main(String[] args) {
