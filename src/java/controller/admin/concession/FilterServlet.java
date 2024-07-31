@@ -70,14 +70,6 @@ public class FilterServlet extends HttpServlet {
                         listConcession = dao.findByKeywordOrderedByPriceAdmin(keyword, false, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByKeyword(keyword);
                         break;
-                    case "quantityAsc":
-                        listConcession = dao.findByKeywordOrderedByQuantityAdmin(keyword, true, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByKeyword(keyword);
-                        break;
-                    case "quantityDesc":
-                        listConcession = dao.findByKeywordOrderedByQuantityAdmin(keyword, false, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByKeyword(keyword);
-                        break;
                     default:
                         listConcession = dao.findByKeywordAdmin(keyword, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByKeyword(keyword);
@@ -96,14 +88,6 @@ public class FilterServlet extends HttpServlet {
                     case "priceDesc":
                         listConcession = dao.getConcessionsOrderedByPriceAdmin(false, page, CommonConst.RECORD_PER_PAGE);
                         totalRecords = dao.getTotalRecordsByPriceAdmin(false);
-                        break;
-                    case "quantityAsc":
-                        listConcession = dao.getConcessionsOrderedByQuantityy(true, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByQuantityAdmin(true);
-                        break;
-                    case "quantityDesc":
-                        listConcession = dao.getConcessionsOrderedByQuantityy(false, page, CommonConst.RECORD_PER_PAGE);
-                        totalRecords = dao.getTotalRecordsByQuantityAdmin(false);
                         break;
                     default:
                         listConcession = dao.getAllConcessionsAdmin(page, CommonConst.RECORD_PER_PAGE);
