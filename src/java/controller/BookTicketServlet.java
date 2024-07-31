@@ -111,7 +111,7 @@ public class BookTicketServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             e.getMessage();
         } catch (ParseException ex) {
-           ex.getMessage();
+            ex.getMessage();
         }
         String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
 

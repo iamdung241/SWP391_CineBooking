@@ -74,6 +74,53 @@
             hr {
                 background-color: #000;
             }
+
+            .card {
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                background-color: #f8f9fa;
+                width: 50%; /* Đảm bảo container đủ rộng để chứa các mục */
+                margin: 20px auto;
+                padding: 20px;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #343a40;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .list-group {
+                display: flex;
+                flex-wrap: wrap; /* Cho phép các mục bọc qua dòng mới */
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .list-group-item {
+                background-color: transparent;
+                padding: 10px; /* Giảm padding để giảm kích thước mục */
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                text-decoration: none;
+                color: #000;
+                flex: 1 0 calc(25% - 10px); /* 4 mục mỗi hàng với khoảng cách giữa các mục */
+                box-sizing: border-box;
+                text-align: center;
+                border-radius: 5px;
+                margin: 5px; /* Khoảng cách giữa các mục */
+                font-size: 0.9rem; /* Giảm kích thước font chữ */
+            }
+
+            .list-group-item:hover {
+                background-color: red;
+                color: #fff;
+            }
+
         </style>
     </head>
     <body>
@@ -82,16 +129,19 @@
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
             </div>
-            <div >
+                
+        <jsp:include page="/views/homepage/TheaterList.jsp"></jsp:include>
+        <h3 style="color: red; margin-left: 400px; font-size: 30px; font-style: italic">You must choose Theater before choose date</h3>
+            <div style="margin-left: 100px">
                 <a class="boxes" id="dateContainer">
                 </a>
                 <hr style="background-color: #000;"/>
             </div>
+            
 
-
-            <section style="padding-top: 50px" id="exep" class="p_3 ">
-                <div class="container-xl detail">
-                    <div class="row exep1">
+        <section style="padding-top: 50px" id="exep" class="p_3 ">
+            <div class="container-xl detail">
+                <div class="row exep1">
                     <c:forEach items="${listAllMovie}" var="m">
                         <div class="col-3">
                             <div class="exep1l">
@@ -109,10 +159,7 @@
                             </div> 
                             <hr/>
                             <div class="container mt-4">
-                                 <c:choose>
-                                    <c:when test="${empty selectedDate}">
-                                        <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
-                                    </c:when>
+                                <c:choose>
                                     <c:when test="${not empty selectedDate}">
                                         <c:forEach items="${m.listTheater}" var="l">
                                             <div>

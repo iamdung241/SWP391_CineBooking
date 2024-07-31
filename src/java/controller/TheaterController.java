@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller.theater;
+package controller;
 
 import dal.MovieDAO;
 import dal.RoomDAO;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -63,6 +64,11 @@ public class TheaterController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("theaterID", theaterId);
             filteredMovies = (new MovieDAO()).getMovieByTheater(theaterId);
+            if (selectedDate == null || selectedDate.isEmpty()) {
+                // Set selectedDate to today's date
+                LocalDate today = LocalDate.now();
+                selectedDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            }
             if (selectedDate != null) {
                 filteredMovies = new MovieDAO().getMovieByTheater_Date(theaterId, selectedDate);
             }

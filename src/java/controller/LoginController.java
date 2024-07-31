@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
                         resp.sendRedirect("scanticket");
                         break;
                     case 5:
-                        resp.sendRedirect("sellticket");
+                        resp.sendRedirect("ticketSeller");
                         break;
                     case 2:
                         resp.sendRedirect("/CineBooking/movie");

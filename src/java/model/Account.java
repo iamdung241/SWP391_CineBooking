@@ -63,15 +63,15 @@ public class Account {
 //        this.theaterID = theaterID;
 //    }
 
-    public Account(String fullname, String phone, String email, String username, String password, int role_id, int theaterID) {
-        this.fullname = fullname;
-        this.phone = phone;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.role_id = role_id;
-        this.theaterID = theaterID;
-    }
+//    public Account(String fullname, String phone, String email, String username, String password, int role_id, int theaterID) {
+//        this.fullname = fullname;
+//        this.phone = phone;
+//        this.email = email;
+//        this.username = username;
+//        this.password = password;
+//        this.role_id = role_id;
+//        this.theaterID = theaterID;
+//    }
 
     @Override
     public String toString() {

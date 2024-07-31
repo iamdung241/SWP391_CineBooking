@@ -82,16 +82,18 @@
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
                 </div>
             </div>
-            <div >
+            <div style="margin-left: 100px">
                 <a class="boxes" id="dateContainer">
                 </a>
                 <hr style="background-color: #000;"/>
             </div>
 
+            <h3 style="color: red; margin-left: 500px; font-size: 50px">${theater.name}</h3>    
 
-            <section style="padding-top: 50px" id="exep" class="p_3 ">
-                <div class="container-xl detail">
-                    <div class="row exep1">
+
+        <section style="padding-top: 50px" id="exep" class="p_3 ">
+            <div class="container-xl detail">
+                <div class="row exep1">
                     <c:forEach items="${listMovieTheater}" var="m">
                         <div class="col-3">
                             <div class="exep1l">
@@ -110,9 +112,10 @@
                             <hr/>
                             <div class="container mt-4">
                                 <c:choose>
-                                    <c:when test="${empty selectedDate}">
+                                    <c:when test="${empty m}">
                                         <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
                                     </c:when>
+
                                     <c:otherwise>
                                         <!-- Display showtimes if a date is selected -->
                                         <c:forEach items="${m.getListShowtime()}" var="s">

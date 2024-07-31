@@ -92,7 +92,7 @@ public class paymentReturn extends HttpServlet {
         String signValue = Config.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                rs = "Thành công";
+                rs = "Congratulation! Your ticket is order successfully.";
                 HttpSession session = request.getSession();
                 Account user = (Account) session.getAttribute("user");
                 Showtiming show = new ShowtimingDAO().getShowtimingByShowtimeID(Integer.parseInt((String) session.getAttribute("showtime")));
