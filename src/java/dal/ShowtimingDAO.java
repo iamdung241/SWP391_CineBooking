@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Movie;
 import model.Showtiming;
 
@@ -213,11 +215,49 @@ public class ShowtimingDAO extends DBContext {
         }
     }
 
+    public List<Showtiming> getRoomAndShowtime(int movieID, String date, int theaterID) {
+        List<Showtiming> listShowtime = new ArrayList();
+        String sql = "SELECT t.id,t.name, s.showtime, r.room_id, r.room_name\n"
+                + "FROM Showtime s\n"
+                + "JOIN Theater t ON s.theaterID = t.id \n"
+                + "JOIN Room r on r.room_id = s.room_id\n"
+                + "WHERE s.movie_id = ?\n"
+                + "  AND CAST(s.date AS DATE) = ?\n"
+                + "  and s.theaterID = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, movieID);
+            stm.setString(2, date);
+            stm.setInt(3, theaterID);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String showtime = rs.getString("showtime");
+                int room_id = rs.getInt("room_id");
+                String room_name = rs.getString("room_name");
+
+                Showtiming show = new Showtiming(showtime, room_id, room_name, theaterID, room_name);
+
+                //Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status, listShowtime, theaterIDx, theaterName);
+                listShowtime.add(show);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ShowtimingDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listShowtime;
+    }
+
     public static void main(String[] args) {
         //Showtiming s = new Showtiming("22", 3, "2024-07-16", 7);
-        Showtiming s = (new ShowtimingDAO()).getShowtimingByShowtimeID(5);
-        System.out.println(s.toString());
-
+        //Showtiming s = (new ShowtimingDAO()).getRoomAndShowtime(17, "2024-08-01", 4);
+        //System.out.println(s.toString());
+        List<Showtiming> s = new ShowtimingDAO().getRoomAndShowtime(2, "2024-08-01", 7);
+        for (Showtiming showtiming : s) {
+            System.out.println(showtiming.getRoom_name());
+        }
     }
 
 }

@@ -7,6 +7,7 @@ package controller;
 import dal.MovieDAO;
 import dal.RoomDAO;
 import dal.ShowtimingDAO;
+import dal.TheaterDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 import model.Movie;
 import model.Room;
 import model.Showtiming;
+import model.Theater;
 
 /**
  *
@@ -74,9 +76,20 @@ public class BookTicketServlet extends HttpServlet {
         RoomDAO rdao = new RoomDAO();
         String movieID = request.getParameter("movieID");
         String selectedDate = request.getParameter("date");
+        String theaterId = request.getParameter("theaterID");
+        //int theaterID = Integer.parseInt(theaterId);
+
         if (selectedDate == null) {
             selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }
+
+        List<Theater> theaterList = new TheaterDAO().getTheaterByAll(Integer.parseInt(movieID), selectedDate);
+        request.setAttribute("theaterList", theaterList);
+        
+//        List<Showtiming> showList = new ShowtimingDAO().getRoomAndShowtime(Integer.parseInt(movieID),
+//                selectedDate, theaterID);
+//        request.setAttribute("showList", showList);
+
         List<Showtiming> filteredShowtimes = new ArrayList<>();
         try {
             int idMovie = Integer.parseInt(movieID);
@@ -125,6 +138,7 @@ public class BookTicketServlet extends HttpServlet {
         if (queryString != null) {
             Url.append("?").append(queryString);
         }
+
         HttpSession session = request.getSession();
         session.setAttribute("urlbackBooking", Url);
         request.getRequestDispatcher("/views/homepage/BookTicket.jsp").forward(request, response);
