@@ -193,6 +193,10 @@
         <servlet-name>TicketSellerController</servlet-name>
         <servlet-class>controller.TicketSellerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookTheaterController</servlet-name>
+        <servlet-class>controller.BookTheaterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -564,6 +568,10 @@
     <servlet-mapping>
         <servlet-name>TicketSellerController</servlet-name>
         <url-pattern>/ticketSeller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookTheaterController</servlet-name>
+        <url-pattern>/bookTheater</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

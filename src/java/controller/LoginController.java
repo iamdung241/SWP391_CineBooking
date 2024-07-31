@@ -30,6 +30,8 @@ public class LoginController extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String returnUrl = req.getParameter("returnUrl");
+//        String theaterId= req.getParameter("theaterID");
+//        int theaterID = Integer.parseInt("theaterId");
 
         // Attempt to authenticate the user
         Account user = (new AccountDAO()).login(username, password);

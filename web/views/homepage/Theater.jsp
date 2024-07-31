@@ -112,20 +112,17 @@
                             <hr/>
                             <div class="container mt-4">
                                 <c:choose>
-                                    <c:when test="${empty m}">
-                                        <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
-                                    </c:when>
-
                                     <c:otherwise>
                                         <!-- Display showtimes if a date is selected -->
                                         <c:forEach items="${m.getListShowtime()}" var="s">
                                             <div style="padding: 15px">
                                                 <!-- Check if the user is logged in -->
                                                 <c:if test="${sessionScope.user == null}">
-                                                    <a class="showtime" href="login.jsp">
+                                                    <a class="showtime" href="login.jsp?returnUrl=theater?service=search&theaterID=4">
                                                         ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
                                                     </a>
                                                 </c:if>
+
                                                 <c:if test="${sessionScope.user != null}">
                                                     <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${s.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
                                                         ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
