@@ -103,7 +103,10 @@ public class SeatServlet extends HttpServlet {
         if (queryString != null) {
             Url.append("?").append(queryString);
         }
+        
+        
         HttpSession session = request.getSession();
+        int theaterID = (int) session.getAttribute("theaterID");
         session.setAttribute("urlbackSeat", Url);
         System.out.println(Url);
         request.getRequestDispatcher("/views/seat_selection/Seat.jsp").forward(request, response);
