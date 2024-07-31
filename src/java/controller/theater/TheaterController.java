@@ -54,23 +54,18 @@ public class TheaterController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String theaterID = request.getParameter("theaterID");
         String service = request.getParameter("service");
         String selectedDate = request.getParameter("date");
-//        if (selectedDate == null || selectedDate.isEmpty()) {
-//            selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-//        }
+
         List<Movie> filteredMovies = new ArrayList<>();
         if (service.equals("search")) {
-            //List<Movie> listMovieTheater = new ArrayList<>();
-            //listMovieTheater = new ;
             int theaterId = Integer.parseInt(request.getParameter("theaterID"));
+            HttpSession session = request.getSession();
+            session.setAttribute("theaterID", theaterId);
             filteredMovies = (new MovieDAO()).getMovieByTheater(theaterId);
-
             if (selectedDate != null) {
                 filteredMovies = new MovieDAO().getMovieByTheater_Date(theaterId, selectedDate);
             }
-           
             for (Movie movie : filteredMovies) {
                 List<Showtiming> filteredShowtimes = new ArrayList<>();
                 for (Showtiming showtime : movie.getListShowtime()) {
@@ -89,21 +84,17 @@ public class TheaterController extends HttpServlet {
                         }
                     }
                 }
-
                 if (!filteredShowtimes.isEmpty()) {
                     movie.setListShowtime(filteredShowtimes);
                     filteredMovies.add(movie);
                 }
-
             }
-
             Theater theater = (new TheaterDAO()).getTheaterByTheaterID(theaterId);
 
             request.setAttribute("theater", theater);
             request.setAttribute("listMovieTheater", filteredMovies);
             request.setAttribute("selectedDate", selectedDate);
         }
-
         request.getRequestDispatcher("/views/homepage/Theater.jsp").forward(request, response);
     }
 

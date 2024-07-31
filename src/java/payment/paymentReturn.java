@@ -113,7 +113,8 @@ public class paymentReturn extends HttpServlet {
                 for (Seat seat1 : seats) {
                     System.out.println(seat1.toString());
                 }
-                td.AddTicket(newTicket, user.getAccount_id());
+                int theaterID = (int) session.getAttribute("theaterID");
+                td.AddTicket(newTicket, user.getAccount_id(), theaterID);
                 session.setAttribute("ticketCode", newTicket.getCode());
                 Mail m = new Mail();
                 Ticket ti = new TicketDAO().getTicket(code);

@@ -20,7 +20,7 @@ public class DBContext {
     protected Connection connection;
     private final String USERNAME = "sa";
     private final String PASSWORD = "123456";
-    private final String DATABASE = "CineBooking";
+    private final String DATABASE = "test";
 
     public DBContext() {
         try {

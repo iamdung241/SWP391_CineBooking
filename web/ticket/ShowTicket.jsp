@@ -52,17 +52,17 @@
     </head>
     <body>
         <jsp:include page="/views/homepage/./Header.jsp"></jsp:include>
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h4 class="card-title highlight">Ticket Details</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="qr-poster">
-                                <div class="col-md-6">
-                                    <img class="img-fluid" src="${movie.post_img}" alt="Movie Poster"/>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title highlight">Ticket Details</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="qr-poster">
+                                    <div class="col-md-6">
+                                        <img class="img-fluid" src="${movie.post_img}" alt="Movie Poster"/>
                                 </div>
                                 <div class="col-md-6 text-center">
                                     <p class="highlight">QR Code</p>
@@ -72,6 +72,7 @@
                             <hr>
                             <div class="details-row">
                                 <div class="details-col">
+                                    <p><span class="highlight">Theater:</span> ${ticket.theaterName}</p>
                                     <p><span class="highlight">Ticket Code:</span> ${ticket.code}</p>
                                     <p><span class="highlight">Movie:</span> ${movie.movie_name}</p>
                                     <p><span class="highlight">Date:</span> ${show.date}</p>

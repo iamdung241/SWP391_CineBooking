@@ -154,7 +154,7 @@ public class AccountDAO extends DBContext {
             stm.setString(3, account.getEmail());
             stm.setString(4, account.getUsername());
             // Mã hóa mật khẩu bằng MD5
-            stm.setString(5, md5(account.getPassword()));
+            stm.setString(5, (account.getPassword()));
             stm.setInt(6, account.getRole_id());
             stm.setInt(7, account.getTheaterID());
             stm.executeQuery();

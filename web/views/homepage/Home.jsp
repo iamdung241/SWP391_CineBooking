@@ -261,7 +261,7 @@
                                                     <hr style="background-color: #000"/>
                                                     <li>
                                                         <a class="bookTicket" href="movietrailer?trailer=${topMovie.trailer}&ID=${topMovie.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a>
-                                                        <a class="bookTicket" href="bookticket?movieID=${topMovie.getMovie_id()}">Book Tickets</a>
+                                                        <a class="bookTicket" href="bookticket&movieID=${topMovie.getMovie_id()}">Book Tickets</a>
                                                     </li>
                                                 </ul>
                                             </div>

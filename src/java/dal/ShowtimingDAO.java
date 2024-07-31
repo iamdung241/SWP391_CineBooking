@@ -85,10 +85,12 @@ public class ShowtimingDAO extends DBContext {
     }
 
     public Showtiming getShowtimingByShowtimeID(int showtimeid) {
-        String sql = "select * from Showtime s\n"
-                + "join Room r on s.room_id = r.room_id\n"
-                + "join Movie m on m.movie_id = s.movie_id\n"
-                + "where s.showtime_id = ?";
+        String sql = "SELECT *\n"
+                + "FROM Showtime s\n"
+                + "JOIN Room r ON s.room_id = r.room_id\n"
+                + "JOIN Movie m ON m.movie_id = s.movie_id\n"
+                + "join Theater t on t.id = s.theaterID\n"
+                + "WHERE s.showtime_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, showtimeid);
@@ -98,10 +100,11 @@ public class ShowtimingDAO extends DBContext {
                 showtime.setShowtime_id(rs.getInt(1));
                 showtime.setShowtiming(rs.getString(2));
                 showtime.setRoom_id(rs.getInt(3));
-                showtime.setRoom_name(rs.getString(7));
-                showtime.setMovie_id(rs.getInt(4));
-                showtime.setMovie_name(rs.getString(9));
-                showtime.setDate(rs.getString(5));
+                showtime.setRoom_name(rs.getString(8));
+                showtime.setMovie_id(rs.getInt(9));
+                showtime.setMovie_name(rs.getString(10));
+                showtime.setDate(rs.getString(6));
+                showtime.setTheaterName(rs.getString(20));
                 return showtime;
             }
         } catch (SQLException e) {
@@ -211,9 +214,9 @@ public class ShowtimingDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        Showtiming s = new Showtiming("22", 3, "2024-07-16", 7);
-        (new ShowtimingDAO()).updateShowtime(s);
-        System.out.println(s.getShowtiming());
+        //Showtiming s = new Showtiming("22", 3, "2024-07-16", 7);
+        Showtiming s = (new ShowtimingDAO()).getShowtimingByShowtimeID(5);
+        System.out.println(s.toString());
 
     }
 

@@ -34,28 +34,38 @@ public class Account {
     }
     
 
+
+
+
     public Account() {
     }
 
-    public Account(int account_id, String fullname, String phone, String email, String username, String password, int role_id) {
-        this.account_id = account_id;
+//    public Account(int account_id, String fullname, String phone, String email, String username, String password, int role_id, int theaterID) {
+//        this.account_id = account_id;
+//        this.fullname = fullname;
+//        this.phone = phone;
+//        this.email = email;
+//        this.username = username;
+//        this.password = password;
+//        this.role_id = role_id;
+//        this.theaterID = theaterID;
+//    }
+
+    public Account(String fullname, String phone, String email, String username, String password, int role_id, int theaterID) {
         this.fullname = fullname;
         this.phone = phone;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role_id = role_id;
+        this.theaterID = theaterID;
     }
 
-    public Account(String fullname, String phone, String email, String username, String password, int role_id) {
-        this.fullname = fullname;
-        this.phone = phone;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.role_id = role_id;
+    @Override
+    public String toString() {
+        return "Account{" + "account_id=" + account_id + ", fullname=" + fullname + ", phone=" + phone + ", email=" + email + ", username=" + username + ", password=" + password + ", role_id=" + role_id + ", theaterID=" + theaterID + '}';
     }
-
+    
     public int getAccount_id() {
         return account_id;
     }
@@ -112,4 +122,11 @@ public class Account {
         this.role_id = role_id;
     }
 
+//    public int getTheaterID() {
+//        return theaterID;
+//    }
+//
+//    public void setTheaterID(int theaterID) {
+//        this.theaterID = theaterID;
+//    }
 }

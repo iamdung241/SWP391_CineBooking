@@ -3,25 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
 import java.util.List;
 
 /**
  *
  * @author DungTT
  */
-
 public class Movie {
+
     private int movie_id;
     private String movie_name;
     private int type_id;
     private String type_name;
     private int duration;
-    private String date_published,age;
-    private String post_img, trailer, decription,status;
+    private String date_published, age;
+    private String post_img, trailer, decription, status;
     private List<Showtiming> listShowtime;
     private TypeMovie type_movie;
-    
-    
+    private int theaterID;
+    private String theaterName;
+    private List<Theater> listTheater;
+
+    public String getTheaterName() {
+        return theaterName;
+    }
+
+    public void setTheaterName(String theaterName) {
+        this.theaterName = theaterName;
+    }
+
     public Movie() {
     }
 
@@ -38,8 +49,7 @@ public class Movie {
         this.listShowtime = listShowtime;
     }
 
-    
-    public Movie(int movie_id, String movie_name, String type_name, int duration,String date_published,  String post_img, String trailer, String decription, String age) {
+    public Movie(int movie_id, String movie_name, String type_name, int duration, String date_published, String post_img, String trailer, String decription, String age) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_name = type_name;
@@ -62,8 +72,7 @@ public class Movie {
         this.trailer = trailer;
         this.decription = decription;
     }
-    
-    
+
     public Movie(int movie_id, String movie_name, int type_id, int duration, String date_published, String post_img, String trailer, String decription, TypeMovie type_movie) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
@@ -75,8 +84,8 @@ public class Movie {
         this.decription = decription;
         this.type_movie = type_movie;
     }
-    
-    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published,String age, String post_img, String trailer, String decription) {
+
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_id = type_id;
@@ -89,7 +98,7 @@ public class Movie {
         this.decription = decription;
     }
 
-    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published,String age, String post_img, String trailer, String decription,String status) {
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription, String status) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.type_id = type_id;
@@ -102,7 +111,7 @@ public class Movie {
         this.decription = decription;
         this.status = status;
     }
-    
+
     public Movie(int movie_id, String movie_name, int type_id, int duration, String date_published, String post_img, String trailer, String decription) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
@@ -113,7 +122,6 @@ public class Movie {
         this.trailer = trailer;
         this.decription = decription;
     }
-    
 
     public Movie(int movie_id, String movie_name) {
         this.movie_id = movie_id;
@@ -137,7 +145,6 @@ public class Movie {
         this.listShowtime = listShowtime;
     }
 
-
     public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription, String status, List<Showtiming> listShowtime) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
@@ -152,10 +159,56 @@ public class Movie {
         this.status = status;
         this.listShowtime = listShowtime;
     }
-public Movie(int movie_id) {
+
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription,
+            String status, List<Showtiming> listShowtime, int theaterID, String theaterName, List<Theater> listTheater) {
         this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.age = age;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.status = status;
+        this.listShowtime = listShowtime;
+        this.theaterID = theaterID;
+        this.theaterName = theaterName;
+        this.listTheater = listTheater;
     }
     
+    public Movie(int movie_id, String movie_name, int type_id, String type_name, int duration, String date_published, String age, String post_img, String trailer, String decription,
+            String status, List<Showtiming> listShowtime, int theaterID, String theaterName) {
+        this.movie_id = movie_id;
+        this.movie_name = movie_name;
+        this.type_id = type_id;
+        this.type_name = type_name;
+        this.duration = duration;
+        this.date_published = date_published;
+        this.age = age;
+        this.post_img = post_img;
+        this.trailer = trailer;
+        this.decription = decription;
+        this.status = status;
+        this.listShowtime = listShowtime;
+        this.theaterID = theaterID;
+        this.theaterName = theaterName;
+    }
+
+    public List<Theater> getListTheater() {
+        return listTheater;
+    }
+
+    public void setListTheater(List<Theater> listTheater) {
+        this.listTheater = listTheater;
+    }
+
+    public Movie(int movie_id) {
+        this.movie_id = movie_id;
+    }
+
     public int getMovie_id() {
         return movie_id;
     }
@@ -192,6 +245,14 @@ public Movie(int movie_id) {
         return date_published;
     }
 
+    public int getTheaterID() {
+        return theaterID;
+    }
+
+    public void setTheaterID(int theaterID) {
+        this.theaterID = theaterID;
+    }
+
     public String getAge() {
         return age;
     }
@@ -215,7 +276,7 @@ public Movie(int movie_id) {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public void setDate_published(String date_published) {
         this.date_published = date_published;
     }
@@ -251,6 +312,5 @@ public Movie(int movie_id) {
     public void setListShowtime(List<Showtiming> listShowtime) {
         this.listShowtime = listShowtime;
     }
-    
-}
 
+}

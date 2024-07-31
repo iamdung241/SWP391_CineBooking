@@ -109,16 +109,18 @@ public class TicketDAO extends DBContext {
         }
     }
 
-    public void AddTicket(Ticket ticket, int accountId) {
+    public void AddTicket(Ticket ticket, int accountId, int theaterID) {
         String sql = "INSERT INTO [dbo].[Ticket]\n"
                 + "           ([code]\n"
-                + "           ,[account_id])\n"
+                + "           ,[account_id]\n"
+                + "           ,[theaterID])\n"
                 + "     VALUES\n"
-                + "           (?,?)";
+                + "           (?,?,?)";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, ticket.getCode());
             stm.setInt(2, accountId);
+            stm.setInt(3, theaterID);
             stm.executeQuery();
         } catch (SQLException e) {
             e.getMessage();
@@ -234,16 +236,17 @@ public class TicketDAO extends DBContext {
     }
 
     public Ticket getTicket(String code) {
-        String sql = "SELECT t.[ticket_id]\n"
-                + "      ,t.[code]\n"
-                + "      ,t.[account_id]\n"
-                + "      ,t.[status]\n"
-                + "	  ,td.showtime_id\n"
-                + "	  ,td.totalprice\n"
-                + "	  ,td.date_book\n"
-                + "\n"
-                + "  FROM [dbo].[Ticket] t join Ticket_Detail td on t.ticket_id = td.ticket_id \n"
-                + "  WHERE t.code = ?";
+        String sql = "SELECT t.[ticket_id],\n"
+                + "       t.[code],\n"
+                + "       t.[account_id],\n"
+                + "       t.[status],\n"
+                + "       td.showtime_id,\n"
+                + "       td.totalprice,\n"
+                + "       td.date_book, th.name\n"
+                + "FROM [dbo].[Ticket] t\n"
+                + "JOIN Ticket_Detail td ON t.ticket_id = td.ticket_id\n"
+                + "join Theater th on th.id = t.theaterID\n"
+                + "WHERE t.code = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, code);
@@ -258,6 +261,7 @@ public class TicketDAO extends DBContext {
                 tick.setShowtimeId(rs.getInt(5));
                 tick.setTotalprice(Integer.parseInt(rs.getString(6)));
                 tick.setDate_book(rs.getString(7));
+                tick.setTheaterName(rs.getString(8));
                 tick.setSeat(getSeatOrderBy_TicketId(Tid));
                 tick.setCombo(getConcessionsOrderBy_TicketId(Tid));
                 tick.setShowtime(getShowtimeByTicketID(Tid));
@@ -337,15 +341,19 @@ public class TicketDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        List<Ticket> list = new TicketDAO().getTicketsByUserId(4);
-        for (Ticket ticket : list) {
-            System.out.println(ticket.toString());
-        }
-        List<Seat> lists = new TicketDAO().getSeatOrderBy_TicketId(4);
-        for (Seat seat : lists) {
+//        List<Ticket> list = new TicketDAO().getTicketsByUserId(4);
+//        for (Ticket ticket : list) {
+//            System.out.println(ticket.toString());
+//        }
+//        List<Seat> lists = new TicketDAO().getSeatOrderBy_TicketId(4);
+//        for (Seat seat : lists) {
+//            System.out.println(seat.toString());
+//        }
+
+        List<Seat> s = new TicketDAO().getSeatBooked("B2,A1");
+        for (Seat seat : s) {
             System.out.println(seat.toString());
         }
-
     }
 
 }

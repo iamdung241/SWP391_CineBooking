@@ -74,21 +74,20 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Order</h4>
-                            <h5>Movie: ${movie.movie_name}</h5>
-                            <h5>Date: ${show.date} | ${show.showtiming}:00</h5>
-                            <h5>Room: ${room.room_name}</h5>
-                            <h5>Seat: <span style="color: green">${seat}</span></h5>
+                            <h4 style="color: red" class="card-title">Ticket Information</h4>
+                            <h5> <span style="color: green">Showtime</span> ${show.date} | ${show.showtiming}:00</h5>
+                            <h5> <span style="color: green">Room</span> ${room.room_name}</h5>
+                            <h5><span style="color: green">Seat:</span> ${seat}</span></h5>
                             <ul id="orderSummary" class="list-group mb-3 order">
                                 <!-- Order items will be dynamically added here -->
                             </ul>
 
-                            <h5>Total Price: <span id="totalPrice" class="total-price">${totalprice}</span> VNĐ</h5>
+                            <h5> <span style="color: green">Total price: </span> <span id="totalPrice" class="total-price">${totalprice}</span> VNĐ</h5>
 
                             <button id="backButton" class="btn btn-secondary" onclick="location.href = '${sessionScope.urlbackSeat}'"><i class="fas fa-arrow-left"></i> Back</button>
                             <button id="payButton" class="btn btn-primary" onclick="pay()"><i class="fas fa-credit-card"></i> Pay</button>
                             <h5 style="color: red; font-style: italic;">
-                                After clicking the "Pay" button, you have 6 minutes to pay for this ticket. 
+                                You have <span id="timer">7:00</span> minutes to pay for this ticket. 
                                 After that, if the transaction is unsuccessful, the ticket will be canceled.
                             </h5>
 
@@ -163,6 +162,43 @@
                         }
                     }
                 }
+                function initializeCountdown(durationInMinutes) {
+                    var timerDisplay = document.getElementById('timer');
+                    var endTime = Date.now() + durationInMinutes * 60 * 1000; // Calculate end time
+
+                    function updateTimer() {
+                        var now = Date.now();
+                        var remainingTime = endTime - now;
+                        var minutes = Math.floor(remainingTime / (1000 * 60));
+                        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                        if (minutes < 10)
+                            minutes = '0' + minutes;
+                        if (seconds < 10)
+                            seconds = '0' + seconds;
+
+                        // Update the timer display
+                        timerDisplay.textContent = minutes + ":" + seconds;
+
+                        // If the countdown is finished, display a message and stop updating
+                        if (remainingTime <= 0) {
+                            timerDisplay.textContent = "00:00";
+                            clearInterval(timerInterval);
+                            // You can add additional actions here, e.g., redirecting to another page
+                            // window.location.href = "cancelPage.html";
+                        }
+                    }
+
+                    // Update the timer every second
+                    var timerInterval = setInterval(updateTimer, 1000);
+
+                    // Initialize the timer display
+                    updateTimer();
+                }
+
+                // Initialize the countdown timer for 6 minutes and 30 seconds
+                window.onload = function () {
+                    initializeCountdown(7);
+                };
         </script>
     </body>
 </html>

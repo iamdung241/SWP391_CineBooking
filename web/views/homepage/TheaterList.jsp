@@ -1,3 +1,8 @@
+<%-- 
+    Document   : Cinema
+    Created on : Jul 29, 2024, 6:51:05 PM
+    Author     : DungTT
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -69,7 +74,7 @@
                             </a>
                         </li>
                     </c:forEach>
-                        
+
                 </ul>
             </div>
         </div>

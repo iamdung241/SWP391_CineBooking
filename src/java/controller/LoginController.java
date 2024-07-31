@@ -45,8 +45,21 @@ public class LoginController extends HttpServlet {
             if (returnUrl != null && !returnUrl.isEmpty()) {
                 resp.sendRedirect(returnUrl);
             } else if (user.getRole_id() == 4) {
+                // Customer role
                 resp.sendRedirect("home");
+            } else if (user.getRole_id() == 1) {
+                // Admin role
+                resp.sendRedirect("dashboard");
+            } else if(user.getRole_id() == 3) {
+                // Ticket_Checked
+                resp.sendRedirect("scanticket");
+            } else if(user.getRole_id() == 5) {
+                // Ticket_Seller
+                resp.sendRedirect("sellticket");
+            } else if(user.getRole_id() == 2) {
+                // Manager
+                resp.sendRedirect("/CineBooking/movie");
             }
-        }
+        }    
     }
 }
