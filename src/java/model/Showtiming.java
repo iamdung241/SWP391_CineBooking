@@ -19,16 +19,26 @@ public class Showtiming {
     private String movie_name;
     private String movieImage;
     private String movieAge;
-    private String theaterID;
+    private int theaterID;
     private String theaterName;
 
-    public String getTheaterID() {
+    public int getTheaterID() {
         return theaterID;
     }
 
-    public void setTheaterID(String theaterID) {
+    public void setTheaterID(int theaterID) {
         this.theaterID = theaterID;
     }
+
+    public Showtiming(String showtiming, int room_id, String room_name, int theaterID, String theaterName) {
+        this.showtiming = showtiming;
+        this.room_id = room_id;
+        this.room_name = room_name;
+        this.theaterID = theaterID;
+        this.theaterName = theaterName;
+    }
+
+
 
     public String getTheaterName() {
         return theaterName;

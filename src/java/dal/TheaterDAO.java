@@ -90,6 +90,31 @@ public class TheaterDAO extends DBContext {
         return theaterList;
     }
 
+    public List<Theater> getTheaterByAll(int movieID, String date) {
+        List<Theater> theaterList = new ArrayList<>();
+        String sql = "SELECT t.id, t.name\n"
+                + "FROM Showtime s\n"
+                + "JOIN Theater t ON s.theaterID = t.id \n"
+                + "WHERE s.movie_id = ?\n"
+                + "  AND CAST(s.date AS DATE) = ?\n";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, movieID);
+            stm.setString(2, date);
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    int theaterID = rs.getInt("id");
+                    String theaterName = rs.getString("name");
+                    Theater theater = new Theater(theaterID, theaterName);
+                    theaterList.add(theater);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return theaterList;
+
     public Vector<Theater> getAllTheaters() {
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -157,11 +182,12 @@ public class TheaterDAO extends DBContext {
             }
         }
         return theaters;
+
     }
 
     public static void main(String[] args) {
         TheaterDAO tdao = new TheaterDAO();
-        List<Theater> t = tdao.getTheaterByMovie(4);
+        List<Theater> t = tdao.getTheaterByAll(2, "2024-08-01");
 
         for (Theater theater : t) {
             System.out.println(theater.getName());

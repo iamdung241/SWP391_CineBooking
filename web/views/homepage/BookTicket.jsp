@@ -116,7 +116,7 @@
                                 <p><i class='bx bxs-purchase-tag-alt' ></i>${movie.getType_name()}&nbsp&nbsp  &nbsp <i class='bx bxs-time' ></i> ${movie.getDuration()} minutes</p>
                             </div>
                             <div style="margin-top: 40px">
-                                
+
                                 <c:forEach items="${movie.getListShowtime()}" var="s"> 
                                     <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}"> ${s.getShowtiming()} : 00</a>
                                     <c:if test="${selectedShowtimeId != null && selectedShowtimeId == s.getShowtime_id()}">
@@ -132,8 +132,28 @@
                                         </c:forEach>
                                     </c:if> 
                                 </c:forEach>
-                                    
-                                    
+
+
+
+                                <c:choose>
+                                    <c:when test="${empty theaterList}">
+                                        <!-- Display the message if theaterList is empty -->
+                                        <p style="color: red; font-size: 30px; font-style: italic">There is no showtime on ${selectedDate}</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- Display the list of theaters if theaterList is not empty -->
+                                        <c:forEach items="${theaterList}" var="tl">
+                                            <a style="font-weight: 30px; color: white" class="showRoom" 
+                                               href="bookticket?date=${formattedDateForLink}&theaterID=${tl.id}&movieID=${movie.movie_id}">
+                                                ${tl.name}
+                                            </a>
+
+                                        </c:forEach>
+
+                                    </c:otherwise>
+                                </c:choose>
+
+
                             </div>
 
 
