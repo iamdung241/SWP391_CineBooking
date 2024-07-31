@@ -69,7 +69,7 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
+//                concession.setQuantity(resultSet.getInt("quantity"));
                 concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
@@ -207,14 +207,13 @@ public class ConcessionDAO extends DBContext {
      * @param concession the concession item to be added to the database
      */
     public void addConcession(Concession concession) {
-        String sql = "INSERT INTO Concessions (concessions_name, image, price, quantity) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Concessions (concessions_name, image, price) VALUES (?, ?, ?)";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, concession.getConcessions_name());
             statement.setString(2, concession.getImage());
             statement.setFloat(3, concession.getPrice());
-            statement.setInt(4, concession.getQuantity());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -227,15 +226,15 @@ public class ConcessionDAO extends DBContext {
      * @param concession the concession item containing the updated information
      */
     public void editConcession(Concession concession) {
-        String sql = "UPDATE Concessions SET concessions_name = ?, image = ?, price = ?, quantity = ? WHERE concessions_id = ?";
+        String sql = "UPDATE Concessions SET concessions_name = ?, image = ?, price = ? WHERE concessions_id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, concession.getConcessions_name());
             statement.setString(2, concession.getImage());
             statement.setFloat(3, concession.getPrice());
-            statement.setInt(4, concession.getQuantity());
-            statement.setInt(5, concession.getConcessions_id());
+//            statement.setInt(4, concession.getQuantity());
+            statement.setInt(4, concession.getConcessions_id());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

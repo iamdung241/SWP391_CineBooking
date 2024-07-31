@@ -31,11 +31,11 @@
                         <div id="priceError" class="error"></div>
                     </div>
                     <!--Quantity-->
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label for="quantity">Quantity:</label>
                         <input type="text" class="form-control" id="quantityInput" name="quantity">
                         <div id="quantityError" class="error"></div>
-                    </div>
+                    </div>-->
                     <!--Image-->
                     <div class="form-group">
                         <label for="image">Image: </label>
@@ -66,7 +66,7 @@
     function validateForm() {
         let name = $('#nameInput').val().trim();
         let price = $('#priceInput').val();
-        let quantity = $('#quantityInput').val();
+//        let quantity = $('#quantityInput').val();
         //xoá thông báo lỗi hiện tại
         $('.error').html('');
         if (name === '') {
@@ -81,11 +81,11 @@
             $('#priceError').html('The price of the concession must be a number and cannot be less than 0').css('color', 'red');
         }
         
-        if (quantity === '') {
-            $('#quantityError').html('The quantity of concessions cannot be left blank').css('color', 'red');
-        } else if (!$.isNumeric(quantity) || parseInt(quantity) < 0) {
-            $('#quantityError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
-        }
+//        if (quantity === '') {
+//            $('#quantityError').html('The quantity of concessions cannot be left blank').css('color', 'red');
+//        } else if (!$.isNumeric(quantity) || parseInt(quantity) < 0) {
+//            $('#quantityError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
+//        }
         // Kiểm tra nếu không có lỗi thì submit form
         let error = '';
         $('.error').each(function () {

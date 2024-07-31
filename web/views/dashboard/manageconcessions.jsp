@@ -57,7 +57,7 @@
                                             <th>ID</th>
                                             <th>Image</th>
                                             <th>Name</th>
-                                            <th>Price</th>
+<!--                                            <th>Price</th>-->
                                             <th>Quantity</th>
                                             <th>Action</th>
                                         </tr>
@@ -73,7 +73,7 @@
                                                 </td>
                                                 <td name="name">${c.concessions_name}</td>
                                                 <td name="price">${c.price}</td>
-                                                <td name="quantity">${c.quantity}</td>
+
                                                 <td class="d-flex justify-content-center">
                                                     <form>
                                                         <button type="button" class="btn text-success"
