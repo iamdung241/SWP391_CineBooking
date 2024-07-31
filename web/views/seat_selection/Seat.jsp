@@ -1,7 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,6 +25,65 @@
                 font-size: 1rem; /* Adjust the font size for better readability */
                 margin-bottom: 0.5rem; /* Adjust margin for better spacing */
             }
+            .seat-container {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%; /* Đảm bảo không bị tràn ra ngoài */
+            }
+            .seat-wrapper {
+                margin: 5px; /* Khoảng cách giữa các ghế */
+                display: inline-block;
+                width: 60px; /* Kích thước của mỗi ghế */
+                height: 30px;
+                border: 5px solid; /* Kích thước viền ngoài */
+                border-radius: 8px;
+                box-sizing: border-box;
+            }
+            .seat {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                text-align: center;
+            }
+            .seat-booked {
+                background-color: red; /* Màu nền khi ghế đã được đặt */
+            }
+            .legend-container {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center; /* Canh giữa các mục trong container */
+            }
+
+            .legend-item {
+                display: flex;
+                align-items: center; /* Căn giữa nội dung theo chiều dọc */
+                justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+                width: 120px; /* Thay đổi kích thước để hiển thị đủ thông tin */
+                height: 50px; /* Kích thước của mỗi mục */
+                border: 5px solid;
+                border-radius: 5px;
+                margin-right: 20px;
+                text-align: center;
+                color: black;
+                font-size: 14px; /* Kích thước chữ */
+                box-sizing: border-box; /* Đảm bảo border và padding được tính vào tổng kích thước */
+            }
+
+            .legend-item.vip {
+                border-color: blue;
+            }
+
+            .legend-item.premium {
+                border-color: green;
+            }
+
+            .legend-item.standard {
+                border-color: gray;
+            }
+
         </style>
         <script type="text/javascript">
             var ws;
@@ -88,7 +146,7 @@
                             }, 0);
 
                     // Format the total price
-                    const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice);
+                    const formattedTotalPrice = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(totalPrice);
 
                     document.getElementById("selected-seats").textContent = selectedSeats.join(", ");
                     document.getElementById("ghe").value = selectedSeats.join(",");
@@ -123,34 +181,50 @@
         <div class="main clearfix position-relative">
             <div style="background-color: black" class="main_1 clearfix position-absolute top-0 w-100">
                 <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-            </div>
-            <div style="padding-top: 120px" class="container">   
-                <h1 style="color: red" class="text-center">Seat Booking</h1>
-                <div style="padding-top: 20px" class="row">
-                    <div class="col-6">
-                        <div style="text-align: center">
-                            <div>
-                                <img style="weight: 100px; height: 60px" src="/CineBooking/img/screen.JPG" alt="imageSrc">
-                            </div>
-                            <div style="margin-top: 20px" class="row cinema-seats">
-                                <c:forEach items="${listSeat}" var="s">
-                                    <div style="margin-left: 18px" class="col-2 my-2">          
-                                        <div id="${s.seat_name}" onclick="toggleSeat('${s.seat_name}')" class="text-center seat ${s.getStatus().equals('Booked') ? 'booked' : ''}" style="border: 1px solid; border-radius: 5px; ${s.getStatus().equals('Booked') ? 'background-color: red' : ''}" >
-                                            <label style="color: black; text-decoration: none">
-                                                <input class="seat-price" type="hidden" value="${s.getPrice()}">
-                                                ${s.getSeat_name()}
-                                            </label>
+                </div>
+                <div style="padding-top: 120px" class="container">   
+                    <h1 style="color: red" class="text-center">Seat Booking</h1>
+                    <div style="padding-top: 20px" class="row">
+                        <div class="col-6">
+                            <div style="text-align: center">
+                                <div>
+                                    <img style="weight: 100px; height: 60px" src="/CineBooking/img/screen.JPG" alt="imageSrc">
+                                </div>
+                                <div style="margin-top: 20px" class="row cinema-seats">
+                                    <div style="margin-left: 150px; padding-right: 240px" class="seat-container">
+                                    <c:forEach items="${listSeat}" var="s">
+                                        <div id="${s.seat_name}" onclick="toggleSeat('${s.seat_name}')" 
+                                             class="seat-wrapper" 
+                                             style="border-color:
+                                             <c:choose>
+                                                 <c:when test="${s.getPrice() == 120000}">
+                                                     blue
+                                                 </c:when>
+                                                 <c:when test="${s.getPrice() == 100000}">
+                                                     green
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     gray
+                                                 </c:otherwise>
+                                             </c:choose>;
+                                             ">
+                                            <div class="seat ${s.getStatus().equals('Booked') ? 'seat-booked' : ''}">
+                                                <label style="color: black; font-size: 12px; margin: 0; padding: 0; text-decoration: none;">
+                                                    <input class="seat-price" type="hidden" value="${s.getPrice()}">
+                                                    ${s.getSeat_name()}
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
                     </div>  
                     <div style="margin-left: 50px; padding-left: 10px" class="col-5">
                         <div style="background-color: rgb(240,240,240); padding-bottom: 100px">
                             <div style="padding-left: 30px">
-                                <h2 style="text-align: center; color: red; padding-top: 10px">Movie Ticket</h2>
-                                <span style="font-size: 21px; font-weight: bold; color: green">PlayShow Cinema</span>
+                                <h2 style="text-align: center; color: red; padding-top: 10px">Ticket Information</h2>
+                                <span style="font-size: 21px; font-weight: bold; color: green">${showtime.theaterName}</span>
                                 <br/>
                                 <div>
                                     <span style="padding-right: 90px; font-size: 18px"><span style="font-weight: bold">Room: </span><span style="color: green">${room.getRoom_name()}</span></span><br>
@@ -180,7 +254,26 @@
                     </div>
                 </div>
             </div>
+            <div class="legend-container">
+                <div class="legend-item vip">
+                    <div>
+                        VIP<br>120.000 VND
+                    </div>
+                </div>
+                <div class="legend-item premium">
+                    <div>
+                        Premium<br>100.000 VND
+                    </div>
+                </div>
+                <div class="legend-item standard">
+                    <div>
+                        Standard<br>80.000 VND
+                    </div>
+                </div>
+            </div>
+
         </div>
+
         <div style="margin-top: 60px">
             <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>   
         </div>

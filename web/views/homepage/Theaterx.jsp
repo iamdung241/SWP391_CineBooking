@@ -1,6 +1,6 @@
 <%-- 
     Document   : Cinema
-    Created on : Jul 30, 2024, 3:31:32 AM
+    Created on : Jul 30, 2024, 7:01:32 PM
     Author     : DungTT
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -92,7 +92,7 @@
             <section style="padding-top: 50px" id="exep" class="p_3 ">
                 <div class="container-xl detail">
                     <div class="row exep1">
-                    <c:forEach items="${listMovieTheater}" var="m">
+                    <c:forEach items="${listAllMovie}" var="m">
                         <div class="col-3">
                             <div class="exep1l">
                                 <div class="grid clearfix ">                                
@@ -109,28 +109,17 @@
                             </div> 
                             <hr/>
                             <div class="container mt-4">
-                                <c:choose>
+                                 <c:choose>
                                     <c:when test="${empty selectedDate}">
                                         <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
                                     </c:when>
-                                    <c:otherwise>
-                                        <!-- Display showtimes if a date is selected -->
-                                        <c:forEach items="${m.getListShowtime()}" var="s">
-                                            <div style="padding: 15px">
-                                                <!-- Check if the user is logged in -->
-                                                <c:if test="${sessionScope.user == null}">
-                                                    <a class="showtime" href="login.jsp">
-                                                        ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
-                                                    </a>
-                                                </c:if>
-                                                <c:if test="${sessionScope.user != null}">
-                                                    <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${m.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
-                                                        ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
-                                                    </a>
-                                                </c:if>
+                                    <c:when test="${not empty selectedDate}">
+                                        <c:forEach items="${m.listTheater}" var="l">
+                                            <div>
+                                                <p><i class='bx bxs-purchase-tag-alt'></i>${l.name}</p>
                                             </div>
                                         </c:forEach>
-                                    </c:otherwise>
+                                    </c:when>
                                 </c:choose>
                             </div>
                         </div>
@@ -163,7 +152,7 @@
                         var dateElement = document.createElement('a');
                         dateElement.classList.add('date');
                         dateElement.textContent = formattedDate;
-                        dateElement.href = 'theater?service=search&theaterID=${theater.id}&date=' + formattedDateForLink;
+                        dateElement.href = 'theaterx?service=searchAll&date=' + formattedDateForLink;
                         if (selectedDate === formattedDateForLink) {
                             dateElement.style.color = 'red'; // Highlight the selected date
                         }
