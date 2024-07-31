@@ -197,7 +197,8 @@
 
         <servlet-name>BookTheaterController</servlet-name>
         <servlet-class>controller.BookTheaterController</servlet-class>
-
+    </servlet>
+    <servlet>
         <servlet-name>SearchTheater</servlet-name>
         <servlet-class>controller.SearchTheater</servlet-class>
 
@@ -387,10 +388,6 @@
         <url-pattern>/searchAccountStaff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TicketSellerController</servlet-name>
-        <url-pattern>/ticketSeller</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchTheater</servlet-name>
         <url-pattern>/searchTheater</url-pattern>
     </servlet-mapping>
@@ -484,11 +481,11 @@
         <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Session Configuration -->
-    <servlet-mapping>
+<!--    <servlet-mapping>
         <servlet-name>TheaterX</servlet-name>
         <url-pattern>/theaterx</url-pattern>
     </servlet-mapping>
-    <!-- Filter Definition -->
+     Filter Definition 
     <filter>
         <filter-name>AdminFilter</filter-name>
         <filter-class>filter.AdminFilter</filter-class>
@@ -504,7 +501,7 @@
     <filter>
         <filter-name>TicketSellerFilter</filter-name>
         <filter-class>filter.TicketSellerFilter</filter-class>
-    </filter>
+    </filter>-->
     <!--    <filter-mapping>
         <filter-name>StaffFilter</filter-name>
         <url-pattern>/scanticket</url-pattern>
@@ -587,7 +584,6 @@
         <servlet-name>BookTheaterController</servlet-name>
         <url-pattern>/bookTheater</url-pattern>
     </servlet-mapping>
-  
 
     <session-config>
         <session-timeout>30</session-timeout>
