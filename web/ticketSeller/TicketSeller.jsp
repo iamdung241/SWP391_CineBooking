@@ -1,3 +1,8 @@
+<%-- 
+    Document   : Cinema
+    Created on : Jul 30, 2024, 3:31:32 AM
+    Author     : DungTT
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,402 +15,239 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet" >
         <link href="../../css/font-awesome.min.css" rel="stylesheet" >
         <link href="../../css/global.css" rel="stylesheet">
+        <link href="css/blog.css" rel="stylesheet">
         <link href="../../css/index.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
         <script src="js/bootstrap.bundle.min.js"></script>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Play Show</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" >
+        <link href="css/font-awesome.min.css" rel="stylesheet" >
+        <link href="css/global.css" rel="stylesheet">
+        <link href="css/index.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+
         <style>
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: 'Arial', sans-serif;
+            .movieImage {
+                border-radius: 10px;
             }
-
-            .bookTicket {
-                color: #fff;
-                background-color: red;
-                font-size: 17px;
-                border-radius: 7px;
-                padding: 6px;
-                text-decoration: none;
-            }
-
-            .bookTicket:hover {
-                color: #000;
-            }
-
-            #nameMovie {
-                font-size: 20px;
-                font-weight: bold;
-                color: #000;
-                text-decoration: none;
-            }
-
-            .film {
-                border: 8px solid #000;
-            }
-
-            .error-message {
-                color: red;
-                margin-top: 10px;
-                text-align: center;
-                font-size: 30px;
-                font-weight: bold;
-            }
-
-            .viewDetail {
-                color: #000;
-                background-color: #fff;
-                font-size: 17px;
-                border-radius: 5px;
-                padding: 6px;
-                border: solid 1px grey;
-                text-decoration: none;
-            }
-
-            .viewDetail:hover {
-                background-color: red;
-                color: #000;
-            }
-
-            .main_1 {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 1000;
-                width: 100%;
-            }
-
-            .main_2 {
-                margin-top: 100px; /* Adjust based on the height of the header */
-                width: 100%;
-            }
-
-            .container-xl {
-                max-width: 1140px;
-                margin: 0 auto;
-            }
-
-            .row {
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .spec_1im {
+            .showtime {
+                width: 30px;
+                height: 30px;
+                border: solid 1px;
+                border-radius: 10px;
                 padding: 10px;
-                background: #f8f9fa;
-                border: 1px solid #dee2e6;
-                border-radius: 5px;
-            }
-
-            .spec_1im1 ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            .spec_1im1 li {
-                margin-bottom: 5px;
-            }
-
-            .spec_1im1 li a {
-                text-decoration: none;
-            }
-
-            .spec_1im1 li a:hover {
-                text-decoration: underline;
-            }
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f8f9fa;
-                padding-top: 50px; /* Adjust according to your navbar height */
-            }
-            .filmContainer {
-                position: relative; /* Ensure relative positioning */
-            }
-            .filmItem {
-                margin-bottom: 30px;
-                background-color: #ffffff;
-                border: 1px solid #dee2e6;
-                border-radius: 5px;
-                padding: 20px;
-                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-                display: none; /* Hide all film items initially */
-            }
-            .filmItem.active {
-                display: block; /* Display only the active film item */
-            }
-            .filmImage {
-                max-width: 100%;
-                height: auto;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                border: 8px solid #000;
-                border-radius: 10px; /* Rounded corners for the film image */
-                margin-bottom: 20px;
-            }
-            .movieTitle {
-                font-size: 30px; /* Adjusted font size */
-                font-weight: bolder; /* Adjusted font weight */
-                color: #000000;
-                margin-left: 10px; /* Align to the left */
-            }
-            .movieInfo {
-                color: #333333;
-                font-size: 16px;
-                line-height: 1.6;
-            }
-            .movieActions {
-                margin-top: 20px;
-                text-align: center;
-            }
-            .movieActions a {
-                text-decoration: none;
-                color: #ffffff;
-                padding: 10px 20px;
                 margin-right: 10px;
-                border-radius: 5px;
-                font-weight: bold;
+                margin-top: 10px;
+                background-color: #000;
+                color: #fff;
             }
-            .movieActions .watchTrailer {
-                background-color: #dc3545; /* Bootstrap danger color */
-            }
-            .movieActions .bookTicket {
-                background-color: #007bff; /* Bootstrap primary color */
-            }
-            #nextButton {
-                position: absolute;
-                top: 50%;
-                right: 10px;
-                transform: translateY(-50%);
+            .showRoom {
+                width: 30px;
+                height: 30px;
+                border: solid 1px;
+                border-radius: 10px;
                 padding: 10px;
-                background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
-                color: #ffffff;
-                border: none;
-                border-radius: 50%;
+                margin-right: 10px;
+                margin-top: 10px;
+                background-color: red;
+                color: #fff;
+            }
+            .boxes {
+                text-align: center;
+                padding-top: 30px;
+                display: flex;
+                flex-direction: row;
+                font-family: Arial, Helvetica, sans-serif;
                 font-weight: bold;
-                cursor: pointer;
-                z-index: 1000; /* Ensure button appears above other content */
+                margin-left: 30px;
             }
-            #nextButton:hover {
-                background-color: rgba(0,0,0,0.7); /* Darker shade on hover */
-            }
-            #prevButton {
-                position: absolute;
-                top: 50%;
-                left: 10px;
-                transform: translateY(-50%);
+
+            .box {
+                border: 1px solid black;
+                border-radius: 10px;
+                font-size: 19px;
+                margin-right: 20px;
+                text-align: center;
                 padding: 10px;
-                background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
-                color: #ffffff;
-                border: none;
-                border-radius: 50%;
+            }
+            .date {
+                display: inline-block;
+            }
+            .date:hover {
+                color: red;
+            }
+            hr {
+                background-color: #000;
+            }
+            .dropdown-menu {
+                background-color: #fff;
+                border-radius: 10px;
+            }
+
+            .dropdown-item {
+                color: #000;
                 font-weight: bold;
-                cursor: pointer;
-                z-index: 1000; /* Ensure button appears above other content */
+                font-size: 18px;
             }
-            #prevButton:hover {
-                background-color: rgba(0,0,0,0.7); /* Darker shade on hover */
+
+            .dropdown-item:hover {
+                color: #fff;
             }
-            .mb-4 {
-                margin-top: 2px; /* Adjust margin top for the header */
+            .navbar-logo {
+                height: 60px;
+                width: 170px;
             }
         </style>
     </head>
     <body>
         <div class="main clearfix position-relative">
-            <div class="main_1 clearfix">
-                <jsp:include page="/views/homepage/Header.jsp"></jsp:include>
-                </div>
+            <div style="background-color: #000">
+                <section id="header">
+                    <nav style="background-color: #000 ; padding-top: 5px; padding-bottom: 5px" class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
+                        <div class="container-xl">
+                            <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="#"><img class="navbar-logo" src="/CineBooking/img/movieLogo.PNG"/></a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mb-0">
 
-                <div style="margin-top: 20px" class="container-fluid">
-                    <div class="text-center mb-4">
-                        <!-- Stylish and decorative font -->
-                        <h1 style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Hot Films This Month</h1>
-                    </div>
-                    <div class="filmContainer">
-
-                    <c:forEach items="${topMovie}" var="topMovie" varStatus="loop">
-                        <div class="filmItem ${loop.index == 0 ? 'active' : ''}">
-                            <section id="exep" class="p-3 bg-light">
-                                <div class="container-xl detail">
-                                    <div class="row exep1">
-                                        <div class="col-3">
-                                            <div class="exep1l">
-                                                <div class="grid clearfix">
-                                                    <img style="border-style: solid; border-width: 10px" src="${topMovie.getPost_img()}" class="filmImage" alt="Movie Poster">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="exep1r">
-                                                <p class="mb-0 movieTitle">${topMovie.getMovie_name()}</p>                                       
-                                            </div>
-                                            <hr style="background-color: #000"/>
-                                            <div>
-                                                <ul>
-                                                    <li>
-                                                        <strong>Duration:</strong> ${topMovie.getDuration()} minutes
-                                                    </li>
-                                                    <li>
-                                                        <strong>Date published:</strong> ${topMovie.getDate_published()}
-                                                    </li>
-                                                    <li>
-                                                        <strong>Category:</strong> ${topMovie.getType_name()}
-                                                    </li>
-                                                    <li>
-                                                        <strong>Description:</strong> ${topMovie.getDecription()}
-                                                    </li>
-                                                    <hr style="background-color: #000"/>
-                                                    <li>
-                                                        <a class="bookTicket" href="movietrailer?trailer=${topMovie.trailer}&ID=${topMovie.getMovie_id()}"><i class="fa fa-youtube-play me-1"></i> Watch Trailer</a>
-                                                        <a class="bookTicket" href="bookticket&movieID=${topMovie.getMovie_id()}">Book Tickets</a>
-                                                    </li>
+                                    <li class="nav-item">
+                                        <c:if test="${sessionScope.user == null}">
+                                            <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp">Account</a>
+                                        </c:if>       
+                                    </li>		
+                                </ul>
+                                <ul class="navbar-nav mb-0 ms-auto">
+                                    <li class="nav-item">
+                                        <c:if test="${sessionScope.user == null}">
+                                            <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
+                                        </c:if>
+                                        <c:if test="${sessionScope.user != null}">
+                                            <div class="nav-item dropdown">
+                                                <a style="color: #fff; font-size: 15px" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1"></i>
+                                                    Welcome ${sessionScope.user.fullname} !
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <li><a class="dropdown-item" href="/CineBooking/OrderHistory">Order History</a></li>
+                                                    <li><a class="dropdown-item" href="logout">Logout</a></li>
                                                 </ul>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                        </c:if>
+
+
+                                    </li>
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </c:forEach>
-                    <button id="prevButton">&lt;</button>
-                    <button id="nextButton">&gt;</button>
-                </div>
+                    </nav>
+                </section>
             </div>
+        </div>
 
- <jsp:include page="/views/homepage/TheaterList.jsp"></jsp:include>
-            <section id="spec" class="p_3">
-                <div class="container-xl">
-                    <div class="text-center" style="padding-top: 2px">
-                        <h1 class="mb-0 font_50" style="font-size: 40px; font-weight: bolder; font-family: 'Rowdies', cursive; color: #333;">Now Showing</h1>
-                    </div>   
-                   
-                    <div class="container mt-5">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <form action="movieController" method="GET" class="input-group" id="searchForm">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by film name" style="margin-right: 5px; border-color: red"
-                                           value="${keyword != null ? keyword : ''}">
-                                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                                    <input type="hidden" name="service" value="search" id="serviceInput">
-                                    <select name="dateFilter" class="form-select ml-3" style="width: 200px; border-color: red" id="dateSelect">
-                                        <option value="all">All</option>
-                                        <option value="upcoming">Upcoming Film</option>
-                                        <option value="nowshowing">Now Showing Film</option>
-                                    </select>
-                                </form>
+
+        <div style="display: flex; align-items: center;">
+            <h3 style="color: red; margin-left: 300px; font-size: 50px;">${theater.name}</h3>   
+            <div style="margin-left: 100px">
+                <a class="boxes" id="dateContainer">
+                </a>
+                <hr style="background-color: #000;"/>
+            </div>
+        </div>
+
+        <section style="padding-top: 50px" id="exep" class="p_3 ">
+            <div class="container-xl detail">
+                <div class="row exep1">
+                    <c:forEach items="${listMovieTheater}" var="m">
+                        <div class="col-3">
+                            <div class="exep1l">
+                                <div class="grid clearfix ">                                
+                                    <img style="margin-bottom: 20px; border: 5px solid #000; border-radius: 15px;" height="350px" src="${m.getPost_img()}" class="w-100 film" alt="abc">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <p class="error-message">${requestScope.resultNull}</p>
-                    <div class="row mt-4">
-                        <div class="col-md-2">
-                            <jsp:include page="/views/homepage/TypeList.jsp"></jsp:include>
+                        <div class="col-8">
+                            <div class="exep1r">
+                                <a href="moviedetail?ID=${m.getMovie_id()}"><p style="font-weight: bold; font-size: 35px" class="mb-0 nameDetail">${m.getMovie_name()}</p></a>                                       
                             </div>
-                            <div class="col-md-10">
-                                <div class="row spec_1">
-                                <c:forEach items="${listM}" var="m">
-                                    <div class="col-md-3 mb-4">
-                                        <div class="spec_1im clearfix position-relative">
-                                            <div class="spec_1imi clearfix film">
-                                                <a href="moviedetail?ID=${m.getMovie_id()}">
-                                                    <img width="240px" height="270px" src="${m.getPost_img()}" class="w-100" alt="abc">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <div class="spec_1im1 clearfix">
-                                            <ul>
-                                                <li>
-                                                    <a id="nameMovie" href="moviedetail?ID=${m.getMovie_id()}">
-                                                        ${m.getMovie_name()}
+                            <div>
+                                <p><i class='bx bxs-purchase-tag-alt'></i>${m.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${m.getDuration()} minutes</p>
+                            </div> 
+                            <hr/>
+                            <div class="container mt-4">
+                                <c:choose>
+                                    <c:when test="${empty m}">
+                                        <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <!-- Display showtimes if a date is selected -->
+                                        <c:forEach items="${m.getListShowtime()}" var="s">
+                                            <div style="padding: 15px">
+                                                <!-- Check if the user is logged in -->
+                                                <c:if test="${sessionScope.user == null}">
+                                                    <a class="showtime" href="login.jsp">
+                                                        ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
                                                     </a>
-                                                </li>
-                                                <li class="col_black">
-                                                    <strong>Duration:</strong> ${m.getDuration()} minutes
-                                                </li>
-                                                <li class="col_black">
-                                                    <strong>Age:</strong> ${m.getAge()}
-                                                </li>
-                                                <li class="col_black">
-                                                    <strong>Category:</strong> ${m.getType_name()}
-                                                </li>
-                                                <li style="padding-top: 10px">
-                                                    <a style="text-decoration: none" class="bookTicket" href="bookticket?movieID=${m.getMovie_id()}">Book Tickets</a>
-                                                    <a class="viewDetail" style="margin-left: 3px" href="moviedetail?ID=${m.getMovie_id()}"><i class='bx bx-calendar-exclamation'></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </c:forEach>
+                                                </c:if>
+                                                <c:if test="${sessionScope.user != null}">
+                                                    <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${u.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
+                                                        ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
+                                                    </a>
+                                                </c:if>
+                                            </div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
+                        <hr style="background-color: #000;"/>
+                    </c:forEach>                   
+                </div>    
+            </div>
+        </section>
+        <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
 
             <script>
-                window.onscroll = function () {
-                    myFunction();
-                };
+                // Set the current date and display it
+                function displayCurrentDate() {
+                    var dateContainer = document.getElementById('dateContainer');
+                    var currentDate = new Date();
+                    var day = currentDate.getDate().toString().padStart(2, '0');
+                    var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+                    var year = currentDate.getFullYear();
+                    var formattedDate = day + '/' + month + '-' + currentDate.toLocaleDateString('en-US', {weekday: 'long'});
+                    var formattedDateForLink = year + "-" + month + "-" + day;
 
-                var navbar_sticky = document.getElementById("navbar_sticky");
-                var sticky = navbar_sticky.offsetTop;
-                var navbar_height = document.querySelector('.navbar').offsetHeight;
+                    var box = document.createElement('div');
+                    box.classList.add('box');
 
-                function myFunction() {
-                    if (window.pageYOffset >= sticky + navbar_height) {
-                        navbar_sticky.classList.add("sticky");
-                        document.body.style.paddingTop = navbar_height + 'px';
-                    } else {
-                        navbar_sticky.classList.remove("sticky");
-                        document.body.style.paddingTop = '0';
+                    var dateElement = document.createElement('a');
+                    dateElement.classList.add('date');
+                    dateElement.textContent = formattedDate;
+                    dateElement.href = 'ticketSeller?service=search&theaterID=${theater.id}&date=' + formattedDateForLink;
+                    if ("${selectedDate}" === formattedDateForLink) {
+                        dateElement.style.color = 'red'; // Highlight the selected date
                     }
-                }
-                document.getElementById('dateSelect').addEventListener('change', function () {
-                    document.getElementById('serviceInput').value = 'filter';
-                    document.getElementById('searchForm').submit();
-                });
-
-                // Function to set the selected option in the dropdown
-                function setSelectedOption() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const dateFilter = urlParams.get('dateFilter');
-                    if (dateFilter) {
-                        const selectElement = document.getElementById('dateSelect');
-                        selectElement.value = dateFilter;
-                    }
+                    box.appendChild(dateElement);
+                    dateContainer.appendChild(box);
                 }
 
-                // Call the function to set the selected option when the page loads
-                window.onload = setSelectedOption;
-                const filmItems = document.querySelectorAll('.filmItem');
-                const nextButton = document.getElementById('nextButton');
-                const prevButton = document.getElementById('prevButton');
-                let currentIndex = 0;
-
-                function showFilm(index) {
-                    filmItems[currentIndex].classList.remove('active');
-                    currentIndex = index;
-                    filmItems[currentIndex].classList.add('active');
-                }
-
-                nextButton.addEventListener('click', () => {
-                    showFilm((currentIndex + 1) % filmItems.length);
-                });
-
-                prevButton.addEventListener('click', () => {
-                    showFilm((currentIndex - 1 + filmItems.length) % filmItems.length);
-                });
-
-                setInterval(() => {
-                    showFilm((currentIndex + 1) % filmItems.length);
-                }, 7500);
-            </script>
+                displayCurrentDate();
+        </script>
     </body>
 </html>

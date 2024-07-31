@@ -57,16 +57,20 @@ public class LoginController extends HttpServlet {
                         resp.sendRedirect("scanticket");
                         break;
                     case 5:
-                        resp.sendRedirect("ticketSeller");
+                        resp.sendRedirect("ticketSeller?service=search&theaterID=" + user.getTheaterID());
                         break;
                     case 2:
                         resp.sendRedirect("/CineBooking/movie");
                         break;
                     default:
+                        // Handle unexpected role ID or redirect to an error page
+                        resp.sendRedirect("error");
                         break;
                 }
 
             }
-        }    
+
+        }
     }
 }
+

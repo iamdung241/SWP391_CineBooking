@@ -127,7 +127,7 @@
                                                     </a>
                                                 </c:if>
                                                 <c:if test="${sessionScope.user != null}">
-                                                    <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${m.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
+                                                    <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${s.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
                                                         ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
                                                     </a>
                                                 </c:if>

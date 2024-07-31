@@ -63,6 +63,7 @@ public class TheaterController extends HttpServlet {
             int theaterId = Integer.parseInt(request.getParameter("theaterID"));
             HttpSession session = request.getSession();
             session.setAttribute("theaterID", theaterId);
+            
             filteredMovies = (new MovieDAO()).getMovieByTheater(theaterId);
             if (selectedDate == null || selectedDate.isEmpty()) {
                 // Set selectedDate to today's date
@@ -75,7 +76,7 @@ public class TheaterController extends HttpServlet {
             for (Movie movie : filteredMovies) {
                 List<Showtiming> filteredShowtimes = new ArrayList<>();
                 for (Showtiming showtime : movie.getListShowtime()) {
-                    if (showtime.getDate().equals(selectedDate)) {
+                    if (showtime.getDate().equals(selectedDate) && showtime.getTheaterID().equals(request.getParameter("theaterID"))) {
                         try {
                             String showtimeDateTimeStr = showtime.getDate() + " " + showtime.getShowtiming() + ":00";
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
