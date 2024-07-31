@@ -14,7 +14,7 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
             .notification {
-                margin-top: 20px;
+                margin-top: 1px;
                 padding: 15px;
                 background-color: #e9f7ef;
                 border: 1px solid #d4edda;
@@ -45,19 +45,19 @@
                 width: 48%;
             }
             .highlight {
-                color: #007bff;
+                color: green;
                 font-weight: bold;
             }
         </style>
     </head>
     <body>
         <jsp:include page="/views/homepage/./Header.jsp"></jsp:include>
-            <div class="container mt-5">
-                <div class="row justify-content-center">
+            <div class="container mt-2">
+                <div style="padding-top: -100px"  class="row justify-content-center">
                     <div class="col-md-10">
-                        <div class="card">
+                        <div  class="card">
                             <div class="card-header text-center">
-                                <h4 class="card-title highlight">Ticket Details</h4>
+                                <h4 style="color: red; font-size: 20px" class="card-title highlight">Ticket Details and Important Information</h4>
                             </div>
                             <div class="card-body">
                                 <div class="qr-poster">
@@ -77,6 +77,10 @@
                                     <p><span class="highlight">Movie:</span> ${movie.movie_name}</p>
                                     <p><span class="highlight">Date:</span> ${show.date}</p>
                                     <p><span class="highlight">Time:</span> ${show.showtiming}:00</p>
+                                    <div class="details-col">
+                                        <p><span class="highlight">Customer:</span> ${user.fullname}</p>
+
+                                    </div>
                                 </div>
                                 <div class="details-col">
                                     <p><span class="highlight">Room:</span> ${show.room_name}</p>
@@ -91,15 +95,9 @@
                                         </c:forEach>
                                     </p>
                                     <p><span class="highlight">Total Price:</span> ${ticket.totalprice} VND</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="details-row">
-                                <div class="details-col">
-                                    <p><span class="highlight">User:</span> ${user.fullname}</p>
-                                </div>
-                                <div class="details-col">
-                                    <p><span class="highlight">Booking Date:</span> ${ticket.date_book}</p>
+                                    <div class="details-col">
+                                        <p><span class="highlight">Booking Date:</span> ${ticket.date_book}</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="notification">
@@ -108,13 +106,12 @@
                                 <p>The check-in counter will open 1 hour before the showtime and close 1 hour after the showtime starts.</p>
                                 <p>For movies rated 16 and above, please bring your ID card for age verification.</p>
                             </div>
-                        </div>
-                        <div class="card-footer text-center">
-                            <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>
+                            <div class="card-footer text-center">
+                                <a href="/CineBooking/home" class="btn btn-primary">Back to Home</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 </html>
