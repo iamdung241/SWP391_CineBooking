@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card mb-4 h-100">
                         <div class="card-header justify-content-between align-items-center d-flex">
-                            <h6 class="card-title m-0">User List</h6>
+                            <h6 class="card-title m-0">Staff List</h6>
                             <!-- Search by Username and Role -->
                             <form id="filterForm" class="d-flex" action="/CineBooking/searchAccountStaff">
                                 <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Name" style="width: 200px;">
@@ -95,7 +95,7 @@
                                             <%= roleName %>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/userdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>
+                                            <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/staffdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>
                                         </td>
                                     </tr>
                                     <%
