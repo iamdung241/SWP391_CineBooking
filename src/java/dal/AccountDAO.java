@@ -61,14 +61,14 @@ public class AccountDAO extends DBContext {
         String sql = "SELECT * FROM [Account] WHERE (username = ? OR phone = ? OR email = ?) AND password = ? AND theaterID=?";
         try {
             // Mã hóa mật khẩu bằng MD5
-            String hashedPassword = inputPassword; 
+            String hashedPassword = inputPassword;
 
             stm = connection.prepareStatement(sql);
             stm.setString(1, input);
             stm.setString(2, input);
             stm.setString(3, input);
             stm.setString(4, hashedPassword);
-            stm.setInt(5, theaterID); 
+            stm.setInt(5, theaterID);
 
             rs = stm.executeQuery();
             if (rs.next()) {
@@ -321,6 +321,75 @@ public class AccountDAO extends DBContext {
             }
         }
         return accounts;
+    }
+
+    public Account getManagerByTheaterID(int theaterID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Account manager = null;
+
+        try {
+            String sql = "SELECT * FROM Account WHERE theaterID = ? AND role_id = 2";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, theaterID);
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                int account_id = rs.getInt("account_id");
+                String fullname = rs.getString("fullname");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String usernameDB = rs.getString("username");
+                String password = rs.getString("password");
+                int role_id = rs.getInt("role_id");
+                manager = new Account(account_id, fullname, phone, email, usernameDB, password, role_id, theaterID);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return manager;
+    }
+
+    public int getStaffCountByTheaterID(int theaterID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int staffCount = 0;
+
+        try {
+            String sql = "SELECT COUNT(*) as staffCount FROM Account WHERE theaterID = ? AND role_id = 3";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, theaterID);
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                staffCount = rs.getInt("staffCount");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return staffCount;
     }
 
     public boolean phoneExists(String phone) {

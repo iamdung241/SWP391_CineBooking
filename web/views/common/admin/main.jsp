@@ -99,6 +99,11 @@
                         <i class="fas fa-users"></i> Manage Users
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/views/dashboard/managetheater.jsp">
+                        <i class="fas fa-users"></i> Manage Theaters
+                    </a>
+                </li>
                 <li　class="nav-item">
                     <a class="dropdown-item" href="/CineBooking/logout">
                         <i class="fas fa-users"></i> Logout
