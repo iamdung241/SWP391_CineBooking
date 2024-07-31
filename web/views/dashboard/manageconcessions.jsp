@@ -32,8 +32,6 @@
                                     <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
                                     <option value="priceAsc" ${selectedFilter != null && selectedFilter.equals("priceAsc") ? 'selected' : ''}>Price Increase</option>
                                     <option value="priceDesc" ${selectedFilter != null && selectedFilter.equals("priceDesc") ? 'selected' : ''}>Price Decrease</option>
-                                    <option value="quantityAsc" ${selectedFilter != null && selectedFilter.equals("quantityAsc") ? 'selected' : ''}>Quantity Increase</option>
-                                    <option value="quantityDesc" ${selectedFilter != null && selectedFilter.equals("quantityDesc") ? 'selected' : ''}>Quantity Decrease</option>
                                 </select>
                             </form>
 

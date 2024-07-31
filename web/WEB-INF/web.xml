@@ -194,13 +194,32 @@
         <servlet-class>controller.TicketSellerController</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>BookTheaterController</servlet-name>
         <servlet-class>controller.BookTheaterController</servlet-class>
-
+    </servlet>
+    <servlet>
         <servlet-name>SearchTheater</servlet-name>
         <servlet-class>controller.SearchTheater</servlet-class>
-
+    </servlet>
+    <servlet>
+        <servlet-name>AccountJSon</servlet-name>
+        <servlet-class>controller.admin.assgin.AccountJSon</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateTask</servlet-name>
+        <servlet-class>controller.admin.assgin.CreateTask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTask</servlet-name>
+        <servlet-class>controller.admin.assgin.DeleteTask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTask</servlet-name>
+        <servlet-class>controller.admin.assgin.EditTask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAssign</servlet-name>
+        <servlet-class>controller.admin.assgin.ManagerAssign</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -387,10 +406,6 @@
         <url-pattern>/searchAccountStaff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TicketSellerController</servlet-name>
-        <url-pattern>/ticketSeller</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchTheater</servlet-name>
         <url-pattern>/searchTheater</url-pattern>
     </servlet-mapping>
@@ -484,11 +499,11 @@
         <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Session Configuration -->
-    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>TheaterX</servlet-name>
         <url-pattern>/theaterx</url-pattern>
     </servlet-mapping>
-    <!-- Filter Definition -->
+     Filter Definition 
     <filter>
         <filter-name>AdminFilter</filter-name>
         <filter-class>filter.AdminFilter</filter-class>
@@ -504,7 +519,7 @@
     <filter>
         <filter-name>TicketSellerFilter</filter-name>
         <filter-class>filter.TicketSellerFilter</filter-class>
-    </filter>
+    </filter>-->
     <!--    <filter-mapping>
         <filter-name>StaffFilter</filter-name>
         <url-pattern>/scanticket</url-pattern>
@@ -578,7 +593,6 @@
         <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Session Configuration -->
-
     <servlet-mapping>
         <servlet-name>TicketSellerController</servlet-name>
         <url-pattern>/ticketSeller</url-pattern>
@@ -587,8 +601,26 @@
         <servlet-name>BookTheaterController</servlet-name>
         <url-pattern>/bookTheater</url-pattern>
     </servlet-mapping>
-  
-
+    <servlet-mapping>
+        <servlet-name>AccountJSon</servlet-name>
+        <url-pattern>/getAccountJson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateTask</servlet-name>
+        <url-pattern>/create-task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTask</servlet-name>
+        <url-pattern>/delete-task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTask</servlet-name>
+        <url-pattern>/edit-task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerAssign</servlet-name>
+        <url-pattern>/ManagerAssignment</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

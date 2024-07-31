@@ -41,7 +41,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
@@ -69,7 +68,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-//                concession.setQuantity(resultSet.getInt("quantity"));
                 concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
@@ -99,7 +97,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
@@ -155,15 +152,14 @@ public class ConcessionDAO extends DBContext {
 
     public List<Concession> findByKeywordAdmin(String keyword, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
-        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM Concessions WHERE concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? ORDER BY concessions_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             String queryKeyword = "%" + keyword + "%";
             statement.setString(1, queryKeyword);
             statement.setString(2, queryKeyword);
-            statement.setString(3, queryKeyword);
-            statement.setInt(4, (page - 1) * limit);
-            statement.setInt(5, limit);
+            statement.setInt(3, (page - 1) * limit);
+            statement.setInt(4, limit);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -172,7 +168,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
@@ -183,13 +178,12 @@ public class ConcessionDAO extends DBContext {
     }
 
     public int getTotalRecordsByKeyword(String keyword) {
-        String sql = "SELECT COUNT(*) FROM Concessions WHERE concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ? OR CAST(quantity AS CHAR) LIKE ?";
+        String sql = "SELECT COUNT(*) FROM Concessions WHERE concessions_name LIKE ? OR CAST(price AS CHAR) LIKE ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             String queryKeyword = "%" + keyword + "%";
             statement.setString(1, queryKeyword);
             statement.setString(2, queryKeyword);
-            statement.setString(3, queryKeyword);
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -233,7 +227,6 @@ public class ConcessionDAO extends DBContext {
             statement.setString(1, concession.getConcessions_name());
             statement.setString(2, concession.getImage());
             statement.setFloat(3, concession.getPrice());
-//            statement.setInt(4, concession.getQuantity());
             statement.setInt(4, concession.getConcessions_id());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -274,7 +267,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 concession.setStatus(resultSet.getInt("status"));
                 listFound.add(concession);
             }
@@ -301,34 +293,6 @@ public class ConcessionDAO extends DBContext {
         return 0;
     }
 
-    public List<Concession> getConcessionsOrderedByQuantityy(boolean ascending, int page, int limit) {
-        List<Concession> listFound = new ArrayList<>();
-        String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions ORDER BY quantity " + order
-                + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, (page - 1) * limit);
-            statement.setInt(2, limit);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                Concession concession = new Concession();
-                concession.setConcessions_id(resultSet.getInt("concessions_id"));
-                concession.setConcessions_name(resultSet.getString("concessions_name"));
-                concession.setImage(resultSet.getString("image"));
-                concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
-                concession.setStatus(resultSet.getInt("status"));
-                listFound.add(concession);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listFound;
-    }
-
     public List<Concession> findByKeywordOrderedByPriceAdmin(String keyword, boolean ascending, int page, int limit) {
     List<Concession> listFound = new ArrayList<>();
     String order = ascending ? "ASC" : "DESC";
@@ -346,7 +310,6 @@ public class ConcessionDAO extends DBContext {
             concession.setConcessions_name(resultSet.getString("concessions_name"));
             concession.setImage(resultSet.getString("image"));
             concession.setPrice(resultSet.getFloat("price"));
-            concession.setQuantity(resultSet.getInt("quantity"));
             concession.setStatus(resultSet.getInt("status")); 
             listFound.add(concession);
         }
@@ -355,47 +318,6 @@ public class ConcessionDAO extends DBContext {
     }
     return listFound;
 }
-    public List<Concession> findByKeywordOrderedByQuantityAdmin(String keyword, boolean ascending, int page, int limit) {
-        List<Concession> listFound = new ArrayList<>();
-        String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions AND concessions_name LIKE ? ORDER BY quantity " + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, "%" + keyword + "%");
-            statement.setInt(2, (page - 1) * limit);
-            statement.setInt(3, limit);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Concession concession = new Concession();
-                concession.setConcessions_id(resultSet.getInt("concessions_id"));
-                concession.setConcessions_name(resultSet.getString("concessions_name"));
-                concession.setImage(resultSet.getString("image"));
-                concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
-                concession.setStatus(resultSet.getInt("status"));
-                listFound.add(concession);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listFound;
-    }
-
-    public int getTotalRecordsByQuantityAdmin(boolean ascending) {
-        String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT COUNT(*) FROM Concessions\n";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-    
     
     
     
@@ -423,7 +345,6 @@ public class ConcessionDAO extends DBContext {
         System.out.println("Name: " + concession.getConcessions_name());
         System.out.println("Image: " + concession.getImage());
         System.out.println("Price: " + concession.getPrice());
-        System.out.println("Quantity: " + concession.getQuantity());
         System.out.println("Status: " + concession.getStatus());
         System.out.println("-----------------------------");
     }
@@ -469,7 +390,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 listFound.add(concession);
             }
 
@@ -496,33 +416,7 @@ public class ConcessionDAO extends DBContext {
         return 0;
     }
 
-    public List<Concession> getConcessionsOrderedByQuantity(boolean ascending, int page, int limit) {
-        List<Concession> listFound = new ArrayList<>();
-        String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions Where status = 1 ORDER BY quantity " + order
-                + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, (page - 1) * limit);
-            statement.setInt(2, limit);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                Concession concession = new Concession();
-                concession.setConcessions_id(resultSet.getInt("concessions_id"));
-                concession.setConcessions_name(resultSet.getString("concessions_name"));
-                concession.setImage(resultSet.getString("image"));
-                concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
-                listFound.add(concession);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listFound;
-    }
-
+   
     public List<Concession> findByKeywordOrderedByPriceHome(String keyword, boolean ascending, int page, int limit) {
         List<Concession> listFound = new ArrayList<>();
         String order = ascending ? "ASC" : "DESC";
@@ -540,54 +434,12 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 listFound.add(concession);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return listFound;
-    }
-
-    public List<Concession> findByKeywordOrderedByQuantity(String keyword, boolean ascending, int page, int limit) {
-        List<Concession> listFound = new ArrayList<>();
-        String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT * FROM Concessions WHERE status = 1 AND concessions_name LIKE ? ORDER BY quantity " + order + " OFFSET ? ROW FETCH NEXT ? ROWS ONLY";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, "%" + keyword + "%");
-            statement.setInt(2, (page - 1) * limit);
-            statement.setInt(3, limit);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Concession concession = new Concession();
-                concession.setConcessions_id(resultSet.getInt("concessions_id"));
-                concession.setConcessions_name(resultSet.getString("concessions_name"));
-                concession.setImage(resultSet.getString("image"));
-                concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
-                listFound.add(concession);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listFound;
-    }
-
-    public int getTotalRecordsByQuantity(boolean ascending) {
-        String order = ascending ? "ASC" : "DESC";
-        String sql = "SELECT COUNT(*) FROM Concessions\n"
-                + "WHERE status = 1";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     public int getTotalRecordCount() {
@@ -630,7 +482,6 @@ public class ConcessionDAO extends DBContext {
                 concession.setConcessions_name(resultSet.getString("concessions_name"));
                 concession.setImage(resultSet.getString("image"));
                 concession.setPrice(resultSet.getFloat("price"));
-                concession.setQuantity(resultSet.getInt("quantity"));
                 listFound.add(concession);
             }
         } catch (Exception e) {
@@ -693,7 +544,6 @@ public class ConcessionDAO extends DBContext {
                     concession.setConcessions_name(resultSet.getString("concessions_name"));
                     concession.setImage(resultSet.getString("image"));
                     concession.setPrice(resultSet.getFloat("price"));
-                    concession.setQuantity(resultSet.getInt("quantity"));
                     listFound.add(concession);
                 }
             }
@@ -763,7 +613,6 @@ public class ConcessionDAO extends DBContext {
             concession.setConcessions_name(resultSet.getString("concessions_name"));
             concession.setImage(resultSet.getString("image"));
             concession.setPrice(resultSet.getFloat("price"));
-            concession.setQuantity(resultSet.getInt("quantity"));
             listFound.add(concession);
         }
     } catch (Exception e) {

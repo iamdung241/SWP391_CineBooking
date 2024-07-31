@@ -139,6 +139,11 @@
                         <i class="fa-solid fa-clock"></i> Manage Showtime
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/CineBooking/ManagerAssignment">
+                        <i class="fa-regular fa-rectangle-list"></i> Staff assignment
+                    </a>
+                </li>
                 <li　class="nav-item">
                     <a class="dropdown-item" href="/CineBooking/logout">
                         <i class="fas fa-users"></i> Logout
