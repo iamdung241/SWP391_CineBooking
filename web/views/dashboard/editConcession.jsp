@@ -35,11 +35,11 @@
                         <div id="priceEditError" class="error"></div>
                     </div>
                     <!--Quantity-->
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label for="quantity">Quantity:</label>
                         <input type="text" class="form-control" id="quantityEditInput" name="quantity">
                         <div id="quantityEditError" class="error"></div>
-                    </div>
+                    </div>-->
                     <!--Image-->
                     <div class="form-group">
                         <label for="image">Image: </label>
@@ -76,7 +76,7 @@
     function validateForm2() {
         let name = $('#nameEditInput').val();
         let price = $('#priceEditInput').val();
-        let quantity = $('#quantityEditInput').val();
+//        let quantity = $('#quantityEditInput').val();
         //xoá thông báo lỗi hiện tại
         $('.error').html('');
         if (name === '') {
@@ -89,11 +89,11 @@
         } else if (!$.isNumeric(price) || parseFloat(price) < 0) {
         $('#priceEditError').html('The price of the concession must be a number and cannot be less than 0').css('color', 'red');
         }
-        if (quantity === '') {
-            $('#quantityEditError').html('The quantity of concessions cannot be left blank').css('color', 'red');
-        } else if (!$.isNumeric(quantity) || parseInt(quantity) < 0) {
-            $('#quantityEditError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
-        }
+//        if (quantity === '') {
+//            $('#quantityEditError').html('The quantity of concessions cannot be left blank').css('color', 'red');
+//        } else if (!$.isNumeric(quantity) || parseInt(quantity) < 0) {
+//            $('#quantityEditError').html('The amount of the concession must be numeric and cannot be less than 0').css('color', 'red');
+//        }
         // Kiểm tra nếu không có lỗi thì submit form
         let error = '';
         $('.error').each(function () {
@@ -131,13 +131,13 @@
         let name = $(button).closest('tr').find('td[name="name"]').text().trim();
         let price = $(button).closest('tr').find('td[name="price"]').text().trim().split('$')[0];
         console.log(price);
-        let quantity = $(button).closest('tr').find('td[name="quantity"]').text().trim();
+//        let quantity = $(button).closest('tr').find('td[name="quantity"]').text().trim();
 //        let description = $(button).closest('tr').find('td[name="description"]').text().trim();
         let image = $(button).closest('tr').find('td[name="image"]').find('img').attr('src');
         $('#idEditInput').val(id);
         $('#nameEditInput').val(name);
         $('#priceEditInput').val(price);
-        $('#quantityEditInput').val(quantity);
+//        $('#quantityEditInput').val(quantity);
 //        $('#descriptionEdit').val(description);
         $('#previewImage2').attr('src', image);
         $('#previewImage2').css('display', 'block');
