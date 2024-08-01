@@ -95,23 +95,15 @@
                                 </div>
                                 <div class="form-group mt-3 mb-3">
                                     <label for="threaterId">Theater</label>
-                                    <!--                                        <div class="alert alert-danger pt-2 pb-2 messCategory" role="alert">
-                                                                                Please choose threater
-                                                                            </div>-->
-                                    <select class="form-control" name="threaterId" id="threaterId" onChange="fetchApiAccount()">
-                                        <option value="0">Choose Theater</option>
-                                        <c:forEach items="${theaters}" var="t">
-                                            <option value="${t.id}">${t.name}</option>
-                                        </c:forEach>
-                                    </select>
+                                    <input class="form-control" type="text" id="title" name="theaterId" value="${theater.name}"readonly />
                                 </div>
                                 <div>
                                     <label for="accountId">Task Receiver</label>
-                                    <!--                                        <div class="alert alert-danger pt-2 pb-2 messCategory" role="alert">
-                                                                                Please choose threater
-                                                                            </div>-->
-                                    <select class="form-control" name="accountId" id="accountId">
+                                   <select class="form-control" name="accountId" id="accountId">
                                         <option value="0">Choose receiver task</option>
+                                        <c:forEach items="${accounts}" var="a">
+                                            <option value="${a.account_id}">${a.fullname}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class="form-group">

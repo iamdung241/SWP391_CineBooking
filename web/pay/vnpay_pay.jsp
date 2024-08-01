@@ -69,8 +69,10 @@
                         <button type="submit" class="btn btn-primary" href>Thanh toán</button>
                     </div>    
                 </form>
-                <h5>Cách 3: Thanh toán tiền mặt tại quầy</h5>
-                <button class="btn btn-success" onclick="window.location.href = 'payoff'">Thanh toán tại đây</button>
+                <c:if test="${sessionScope.user.getRole_id() == 5}">
+                    <h5>Cách 3: Thanh toán tiền mặt tại quầy</h5>
+                    <button class="btn btn-success" onclick="window.location.href = 'payoff'">Thanh toán tại đây</button>
+                </c:if>
             </div>
             <p>
                 &nbsp;
@@ -83,29 +85,29 @@
         <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
         <script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
         <script type="text/javascript">
-                    $("#frmCreateOrder").submit(function () {
-                        var postData = $("#frmCreateOrder").serialize();
-                        var submitUrl = $("#frmCreateOrder").attr("action");
-                        $.ajax({
-                            type: "POST",
-                            url: submitUrl,
-                            data: postData,
-                            dataType: 'JSON',
-                            success: function (x) {
-                                if (x.code === '00') {
-                                    if (window.vnpay) {
-                                        vnpay.open({width: 768, height: 600, url: x.data});
+                        $("#frmCreateOrder").submit(function () {
+                            var postData = $("#frmCreateOrder").serialize();
+                            var submitUrl = $("#frmCreateOrder").attr("action");
+                            $.ajax({
+                                type: "POST",
+                                url: submitUrl,
+                                data: postData,
+                                dataType: 'JSON',
+                                success: function (x) {
+                                    if (x.code === '00') {
+                                        if (window.vnpay) {
+                                            vnpay.open({width: 768, height: 600, url: x.data});
+                                        } else {
+                                            location.href = x.data;
+                                        }
+                                        return false;
                                     } else {
-                                        location.href = x.data;
+                                        alert(x.Message);
                                     }
-                                    return false;
-                                } else {
-                                    alert(x.Message);
                                 }
-                            }
+                            });
+                            return false;
                         });
-                        return false;
-                    });
         </script>       
     </body>
 </html>

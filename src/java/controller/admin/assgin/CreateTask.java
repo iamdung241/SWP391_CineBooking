@@ -22,10 +22,21 @@ public class CreateTask extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
+
         TaskDAO taskDao = new TaskDAO();
         ArrayList<Theater> theaters = taskDao.getListThreaters();
-
-        request.setAttribute("theaters", theaters);
+        Theater theater = null;
+        if (acc.getRole_id() == 2) {
+            for (Theater t : theaters) {
+                if (t.getId() == acc.getTheaterID()) {
+                    theater = t;
+                    break;
+                }
+            }
+        }
+        ArrayList<Account> accounts = taskDao.getAccountByTheater(theater.getId() + "");
+        request.setAttribute("theater", theater);
+        request.setAttribute("accounts", accounts);
         request.getRequestDispatcher("/views/assign/createTask.jsp").forward(request, response);
     }
 
