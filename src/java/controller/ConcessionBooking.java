@@ -80,7 +80,7 @@ public class ConcessionBooking extends HttpServlet {
         request.setAttribute("room", room);
         request.setAttribute("seat", seat);
         request.setAttribute("show", show);
-        request.setAttribute("totalprice", price.replace("₫", "").replace(".", "").trim());
+        request.setAttribute("totalprice", price.replace(",", "").replace(".", "").trim());
         
         String requestURI = request.getRequestURI(); // /CineBooking/ConcessionBooking
 
