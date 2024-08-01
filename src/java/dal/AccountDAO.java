@@ -631,6 +631,69 @@ public class AccountDAO extends DBContext {
         }
     }
 
+    public Account getAccountByTheaterIdAndRoleId(int theaterID, int roleId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM [Account] WHERE theaterID = ? and role_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, theaterID);
+            stm.setInt(2, roleId);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("account_id"));
+                account.setFullname(rs.getString("fullname"));
+                account.setPhone(rs.getString("phone"));
+                account.setEmail(rs.getString("email"));
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole_id(rs.getInt("role_id"));
+                account.setTheaterID(rs.getInt("theaterID"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    public Vector<Account> getStaffByTheaterId(int theaterId) {
+        Vector<Account> staffList = new Vector<>();
+        String sql = "SELECT * FROM Account WHERE theaterID = ? AND role_id = 3 OR role_id = 5";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, theaterId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Account account = new Account();
+                account.setAccount_id(rs.getInt("account_id"));
+                account.setUsername(rs.getString("username"));
+                account.setFullname(rs.getString("fullname"));
+                account.setPassword(rs.getString("password"));
+                account.setEmail(rs.getString("email"));
+                account.setPhone(rs.getString("phone"));
+                account.setRole_id(rs.getInt("role_id"));
+                account.setTheaterID(rs.getInt("theaterID"));
+                staffList.add(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return staffList;
+    }
+
     public Account getAccountByGoogleEmail(String email) {
         PreparedStatement stm = null;
         ResultSet rs = null;
