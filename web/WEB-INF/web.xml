@@ -221,6 +221,10 @@
         <servlet-name>ManagerAssign</servlet-name>
         <servlet-class>controller.admin.assgin.ManagerAssign</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>payoff</servlet-name>
+        <servlet-class>payment.payoff</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -620,6 +624,10 @@
     <servlet-mapping>
         <servlet-name>ManagerAssign</servlet-name>
         <url-pattern>/ManagerAssignment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>payoff</servlet-name>
+        <url-pattern>/payoff</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

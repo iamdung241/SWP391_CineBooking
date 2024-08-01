@@ -22,16 +22,16 @@
                 font-size: 20px;
                 font-weight: bold;
             }
-            
+
         </style>
-        
+
     </head>
 
     <body>
-         <div class="container">
-           <div class="header clearfix">
+        <div class="container">
+            <div class="header clearfix">
                 <h3 class="text-muted">VNPAY</h3>
-                <button class="btn btn-danger mt-2" onclick="location.href='${sessionScope.urlback}'">Back</button>
+                <button class="btn btn-danger mt-2" onclick="location.href = '${sessionScope.urlback}'">Back</button>
             </div>
             <h3>Thanh toán hóa đơn</h3>
             <div class="table-responsive">
@@ -49,26 +49,28 @@
                         <label for="amount">Số tiền</label><br>
                         <input readonly class="form-control" data-val="true" data-val-number="The field Amount must be a number." data-val-required="The Amount field is required." id="amount" max="100000000" min="1" name="amount" type="number" value="${price}" />
                     </div>
-                     <h4>Chọn phương thức thanh toán</h4>
+                    <h4>Chọn phương thức thanh toán</h4>
                     <div class="form-group">
                         <h5>Cách 1: Chuyển hướng sang Cổng VNPAY chọn phương thức thanh toán</h5>
-                       <input type="radio" Checked="True" id="bankCode" name="bankCode" value="">
-                       <label for="bankCode">Cổng thanh toán VNPAYQR</label><br>                       
-                       <h5>Cách 2: Tách phương thức tại site của đơn vị kết nối</h5>
-                       <input type="radio" id="bankCode" name="bankCode" value="VNPAYQR">
-                       <label for="bankCode">Thanh toán bằng ứng dụng hỗ trợ VNPAYQR</label><br>
-                       
-                       <input type="radio" id="bankCode" name="bankCode" value="VNBANK">
-                       <label for="bankCode">Thanh toán qua thẻ ATM/Tài khoản nội địa</label><br>
-                       
-                       <input type="radio" id="bankCode" name="bankCode" value="INTCARD">
-                       <label for="bankCode">Thanh toán qua thẻ quốc tế</label><br>
-                       
+                        <input type="radio" Checked="True" id="bankCode" name="bankCode" value="">
+                        <label for="bankCode">Cổng thanh toán VNPAYQR</label><br>                       
+                        <h5>Cách 2: Tách phương thức tại site của đơn vị kết nối</h5>
+                        <input type="radio" id="bankCode" name="bankCode" value="VNPAYQR">
+                        <label for="bankCode">Thanh toán bằng ứng dụng hỗ trợ VNPAYQR</label><br>
+
+                        <input type="radio" id="bankCode" name="bankCode" value="VNBANK">
+                        <label for="bankCode">Thanh toán qua thẻ ATM/Tài khoản nội địa</label><br>
+
+                        <input type="radio" id="bankCode" name="bankCode" value="INTCARD">
+                        <label for="bankCode">Thanh toán qua thẻ quốc tế</label><br>
+
                     </div>
                     <div class="d-flex text-center">
                         <button type="submit" class="btn btn-primary" href>Thanh toán</button>
                     </div>    
                 </form>
+                <h5>Cách 3: Thanh toán tiền mặt tại quầy</h5>
+                <button class="btn btn-success" onclick="window.location.href = 'payoff'">Thanh toán tại đây</button>
             </div>
             <p>
                 &nbsp;
@@ -77,33 +79,33 @@
                 <p>&copy; VNPAY 2020</p>
             </footer>
         </div>
-          
+
         <link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
         <script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
         <script type="text/javascript">
-            $("#frmCreateOrder").submit(function () {
-                var postData = $("#frmCreateOrder").serialize();
-                var submitUrl = $("#frmCreateOrder").attr("action");
-                $.ajax({
-                    type: "POST",
-                    url: submitUrl,
-                    data: postData,
-                    dataType: 'JSON',
-                    success: function (x) {
-                        if (x.code === '00') {
-                            if (window.vnpay) {
-                                vnpay.open({width: 768, height: 600, url: x.data});
-                            } else {
-                                location.href = x.data;
+                    $("#frmCreateOrder").submit(function () {
+                        var postData = $("#frmCreateOrder").serialize();
+                        var submitUrl = $("#frmCreateOrder").attr("action");
+                        $.ajax({
+                            type: "POST",
+                            url: submitUrl,
+                            data: postData,
+                            dataType: 'JSON',
+                            success: function (x) {
+                                if (x.code === '00') {
+                                    if (window.vnpay) {
+                                        vnpay.open({width: 768, height: 600, url: x.data});
+                                    } else {
+                                        location.href = x.data;
+                                    }
+                                    return false;
+                                } else {
+                                    alert(x.Message);
+                                }
                             }
-                            return false;
-                        } else {
-                            alert(x.Message);
-                        }
-                    }
-                });
-                return false;
-            });
+                        });
+                        return false;
+                    });
         </script>       
     </body>
 </html>
