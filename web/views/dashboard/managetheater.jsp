@@ -18,28 +18,29 @@
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
-        <section class="container-fluid">
-            <div class="col-12">
-                <div class="card mb-4 h-100">
-                    <div class="card-header justify-content-between align-items-center d-flex">
-                        <h6 class="card-title m-0">Theater List</h6>
-                        <form id="filterForm" class="d-flex" action="/CineBooking/searchTheater" method="get">
-                            <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Manager's Name" style="width: 200px;">
-                            <button class="btn px-2 btn-primary py-0" type="submit"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive" style="max-height: 720px">
-                            <table class="table m-0 table-striped overflow-auto" border="1">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Theater ID</th>
-                                        <th>Theater Name</th>
-                                        <th>Manager's Name</th>
-                                        <th>Number of Staff</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+            <section class="container-fluid">
+                <div class="col-12">
+                    <div class="card mb-4 h-100">
+                        <div class="card-header justify-content-between align-items-center d-flex">
+                            <h6 class="card-title m-0">Theater List</h6>
+                            <form id="filterForm" class="d-flex" action="/CineBooking/searchTheater" method="get">
+                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Manager's Name" style="width: 200px;">
+                                <button class="btn px-2 btn-primary py-0" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" style="max-height: 720px">
+                                <table class="table m-0 table-striped overflow-auto" border="1">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Theater ID</th>
+                                            <th>Theater Name</th>
+                                            <th>Manager's Name</th>
+                                            <th>Number of Staff</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                     <%
                                         // Retrieve search parameters
                                         String searchQuery = request.getParameter("query");
@@ -63,7 +64,7 @@
                                             staffCounts.add(staffCount);
                                         }
 
-                                        for (int i = theaters.size() - 1; i >= 0; i--) {
+                                        for (int i = theaters.size() - 1; i >= 1; i--) {
                                             Theater theater = theaters.get(i);
                                             Account manager = managers.get(i);
                                             int staffCount = staffCounts.get(i);
@@ -73,7 +74,9 @@
                                         <td><%= theater.getName() %></td>
                                         <td><%= manager != null ? manager.getFullname() : "No Manager" %></td>
                                         <td><%= staffCount %></td>
+                                        <td><a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/theaterdetail.jsp?id=<%= theater.getId() %>"><i class="fas fa-info-circle"></i> Detail</a>              </td>
                                     </tr>
+                                        
                                     <%
                                         }
                                     %>
