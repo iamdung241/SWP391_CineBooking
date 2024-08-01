@@ -77,7 +77,7 @@ public class BookTicketServlet extends HttpServlet {
         String movieID = request.getParameter("movieID");
         String selectedDate = request.getParameter("date");
         String theaterId = request.getParameter("theaterID");
-        //int theaterID = Integer.parseInt(theaterId);
+        
 
         if (selectedDate == null) {
             selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -85,10 +85,13 @@ public class BookTicketServlet extends HttpServlet {
 
         List<Theater> theaterList = new TheaterDAO().getTheaterByAll(Integer.parseInt(movieID), selectedDate);
         request.setAttribute("theaterList", theaterList);
-        
-//        List<Showtiming> showList = new ShowtimingDAO().getRoomAndShowtime(Integer.parseInt(movieID),
-//                selectedDate, theaterID);
-//        request.setAttribute("showList", showList);
+
+        if (theaterId != null) {
+            int theaterID = Integer.parseInt(theaterId);
+            List<Showtiming> showList = new ShowtimingDAO().getRoomAndShowtime(Integer.parseInt(movieID),
+                    selectedDate, theaterID);
+            request.setAttribute("showList", showList);
+        }
 
         List<Showtiming> filteredShowtimes = new ArrayList<>();
         try {

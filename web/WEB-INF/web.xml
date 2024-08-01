@@ -193,10 +193,7 @@
         <servlet-name>TicketSellerController</servlet-name>
         <servlet-class>controller.TicketSellerController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>BookTheaterController</servlet-name>
-        <servlet-class>controller.BookTheaterController</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>SearchTheater</servlet-name>
         <servlet-class>controller.SearchTheater</servlet-class>
@@ -499,10 +496,10 @@
         <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Session Configuration -->
-    <!--    <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>TheaterX</servlet-name>
         <url-pattern>/theaterx</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping><!--
      Filter Definition 
     <filter>
         <filter-name>AdminFilter</filter-name>
@@ -598,10 +595,6 @@
         <url-pattern>/ticketSeller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BookTheaterController</servlet-name>
-        <url-pattern>/bookTheater</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AccountJSon</servlet-name>
         <url-pattern>/getAccountJson</url-pattern>
     </servlet-mapping>
@@ -621,11 +614,5 @@
         <servlet-name>ManagerAssign</servlet-name>
         <url-pattern>/ManagerAssignment</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-    <!-- Welcome File List -->
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
+    
 </web-app>
