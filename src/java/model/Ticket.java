@@ -26,6 +26,15 @@ public class Ticket {
     private String movieImage;
     private String movieAge;
     private String theaterName;
+    private String roomName;
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
 
     public String getTheaterName() {
         return theaterName;

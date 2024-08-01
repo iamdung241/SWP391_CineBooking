@@ -48,38 +48,40 @@
         <section id="header">
             <nav style="background-color: #000 ; padding-top: 5px; padding-bottom: 5px" class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
                 <div class="container-xl">
-                    <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="/CineBooking/home"><img class="navbar-logo" src="/CineBooking/img/movieLogo.PNG"/></a>
+                    <a class="navbar-brand fs-2 p-0 fw-bold text-white m-0 me-5" href="#"><img class="navbar-logo" src="/CineBooking/img/movieLogo.PNG"/></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mb-0">
-                            <li class="nav-item dropdown">
-                                <a style="color: #fff; font-size: 15px" class="nav-link dropdown-toggle" href='/CinemaBooking/home' id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
-                                <ul style="border: none" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/CineBooking/listmovie">Now showing</a></li>
-                                    <li><a class="dropdown-item" href="/CineBooking/comingsoon">Coming soon</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/views/homepage/About.jsp">About </a>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/concession">Concession</a>
-                            </li>
-                            <li class="nav-item">
-                                <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/theaterx?service=searchAll">Theater</a>
-                            </li>
-                            <li class="nav-item">
-                                <c:if test="${sessionScope.user == null}">
-                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp">Account</a>
-                                </c:if>       
-                                <c:if test="${sessionScope.user != null}">
-                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
+                        <c:if test="${sessionScope.user.getRole_id() != 5}">
+                            <ul class="navbar-nav mb-0">
+                                <li class="nav-item dropdown">
+                                    <a style="color: #fff; font-size: 15px" class="nav-link dropdown-toggle" href='/CinemaBooking/home' id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                                    <ul style="border: none" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/CineBooking/listmovie">Now showing</a></li>
+                                        <li><a class="dropdown-item" href="/CineBooking/comingsoon">Coming soon</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/views/homepage/About.jsp">About </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/concession">Concession</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/theaterx?service=searchAll">Theater</a>
+                                </li>
+                                <li class="nav-item">
+                                    <c:if test="${sessionScope.user == null}">
+                                        <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp">Account</a>
+                                    </c:if>       
+                                    <c:if test="${sessionScope.user != null}">
+                                        <a style="color: #fff; font-size: 15px" class="nav-link" href="customerController?userID=${sessionScope.user.account_id}">Profile</a>
 
-                                </c:if>  
-                            </li>		
-                        </ul>
+                                    </c:if>  
+                                </li>		
+                            </ul>
+                        </c:if>
                         <ul class="navbar-nav mb-0 ms-auto">
                             <li class="nav-item">
                                 <c:if test="${sessionScope.user == null}">

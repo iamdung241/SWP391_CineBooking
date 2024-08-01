@@ -128,15 +128,14 @@
                                                href="bookticket?date=${selectedDate}&theaterID=${tl.id}&movieID=${movie.movie_id}">
                                                 ${tl.name}
                                             </a>
-                                            <c:if test="${showList != null}">
+                                            <c:if test="${showList != null && selectedTheaterID == tl.id}">
                                                 <c:forEach items="${showList}" var="show">
-                                                    <div style="padding: 15px">
+                                                    <div style="padding: 15px; margin: 40px">
                                                         <c:if test="${sessionScope.user == null}">
-                                                            <a class="showtime" href="login.jsp">
+                                                            <a class="showtime" href="login.jsp?returnUrl=bookticket?movieID=${movie.movie_id}&date=${selectedDate}&theaterID=${tl.id}">
                                                                 ${show.getShowtiming()}:00 &nbsp|&nbsp ${show.room_name}
                                                             </a>
                                                         </c:if>
-
                                                         <c:if test="${sessionScope.user != null}">
                                                             <a class="showtime" href="seat?showtimeID=${show.getShowtime_id()}&theaterID=${tl.id}&roomID=${show.room_id}&movieID=${show.getMovie_id()}&date=${selectedDate}">
                                                                 ${show.getShowtiming()}:00 &nbsp|&nbsp ${show.room_name}
@@ -144,9 +143,7 @@
                                                         </c:if>
                                                     </div>
                                                 </c:forEach>
-
                                             </c:if>
-
                                         </c:forEach>
                                     </c:otherwise>
                                 </c:choose>
