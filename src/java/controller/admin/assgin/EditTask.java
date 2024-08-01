@@ -30,10 +30,18 @@ public class EditTask extends HttpServlet {
         ArrayList<Theater> theaters = taskDao.getListThreaters();
         Account account = taskDao.getAccountById(task.getAccountId());
         ArrayList<Account> accounts = taskDao.getAccountByTheater(account.getTheaterID()+"");
-        
+        Theater theater = null;
+        if (acc.getRole_id() == 2) {
+            for (Theater t : theaters) {
+                if (t.getId() == acc.getTheaterID()) {
+                    theater = t;
+                    break;
+                }
+            }
+        }
         request.setAttribute("account", account);
         request.setAttribute("accounts", accounts);
-        request.setAttribute("theaters", theaters);
+        request.setAttribute("theater", theater);
         request.setAttribute("task", task);
         request.getRequestDispatcher("/views/assign/editTask.jsp").forward(request, response);
     }

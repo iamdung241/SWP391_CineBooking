@@ -6,7 +6,8 @@ package model;
 
 public class Task {
 
-    private String id, title, description,status,accountId, createdAt, finishedAt;
+    private String id, title, description, status, accountId, createdAt, finishedAt;
+    private String nameAccount;
 
     public Task() {
     }
@@ -19,9 +20,17 @@ public class Task {
         this.accountId = accountId;
         this.createdAt = createdAt;
         this.finishedAt = finishedAt;
+        this.nameAccount = "";
     }
 
-   
+    public void setNameAccount(String nameAccount) {
+        this.nameAccount = nameAccount;
+    }
+
+    public String getNameAccount() {
+        return nameAccount;
+    }
+
     public String getId() {
         return id;
     }
@@ -71,8 +80,11 @@ public class Task {
     }
 
     public String getFinishedAt() {
-        if(finishedAt == null) return "Unfinished";
-        return finishedAt;
+        if (finishedAt == null) {
+            return "Unfinished";
+        } else {
+            return finishedAt.substring(0, 19);
+        }
     }
 
     public void setFinishedAt(String finishedAt) {
@@ -83,5 +95,5 @@ public class Task {
     public String toString() {
         return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + ", accountId=" + accountId + ", createdAt=" + createdAt + ", finishedAt=" + finishedAt + '}';
     }
-    
+
 }

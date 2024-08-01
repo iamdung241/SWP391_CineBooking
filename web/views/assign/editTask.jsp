@@ -96,12 +96,7 @@
                             <input type="hidden" value="${task.id}" name="id"/>
                                 <div class="form-group mt-3 mb-3">
                                     <label for="threaterId">Theater</label>
-                                    <select class="form-control" name="theaterId" id="theaterId" onChange="fetchApiAccount()">
-                                        <option value="0">Choose Theater</option>
-                                        <c:forEach items="${theaters}" var="t">
-                                            <option value="${t.id}" ${account.theaterID == t.id?'selected':''}>${t.name}</option>
-                                        </c:forEach>
-                                    </select>
+                                    <input class="form-control" type="text" id="title" name="theaterId" value="${theater.name}"readonly />
                                 </div>
                                 <div>
                                     <label for="accountId">Task Receiver</label>

@@ -35,7 +35,6 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
-
         <style>
             .movieImage {
                 border-radius: 10px;
@@ -139,17 +138,13 @@
                                                     <i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1"></i>
                                                     Welcome ${sessionScope.user.fullname} !
                                                 </a>
-                                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <ul class="dropdown-menu">
                                                     <li><a class="dropdown-item" href="/CineBooking/OrderHistory">Order History</a></li>
+                                                    <li><a class="dropdown-item" href="/CineBooking/ViewTask">View Task</a></li>
                                                     <li><a class="dropdown-item" href="logout">Logout</a></li>
                                                 </ul>
                                             </div>
                                         </c:if>
-
-
-                                    </li>
-                                    <li>
-
                                     </li>
                                 </ul>
                             </div>
@@ -193,6 +188,7 @@
                                     <c:when test="${empty m}">
                                         <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
                                     </c:when>
+
                                     <c:otherwise>
                                         <!-- Display showtimes if a date is selected -->
                                         <c:forEach items="${m.getListShowtime()}" var="s">
