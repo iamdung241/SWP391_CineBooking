@@ -193,15 +193,30 @@
         <servlet-name>TicketSellerController</servlet-name>
         <servlet-class>controller.TicketSellerController</servlet-class>
     </servlet>
-    <servlet>
 
-        <servlet-name>BookTheaterController</servlet-name>
-        <servlet-class>controller.BookTheaterController</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>SearchTheater</servlet-name>
         <servlet-class>controller.SearchTheater</servlet-class>
-
+    </servlet>
+    <servlet>
+        <servlet-name>AccountJSon</servlet-name>
+        <servlet-class>controller.admin.assgin.AccountJSon</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateTask</servlet-name>
+        <servlet-class>controller.admin.assgin.CreateTask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTask</servlet-name>
+        <servlet-class>controller.admin.assgin.DeleteTask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTask</servlet-name>
+        <servlet-class>controller.admin.assgin.EditTask</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAssign</servlet-name>
+        <servlet-class>controller.admin.assgin.ManagerAssign</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
@@ -575,21 +590,29 @@
         <url-pattern>/views/dashboard/OrderDetail.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Session Configuration -->
-
     <servlet-mapping>
         <servlet-name>TicketSellerController</servlet-name>
         <url-pattern>/ticketSeller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BookTheaterController</servlet-name>
-        <url-pattern>/bookTheater</url-pattern>
+        <servlet-name>AccountJSon</servlet-name>
+        <url-pattern>/getAccountJson</url-pattern>
     </servlet-mapping>
-
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-    <!-- Welcome File List -->
-    <welcome-file-list>
-        <welcome-file>home</welcome-file>
-    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>CreateTask</servlet-name>
+        <url-pattern>/create-task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTask</servlet-name>
+        <url-pattern>/delete-task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTask</servlet-name>
+        <url-pattern>/edit-task</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerAssign</servlet-name>
+        <url-pattern>/ManagerAssignment</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

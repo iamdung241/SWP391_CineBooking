@@ -3,7 +3,7 @@
     Created on : 6 thg 7, 2024, 03:30:09
     Author     : tranh
 --%>
-<%@page import="java.util.*, java.util.Vector, dal.AccountDAO, model.Account"%>
+<%@page import="java.util.*, java.util.Vector, dal.AccountDAO, model.Account, dal.TheaterDAO, model.Theater"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,8 +38,18 @@
                                 </select>
                                 <select name="theater" class="form-control form-control-sm mx-3" style="width: 150px;" onchange="submitForm()">
                                     <option value="">All Theaters</option>
-                                    <option value="1" <%= "1".equals(request.getParameter("theater")) ? "selected" : "" %>>Lotte</option>
-                                    <option value="2" <%= "2".equals(request.getParameter("theater")) ? "selected" : "" %>>CGV</option>
+                                    <%
+                                        TheaterDAO thd = new TheaterDAO();
+                                        Vector<Theater> listTheater = thd.getAllTheaters();
+                                        
+                                        for(Theater t : listTheater){
+                                            int i = t.getId();
+                                    %>
+                                    <option value="i" <%= "i".equals(request.getParameter("theater")) ? "selected" : "" %>><%= t.getName() %></option>
+                                    <%        
+                                        }
+                                    %>
+
                                 </select>
                         </form>
                     </div>
@@ -97,14 +107,14 @@
                                         <td>
                                             <% 
                                                 int theaterId = a.getTheaterID();
-                                                String theaterName = "";
-                                                if (theaterId == 1) {
-                                                    theaterName = "Lotte";
-                                                } else if (theaterId == 2) {
-                                                    theaterName = "CGV";
-                                                } 
+                                                for(Theater t : listTheater){
+                                                    if(theaterId == t.getId()){
                                             %>
-                                            <%= theaterName %>
+                                            <%= t.getName()%>
+                                            <%
+                                                    }
+                                                }
+                                            %>
                                         </td>
                                         <td>
                                             <a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/userdetail.jsp?id=<%= a.getAccount_id() %>"><i class="fas fa-info-circle"></i> Detail</a>

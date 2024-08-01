@@ -32,8 +32,6 @@
                                     <option value="" ${selectedFilter == null || selectedFilter.isEmpty() ? 'selected' : ''}>All</option>
                                     <option value="priceAsc" ${selectedFilter != null && selectedFilter.equals("priceAsc") ? 'selected' : ''}>Price Increase</option>
                                     <option value="priceDesc" ${selectedFilter != null && selectedFilter.equals("priceDesc") ? 'selected' : ''}>Price Decrease</option>
-                                    <option value="quantityAsc" ${selectedFilter != null && selectedFilter.equals("quantityAsc") ? 'selected' : ''}>Quantity Increase</option>
-                                    <option value="quantityDesc" ${selectedFilter != null && selectedFilter.equals("quantityDesc") ? 'selected' : ''}>Quantity Decrease</option>
                                 </select>
                             </form>
 
@@ -57,7 +55,7 @@
                                             <th>ID</th>
                                             <th>Image</th>
                                             <th>Name</th>
-                                            <th>Price</th>
+<!--                                            <th>Price</th>-->
                                             <th>Quantity</th>
                                             <th>Action</th>
                                         </tr>
@@ -73,7 +71,7 @@
                                                 </td>
                                                 <td name="name">${c.concessions_name}</td>
                                                 <td name="price">${c.price}</td>
-                                                <td name="quantity">${c.quantity}</td>
+
                                                 <td class="d-flex justify-content-center">
                                                     <form>
                                                         <button type="button" class="btn text-success"

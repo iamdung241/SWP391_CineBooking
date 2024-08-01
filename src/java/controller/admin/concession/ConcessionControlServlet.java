@@ -81,7 +81,7 @@ public class ConcessionControlServlet extends HttpServlet {
         try {
             String name = request.getParameter("name");
             float price = Float.parseFloat(request.getParameter("price"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
+//            int quantity = Integer.parseInt(request.getParameter("quantity"));
 
             String img = "img/ConcessionImage/";
             File fileSaveDir = new File(CommonConst.UPLOAD_DIRS);
@@ -104,7 +104,7 @@ public class ConcessionControlServlet extends HttpServlet {
             Concession concession = new Concession();
             concession.setConcessions_name(name);
             concession.setPrice(price);
-            concession.setQuantity(quantity);
+//            concession.setQuantity(quantity);
             concession.setImage(img);
 
             dao.addConcession(concession);
@@ -148,7 +148,7 @@ public class ConcessionControlServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
             float price = Float.parseFloat(request.getParameter("price"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
+//            int quantity = Integer.parseInt(request.getParameter("quantity"));
             
             String img = request.getParameter("currentImage");
             System.out.println(img);
@@ -174,7 +174,7 @@ public class ConcessionControlServlet extends HttpServlet {
 
             concession.setConcessions_name(name);
             concession.setPrice(price);
-            concession.setQuantity(quantity);
+//            concession.setQuantity(quantity);
             concession.setConcessions_id(id);
             dao.editConcession(concession);
         } catch (NumberFormatException e) {
