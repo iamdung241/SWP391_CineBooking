@@ -38,7 +38,7 @@ public class Showtiming {
         this.theaterName = theaterName;
     }
 
-
+    
 
     public String getTheaterName() {
         return theaterName;
@@ -71,14 +71,20 @@ public class Showtiming {
         this.room_name = room_name;
     }
 
+    public Showtiming(String showtiming, int room_id, String date, int movie_id, int theaterID) {
+        this.showtiming = showtiming;
+        this.room_id = room_id;
+        this.date = date;
+        this.movie_id = movie_id;
+        this.theaterID = theaterID;
+    }
+
     public Showtiming(String showtiming, int room_id, String date, int movie_id) {
         this.showtiming = showtiming;
         this.room_id = room_id;
         this.date = date;
         this.movie_id = movie_id;
     }
-
-
 
     public Showtiming() {
     }
