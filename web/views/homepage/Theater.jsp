@@ -88,54 +88,68 @@
                 <hr style="background-color: #000;"/>
             </div>
 
-            <h3 style="color: red; margin-left: 500px; font-size: 50px">${theater.name}</h3>    
+            <h3 style="color: blue; margin-left: 500px; font-size: 50px">${theater.name}</h3> 
 
 
         <section style="padding-top: 50px" id="exep" class="p_3 ">
             <div class="container-xl detail">
                 <div class="row exep1">
-                    <c:forEach items="${listMovieTheater}" var="m">
-                        <div class="col-3">
-                            <div class="exep1l">
-                                <div class="grid clearfix ">                                
-                                    <img style="margin-bottom: 20px; border: 5px solid #000; border-radius: 15px;" height="350px" src="${m.getPost_img()}" class="w-100 film" alt="abc">
+                    <c:choose>
+                        <c:when test="${empty listMovieTheater}">
+                            <h5 style="color: red; font-style: italic; margin-left: 350px;">
+                                There is no showtime in <span style="color: blue; font-style: italic;">${theater.name}</span> today.
+                            </h5>
+                            <h5 style="color: red; font-style: italic; margin-left: 300px;">
+                                Choose another day or <a href="theaterx?service=searchAll" style="color: blue; text-decoration: underline;">Click here to choose another theater</a>
+                            </h5>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${listMovieTheater}" var="m">
+                                <div class="col-3">
+                                    <div class="exep1l">
+                                        <div class="grid clearfix ">                                
+                                            <img style="margin-bottom: 20px; border: 5px solid #000; border-radius: 15px;" height="350px" src="${m.getPost_img()}" class="w-100 film" alt="abc">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="exep1r">
-                                <a href="moviedetail?ID=${m.getMovie_id()}"><p style="font-weight: bold; font-size: 35px" class="mb-0 nameDetail">${m.getMovie_name()}</p></a>                                       
-                            </div>
-                            <div>
-                                <p><i class='bx bxs-purchase-tag-alt'></i>${m.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${m.getDuration()} minutes</p>
-                            </div> 
-                            <hr/>
-                            <div class="container mt-4">
-                                <c:choose>
-                                    <c:otherwise>
-                                        <!-- Display showtimes if a date is selected -->
-                                        <c:forEach items="${m.getListShowtime()}" var="s">
-                                            <div style="padding: 15px">
-                                                <!-- Check if the user is logged in -->
-                                                <c:if test="${sessionScope.user == null}">
-                                                    <a class="showtime" href="login.jsp?returnUrl=theater?service=search&theaterID=4">
-                                                        ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
-                                                    </a>
-                                                </c:if>
+                                <div class="col-8">
+                                    <div class="exep1r">
+                                        <a href="moviedetail?ID=${m.getMovie_id()}"><p style="font-weight: bold; font-size: 35px" class="mb-0 nameDetail">${m.getMovie_name()}</p></a>                                       
+                                    </div>
+                                    <div>
+                                        <p><i class='bx bxs-purchase-tag-alt'></i>${m.getType_name()}&nbsp&nbsp / &nbsp <i class='bx bxs-time' ></i> ${m.getDuration()} minutes</p>
+                                    </div> 
+                                    <hr/>
+                                    <div class="container mt-4">
+                                        <c:choose>
+                                            <c:when test="${empty m}">
+                                                <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${m.getListShowtime()}" var="s">
+                                                    <div style="padding: 15px">
+                                                        <c:if test="${sessionScope.user == null}">
+                                                            <a class="showtime" href="login.jsp">
+                                                                ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
+                                                            </a>
+                                                        </c:if>
 
-                                                <c:if test="${sessionScope.user != null}">
-                                                    <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${s.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
-                                                        ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
-                                                    </a>
-                                                </c:if>
-                                            </div>
-                                        </c:forEach>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </div>
-                        <hr style="background-color: #000;"/>
-                    </c:forEach>                   
+                                                        <c:if test="${sessionScope.user != null}">
+                                                            <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${s.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
+                                                                ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
+                                                            </a>
+                                                        </c:if>
+                                                    </div>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                                <hr style="background-color: #000;"/>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>    
             </div>
         </section>

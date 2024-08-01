@@ -117,39 +117,37 @@
                             </div>
                             <div style="margin-top: 40px">
 
-                                <c:forEach items="${movie.getListShowtime()}" var="s"> 
-                                    <a class="showtime" href="bookticket?movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}&date=${selectedDate}"> ${s.getShowtiming()} : 00</a>
-                                    <c:if test="${selectedShowtimeId != null && selectedShowtimeId == s.getShowtime_id()}">
-                                        <c:forEach items="${listRoom}" var="r">
-                                            <div style="margin: 40px ">
-                                                <c:if test="${sessionScope.user == null}">
-                                                    <a class="showRoom" href="login.jsp?returnUrl=showtiming"> Room: ${r.getRoom_name()}</a>
-                                                </c:if>
-                                                <c:if test="${sessionScope.user != null}">
-                                                    <a class="showRoom" href="seat?roomID=${r.getRoom_id()}&movieID=${movie.getMovie_id()}&showtimeID=${s.getShowtime_id()}"> Room: ${r.getRoom_name()}</a>
-                                                </c:if>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if> 
-                                </c:forEach>
-
-
-
                                 <c:choose>
                                     <c:when test="${empty theaterList}">
-                                        <!-- Display the message if theaterList is empty -->
                                         <p style="color: red; font-size: 30px; font-style: italic">There is no showtime on ${selectedDate}</p>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- Display the list of theaters if theaterList is not empty -->
                                         <c:forEach items="${theaterList}" var="tl">
                                             <a style="font-weight: 30px; color: white" class="showRoom" 
-                                               href="bookticket?date=${formattedDateForLink}&theaterID=${tl.id}&movieID=${movie.movie_id}">
+                                               href="bookticket?date=${selectedDate}&theaterID=${tl.id}&movieID=${movie.movie_id}">
                                                 ${tl.name}
                                             </a>
+                                            <c:if test="${showList != null}">
+                                                <c:forEach items="${showList}" var="show">
+                                                    <div style="padding: 15px">
+                                                        <c:if test="${sessionScope.user == null}">
+                                                            <a class="showtime" href="login.jsp">
+                                                                ${show.getShowtiming()}:00 &nbsp|&nbsp ${show.room_name}
+                                                            </a>
+                                                        </c:if>
+
+                                                        <c:if test="${sessionScope.user != null}">
+                                                            <a class="showtime" href="seat?showtimeID=${show.getShowtime_id()}&theaterID=${tl.id}&roomID=${show.room_id}&movieID=${show.getMovie_id()}&date=${selectedDate}">
+                                                                ${show.getShowtiming()}:00 &nbsp|&nbsp ${show.room_name}
+                                                            </a>
+                                                        </c:if>
+                                                    </div>
+                                                </c:forEach>
+
+                                            </c:if>
 
                                         </c:forEach>
-
                                     </c:otherwise>
                                 </c:choose>
 

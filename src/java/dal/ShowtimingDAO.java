@@ -217,7 +217,7 @@ public class ShowtimingDAO extends DBContext {
 
     public List<Showtiming> getRoomAndShowtime(int movieID, String date, int theaterID) {
         List<Showtiming> listShowtime = new ArrayList();
-        String sql = "SELECT t.id,t.name, s.showtime, r.room_id, r.room_name\n"
+        String sql = "SELECT s.showtime_id, t.id,t.name, s.showtime, r.room_id, r.room_name\n"
                 + "FROM Showtime s\n"
                 + "JOIN Theater t ON s.theaterID = t.id \n"
                 + "JOIN Room r on r.room_id = s.room_id\n"
@@ -233,12 +233,13 @@ public class ShowtimingDAO extends DBContext {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
+                int showtimeId = rs.getInt("showtime_id");
                 String name = rs.getString("name");
                 String showtime = rs.getString("showtime");
                 int room_id = rs.getInt("room_id");
                 String room_name = rs.getString("room_name");
 
-                Showtiming show = new Showtiming(showtime, room_id, room_name, theaterID, room_name);
+                Showtiming show = new Showtiming(showtimeId,showtime, room_id, room_name, theaterID, room_name);
 
                 //Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status, listShowtime, theaterIDx, theaterName);
                 listShowtime.add(show);
