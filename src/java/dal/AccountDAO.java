@@ -367,7 +367,7 @@ public class AccountDAO extends DBContext {
         int staffCount = 0;
 
         try {
-            String sql = "SELECT COUNT(*) as staffCount FROM Account WHERE theaterID = ? AND role_id = 3";
+            String sql = "SELECT COUNT(*) as staffCount FROM Account WHERE theaterID = ? AND (role_id = 3 OR role_id = 5)";
             stm = connection.prepareStatement(sql);
             stm.setInt(1, theaterID);
             rs = stm.executeQuery();

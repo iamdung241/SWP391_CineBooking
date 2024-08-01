@@ -71,7 +71,9 @@ Author     : tranh
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (Account staff : staffList) { %>
+                                    <% for (Account staff : staffList) { 
+                                        if (staff.getTheaterID() == theaterId){
+                                    %>
                                     <tr>
                                         <td><%= staff.getAccount_id() %></td>
                                         <td><%= staff.getFullname() %></td>
@@ -90,7 +92,7 @@ Author     : tranh
                                         <td><%= staff.getEmail() %></td>
                                         <td><%= staff.getPhone() %></td>
                                     </tr>
-                                    <% } %>
+                                    <% }} %>
                                 </tbody>
                             </table>
                             <% } %>      
