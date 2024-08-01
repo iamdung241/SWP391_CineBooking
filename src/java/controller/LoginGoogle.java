@@ -39,7 +39,7 @@ public class LoginGoogle extends HttpServlet {
             account.setPhone("");
             account.setUsername(googleAccount.getName());
             account.setEmail(googleAccount.getEmail());
-            account.setRole_id(3);
+            account.setRole_id(4);
             
             accountDAO.insertUserFromGoogle(account);
             account = accountDAO.getAccountByGoogleEmail(googleAccount.getEmail());

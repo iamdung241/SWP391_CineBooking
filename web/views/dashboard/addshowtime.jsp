@@ -5,6 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*, dal.AccountDAO, model.Account"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -76,6 +77,11 @@
                             <form action="addNewShowtime" method="post">
                                 <div class="table-responsive">
                                     <table class="table">
+                                        <%
+                                            Account m = (Account) session.getAttribute("user");
+                                            int tID = m.getTheaterID();
+                                        %>
+                                        <input type="hidden" name="theaterID" value=<%= tID %>>
                                         <tr>
                                             <td>ID</td>
                                             <td><input type="text" class="form-control" readonly=""/></td>
@@ -100,7 +106,6 @@
                                                 <span class="text-danger" id="dateErr"></span>
                                             </td>
                                         </tr>
-                                        
                                         <tr>
                                             <td>Room</td>
                                             <td>

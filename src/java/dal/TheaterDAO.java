@@ -115,6 +115,7 @@ public class TheaterDAO extends DBContext {
 
         return theaterList;
     }
+
     public Vector<Theater> getAllTheaters() {
         PreparedStatement stm = null;
         ResultSet rs = null;

@@ -58,6 +58,7 @@ public class TheaterController extends HttpServlet {
         String service = request.getParameter("service");
         String selectedDate = request.getParameter("date");
         String theaterID = request.getParameter("theaterID");
+        String movieID = request.getParameter("movieID");
 
         List<Movie> filteredMovies = new ArrayList<>();
         if (service.equals("search")) {
@@ -65,14 +66,18 @@ public class TheaterController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("theaterID", theaterId);
             
-            filteredMovies = (new MovieDAO()).getMovieByTheater(theaterId);
             if (selectedDate == null || selectedDate.isEmpty()) {
                 // Set selectedDate to today's date
                 LocalDate today = LocalDate.now();
                 selectedDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             }
+            System.out.println(selectedDate);
+            filteredMovies = (new MovieDAO()).getMovieByTheaterY(theaterId, selectedDate);
+
             if (selectedDate != null) {
-                filteredMovies = new MovieDAO().getMovieByTheater_Date(theaterId, selectedDate);
+                if (movieID != null) {
+                    filteredMovies = new MovieDAO().getMovieByTheaterY(theaterId, selectedDate);
+                }
             }
             for (Movie movie : filteredMovies) {
                 List<Showtiming> filteredShowtimes = new ArrayList<>();
@@ -94,7 +99,7 @@ public class TheaterController extends HttpServlet {
                 }
                 if (!filteredShowtimes.isEmpty()) {
                     movie.setListShowtime(filteredShowtimes);
-                    filteredMovies.add(movie);
+                   // filteredMovies.add(movie);
                 }
             }
             Theater theater = (new TheaterDAO()).getTheaterByTheaterID(theaterId);

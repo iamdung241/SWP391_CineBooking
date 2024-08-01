@@ -152,10 +152,10 @@ public class ShowtimingDAO extends DBContext {
                 showtime.setShowtiming(rs.getString(2));
                 showtime.setRoom_id(rs.getInt(3));
                 showtime.setMovie_id(rs.getInt(4));
-                showtime.setDate(rs.getString(5));
-                showtime.setMovie_name(rs.getString(7));
-                showtime.setMovieImage(rs.getString(11));
-                showtime.setRoom_name(rs.getString(17));
+                showtime.setDate(rs.getString(6));
+                showtime.setMovie_name(rs.getString(8));
+                showtime.setMovieImage(rs.getString(12));
+                showtime.setRoom_name(rs.getString(18));
                 listShowtime.add(showtime);
             }
         } catch (SQLException e) {
@@ -186,13 +186,14 @@ public class ShowtimingDAO extends DBContext {
     }
 
     public void addShowtime(Showtiming showtime) {
-        String sql = "INSERT INTO dbo.[Showtime] ([showtime], [room_id], [movie_id], [date]) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO dbo.[Showtime] ([showtime], [room_id], [movie_id], [date], [theaterID]) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, showtime.getShowtiming());
             st.setInt(2, showtime.getRoom_id());
             st.setInt(3, showtime.getMovie_id());
             st.setString(4, showtime.getDate());
+            st.setInt(5, showtime.getTheaterID());
             st.executeUpdate();
         } catch (SQLException e) {
             e.getMessage();
@@ -217,7 +218,7 @@ public class ShowtimingDAO extends DBContext {
 
     public List<Showtiming> getRoomAndShowtime(int movieID, String date, int theaterID) {
         List<Showtiming> listShowtime = new ArrayList();
-        String sql = "SELECT t.id,t.name, s.showtime, r.room_id, r.room_name\n"
+        String sql = "SELECT s.showtime_id, t.id,t.name, s.showtime, r.room_id, r.room_name\n"
                 + "FROM Showtime s\n"
                 + "JOIN Theater t ON s.theaterID = t.id \n"
                 + "JOIN Room r on r.room_id = s.room_id\n"
@@ -233,12 +234,13 @@ public class ShowtimingDAO extends DBContext {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
+                int showtimeId = rs.getInt("showtime_id");
                 String name = rs.getString("name");
                 String showtime = rs.getString("showtime");
                 int room_id = rs.getInt("room_id");
                 String room_name = rs.getString("room_name");
 
-                Showtiming show = new Showtiming(showtime, room_id, room_name, theaterID, room_name);
+                Showtiming show = new Showtiming(showtimeId,showtime, room_id, room_name, theaterID, room_name);
 
                 //Movie movie = new Movie(id, movieName, typeid, typeName, duration, datePublished, age, postImg, trailer, description, status, listShowtime, theaterIDx, theaterName);
                 listShowtime.add(show);

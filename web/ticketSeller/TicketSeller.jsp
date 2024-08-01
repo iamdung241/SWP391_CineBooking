@@ -193,7 +193,6 @@
                                     <c:when test="${empty m}">
                                         <h5 style="color: red; font-style: italic;">You have to select a date first.</h5>
                                     </c:when>
-
                                     <c:otherwise>
                                         <!-- Display showtimes if a date is selected -->
                                         <c:forEach items="${m.getListShowtime()}" var="s">
