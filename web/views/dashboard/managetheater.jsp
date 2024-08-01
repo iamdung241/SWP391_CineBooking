@@ -10,11 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manage Theaters</title>
-        <script>
-            function submitForm() {
-                document.getElementById('filterForm').submit();
-            }
-        </script>
     </head>
     <body>
         <jsp:include page="../common/admin/main.jsp"></jsp:include>
@@ -23,8 +18,8 @@
                     <div class="card mb-4 h-100">
                         <div class="card-header justify-content-between align-items-center d-flex">
                             <h6 class="card-title m-0">Theater List</h6>
-                            <form id="filterForm" class="d-flex" action="/CineBooking/searchTheater" method="get">
-                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Manager's Name" style="width: 200px;">
+                            <form class="d-flex" action="/CineBooking/searchTheater" method="get">
+                                <input type="text" name="query" id="userSearch" class="form-control form-control-sm ms-2" placeholder="Search by Manager's Name" style="width: 200px;" value="<%= request.getAttribute("query") != null ? request.getAttribute("query") : "" %>">
                                 <button class="btn px-2 btn-primary py-0" type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
@@ -41,33 +36,47 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <%
-                                        // Retrieve search parameters
-                                        String searchQuery = request.getParameter("query");
+                                    <%  
+                                        String searchQuery = (String) request.getParameter("query");
 
                                         TheaterDAO theaterDAO = new TheaterDAO();
                                         AccountDAO accountDAO = new AccountDAO();
-                                        Vector<Theater> theaters;
+                                        Vector<Theater> theaters = new Vector<>();
                                         Vector<Account> managers = new Vector<>();
                                         Vector<Integer> staffCounts = new Vector<>();
 
-                                        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-                                            theaters = theaterDAO.searchTheatersByManagerName(searchQuery);
-                                        } else {
-                                            theaters = theaterDAO.getAllTheaters();
-                                        }
-
+                                        theaters = theaterDAO.getAllTheaters();
+                                        
                                         for (Theater theater : theaters) {
                                             Account manager = accountDAO.getManagerByTheaterID(theater.getId());
                                             int staffCount = accountDAO.getStaffCountByTheaterID(theater.getId());
                                             managers.add(manager);
                                             staffCounts.add(staffCount);
                                         }
-
-                                        for (int i = theaters.size() - 1; i >= 1; i--) {
-                                            Theater theater = theaters.get(i);
-                                            Account manager = managers.get(i);
-                                            int staffCount = staffCounts.get(i);
+                                        
+                                        if (searchQuery != null && !searchQuery.isBlank()) {
+                                            for (int i = theaters.size() - 1; i >= 0; i--) {
+                                                Theater theater = theaters.get(i);
+                                                Account manager = managers.get(i);
+                                                int staffCount = staffCounts.get(i);
+                                                if (manager != null && manager.getFullname().toLowerCase().contains(searchQuery.toLowerCase())){ 
+                                    %>
+                                    <tr>
+                                        <td><%= theater.getId() %></td>
+                                        <td><%= theater.getName() %></td>
+                                        <td><%= manager != null ? manager.getFullname() : "No Manager" %></td>
+                                        <td><%= staffCount %></td>
+                                        <td><a class="btn btn-sm text-primary" href="/CineBooking/views/dashboard/theaterdetail.jsp?id=<%= theater.getId() %>"><i class="fas fa-info-circle"></i> Detail</a>              </td>
+                                    </tr>
+                                    <%
+                                                }
+                                            }
+                                        } else {
+                                            for (int i = theaters.size() - 1; i >= 1; i--) {
+                                                Theater theater = theaters.get(i);
+                                                Account manager = managers.get(i);
+                                                int staffCount = staffCounts.get(i);
+                                        
                                     %>
                                     <tr>
                                         <td><%= theater.getId() %></td>
@@ -78,6 +87,7 @@
                                     </tr>
                                         
                                     <%
+                                            }
                                         }
                                     %>
                                 </tbody>
