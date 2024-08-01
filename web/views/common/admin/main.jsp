@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*, dal.AccountDAO, model.Account"%>
+<%@page import="java.util.*, dal.AccountDAO, model.Account, dal.TheaterDAO, model.Theater"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -71,7 +71,6 @@
             int roleID = as.getRole_id();
             if(roleID == 1){
         %>
-
         <div class="sidebar">
             <h3 class="text-center text-logo">
                 <a class="nav-link active" href="/CineBooking/dashboard">
@@ -111,11 +110,21 @@
                 </li>
             </ul>
         </div>
-        <%} else if(roleID == 2){%>
+        <%} else if(roleID == 2){
+                TheaterDAO thd = new TheaterDAO();
+                Vector<Theater> listTheater = thd.getAllTheaters();
+                String thName = "";
+                for(Theater th : listTheater){
+                    if(theaterID == th.getId()){
+                        thName = th.getName();
+                    }
+                }
+        %>
         <div class="sidebar">
             <h3 class="text-center text-logo">
                 <a class="nav-link active" href="/CineBooking/movie">
-                    <i class="fas fa-film"></i> Manager
+                    <i class="fas fa-film"></i> Manager</br>
+                    <i style="font-size: 75%"><%= thName %></i> 
                 </a>
             </h3>
             <ul class="nav flex-column">
