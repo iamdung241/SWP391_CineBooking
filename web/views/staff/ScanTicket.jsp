@@ -138,7 +138,10 @@
                                             <div class="col-7">
                                                 <ul>
                                                     <li>
-                                                        <span>Movie:</span> ${ticket.getMovieName()}
+                                                        <span>Theater:</span> ${ticket.theaterName}
+                                                    </li>
+                                                    <li>
+                                                        <span>Movie:</span> ${ticket.movieName}
                                                     </li>
                                                     <li>
                                                         <span>Date:</span> ${ticket.getShowtime().getDate()}
@@ -175,7 +178,7 @@
                                                             <c:if test="${showAcceptButton}">
                                                                 <form action="scanticket" method="post">
                                                                     <input type="hidden" name="code" value="${ticket.getCode()}" />
-                                                                    <button type="submit" class="bookTicket">Accept</button>
+                                                                    <button type="submit" class="bookTicket">Check-in</button>
                                                                 </form>
                                                             </c:if>
                                                         </c:if>

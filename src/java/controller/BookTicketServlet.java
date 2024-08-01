@@ -83,15 +83,19 @@ public class BookTicketServlet extends HttpServlet {
             selectedDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         }
 
-        List<Theater> theaterList = new TheaterDAO().getTheaterByAll(Integer.parseInt(movieID), selectedDate);
+        if (movieID!=null){
+            List<Theater> theaterList = new TheaterDAO().getTheaterByAll(Integer.parseInt(movieID), selectedDate);
         request.setAttribute("theaterList", theaterList);
+        }
 
         if (theaterId != null) {
             int theaterID = Integer.parseInt(theaterId);
             List<Showtiming> showList = new ShowtimingDAO().getRoomAndShowtime(Integer.parseInt(movieID),
                     selectedDate, theaterID);
             request.setAttribute("showList", showList);
+            request.setAttribute("selectedTheaterID", theaterID);
         }
+        
 
         List<Showtiming> filteredShowtimes = new ArrayList<>();
         try {

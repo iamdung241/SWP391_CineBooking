@@ -720,12 +720,12 @@ public class MovieDAO extends DBContext {
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
                     Showtiming showtime = new Showtiming();
-                    showtime.setShowtime_id(rs.getInt("showtime_id"));  // Use column names
-                    showtime.setMovie_id(rs.getInt("movie_id"));        // Use column names
-                    showtime.setRoom_id(rs.getInt("room_id"));          // Use column names
-                    showtime.setDate(rs.getString("date"));             // Use column names
+                    showtime.setShowtime_id(rs.getInt("showtime_id")); 
+                    showtime.setMovie_id(rs.getInt("movie_id"));       
+                    showtime.setRoom_id(rs.getInt("room_id"));          
+                    showtime.setDate(rs.getString("date"));            
                     showtime.setRoom_name(rs.getString("room_name"));
-                    showtime.setShowtiming(rs.getString("showtime"));// Use column names
+                    showtime.setShowtiming(rs.getString("showtime"));
 
                     listShow.add(showtime);
                 }

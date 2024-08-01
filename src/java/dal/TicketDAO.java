@@ -222,10 +222,10 @@ public class TicketDAO extends DBContext {
                 Showtiming showtime = new Showtiming();
                 showtime.setShowtime_id(rs.getInt(1));
                 showtime.setShowtiming(rs.getString(2));
-                showtime.setMovie_name(rs.getString(12));
-                showtime.setMovieImage(rs.getString(16));
-                showtime.setMovieAge(rs.getString(19));
-                showtime.setDate(rs.getString(5));
+                showtime.setMovie_name(rs.getString(13));
+                showtime.setMovieImage(rs.getString(17));
+                showtime.setMovieAge(rs.getString(20));
+                showtime.setDate(rs.getString(6));
                 showtime.setRoom_name(rs.getString("room_name"));
                 return showtime;
             }
@@ -236,16 +236,19 @@ public class TicketDAO extends DBContext {
     }
 
     public Ticket getTicket(String code) {
-        String sql = "SELECT t.[ticket_id],\n"
-                + "       t.[code],\n"
-                + "       t.[account_id],\n"
-                + "       t.[status],\n"
+        String sql = "SELECT t.ticket_id,\n"
+                + "       t.code,\n"
+                + "       t.account_id,\n"
+                + "       t.status,\n"
                 + "       td.showtime_id,\n"
                 + "       td.totalprice,\n"
-                + "       td.date_book, th.name\n"
-                + "FROM [dbo].[Ticket] t\n"
+                + "       td.date_book,\n"
+                + "       th.name, r.room_name\n"
+                + "FROM dbo.Ticket t\n"
                 + "JOIN Ticket_Detail td ON t.ticket_id = td.ticket_id\n"
-                + "join Theater th on th.id = t.theaterID\n"
+                + "JOIN Theater th ON th.id = t.theaterID \n"
+                + "join Showtime s on s.showtime_id = td.showtime_id \n"
+                + "join room r on r.room_id = s.room_id \n"
                 + "WHERE t.code = ?";
         try {
             stm = connection.prepareStatement(sql);
@@ -262,6 +265,7 @@ public class TicketDAO extends DBContext {
                 tick.setTotalprice(Integer.parseInt(rs.getString(6)));
                 tick.setDate_book(rs.getString(7));
                 tick.setTheaterName(rs.getString(8));
+                tick.setRoomName(rs.getString(9));
                 tick.setSeat(getSeatOrderBy_TicketId(Tid));
                 tick.setCombo(getConcessionsOrderBy_TicketId(Tid));
                 tick.setShowtime(getShowtimeByTicketID(Tid));

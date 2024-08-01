@@ -128,13 +128,12 @@
                                             <c:otherwise>
                                                 <c:forEach items="${m.getListShowtime()}" var="s">
                                                     <div style="padding: 15px">
-                                                        <c:if test="${sessionScope.user == null}">
-                                                            <a class="showtime" href="login.jsp">
-                                                                ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
-                                                            </a>
+                                                        <c:if test="${sessionScope.user == null && m.getMovie_id() == s.getMovie_id()}">
+                                                                <a class="showtime" href="login.jsp">
+                                                                    ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
+                                                                </a>
                                                         </c:if>
-
-                                                        <c:if test="${sessionScope.user != null}">
+                                                        <c:if test="${sessionScope.user != null && m.getMovie_id() == s.getMovie_id()}">
                                                             <a class="showtime" href="seat?showtimeID=${s.getShowtime_id()}&theaterID=${s.theaterID}&roomID=${s.room_id}&movieID=${m.getMovie_id()}&date=${selectedDate}">
                                                                 ${s.getShowtiming()}:00 &nbsp|&nbsp ${s.room_name}
                                                             </a>

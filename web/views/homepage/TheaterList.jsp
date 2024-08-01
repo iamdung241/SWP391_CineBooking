@@ -68,12 +68,14 @@
                 <h5 style="font-weight: bolder; font-size: 30px" class="card-title">All Theater</h5>
                 <ul class="list-group" id="listTheater">
                     <c:forEach items="${listTheater}" var="theater">
-                        <c:if test="${theater.id != 0}">
-                            <li class="list-group-item type-item" data-type-id="${theater.id}">
-                                <a style="text-decoration: none" href="theater?service=search&theaterID=${theater.id}">
-                                    ${theater.name}
-                                </a>
-                            </li>
+
+                        <c:if test="${theater.name != 'None'}">
+                             <li class="list-group-item type-item" data-type-id="${theater.id}">
+                            <a style="text-decoration: none" href="theater?service=search&theaterID=${theater.id}">
+                                ${theater.name}
+                            </a>
+                        </li>
+
                         </c:if>
                     </c:forEach>
                 </ul>
