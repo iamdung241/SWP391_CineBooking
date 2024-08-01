@@ -221,6 +221,14 @@
         <servlet-name>payoff</servlet-name>
         <servlet-class>payment.payoff</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewTaskController</servlet-name>
+        <servlet-class>controller.ViewTaskController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TaskDetailController</servlet-name>
+        <servlet-class>controller.TaskDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
@@ -502,7 +510,8 @@
     <servlet-mapping>
         <servlet-name>TheaterX</servlet-name>
         <url-pattern>/theaterx</url-pattern>
-    </servlet-mapping><!--
+    </servlet-mapping>
+    <!--
      Filter Definition 
     <filter>
         <filter-name>AdminFilter</filter-name>
@@ -620,6 +629,14 @@
     <servlet-mapping>
         <servlet-name>payoff</servlet-name>
         <url-pattern>/payoff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewTaskController</servlet-name>
+        <url-pattern>/ViewTask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TaskDetailController</servlet-name>
+        <url-pattern>/taskDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

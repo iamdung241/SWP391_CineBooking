@@ -4,10 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import model.Account;
 import model.Task;
 import model.Theater;
-
+import java.sql.Timestamp;
 public class TaskDAO extends DBContext {
 
     public ArrayList<Task> getAllTasks(String status, String keyword) {
@@ -71,6 +72,39 @@ public class TaskDAO extends DBContext {
         sql += " OFFSET " + ((currentPage - 1) * itemPerPage) + " ROWS " + "FETCH NEXT " + itemPerPage + " ROWS ONLY ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Task t = new Task(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7));
+                list.add(t);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public ArrayList<Task> getTaskByAccountId(int accountId) {
+        ArrayList<Task> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[title]\n"
+                + "      ,[description]\n"
+                + "      ,[status]\n"
+                + "      ,[acountId]\n"
+                + "      ,[createdAt]\n"
+                + "      ,[finishedAt]\n"
+                + "  FROM [Task] "
+                + " WHERE [acountId] = ? "
+                + " ORDER BY createdAt desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Task t = new Task(rs.getString(1),
@@ -276,13 +310,39 @@ public class TaskDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, title);
             st.setString(2, description);
-            st.setString(3, status);
+            if ("FINISHED".equals(status)) {
+                st.setTimestamp(3, new Timestamp(new Date().getTime()));
+            } else {
+                st.setTimestamp(3, null); // Đặt giá trị finishedAt là null cho các trạng thái khác
+            }
             st.setString(4, accountId);
             st.setString(5, Id);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    public boolean updateTaskStatus(String status, String id) {
+        String sql = "UPDATE [dbo].[Task]\n"
+                + "   SET [status] = ?"
+                + "       ,[finishedAt]=?\n"
+                + " WHERE [id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            if ("FINISHED".equals(status)) {
+                st.setTimestamp(2, new Timestamp(new Date().getTime()));
+            } else {
+                st.setTimestamp(2, null); // Đặt giá trị finishedAt là null cho các trạng thái khác
+            }
+            st.setString(3, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
     public boolean deleteTask(String id) {

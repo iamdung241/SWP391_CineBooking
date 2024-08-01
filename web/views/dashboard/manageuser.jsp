@@ -38,18 +38,15 @@
                                 </select>
                                 <select name="theater" class="form-control form-control-sm mx-3" style="width: 150px;" onchange="submitForm()">
                                     <option value="">All Theaters</option>
-                                    <%
-                                        TheaterDAO thd = new TheaterDAO();
-                                        Vector<Theater> listTheater = thd.getAllTheaters();
-                                        
-                                        for(Theater t : listTheater){
-                                            int i = t.getId();
-                                    %>
-                                    <option value="i" <%= "i".equals(request.getParameter("theater")) ? "selected" : "" %>><%= t.getName() %></option>
-                                    <%        
-                                        }
-                                    %>
-
+                                    <option value="0" <%= "0".equals(request.getParameter("theater")) ? "selected" : "" %>>None</option>
+                                    <option value="1" <%= "1".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow New York</option>
+                                    <option value="2" <%= "2".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow Orlando</option>
+                                    <option value="3" <%= "3".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow Florida</option>
+                                    <option value="4" <%= "4".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow California</option>
+                                    <option value="5" <%= "5".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow New Jersey</option>
+                                    <option value="6" <%= "6".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow Miami</option>
+                                    <option value="7" <%= "7".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow Nevada</option>
+                                    <option value="8" <%= "8".equals(request.getParameter("theater")) ? "selected" : "" %>>PlayShow Hawaii</option>
                                 </select>
                         </form>
                     </div>
@@ -73,13 +70,15 @@
                                         String theaterFilter = request.getParameter("theater");
                                         Vector<Account> list;
                                         AccountDAO ad = new AccountDAO();
-            
+                                        TheaterDAO thd = new TheaterDAO();
+                                        Vector<Theater> listTheater = thd.getAllTheaters();
+                                    
                                         list = ad.searchAccounts(searchQuery, roleFilter, theaterFilter);
             
                                         if (list != null) {
 
-                                            for (int i = list.size() - 1; i >= 0; i--) {
-                                                Account a = list.get(i);
+                                            for (int z = list.size() - 1; z >= 0; z--) {
+                                                Account a = list.get(z);
 
                                     %>
                                     <tr>

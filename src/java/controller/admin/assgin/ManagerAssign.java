@@ -10,10 +10,11 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Account;
 import model.Task;
+import model.Theater;
 
 public class ManagerAssign extends HttpServlet {
 
-    int itemPerPage = 10;
+    int itemPerPage = 5;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,6 +43,15 @@ public class ManagerAssign extends HttpServlet {
             return;
         }
         System.out.println(listTasks);
+        ArrayList<Account> accounts = taskDao.getAccountByTheater(acc.getTheaterID() + "");
+        for (Task t : listTasks) {
+            for (Account a : accounts) {
+                if (t.getAccountId().equals(a.getAccount_id() + "")) {
+                    t.setNameAccount(a.getFullname());
+                    break;
+                }
+            }
+        }
         request.setAttribute("status", status);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("keyword", keyword_raw);

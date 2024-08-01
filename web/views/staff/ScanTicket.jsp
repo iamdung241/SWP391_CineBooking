@@ -88,13 +88,18 @@
                                         <a style="color: #fff; font-size: 15px" class="nav-link" href="/CineBooking/login.jsp"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Login </a>
                                     </c:if>
                                     <c:if test="${sessionScope.user != null}">
-                                        <a style="color: #fff; font-size: 15px" class="nav-link" href="logout"><i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1 "></i> Logout </a>
+                                        <div class="nav-item dropdown">
+                                            <a style="color: #fff; font-size: 15px" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                              <i style="color: red" class="fa fa-user fs-4 align-middle me-1 lh-1"></i>
+                                                Welcome ${sessionScope.user.fullname} !
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/CineBooking/OrderHistory">Order History</a></li>
+                                                <li><a class="dropdown-item" href="/CineBooking/ViewTask">View Task</a></li>
+                                                <li><a class="dropdown-item" href="logout">Logout</a></li>
+                                            </ul>
+                                        </div>
                                     </c:if>
-
-
-                                </li>
-                                <li>
-
                                 </li>
                             </ul>
                         </div>
@@ -199,6 +204,8 @@
             </section>
         </div>
         <jsp:include page="/views/homepage/Footer.jsp"></jsp:include>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
         <script type="text/javascript">
             function onScanSuccess(qrCodeMessage) {
                 document.getElementById('code').value = qrCodeMessage;

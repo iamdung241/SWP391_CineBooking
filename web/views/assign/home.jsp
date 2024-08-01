@@ -90,9 +90,8 @@
         <section class="container-fluid">
             <div class="row g-4 mb-4 mt-0">
                 <div class="col-12 mt-2">
-                    <h4>Manager Tasks</h4>
                     <div class="card mb-3">
-                        <div class="card-header"><h5>Filter and Search</h5></div>
+                        <div class="card-header"><h5>Manager Tasks</h5></div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
@@ -146,7 +145,7 @@
                                                 <td>${t.title}</td>
                                                 <td>${t.status}</td>
                                                 <td>${t.createdAt}</td>
-                                                <td>${t.accountId}</td>
+                                                <td>${t.nameAccount}</td>
                                                 <td>${t.finishedAt}</td>
                                                 <td>
                                                     <a href="./edit-task?taskId=${t.id}" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
@@ -201,6 +200,20 @@
                 });
             }
             // End Show alert
+            // pagination
+            const buttonsPagination = document.querySelectorAll("[button-pagination]");
+            if (buttonsPagination) {
+                const url = new URL(window.location.href);
+                buttonsPagination.forEach((button) => {
+                    button.addEventListener("click", (e) => {
+                        const page = button.getAttribute("button-pagination");
+
+                        url.searchParams.set("page", page);
+                        window.location.href = url.href;
+                    });
+                });
+            }
+            // End pagination
             // Delete Item
             const buttonDelete = document.querySelectorAll("[button-delete]");
             if (buttonDelete.length > 0) {
@@ -210,7 +223,6 @@
                     buttonDelete.forEach((button) => {
                         button.addEventListener("click", async () => {
                             const mess = button.getAttribute("data-mess");
-//            const isConfirm = confirm("Bạn có chắc muốn xóa sản phẩm này");
                             Swal.fire({
                                 title: "Are you sure delete?",
                                 icon: "warning",
@@ -249,7 +261,7 @@
                     });
                 }
             }
-//End delete Item
+            //End delete Item
 
             const fetchData = async (path, data) => {
                 try {
